@@ -4,10 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "tsc & node .",
+    "build-ts": "tsc",
+    "build": "npm run build-ts",
+    "serve": "node dist/index.js",
+    "start": "npm run serve",
     "dev": "tsc -w & nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "watch": "npm run watch-node"
   },
   "repository": {
     "type": "git",
@@ -20,19 +25,22 @@
   },
   "homepage": "https://github.com/Uzoamaka126/siner-collab-tool#readme",
   "dependencies": {
+    "@types/mongodb": "^4.0.3",
+    "bcrypt": "^5.0.1",
+    "bcrypt-nodejs": "0.0.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "mongodb": "^4.0.1",
     "mongoose": "^5.13.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "undefsafe": "^2.0.3"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.14.8",
-    "@babel/preset-typescript": "^7.14.5",
-    "@commitlint/cli": "^12.1.4",
+    "@types/async": "^3.2.7",
     "@types/bcrypt": "^5.0.0",
     "@types/bcrypt-nodejs": "0.0.31",
     "@types/cookie-parser": "^1.4.2",
@@ -42,13 +50,16 @@
     "@types/helmet": "^4.0.0",
     "@types/jest": "^26.0.24",
     "@types/jsonwebtoken": "^8.5.4",
-    "@types/mongodb": "^3.6.20",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.4.0",
     "@types/nodemon": "^1.19.1",
+    "@types/request": "^2.48.6",
+    "@types/request-promise": "^4.1.48",
     "husky": "^7.0.1",
+    "jest": "^27.0.6",
     "nodemon": "^2.0.12",
+    "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5"

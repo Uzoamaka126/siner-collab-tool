@@ -2,12 +2,12 @@
 // Import necessary configured ports here
 import { CLIENT_URL, mongoURI, NODE_ENV, port } from "./../config/index";
 // import necessary packages
-import express from 'express'
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan";
-import mongoose from "mongoose";
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const mongoose = require("mongoose")
 // import router files here
 
 
@@ -21,15 +21,15 @@ mongoose
     useFindAndModify: false,
     useCreateIndex: true,
   })
-  .then((conn) => {
+  .then((conn: any) => {
     app.set("db_connection", conn);
     console.log(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `MongoDB connection with url successful @: ${conn.connection.host}:${conn.connection.port}`
     );
   })
-  .catch((err) => {
-    console.log(err, "This shouldn't be happening");
+  .catch((err: {}) => {
+    console.log(err, "This shouldn't be happening", "Heyy:", mongoURI);
   });
 
 const apiRouter = express.Router();

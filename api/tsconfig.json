@@ -12,7 +12,7 @@
       "*": ["node_modules/*"],
     },
     "skipLibCheck": true,
-    "typeRoots": ["node_modules", "typings", "node_modules/@types"],
+    "typeRoots": ["node_modules", "node_modules/@types"],
     "composite": true,
     "rootDir": "src",
     "noImplicitReturns": false,
