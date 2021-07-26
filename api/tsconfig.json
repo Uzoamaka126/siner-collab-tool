@@ -11,7 +11,8 @@
     "paths": {
       "*": ["node_modules/*"],
     },
-     "typeRoots": ["node_modules", "typings"],
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules", "typings", "node_modules/@types"],
     "composite": true,
     "rootDir": "src",
     "noImplicitReturns": false,
