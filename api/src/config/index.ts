@@ -21,3 +21,4 @@ if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
 } else if (DB_CONNECTION) {
   // mongoURI = DB_CONNECTION;
 }
+console.log(mongoURI);
