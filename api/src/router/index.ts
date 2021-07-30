@@ -1,10 +1,8 @@
-import { Request, Response, NextFunction, Router } from 'express';
+import { Request, Response, NextFunction } from 'express';
 const express = require('express')
 const usersRouter = require("../components/users/User.router");
-const apiRouter = express.Router();
 
 function routes(app:any) {
-    app.use("/api", apiRouter);
     app.use("/api/users", usersRouter);
 
     app.get("/", (req: Request, res: Response) => {

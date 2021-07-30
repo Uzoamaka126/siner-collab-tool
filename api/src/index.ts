@@ -14,8 +14,10 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const app = express();
+const router = express.Router()
 const routes = require('./router')
 // import error handler file
+import { Router } from 'express';
 
 // connect to mongoose
 mongoose
@@ -53,7 +55,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // use express on the router
-routes(app);
+routes(router);
 
 // setup the error handler here
 // if (NODE_ENV === "dev" || NODE_ENV === "test") {
