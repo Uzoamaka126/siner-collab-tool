@@ -13,20 +13,15 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-export const app = express();
-const router = express.Router()
+const app = express();
 const routes = require('./router')
 // import error handler file
 
 // connect to mongoose
-dbConnect();
+dbConnect(app);
 
 app.set("port", port);
 app.use(helmet());
-
-if (!(NODE_ENV == "development" || NODE_ENV == "test")) {
-  app.use(morgan("tiny"));
-}
 app.use(
   cors({
     credentials: true,
@@ -38,14 +33,21 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
+if (!(NODE_ENV === "development" || NODE_ENV === "test")) {
+  app.use(morgan("tiny"));
+}
 
 // use express on the router
-routes(router);
+routes(app, port);
 
 // setup the error handler here
 // if (NODE_ENV === "dev" || NODE_ENV === "test") {
 //   app.use(errorHandler());
 // }
+
+app.listen(port, () => {
+  console.log("Router is running here -->", port);
+})
 
 export default app;
