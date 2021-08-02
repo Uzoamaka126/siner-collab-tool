@@ -3,8 +3,8 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-import { CLIENT_URL, mongoURI, NODE_ENV, port } from "./config/index";
-// import express typings
+import { CLIENT_URL, NODE_ENV, port } from "./config/index";
+import { dbConnect } from "./utils/db";
 
 // import necessary packages
 const express = require("express");
@@ -12,36 +12,18 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
-const app = express();
+export const app = express();
 const router = express.Router()
 const routes = require('./router')
 // import error handler file
-import { Router } from 'express';
 
 // connect to mongoose
-mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((conn: any) => {
-    app.set("db_connection", conn);
-    console.log(
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      `MongoDB connection with url successful @: ${conn.connection.host}:${conn.connection.port}`
-    );
-  })
-  .catch((err: {}) => {
-    console.log(err, "This shouldn't be happening", "Heyy:", mongoURI);
-  });
+dbConnect();
 
 app.set("port", port);
 app.use(helmet());
 
-if (!(NODE_ENV == "dev" || NODE_ENV == "test")) {
+if (!(NODE_ENV == "development" || NODE_ENV == "test")) {
   app.use(morgan("tiny"));
 }
 app.use(

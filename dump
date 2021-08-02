@@ -1,3 +1,11 @@
     // "start": "tsc & node .",
 
     "build": "tsc",
+    //"start": "npm run serve",
+
+"watch": "npm run watch-node",
+    "watch-ts": "tsc -w",
+
+    "serve": "node dist/index.js",
+
+    "watch-node": "nodemon dist/index.js",
