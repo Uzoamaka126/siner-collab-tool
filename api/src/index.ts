@@ -5,6 +5,7 @@ dotenv.config();
 
 import { CLIENT_URL, NODE_ENV, port } from "./config/index";
 import { dbConnect } from "./utils/db";
+import { urlencoded, json } from 'body-parser'
 
 // import necessary packages
 const express = require("express");
@@ -33,8 +34,11 @@ app.use(
     origin: CLIENT_URL,
   })
 );
+app.use(json());
+app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+app.use(morgan('dev'));
 
 // use express on the router
 routes(router);
