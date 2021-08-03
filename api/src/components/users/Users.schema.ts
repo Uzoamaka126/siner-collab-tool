@@ -39,11 +39,11 @@ export const userSchema = mongoose.Schema({
     activities: Array,
     cards: Array,
     createdAt: Date,
-    createdBy: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'User',
-        required: true
-    },
+    // createdBy: {
+    //     type: mongoose.SchemaTypes.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
 },
 { timestamps: true },
 );

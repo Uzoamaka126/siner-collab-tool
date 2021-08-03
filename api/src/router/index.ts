@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { sampleValidator, sampleValidatorTwo } from '../utils/middleware/validate';
 const usersRouter = require("../components/users/User.router");
 

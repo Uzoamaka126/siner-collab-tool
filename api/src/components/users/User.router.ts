@@ -1,17 +1,17 @@
 const router = require('express').Router()
-// import controllers from './item.controllers'
+import { fetchAllUsers, fetchSingleUser } from './Users.controllers'
 
 // /api/users
 router
   .route('/users')
-  .get(controllers.getOne)
-  .post(controllers.createOne)
+  .get(fetchAllUsers)
+//   .post(controllers.createOne)
 
 // /api/users/:id
 router
   .route('/:id')
-  .get(controllers.getOne)
-  .put(controllers.updateOne)
-  .delete(controllers.removeOne)
+  .get(fetchSingleUser)
+//   .put(controllers.updateOne)
+//   .delete(controllers.removeOne)
 
 export default router
