@@ -19,6 +19,9 @@ export const getSingleUser = () => async (id: string) => {
             .lean()
             .exec()
 
+        console.log("userData:", user);
+        console.log("type of user:", typeof user);
+            
         // if no user was found on the db, then return false
         if(!user) {
             return {
@@ -49,9 +52,12 @@ export const getAllUsers = () => async () => {
     try {
         // else continue
         const users = await UserModel
-            .findAll({ _id: id })
-            .lean()
-            .exec()
+            // .findAll({ _id: id })
+            // .lean()
+            // .exec()
+        
+        console.log("userData:", users);
+        console.log("type of user:", typeof users);
 
         return {
             status: 200,

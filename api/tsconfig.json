@@ -9,10 +9,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*"],
+      "*": ["node_modules/*"]
     },
     "skipLibCheck": true,
-    "types": [ "node" ],
+    "types": [ "@types/jest", "node" ],
     "typeRoots": ["./node_modules/@types"],
     "composite": true,
     "rootDir": "src",
@@ -21,7 +21,7 @@
   },
   // "extends": "../tsconfig.settings.json",
   // "references": [{ "path": "../types" }],
-  "include": ["src/**/*", "./src/index.ts"],
+  "include": ["src/**/*", "./src/index.ts", "src/__tests__/*.ts"],
   "exclude": ["node_modules"]
 }
 
