@@ -1,11 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { sampleValidator } from '../utils/middleware/validate';
+import { sampleValidator, sampleValidatorTwo } from '../utils/middleware/validate';
 const usersRouter = require("../components/users/User.router");
 
 function routes(router:any, port: string | number) {    
     // router.use("/api/users", usersRouter);
 
-    router.get("/", sampleValidator, (req: Request, res: Response) => {
+    router.use("/api", [sampleValidator, sampleValidatorTwo], (req: Request, res: Response) => {
+        res.status(200).json({
+            message: "Main API route 🚀"
+        });
+    });
+
+    router.get("/", (req: Request, res: Response) => {
         res.status(200).json({
             message: "API is uppp 🚀"
         });
