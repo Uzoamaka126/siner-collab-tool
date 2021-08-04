@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { userServices } from './Users.service';
-import { IUserInput, IBaseUser, IUserBaseDocument } from './User.types';
+import { userServices, getAllUsers } from './Users.service';
 
 export const fetchSingleUser = () => async (req: Request, res: Response) => {
     try {
@@ -19,22 +18,19 @@ export const fetchSingleUser = () => async (req: Request, res: Response) => {
     }
 }
 
-export const fetchAllUsers = () => async(req: Request, res: Response) => {
-    // try {
-    //     const user = await userServices().getAllUsers()
+export const fetchAllUsers = async (req: Request, res: Response) => {
+    try {
+        const user = await getAllUsers()
 
-    //     if(!user.isSuccessful === false) {
-    //         return res.status(404).json(user)
-    //     } else {
-    //         return res.status(200).json(user)
-    //     }
-    // } catch (err) {
-    //     console.error(err)
-    //     return res.status(400).end()
-    //     // res.send({ error: "An error occurred!" })
-    // }
-    console.log('Hey there!');
-    
+        if(!user.isSuccessful === false) {
+            return res.status(404).json(user)
+        } else {
+            return res.status(200).json(user)
+        }
+    } catch (err) {
+        console.error(err)
+        return res.status(400).send({ error: "An error occurred!" }).end()
+    }
 }
 
 // export const createOne = () => async (req: Request, res: Response): Promise<IUserBaseDocument> => {

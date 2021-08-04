@@ -48,16 +48,10 @@ routes(app, port);
 // }
 
 export const start = async () => {   
-  try {
     dbConnect();
-
     app.listen(port, () => {
       console.log("Router is running here -->", port);
     })
-
-  } catch (e) {
-    console.error(e)
-  }
 }
 
 start();

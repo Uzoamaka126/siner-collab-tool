@@ -48,24 +48,18 @@ export const getSingleUser = () => async (id: string) => {
 }
 
 // Find all users
-export const getAllUsers = () => async () => {
+export async function getAllUsers() {
     try {
-        // else continue
         const users = await User
             .find()
             .lean()
             .exec()
-        
-        console.log("userData:", users);
-        console.log("type of user:", typeof users);
-
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
             data: users
         }
-    
     } catch(err) {
         console.error(err)
         return {
@@ -119,7 +113,7 @@ export const createNewUser = () => async (data: IBaseUser) => {
 export const userServices = () => ({
 //   removeOne: removeOne(model),
 //   updateOne: updateOne(model),
-  getAllUsers: getAllUsers(),
+//   getAllUsers: getAllUsers(),
   getSingleUser: getSingleUser(),
   createNewUser: createNewUser()
 })
