@@ -14,7 +14,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const app = express();
-const routes = require('./router')
+const routes = require('./router/index')
 // import error handler file
 
 // connect to mongoose
@@ -33,10 +33,11 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
-// app.use(morgan('dev'));
-if (!(NODE_ENV === "development" || NODE_ENV === "test")) {
-  app.use(morgan("tiny"));
-}
+app.use(morgan('dev'));
+
+// if (!(NODE_ENV === "development" || NODE_ENV === "test")) {
+//   app.use(morgan("tiny"));
+// }
 
 // use express on the router
 routes(app, port);

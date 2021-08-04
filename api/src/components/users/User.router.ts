@@ -1,9 +1,9 @@
-const router = require('express').Router()
+const router = require('express').Router();
 import { fetchAllUsers, fetchSingleUser } from './Users.controllers'
 
 // /api/users
 router
-  .route('/users')
+  .route('/')
   .get(fetchAllUsers)
 //   .post(controllers.createOne)
 
