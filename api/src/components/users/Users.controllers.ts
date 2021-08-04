@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { userServices } from './Users.service';
+import { IUserInput, IBaseUser, IUserBaseDocument } from './User.types';
 
 export const fetchSingleUser = () => async (req: Request, res: Response) => {
     try {
@@ -19,40 +20,28 @@ export const fetchSingleUser = () => async (req: Request, res: Response) => {
 }
 
 export const fetchAllUsers = () => async(req: Request, res: Response) => {
-    try {
-        const user = await userServices().getAllUsers()
+    // try {
+    //     const user = await userServices().getAllUsers()
 
-        if(!user.isSuccessful === false) {
-            res.status(404).json(user)
-        } else {
-            res.status(200).json(user)
-        }
-    } catch (err) {
-        console.error(err)
-        res.status(400)
-        res.send({ error: "An error occurred!" })
-    }
+    //     if(!user.isSuccessful === false) {
+    //         return res.status(404).json(user)
+    //     } else {
+    //         return res.status(200).json(user)
+    //     }
+    // } catch (err) {
+    //     console.error(err)
+    //     return res.status(400).end()
+    //     // res.send({ error: "An error occurred!" })
+    // }
+    console.log('Hey there!');
+    
 }
 
+// export const createOne = () => async (req: Request, res: Response): Promise<IUserBaseDocument> => {
+//   const newUser:IUserInput = req.body;
 
-// export const getMany = model => async (req, res) => {
 //   try {
-//     const docs = await model
-//       .find({ createdBy: req.user._id })
-//       .lean()
-//       .exec()
-
-//     res.status(200).json({ data: docs })
-//   } catch (e) {
-//     console.error(e)
-//     res.status(400).end()
-//   }
-// }
-
-// export const createOne = model => async (req, res) => {
-//   const createdBy = req.user._id
-//   try {
-//     const doc = await model.create({ ...req.body, createdBy })
+//     const doc = await userServices.create({ ...req.body, newUser })
 //     res.status(201).json({ data: doc })
 //   } catch (e) {
 //     console.error(e)

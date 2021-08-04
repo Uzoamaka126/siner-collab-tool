@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "tsc",
+    "build": "tsc --build",
     "dev": "tsc -watch & nodemon .",
     "watch:build": "tsc --watch",
     "watch:server": "nodemon 'dist/index.js' --watch 'dist'",

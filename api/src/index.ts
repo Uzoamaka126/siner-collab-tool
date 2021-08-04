@@ -5,20 +5,20 @@ dotenv.config();
 
 import { CLIENT_URL, NODE_ENV, port } from "./config/index";
 import { dbConnect } from "./utils/db";
-import { urlencoded, json } from 'body-parser'
+import { urlencoded, json } from 'body-parser';
+import express, { Application } from "express"
 
 // import necessary packages
-const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const app = express();
+const app: Application = express();
 const routes = require('./router/index')
 // import error handler file
 
 // connect to mongoose
-dbConnect(app);
+// dbConnect(app);
 
 app.set("port", port);
 app.use(helmet());
@@ -47,8 +47,19 @@ routes(app, port);
 //   app.use(errorHandler());
 // }
 
-app.listen(port, () => {
-  console.log("Router is running here -->", port);
-})
+export const start = async () => {   
+  try {
+    dbConnect();
+
+    app.listen(port, () => {
+      console.log("Router is running here -->", port);
+    })
+
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+start();
 
 export default app;

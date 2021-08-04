@@ -1,6 +1,7 @@
-const router = require('express').Router();
-import { fetchAllUsers, fetchSingleUser } from './Users.controllers'
+const express = require('express')
+import { fetchAllUsers, fetchSingleUser } from './Users.controllers';
 
+const router = express.Router();
 // /api/users
 router
   .route('/')

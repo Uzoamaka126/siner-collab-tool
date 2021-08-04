@@ -1,5 +1,4 @@
 import router from '../components/users/User.router';
-import { Router } from 'express';
 
 // interface RouterStack {
 //     handle: [];

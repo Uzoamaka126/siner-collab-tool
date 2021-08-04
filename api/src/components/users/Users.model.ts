@@ -1,7 +1,7 @@
-import { IUserType } from './User.types';
+import { IBaseUser } from './User.types';
 import { userSchema } from './Users.schema'
-const mongoose = require("mongoose");
+import { model } from 'mongoose'
 
-const UserModel:IUserType = mongoose.model("User", userSchema)
+const User = model <IBaseUser >("User", userSchema)
 
-module.exports = UserModel;
+module.exports = User;

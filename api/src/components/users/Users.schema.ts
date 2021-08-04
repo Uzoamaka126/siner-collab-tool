@@ -1,4 +1,5 @@
-import { Schema } from "mongoose";
+import { Schema, Model } from "mongoose";
+import { IUserBaseDocument } from "./User.types";
 
 const mongoose = require("mongoose");
 
@@ -32,6 +33,10 @@ export const userSchema: Schema = new Schema({
       maxlength: 100,
       unique: true
     },
+    is_verified: { 
+      type: Boolean, 
+      default: false 
+    },
     bio: {
       type: String,
       required: false,
@@ -56,3 +61,14 @@ export const userSchema: Schema = new Schema({
 );
 
 // userSchema.index({ workspaces: 1, title: 1 }, { unique: true })
+
+userSchema.statics.findByName = function (
+  this: Model<IUserBaseDocument>,
+  fullName: string
+  ) {
+    return this.findOne({ fullName }).exec()
+  }
+
+userSchema.query.findByEmail = function( email:string ) {
+  return this.where({ email: email })
+};

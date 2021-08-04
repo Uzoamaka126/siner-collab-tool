@@ -41,3 +41,5 @@ if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
   // mongoURI = DB_CONNECTION;
 }
 console.log("mongoURI -->:", mongoURI);
+// console.log(process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
+
