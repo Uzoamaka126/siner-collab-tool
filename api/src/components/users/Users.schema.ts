@@ -1,29 +1,36 @@
+import { Schema } from "mongoose";
+
 const mongoose = require("mongoose");
 
-export const userSchema = mongoose.Schema({
+export const userSchema: Schema = new Schema({
     fullName: {
       type: String,
       required: true,
       trim: true,
+      minLength: 2,
       maxlength: 100
     },
     email: {
       type: String,
       required: true,
       trim: true,
+      minLength: 2,
       maxlength: 1000
     },
     password: {
       type: String,
       required: true,
       trim: true,
+      minLength: 8,
       maxlength: 20
     },
     username: {
       type: String,
       required: true,
       trim: true,
-      maxlength: 100
+      minLength: 2,
+      maxlength: 100,
+      unique: true
     },
     bio: {
       type: String,
@@ -36,8 +43,8 @@ export const userSchema = mongoose.Schema({
       ref: 'Workspaces',
       required: false
     },
-    activities: Array,
-    cards: Array,
+    activities: [{}],
+    cards: [{}],
     createdAt: Date,
     // createdBy: {
     //     type: mongoose.SchemaTypes.ObjectId,
@@ -48,4 +55,4 @@ export const userSchema = mongoose.Schema({
 { timestamps: true },
 );
 
-// userSchema.index({ list: 1, name: 1 }, { unique: true })
+// userSchema.index({ workspaces: 1, title: 1 }, { unique: true })

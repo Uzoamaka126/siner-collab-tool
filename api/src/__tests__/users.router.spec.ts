@@ -1,15 +1,15 @@
 import router from '../components/users/User.router';
 import { Router } from 'express';
 
-interface RouterStack {
-    handle: [];
-    name?: string;
-    params?: undefined,
-    path?: undefined,
-    keys?: [],
-    regexp?: RegExp,
-    route: Router
-}
+// interface RouterStack {
+//     handle: [];
+//     name?: string;
+//     params?: undefined,
+//     path?: undefined,
+//     keys?: [],
+//     regexp?: RegExp,
+//     route: Router
+// }
 
 describe('user router', () => {
     test('has crud routes', () => {
