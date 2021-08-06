@@ -17,13 +17,13 @@ export function generateToken(user: IUserBaseDocument) {
   const payload = {
     subject: user._id,
     username: user.username,
-    // roles: ["username"]
+    roles: ["email"]
   };
   const options = {
     expiresIn: "365d",
   };
 
-  return jwt.sign(payload, process.env.SECRET, options);
+  return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
 
 export const isEmail = (email: string) => {
