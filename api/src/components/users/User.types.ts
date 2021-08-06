@@ -5,6 +5,7 @@ export interface IBaseUser {
     email: string;
     password: string;
     username: string;
+    jwt?: string;
     bio?: string;
     workspaces?: {}[];
     activities?: {}[];

@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 import { CLIENT_URL, NODE_ENV, port } from "./config/index";
-import { dbConnect } from "./utils/db";
+import { dbConnect } from "./utils/db/db";
 import { urlencoded, json } from 'body-parser';
 import express, { Application } from "express"
 

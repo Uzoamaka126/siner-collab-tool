@@ -4,3 +4,4 @@ export type ErrorTypes = {
     fullName?: string;
     username?: string;
 }
+

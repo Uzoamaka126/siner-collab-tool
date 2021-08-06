@@ -24,7 +24,7 @@ export const userSchema: Schema = new Schema({
       required: true,
       trim: true,
       minLength: 8,
-      maxlength: 20
+      maxlength: 100
     },
     username: {
       type: String,
@@ -69,28 +69,3 @@ userSchema.statics.findByName = function (
   ) {
     return this.findOne({ fullName }).exec()
   }
-
-// userSchema.query.findByEmail = function( email:string ) {
-//   let result;
-//   return this.where({ email: email }).findOne(function (err:any, data:any) {
-//     if (err) console.log(err);
-//     if (data) {
-//       // doc may be null if no document matched
-//       result = data;
-//       return result;
-//     }
-//   });
-// };
-
-// userSchema.query.findByEmail = function( email:string ) {
-//   let result;
-//   return this.findOne({ email: email }, function (err:any, data:any) {
-//     if (err) console.log(err);
-//     if (data) {
-//       // doc may be null if no document matched
-//       result = data;
-//       return result;
-//     }
-//   });
-// };
-

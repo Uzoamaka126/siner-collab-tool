@@ -1,6 +1,6 @@
-import { mongoURI } from "../config/index";
+import { mongoURI } from "../../config/index";
 const mongoose = require("mongoose");
-import app from '../index'
+import app from '../../index'
 
 export const dbConnect = () => {
     return mongoose.connect(
