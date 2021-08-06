@@ -16,7 +16,8 @@ export const userSchema: Schema = new Schema({
       required: true,
       trim: true,
       minLength: 2,
-      maxlength: 1000
+      maxlength: 1000,
+      unique: true
     },
     password: {
       type: String,
@@ -31,7 +32,7 @@ export const userSchema: Schema = new Schema({
       trim: true,
       minLength: 2,
       maxlength: 100,
-      unique: true
+      unique: true,
     },
     is_verified: { 
       type: Boolean, 
@@ -69,6 +70,27 @@ userSchema.statics.findByName = function (
     return this.findOne({ fullName }).exec()
   }
 
-userSchema.query.findByEmail = function( email:string ) {
-  return this.where({ email: email })
-};
+// userSchema.query.findByEmail = function( email:string ) {
+//   let result;
+//   return this.where({ email: email }).findOne(function (err:any, data:any) {
+//     if (err) console.log(err);
+//     if (data) {
+//       // doc may be null if no document matched
+//       result = data;
+//       return result;
+//     }
+//   });
+// };
+
+// userSchema.query.findByEmail = function( email:string ) {
+//   let result;
+//   return this.findOne({ email: email }, function (err:any, data:any) {
+//     if (err) console.log(err);
+//     if (data) {
+//       // doc may be null if no document matched
+//       result = data;
+//       return result;
+//     }
+//   });
+// };
+

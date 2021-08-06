@@ -72,7 +72,7 @@ export async function getAllUsers() {
 
 // Create a new user
 // Find all users
-export const createNewUser = () => async (data: IBaseUser) => {
+const createNewUser = () => async (data: IBaseUser) => {
     try {
         const newUser = await User.create({
             fullName: data.fullName,
@@ -85,25 +85,22 @@ export const createNewUser = () => async (data: IBaseUser) => {
             cards: null,
             createdAt: new Date()
         })
-        .lean()
-        .exec()
-        
-        console.log("userData:", newUser);
-        console.log("type of user:", typeof newUser);
 
-        // return {
-        //     status: 200,
-        //     isSuccessful: true,
-        //     message: "Operation successful!",
-        //     data: newUser
-        // }
+        const result = {
+            status: 200,
+            isSuccessful: true,
+            message: "Operation successful!",
+            data: newUser
+        }
+        return result;
     
     } catch(err) {
-        console.error(err)
+        console.error(err);
         return {
             status: 400,
             isSuccessful: false,
             message: "An error occured",
+            data: null
         }
     }
 }
@@ -113,7 +110,21 @@ export const createNewUser = () => async (data: IBaseUser) => {
 export const userServices = () => ({
 //   removeOne: removeOne(model),
 //   updateOne: updateOne(model),
-//   getAllUsers: getAllUsers(),
   getSingleUser: getSingleUser(),
   createNewUser: createNewUser()
 })
+
+
+/* 
+{
+    "fullName": "Uzoamaka Test",
+    "email": "test@gmail.com",
+    "password": "test",
+    "username": "Test username",
+    "bio": "Test bip",
+    "workspaces": null,
+    "activities": null,
+    "cards": null,
+    "createdAt": "2017-05-15T15:12:59.152Z"
+}
+*/

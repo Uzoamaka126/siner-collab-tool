@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { IBaseUser, IUserBaseDocument, IUserInput } from './User.types';
 import { userServices, getAllUsers } from './Users.service';
 
 export const fetchSingleUser = () => async (req: Request, res: Response) => {
@@ -33,17 +34,18 @@ export const fetchAllUsers = async (req: Request, res: Response) => {
     }
 }
 
-// export const createOne = () => async (req: Request, res: Response): Promise<IUserBaseDocument> => {
-//   const newUser:IUserInput = req.body;
+export const addNewUser = async (req: Request, res: Response) => {
+  const newUser:IUserInput = req.body;
 
-//   try {
-//     const doc = await userServices.create({ ...req.body, newUser })
-//     res.status(201).json({ data: doc })
-//   } catch (e) {
-//     console.error(e)
-//     res.status(400).end()
-//   }
-// }
+  try {
+    // const doc = await userServices().createNewUser({ ...req.body, newUser })
+    const doc = await userServices().createNewUser(newUser)
+    return res.status(201).json(doc)
+  } catch (e) {
+    console.error("error for controllers:", e)
+    return res.status(400).json(e).end()
+  }
+}
 
 // export const updateOne = model => async (req, res) => {
 //   try {

@@ -1,7 +1,6 @@
 const express = require('express');
-import { Request, Response } from 'express';
 
-import { fetchAllUsers, fetchSingleUser } from './Users.controllers';
+import { fetchAllUsers, fetchSingleUser, addNewUser } from './Users.controllers';
 
 const router = express.Router();
 
@@ -9,7 +8,7 @@ const router = express.Router();
 router
   .route('/')
   .get(fetchAllUsers)
-//   .post(controllers.createOne)
+  .post(addNewUser)
 
 // /api/users/:id
 router

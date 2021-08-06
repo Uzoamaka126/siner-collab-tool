@@ -55,3 +55,10 @@ export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
 export interface IUserDocument extends IUserBaseDocument {
 //   workspaces: Types.Array<WorkspaceDocument["_id"]>;
 }
+
+export interface IUserCreateDataResponse {
+    status: number;
+    isSuccessful: boolean;
+    message: string;
+    data?: IBaseUser
+}
