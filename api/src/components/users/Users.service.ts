@@ -1,6 +1,7 @@
 import { generateToken, generateVerificationToken } from '../../utils/authValidator';
-import { IBaseUser } from './User.types';
+import { IBaseUser, IBaseUserLogin } from './User.types';
 const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
 const User = require('./Users.model');
 
 // Find a single user
@@ -116,6 +117,48 @@ const createNewUser = () => async (data: IBaseUser) => {
             isSuccessful: false,
             message: "An error occured",
             data: err
+        }
+    }
+}
+
+// find and then login a user
+// Find all users
+export async function loginAUser({ email, password }:IBaseUserLogin) {
+    try {
+        const user = await User.findOne({ email: email }).exec();
+        // If no user is found, send an error message
+        if (!user) {
+            return {
+                status: 401,
+                isSuccessful: false,
+                message: "Invalid username or password",
+                data: {}
+            }
+        }
+        // check for password match
+        const passwordMatchResponse = await user.checkPassword(password);
+        if(!passwordMatchResponse) {
+            return {
+                status: 401,
+                isSuccessful: false,
+                message: "Invalid username or password!",
+                data: {}
+            }
+        }
+        const token = generateToken(user);
+        return {
+            status: 201,
+            isSuccessful: true,
+            message: "Successfully logged in!",
+            data: token
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occured",
+            data: {}
         }
     }
 }

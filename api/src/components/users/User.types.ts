@@ -13,6 +13,11 @@ export interface IBaseUser {
     createdAt: Date;
 }
 
+export interface IBaseUserLogin {
+  email: string;
+  password: string;
+}
+
 // export type UsersType = IBaseUser[]
 export interface IUserInput {
     fullName: IBaseUser['fullName'];

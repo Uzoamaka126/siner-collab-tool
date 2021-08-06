@@ -1,5 +1,5 @@
 import { Schema, Model } from "mongoose";
-import { IUserBaseDocument } from "./User.types";
+const bcrypt = require("bcryptjs");
 
 const mongoose = require("mongoose");
 
@@ -63,9 +63,22 @@ export const userSchema: Schema = new Schema({
 
 // userSchema.index({ workspaces: 1, title: 1 }, { unique: true })
 
-userSchema.statics.findByName = function (
-  this: Model<IUserBaseDocument>,
-  fullName: string
-  ) {
-    return this.findOne({ fullName }).exec()
-  }
+// userSchema.methods.findByName = function (
+//   this: Model<IUserBaseDocument>,
+//   fullName: string
+//   ) {
+//     return this.findOne({ fullName }).exec()
+// }
+
+userSchema.methods.checkPassword = function(password: string) {
+  const passwordHash = this.password;
+
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, passwordHash, (err:any, same:any) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve(same)
+    })
+  })
+}

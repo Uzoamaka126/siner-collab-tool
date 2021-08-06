@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { IBaseUser, IUserBaseDocument, IUserInput } from './User.types';
-import { userServices, getAllUsers } from './Users.service';
+import { IUserInput, IBaseUser, IBaseUserLogin } from './User.types';
+import { userServices, getAllUsers, loginAUser } from './Users.service';
 
 export const fetchSingleUser = () => async (req: Request, res: Response) => {
     try {
@@ -46,6 +46,24 @@ export const addNewUser = async (req: Request, res: Response) => {
     return res.status(400).json(e).end()
   }
 }
+
+// sign in a user
+export const signInUserController = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).send({ message: 'Email or password is missing' })
+  }
+
+  try {
+    const response = await loginAUser({ email, password })
+    return res.status(response.status).json(response)
+  } catch (e) {
+    console.error("error for controllers:", e)
+    return res.status(400).json(e).end()
+  }
+}
+
+// loginAUser
 
 // export const updateOne = model => async (req, res) => {
 //   try {
