@@ -19,18 +19,18 @@ export const fetchSingleUser = async (req: Request, res: Response) => {
 }
 
 export const fetchAllUsers = async (req: Request, res: Response) => {
-    try {
-        const user = await getAllUsers()
+  try {
+      const users = await getAllUsers()
 
-        if(!user.isSuccessful === false) {
-            return res.status(404).json(user)
-        } else {
-            return res.status(200).json(user)
-        }
-    } catch (err) {
-        console.error(err)
-        return res.status(400).send({ error: "An error occurred!" }).end()
-    }
+      if(!users.isSuccessful === false) {
+          return res.status(404).json(users)
+      } else {
+          return res.status(200).json(users)
+      }
+  } catch (err) {
+      console.error(err)
+      return res.status(400).send({ error: "An error occurred!" }).end()
+  }
 }
 
 // update a user's details

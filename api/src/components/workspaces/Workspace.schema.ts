@@ -18,7 +18,6 @@ export const workspaceSchema: Schema = new Schema({
     },
     description: {
       type: String,
-      required: true,
       trim: true,
       minLength: 2,
       maxlength: 100,
@@ -36,7 +35,6 @@ export const workspaceSchema: Schema = new Schema({
     },
     activities: [{}],
     cards: [{}],
-    createdAt: Date,
     createdBy: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User',

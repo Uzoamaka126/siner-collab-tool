@@ -1,15 +1,11 @@
 const express = require('express');
-
-import { 
-
-} from './Workspace.controllers';
-
+import { fetchAllWorkspace } from './Workspace.controllers';
 const router = express.Router();
 
 // /api/users
 router
   .route('/')
-  // .get(fetchAllUsers)
+  .get(fetchAllWorkspace)
   // .post(addNewUser)
 
 // /api/users/:id

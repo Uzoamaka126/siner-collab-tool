@@ -1,37 +1,27 @@
 import { Document, Types } from "mongoose"
 
-export interface IBaseUser {
-    fullName: string;
-    email: string;
-    password: string;
-    username: string;
-    jwt?: string;
-    bio?: string;
-    workspaces?: {}[];
+export interface IBaseWorkspace {
+    title: string;
+    type: string;
+    description?: string;
+    members?: {}[];
     activities?: {}[];
+    boards?: {}[];
     cards?: {}[];
-    createdAt: Date;
+    createdBy: string
+}
+export interface IWorkspaceInput {
+    title: IBaseWorkspace['title'];
+    type: IBaseWorkspace['type'];
+    description?: IBaseWorkspace['description'];
+    boards?: IBaseWorkspace['boards'];
+    members?: IBaseWorkspace['members'];
+    activities?: IBaseWorkspace['activities'];
+    cards?: IBaseWorkspace['cards'];
+    createdBy: IBaseWorkspace['createdBy'];
 }
 
-export interface IBaseUserLogin {
-  email: string;
-  password: string;
-}
-
-// export type UsersType = IBaseUser[]
-export interface IUserInput {
-    fullName: IBaseUser['fullName'];
-    email: IBaseUser['email'];
-    password: IBaseUser['password'];
-    username: IBaseUser['username'];
-    bio?: IBaseUser['bio'];
-    workspaces?: IBaseUser['workspaces'];
-    activities?: IBaseUser['activities'];
-    cards?: IBaseUser['cards'];
-    createdAt: IBaseUser['createdAt'];
-}
-
-export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
+export interface IUserBaseDocument extends IBaseWorkspace, Document<Types.ObjectId> {
   _id: Types.ObjectId;
   /**
    * Virtual path with full name of the user
@@ -66,5 +56,5 @@ export interface IUserCreateDataResponse {
     status: number;
     isSuccessful: boolean;
     message: string;
-    data?: IBaseUser
+    data?: IBaseWorkspace
 }
