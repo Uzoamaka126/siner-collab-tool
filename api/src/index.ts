@@ -1,9 +1,8 @@
 // Entry point for all libraries
 // Import necessary configured ports here
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
-import { CLIENT_URL, NODE_ENV, port } from "./config/index";
+import { NODE_ENV, port } from "./config/index";
 import { dbConnect } from "./utils/db/db";
 import { urlencoded, json } from 'body-parser';
 import express, { Application } from "express"
@@ -17,18 +16,15 @@ const app: Application = express();
 const routes = require('./router/index')
 // import error handler file
 
-// connect to mongoose
-// dbConnect(app);
-
 app.set("port", port);
 app.use(helmet());
-app.use(
-  cors({
-    credentials: true,
-    exposedHeaders: ["set-cookie"],
-    origin: CLIENT_URL,
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     exposedHeaders: ["set-cookie"],
+//     origin: CLIENT_URL,
+//   })
+// );
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());

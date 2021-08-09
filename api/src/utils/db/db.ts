@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 import { mongoURI } from "../../config/index";
 const mongoose = require("mongoose");
 import app from '../../index'

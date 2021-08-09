@@ -2,23 +2,21 @@ import { Request, Response } from 'express';
 import { IUserInput } from './User.types';
 import { userServices, getAllUsers, loginAUser, updateASingleUser, removeAUser } from './Users.service';
 
-export const fetchSingleUser = () => async (req: Request, res: Response) => {
-    // try {
-    //     const user = await userServices().getSingleUser(req.params.id)
+export const fetchSingleUser = async (req: Request, res: Response) => {
+  try {
+      const user = await userServices().getSingleUser(req.params.id)
 
-    //     if(!user.isSuccessful === false) {
-    //         return res.status(404).json(user)
-    //     } else {
-    //         return res.status(200).json(user)
-    //     }
-    // } catch (err) {
-    //     console.error(err)
-    //     // res.status(400).end()
-    //     res.status(400)
-    //     res.send({ error: "This user does not exist!" })
-    // }
-    console.log("heyy");
-    
+      if(!user.isSuccessful === false) {
+          return res.status(404).json(user)
+      } else {
+          return res.status(200).json(user)
+      }
+  } catch (err) {
+      console.error(err)
+      // res.status(400).end()
+      res.status(400)
+      res.send({ error: "This user does not exist!" })
+  }
 }
 
 export const fetchAllUsers = async (req: Request, res: Response) => {
@@ -66,7 +64,7 @@ export const signInUserController = async (req: Request, res: Response) => {
 }
 
 // update a user's details
-export const updateAUserController = () => async (req: Request, res: Response) => {
+export const updateAUserController = async (req: Request, res: Response) => {
   try {
     const response = await updateASingleUser(req.body, req.params.id);
     return res.status(response.status).json(response)

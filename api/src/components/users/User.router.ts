@@ -19,8 +19,8 @@ router
 // /api/users/:id
 router
   .route('/:id')
+  .patch(updateAUserController)
   .get(fetchSingleUser)
-  .put(updateAUserController)
 //   .delete(controllers.removeOne)
 
 // /api/users/login

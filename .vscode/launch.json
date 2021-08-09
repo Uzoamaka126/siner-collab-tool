@@ -7,14 +7,16 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch with NPM",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/api/src/config/index.ts",
+            "command": "npm run start",
+           "program": "${workspaceFolder}/api/src/config/index.ts",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
-            ]
+            ],
+            "envFile": "${workspaceFolder}/api/.env"
         }
     ]
 }

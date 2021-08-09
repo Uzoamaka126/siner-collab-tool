@@ -1,4 +1,5 @@
 import { Schema, Model } from "mongoose";
+import { IBaseUser, IUserBaseDocument } from "./User.types";
 const bcrypt = require("bcryptjs");
 
 const mongoose = require("mongoose");
@@ -70,7 +71,7 @@ export const userSchema: Schema = new Schema({
 //     return this.findOne({ fullName }).exec()
 // }
 
-userSchema.methods.checkPassword = function(password: string) {
+userSchema.methods.checkPassword = function(this:any, password: string) {
   const passwordHash = this.password;
 
   return new Promise((resolve, reject) => {
