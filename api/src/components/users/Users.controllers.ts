@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { IUserInput } from './User.types';
-import { userServices, getAllUsers, loginAUser, updateASingleUser, removeAUser } from './Users.service';
+import { userServices, getAllUsers, updateASingleUser, removeAUser } from './Users.service';
 
 export const fetchSingleUser = async (req: Request, res: Response) => {
   try {
@@ -32,35 +31,6 @@ export const fetchAllUsers = async (req: Request, res: Response) => {
         console.error(err)
         return res.status(400).send({ error: "An error occurred!" }).end()
     }
-}
-
-export const addNewUser = async (req: Request, res: Response) => {
-  const newUser:IUserInput = req.body;
-
-  try {
-    // const doc = await userServices().createNewUser({ ...req.body, newUser })
-    const doc = await userServices().createNewUser(newUser)
-    return res.status(201).json(doc)
-  } catch (e) {
-    console.error("error for controllers:", e)
-    return res.status(400).json(e).end()
-  }
-}
-
-// sign in a user
-export const signInUserController = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  if (!req.body.email || !req.body.password) {
-    return res.status(400).send({ message: 'Email or password is missing' })
-  }
-
-  try {
-    const response = await loginAUser({ email, password })
-    return res.status(response.status).json(response)
-  } catch (e) {
-    console.error("error for controllers:", e)
-    return res.status(400).json(e).end()
-  }
 }
 
 // update a user's details
