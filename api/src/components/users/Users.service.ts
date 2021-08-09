@@ -217,9 +217,7 @@ export const removeAUser = async (id: string) => {
             }
         }
   try {
-    const removedUser = await User.findOneAndRemove({
-      _id: id
-    })
+    const removedUser = await User.findOneAndRemove({ _id: id })
 
     if (!removedUser) {
       return {
@@ -230,7 +228,7 @@ export const removeAUser = async (id: string) => {
     } else {
         return {
             status: 200,
-            isSuccessful: false,
+            isSuccessful: true,
             message: "User successfully removed!",
             data: removedUser
         }

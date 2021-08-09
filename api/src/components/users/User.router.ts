@@ -5,7 +5,8 @@ import {
   fetchSingleUser, 
   addNewUser, 
   signInUserController,
-  updateAUserController 
+  updateAUserController, 
+  deleteAUser
 } from './Users.controllers';
 
 const router = express.Router();
@@ -21,7 +22,7 @@ router
   .route('/:id')
   .patch(updateAUserController)
   .get(fetchSingleUser)
-//   .delete(controllers.removeOne)
+  .delete(deleteAUser)
 
 // /api/users/login
 router

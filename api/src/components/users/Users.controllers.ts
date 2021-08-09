@@ -74,20 +74,17 @@ export const updateAUserController = async (req: Request, res: Response) => {
   }
 }
 
-// export const removeOne = model => async (req, res) => {
-//   try {
-//     const removed = await model.findOneAndRemove({
-//       createdBy: req.user._id,
-//       _id: req.params.id
-//     })
+export const deleteAUser = async (req: Request, res: Response) => {
+  try {
+    const response = await removeAUser(req.params.id)
 
-//     if (!removed) {
-//       return res.status(400).end()
-//     }
+    if (!response) {
+      return res.status(400).end()
+    }
 
-//     return res.status(200).json({ data: removed })
-//   } catch (e) {
-//     console.error(e)
-//     res.status(400).end()
-//   }
-// }
+    return res.status(200).json({ data: response })
+  } catch (e) {
+    console.error(e)
+    res.status(400).end()
+  }
+}
