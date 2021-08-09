@@ -1,22 +1,24 @@
 import { Request, Response } from 'express';
-import { IUserInput, IBaseUser, IBaseUserLogin } from './User.types';
-import { userServices, getAllUsers, loginAUser } from './Users.service';
+import { IUserInput } from './User.types';
+import { userServices, getAllUsers, loginAUser, updateASingleUser, removeAUser } from './Users.service';
 
 export const fetchSingleUser = () => async (req: Request, res: Response) => {
-    try {
-        const user = await userServices().getSingleUser(req.params.id)
+    // try {
+    //     const user = await userServices().getSingleUser(req.params.id)
 
-        if(!user.isSuccessful === false) {
-            res.status(404).json(user)
-        } else {
-            res.status(200).json(user)
-        }
-    } catch (err) {
-        console.error(err)
-        // res.status(400).end()
-        res.status(400)
-        res.send({ error: "This user does not exist!" })
-    }
+    //     if(!user.isSuccessful === false) {
+    //         return res.status(404).json(user)
+    //     } else {
+    //         return res.status(200).json(user)
+    //     }
+    // } catch (err) {
+    //     console.error(err)
+    //     // res.status(400).end()
+    //     res.status(400)
+    //     res.send({ error: "This user does not exist!" })
+    // }
+    console.log("heyy");
+    
 }
 
 export const fetchAllUsers = async (req: Request, res: Response) => {
@@ -63,32 +65,16 @@ export const signInUserController = async (req: Request, res: Response) => {
   }
 }
 
-// loginAUser
-
-// export const updateOne = model => async (req, res) => {
-//   try {
-//     const updatedDoc = await model
-//       .findOneAndUpdate(
-//         {
-//           createdBy: req.user._id,
-//           _id: req.params.id
-//         },
-//         req.body,
-//         { new: true }
-//       )
-//       .lean()
-//       .exec()
-
-//     if (!updatedDoc) {
-//       return res.status(400).end()
-//     }
-
-//     res.status(200).json({ data: updatedDoc })
-//   } catch (e) {
-//     console.error(e)
-//     res.status(400).end()
-//   }
-// }
+// update a user's details
+export const updateAUserController = () => async (req: Request, res: Response) => {
+  try {
+    const response = await updateASingleUser(req.body, req.params.id);
+    return res.status(response.status).json(response)
+  } catch (e) {
+    console.error(e)
+    return res.status(400).end()
+  }
+}
 
 // export const removeOne = model => async (req, res) => {
 //   try {

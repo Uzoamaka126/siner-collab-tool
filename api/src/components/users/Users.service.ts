@@ -122,7 +122,6 @@ const createNewUser = () => async (data: IBaseUser) => {
 }
 
 // find and then login a user
-// Find all users
 export async function loginAUser({ email, password }:IBaseUserLogin) {
     try {
         const user = await User.findOne({ email: email }).exec();
@@ -163,11 +162,95 @@ export async function loginAUser({ email, password }:IBaseUserLogin) {
     }
 }
 
+// Update a single user
+export const updateASingleUser = async (data: any, id: string) => {
+    try {
+        // do a check to see if an id is passed as an argument.
+        // If no id, then return false
+        if(!id) {
+            return {
+                status: 401,
+                isSuccessful: false,
+                message: "User Id is required!",
+            }
+        }
+        // else continue
+        const updatedUser = await User
+            .findOneAndUpdate(
+                { _id: id },
+                data,
+                { new: true }
+            )
+            .exec()
+            
+        // if no user was found on the db, then return false
+        if(!updatedUser) {
+            return {
+                status: 404,
+                isSuccessful: false,
+                message: "User not found!",
+            }
+        } else {
+            return {
+                status: 200,
+                isSuccessful: true,
+                message: "Successful update!",
+                data: updatedUser
+            }
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occured",
+        }
+    }
+}
+
+export const removeAUser = async (id: string) => {
+    if(!id) {
+            return {
+                status: 401,
+                isSuccessful: false,
+                message: "user id must be provided!",
+            }
+        }
+  try {
+    const removedUser = await User.findOneAndRemove({
+      _id: id
+    })
+
+    if (!removedUser) {
+      return {
+        status: 400,
+        isSuccessful: false,
+        message: "User was not found",
+       }
+    } else {
+        return {
+            status: 200,
+            isSuccessful: false,
+            message: "User successfully removed!",
+            data: removedUser
+        }
+    }
+  } catch (err) {
+    console.error(err)
+    return {
+        status: 400,
+        isSuccessful: false,
+        message: "An error occured during this operation",
+        data: err
+    }
+  }
+}
+
 
 
 export const userServices = () => ({
-//   removeOne: removeOne(model),
-//   updateOne: updateOne(model),
+//   removeAUser: removeAUser,
+  updateASingleUser: updateASingleUser,
   getSingleUser: getSingleUser(),
   createNewUser: createNewUser()
 })

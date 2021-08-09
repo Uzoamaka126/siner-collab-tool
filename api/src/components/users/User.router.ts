@@ -4,7 +4,8 @@ import {
   fetchAllUsers, 
   fetchSingleUser, 
   addNewUser, 
-  signInUserController 
+  signInUserController,
+  updateAUserController 
 } from './Users.controllers';
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router
 router
   .route('/:id')
   .get(fetchSingleUser)
-//   .put(controllers.updateOne)
+  .put(updateAUserController)
 //   .delete(controllers.removeOne)
 
 // /api/users/login
