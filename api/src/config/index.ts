@@ -1,9 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
-// const dotenv = require('dotenv')
 // dotenv.config({path:__dirname+'/.env'});
 // || 5000
-export const port = process.env.PORT;
+export const port = process.env.PORT || 5500;
 export const JWT_SECRET = process.env.JWT_SECRET || "nebula";
 export const NODE_ENV = process.env.NODE_ENV || "development";
 const { DB_CONNECTION, DB_CONNECTION_TEST } = process.env;
@@ -41,6 +40,6 @@ if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
 } else if (DB_CONNECTION) {
   // mongoURI = DB_CONNECTION;
 }
-console.log("db_connection", process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
+// console.log("db_connection", process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
 console.log("mongoURI -->:", mongoURI);
 

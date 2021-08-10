@@ -41,7 +41,7 @@ export const getSingleUser = () => async (id: string) => {
         return {
             status: 400,
             isSuccessful: false,
-            message: "An error occured",
+            message: "An error occurred",
         }
     }
 }

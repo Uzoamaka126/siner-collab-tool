@@ -8,7 +8,12 @@ export interface IBaseWorkspace {
     activities?: {}[];
     boards?: {}[];
     cards?: {}[];
-    createdBy: string
+    createdBy: {
+      _id: string;
+      email: string;
+      fullName: string;
+      username: string;
+    }
 }
 export interface IWorkspaceInput {
     title: IBaseWorkspace['title'];
@@ -21,13 +26,12 @@ export interface IWorkspaceInput {
     createdBy: IBaseWorkspace['createdBy'];
 }
 
-export interface IUserBaseDocument extends IBaseWorkspace, Document<Types.ObjectId> {
+export interface IWorkspaceBaseDocument extends IBaseWorkspace, Document<Types.ObjectId> {
   _id: Types.ObjectId;
   /**
    * Virtual path with full name of the user
    */
-  fullName: string;
-  workspaces: Types.ObjectId[];
+  boards?: Types.ObjectId[];
 //   workspaces: Types.ObjectId[] | WorkspaceDocument[];
   /**
    * Hashes and compares given string to the existing user password
@@ -48,13 +52,13 @@ export interface IUserBaseDocument extends IBaseWorkspace, Document<Types.Object
   generateRefreshToken(): Promise<string>;
 }
 
-export interface IUserDocument extends IUserBaseDocument {
+export interface IUserDocument extends IWorkspaceBaseDocument {
 //   workspaces: Types.Array<WorkspaceDocument["_id"]>;
 }
 
 export interface IUserCreateDataResponse {
-    status: number;
-    isSuccessful: boolean;
-    message: string;
-    data?: IBaseWorkspace
+  status: number;
+  isSuccessful: boolean;
+  message: string;
+  data?: IBaseWorkspace
 }

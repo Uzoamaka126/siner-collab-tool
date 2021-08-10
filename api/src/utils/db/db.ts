@@ -1,6 +1,3 @@
-require("dotenv").config();
-
-
 import { mongoURI } from "../../config/index";
 const mongoose = require("mongoose");
 import app from '../../index'
@@ -26,5 +23,3 @@ export const dbConnect = () => {
         console.log(err, "This shouldn't be happening", mongoURI);
     });
 }
-
-console.log(mongoURI);

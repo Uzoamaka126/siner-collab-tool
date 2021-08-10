@@ -1,5 +1,4 @@
 import { Schema, Model } from "mongoose";
-const mongoose = require("mongoose");
 
 export const workspaceSchema: Schema = new Schema({
     title: {
@@ -36,9 +35,8 @@ export const workspaceSchema: Schema = new Schema({
     activities: [{}],
     cards: [{}],
     createdBy: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'User',
-        required: true
+      type: Object,
+      required: true
     },
 },
 { timestamps: true },

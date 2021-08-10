@@ -6,7 +6,6 @@ export const addNewUser = async (req: Request, res: Response) => {
   const newUser:IUserInput = req.body;
 
   try {
-    // const doc = await userServices().createNewUser({ ...req.body, newUser })
     const doc = await authServices().createNewUser(newUser)
     return res.status(201).json(doc)
   } catch (e) {
