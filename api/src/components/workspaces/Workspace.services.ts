@@ -171,6 +171,42 @@ export async function editSingleWorkspace(data: any, id: string) {
     }
 }
 
+export async function removeSingleWorkspace(id:string) {
+    if(!id) {
+        return {
+            status: 401,
+            isSuccessful: false,
+            message: "Workspace id must be provided!",
+        }
+    }
+  try {
+    const removedWorkspace = await Workspace.findOneAndRemove({ _id: id })
+
+    if (!removedWorkspace) {
+      return {
+        status: 400,
+        isSuccessful: false,
+        message: "Workspace was not found",
+       }
+    } else {
+        return {
+            status: 200,
+            isSuccessful: true,
+            message: "Workspace successfully removed!",
+            data: removedWorkspace
+        }
+    }
+  } catch (err) {
+    console.error(err)
+    return {
+        status: 400,
+        isSuccessful: false,
+        message: "An error occured during this operation",
+        data: err
+    }
+  }
+}
+
 /* 
 {
     "title": "New Test workspace One",
