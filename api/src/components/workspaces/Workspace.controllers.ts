@@ -3,7 +3,8 @@ import {
   getAllWorkspaces, 
   addNewWorkspace, 
   getSingleWorkspace, 
-  editSingleWorkspace 
+  editSingleWorkspace,
+  removeSingleWorkspace
 } from './Workspace.services';
 import { IWorkspaceInput } from './Workspace.types';
 
@@ -48,11 +49,22 @@ export const fetchSingleWorkspace = async (req: Request, res: Response) => {
   }
 }
 
-// Find a single workspace
+// Update a single workspace
 export const updateASingleWorkspace = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const response = await editSingleWorkspace(req.body, id);
+    return res.status(response.status).json(response)
+  } catch(err) {
+      console.error(err)
+      return res.status(400).send({ error: "An error occurred!" }).end()
+  }
+}
+
+export const deleteASingleWorkspace = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    const response = await removeSingleWorkspace(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
