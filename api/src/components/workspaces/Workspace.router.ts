@@ -15,9 +15,9 @@ router
 
 // /api/users/:id
 router
-  .route('/:id')
-  // .patch(updateAUserController)
+.route('/:id')
   .get(fetchSingleWorkspace)
+  // .patch(updateAUserController)
   // .delete(deleteAUser)
 
 export default router

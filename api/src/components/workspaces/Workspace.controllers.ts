@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getAllWorkspaces, addNewWorkspace, getSingleWorkspace } from './Workspace.services';
+import { getAllWorkspaces, addNewWorkspace, getSingleWorkspace, editSingleWorkspace } from './Workspace.services';
 import { IWorkspaceInput } from './Workspace.types';
 
 // Controller to create a new workspace
@@ -36,6 +36,18 @@ export const fetchSingleWorkspace = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const response = await getSingleWorkspace(id);
+    return res.status(response.status).json(response)
+  } catch(err) {
+      console.error(err)
+      return res.status(400).send({ error: "An error occurred!" }).end()
+  }
+}
+
+// Find a single workspace
+export const updateASingleWorkspace = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    const response = await editSingleWorkspace(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
