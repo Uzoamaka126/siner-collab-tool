@@ -3,7 +3,8 @@ import {
   fetchAllWorkspace, 
   createANewWorkspace, 
   fetchSingleWorkspace,
-  updateASingleWorkspace 
+  updateASingleWorkspace,
+  deleteASingleWorkspace
 } from './Workspace.controllers';
 
 const router = express.Router();
@@ -19,6 +20,6 @@ router
 .route('/:id')
   .get(fetchSingleWorkspace)
   .patch(updateASingleWorkspace)
-  // .delete(deleteAUser)
+  .delete(deleteASingleWorkspace)
 
 export default router
