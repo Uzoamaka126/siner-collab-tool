@@ -59,3 +59,6 @@
     "build": "tsc src --out-dir dist",
     "restart": "rimraf dist && npm build && npm start",
     "start": "node dist/index.js"
+
+    Note that the development build is not optimized.
+  To create a production build, run npm run build.
