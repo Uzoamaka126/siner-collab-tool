@@ -1,0 +1,68 @@
+body {
+    font-size: $font-base;
+    font-family: $font-stack;
+    font-weight: $font-normal;
+    color: $text-color;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+    background-color: #f9faff;
+    overflow-x:hidden;
+    scroll-behavior: smooth;
+}
+
+html, html a {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    fill: currentColor;
+    vertical-align:middle;
+
+    &.icon--md {
+        height: 25px;
+        width: 25px;
+    }
+
+    &.icon--sm {
+        height: 20px;
+        width: 20px;
+    }
+
+    &.icon--xs {
+        height: 15px;
+        width: 15px;
+    }
+    &.icon--ss {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.main {
+    min-height: 100vh;
+    margin-left: auto;
+    padding: 80px 0 124px;
+    position: relative;
+    transition: width 0.3s ease-in-out;
+
+    &__title {
+        font-size: 24px;
+        position: fixed;
+        top: 2%;
+        font-weight: $font-semi-bold;
+        color: $brand-color;
+        z-index: 4;
+    }
+
+    @include media(768px) {
+        width: calc(100% - 196px);
+    }
+
+}
+.row-detail{
+  padding:26px;
+}

@@ -1,0 +1,214 @@
+.btn {
+    color: inherit;
+    display: inline-block;
+    font-weight: $font-semi-bold;
+    line-height: 1.71;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    font-family: inherit;
+    outline: none;
+    //box-shadow: 1px 1px 3px 0 rgba(50, 50, 54, 0.13), 0 0 3px 1px rgba(63, 63, 68, 0.05);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+    &:active {
+        outline: none;
+        box-shadow: none;
+        opacity: 0.7;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &--primary {
+        color: #fff;
+        background: #596DDE;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+        border-radius: 2.4px;
+        &:hover {
+            background-color: darken($brand-color, 14%);
+        }
+    }
+
+    &--positive{
+        color: #fff;
+        background: #55AB68;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+        border-radius: 2.4px;        &:hover {
+            background-color: darken($positive-button, 14%);
+        }
+    }
+
+    &--danger {
+        color: #fff;
+        background-color: $danger;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+        &:hover {
+            background-color: darken($danger, 14%);
+        }
+    }
+
+    &--transparent {
+        background-color: transparent;
+        border: 1px solid rgba(155, 155, 155, 0.2);
+    }
+
+    &--default {
+        color: inherit;
+        background-color: #ffffff;
+        &:hover {
+            background-color: $default-hover-color;
+            color: $default-hover-text-color;
+        }
+    }
+
+    &--block {
+        display: block;
+        width: 100%;
+    }
+
+    &--compact {
+        font-size: 12px;
+        font-weight: $font-semi-bold;
+        line-height: 2.0;
+        padding: 0px 8px;
+    }
+
+    &--sm {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.1;
+        padding: 8px 16px;
+    }
+
+    &--xs {
+        font-size: 12px;
+        padding: 5px 6px;
+        line-height: 1.1;
+    }
+
+    &--md {
+        padding-top:16px;
+        padding-bottom:16px;
+    }
+
+    &--lg {
+        font-size: 16px;
+        font-weight: $font-semi-bold;
+        padding: 14px 16px;
+        @include media(768px) {
+            font-size: 18px;
+            padding: 18px 16px;
+        }
+    }
+
+    &--pay {
+        padding: 8px 32px;
+    }
+
+    &--bbw {
+        @include media(1200px) {
+            padding: 12px 20px;
+            font-size: 18px;
+        }
+
+        @include media(1600px) {
+            font-size: 24px;
+            padding: 22px 30px;
+        }
+    }
+
+    &--fontRegular {
+        font-weight: $font-normal;
+    }
+
+
+    &--flex {
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+    }
+
+    &--check {
+        background-color: #ffffff;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+        padding: 16px 20px;
+        svg {
+            display: block;
+        }
+
+        @include media(1200px) {
+            padding: 16px 20px;
+
+            svg {
+                height: 12px;
+            }
+        }
+
+        @include media(1350px) {
+            padding: 18px 20px;
+
+            svg {
+                height: 16px;
+            }
+        }
+    }
+
+    &--text {
+        box-shadow: none;
+        outline: none;
+        background-color: transparent;
+        border: none;
+    }
+
+    &--colorOrange {
+        color: #ed6347;
+    }
+
+    &--bgOrange {
+        background: $accent-color;
+        color:white;
+    }
+    &--bgRed {
+        background: #EB5757;
+        color:white;
+    }
+
+    &--black{
+        background: #000;
+        color:white;
+    }
+
+    &__icon {
+        padding-right: 4px;
+        svg {
+            display: block;
+            width: 12px;
+        }
+    }
+    &--filter{
+        &:hover, &:active, &.active{
+            color:$accent-color;
+        }
+        .btn__icon{
+            svg{
+                fill:currentColor;
+            }
+        }
+    }
+    &--switchAssign{
+        margin-right: -15px;
+    }
+}

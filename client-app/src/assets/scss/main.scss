@@ -1,0 +1,44 @@
+@charset 'UTF-8';
+
+// Configuration and helpers
+// @import
+//     'abstracts/variables',
+//     'abstracts/mixins';
+
+// Vendors
+// @import
+//     'vendor/normalize',
+//     'vendor-extensions/normalize',
+//     'vendor/neat/neat';
+
+// Base stuff
+@import
+    'shared/fonts',
+    'shared/main';
+
+// @import
+//     'vendor/nprogress',
+//     'vendor/izitoast',
+//     'vendor/v-select/vue-select';
+
+// Layout-related sections
+@import
+    'layout/nav',
+    'layout/footer';
+    // 'layout/emptystate';
+
+// Components
+@import
+    'components/button',
+    'components/form',
+    'components/modal';
+
+    // Styles for views
+@import
+    'pages/signup',
+    'pages/login',
+    'pages/auth';
+
+// For things like class reset
+@import
+    'shared/helpers';
