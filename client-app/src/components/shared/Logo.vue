@@ -13,6 +13,17 @@
 <script>
 export default {
   name: 'Logo',
+  created() {
+    this.dggg()
+  },
+  data: () => ({
+
+  }),
+  methods: {
+    dggg() {
+      console.log(this.props);
+    }
+  },
   props: {
     layout: String
   }
