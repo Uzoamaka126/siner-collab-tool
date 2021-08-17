@@ -10,7 +10,7 @@
                 </div>
                 <form class="form auth--form__md form auth--form__wrap">
 
-            </form>
+                </form>
             </div>
         </div>
     </div>
