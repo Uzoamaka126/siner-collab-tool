@@ -4,7 +4,7 @@
 @import
     'shared/fonts',
     'shared/colours',
-    'shared/main';
+    'shared/style';
 
 // Components
 @import
@@ -15,8 +15,8 @@
     // Styles for views
 @import
     'pages/signup',
-    'pages/login';
-    // 'pages/auth';
+    'pages/login',
+    'pages/auth';
 
 // For things like class reset
 @import

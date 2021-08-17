@@ -15,7 +15,7 @@
 @import
     'shared/fonts',
     'shared/colours',
-    'shared/main';
+    'shared/style';
 
 // @import
 //     'vendor/nprogress',
@@ -23,16 +23,16 @@
 //     'vendor/v-select/vue-select';
 
 // Layout-related sections
-@import
-    'layout/nav',
-    'layout/footer';
+// @import
+//     'layout/nav',
+//     'layout/footer';
     // 'layout/emptystate';
 
 // Components
 @import
     'components/button',
-    'components/form',
-    'components/modal';
+    'components/form';
+    // 'components/modal';
 
     // Styles for views
 @import

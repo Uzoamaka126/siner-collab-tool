@@ -1,6 +1,14 @@
 .auth {
     &__bg {
-        background-color: #e6e7eb;
+        background-color: #f7fafc;
         height: 100vh;
+    }
+
+    &__title {
+        color: #010101;
+        font-size: 24px;
+        font-weight: $font-bold;
+        text-align: center;
+
     }
 }

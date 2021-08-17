@@ -5,12 +5,10 @@ body {
     color: $text-color-dark;
     line-height: 1.5;
     letter-spacing: 0.4px;
-    background-color: #f9faff;
     overflow-x:hidden;
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
-    border: 1px solid red;
 }
 
 html, html a {
@@ -65,7 +63,4 @@ html, html a {
     //     width: calc(100% - 196px);
     // }
 
-}
-.row-detail{
-  padding:26px;
 }
