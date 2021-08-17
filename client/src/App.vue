@@ -4,12 +4,11 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-  name: 'App',
-});
+<script>
+  import { createApp } from 'vue';
+  export default createApp({
+      name: 'App'
+  })
 </script>
 
 <style>

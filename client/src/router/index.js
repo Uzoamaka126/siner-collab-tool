@@ -1,5 +1,8 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router';
+
+// import components
+import Signup from '../components/auth/signup/Signup.vue'
 
 export const router = createRouter({
     routes: [
@@ -19,4 +22,4 @@ export const router = createRouter({
 });
 
 // const app = createApp({ /* your root component */ });
-Vue.use(router)
+// Vue.use(router)

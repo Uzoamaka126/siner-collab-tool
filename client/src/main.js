@@ -1,4 +1,5 @@
 import App from './App.vue'
+import { createApp } from 'vue'
 import { router } from './router/index';
 // import { store } from './store/index';
 import axios from 'axios'
@@ -18,50 +19,17 @@ axios.defaults.headers.common = {
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.put['Content-Type'] = 'application/json';
 
-// Add a response interceptor || random change
-// axios.interceptors.response.use(function (response) {
-//     // Do something with response data
-//     if(response.data && response.data.status == 'error' && response.data.data && response.data.data.data ){
-//         if(response.data.data.data.name == 'TokenExpiredError'){
-//             window.location = '/logout'
-//         }
-//         else if(response.data.data.data.name == 'JsonWebTokenError'){
-//             window.location.reload();
-//         }
+createApp(App)
+    .use(router)
+    .mount('#app')
 
-//     }else{
-//         return response;
-//     }
-// }, function (error) {
-//     // Do something with response error
-//     if(error.response.data.error == true){
-//         if (error.response.data.data){
-//             //scenarios
-//             if(error.response.data.data.data  &&  error.response.data.data.data.name){
-//                 if(error.response.data.data.data.name == 'TokenExpiredError'){
-//                     window.location = '/logout'
-//                 }
-//                 else if(error.response.data.data.data.name == 'JsonWebTokenError'){
-//                     window.location.reload();
-//                 }
-//             }
-//         }
-//         else{
-//             return Promise.reject(error);
-//         }
-//     }
-//     else{
-//         return Promise.reject(error);
-//     }
-// });
-// createApp(Tabs)
-
-// createApp(App).mount('#app')
+// const app = Vue.createApp(App)
+// const vm = app.mount('#app')
 /* eslint-disable no-new */
-new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App },
-    template: '<App/>'
-});
+// new Vue({
+//     el: '#app',
+//     router,
+//     store,
+//     components: { App },
+//     template: '<App/>'
+// });
