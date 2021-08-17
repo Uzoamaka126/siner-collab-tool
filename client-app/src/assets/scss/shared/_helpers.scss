@@ -2,37 +2,37 @@
     padding-left: 15px;
     padding-right: 15px;
 
-    @include media(576px) {
-        width: 540px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+    // @include media(576px) {
+    //     width: 540px;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
 
-    @include media(768px) {
-        width: 750px;
-    }
+    // @include media(768px) {
+    //     width: 750px;
+    // }
 
-    @include media(992px) {
-        width: 970px;
-    }
+    // @include media(992px) {
+    //     width: 970px;
+    // }
 
-    @include media(1200px) {
-        width: 1170px;
-    }
+    // @include media(1200px) {
+    //     width: 1170px;
+    // }
 
-    @include media(1600px) {
-        width: 1300px;
-    }
+    // @include media(1600px) {
+    //     width: 1300px;
+    // }
 }
 
 .outer-container {
-    @include media(540px) {
-        @include outer-container(100%);
-    }
+    // @include media(540px) {
+    //     @include outer-container(100%);
+    // }
 }
 
 .outer-container--full {
-    @include outer-container(100%);
+    // @include outer-container(100%);
 }
 
 .hide {
@@ -44,15 +44,15 @@
 }
 
 .hidden--xxs {
-    @include media(max-width 576px) {
-        display: none;
-    }
+    // @include media(max-width 576px) {
+    //     display: none;
+    // }
 }
 
 .hidden--xs {
-    @include media(max-width 767px) {
-        display: none !important;
-    }
+    // @include media(max-width 767px) {
+    //     display: none !important;
+    // }
 }
 
 .width{
@@ -74,7 +74,7 @@
     text-align: center;
 }
 .small-text {
-    color: $other-text-color;
+    color: $text-color-dark;
     font-size: 12px;
     &--link{
         color:$brand-color;
@@ -103,16 +103,11 @@
 
 .link {
     text-decoration: none;
-    color: $link;
+    color: $text-color-link;
     cursor: pointer;
+    
     &:hover {
-        color: darken($link, 14%);
-    }
-    &--orange{
-        color:$accent-color;
-        &:hover {
-            color: darken($accent-color, 14%);
-        }
+        color: $text-color-purple
     }
 }
 
@@ -133,6 +128,7 @@
     margin-right:auto;
     margin-left:auto;
     padding:0 30px;
+    
     &__container{
         background: white;
         padding: 18px 0;
@@ -149,7 +145,6 @@
         &--padded-top{
             padding-top:9px;
         }
-
     }
 
     &--padded-top{
@@ -185,9 +180,7 @@
         transition: background 0.4s ease-in;
         &--bg{
             background-color: #f4f4f4;
-            &--orange{
-                background-color:lighten($accent-color, 25%);
-            }
+           
         }
         &--bgCard{
             background-color: rgba(0, 0, 0, 0.31);
@@ -215,10 +208,10 @@
 }
 
 .textRed {
-    color: $danger;
+    // color: $danger;
 }
-.textOrange {
-    color: $accent-color;
+.textPurple {
+    color: $text-color-purple
 }
 
 .small {
@@ -226,7 +219,7 @@
 }
 
 .info-text {
-    color: $other-text-color;
+    color: $text-color-dark;
     display: inline-block;
     padding-top: 8px;
     &--sm {
@@ -244,12 +237,12 @@
         color:#212b36;
     }
     &:hover{
-        color:$link;
+        color: $text-color-link;
     }
 }
 
 .big-text {
-    color: $text-color;
+    color: $text-color-dark;
     font-size: 18px;
 }
 
@@ -264,7 +257,7 @@
 .hr {
     border-width: 1px 0 0 0;
     border-style: solid;
-    border-color: rgba($other-text-color, 0.2);
+    border-color: rgba($text-color-dark, 0.2);
 }
 .mt{
     &--40{
@@ -391,10 +384,10 @@
 }
 .color{
     &--red{
-        color: $danger;
+        // color: $danger;
     }
     &--green{
-        color:$tag-success;
+        // color:$tag-success;
     }
     &--blue{
         color:#4a90e2;
@@ -403,7 +396,7 @@
         color:#00249F;
     }
     &--orange{
-        color:$accent-color;
+        // color:$accent-color;
     }
     &--deep-green{
         color:#27AE60;
@@ -429,7 +422,7 @@
             border-top:0.5px solid #f2f2f2;
         }
         &__wtext{
-            @include default-flex-container();
+            // @include default-flex-container();
         }
 
         &--right, &--left{
@@ -451,24 +444,24 @@
     }
 
 }
-.flex-container{
-    @include default-flex-container();
-    &--center{
-        @include flex-container($horizontal:center)
-    }
-    &--start-x{
-        @include flex-container($horizontal:flex-start)
-    }
-    &--start-y{
-        @include flex-container($vertical:flex-start)
-    }
-    &--end-x{
-        @include flex-container($horizontal:flex-end)
-    }
-    &--end-y{
-        @include flex-container($vertical:flex-end)
-    }
-}
+// .flex-container{
+//     @include default-flex-container();
+//     &--center{
+//         @include flex-container($horizontal:center)
+//     }
+//     &--start-x{
+//         @include flex-container($horizontal:flex-start)
+//     }
+//     &--start-y{
+//         @include flex-container($vertical:flex-start)
+//     }
+//     &--end-x{
+//         @include flex-container($horizontal:flex-end)
+//     }
+//     &--end-y{
+//         @include flex-container($vertical:flex-end)
+//     }
+// }
 
 .background-grey{
     background:#c4cdd5;
@@ -480,9 +473,9 @@
     &--white{
         background-color:#fff;
     }
-    &--lightRed{
-        background-color:lighten($danger, 20%)
-    }
+    // &--lightRed{
+    //     background-color:lighten($danger, 20%)
+    // }
 }
 .text{
     &--upper{

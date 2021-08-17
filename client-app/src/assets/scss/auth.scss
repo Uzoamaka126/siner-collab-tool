@@ -1,0 +1,23 @@
+@charset 'UTF-8';
+
+// Base stuff
+@import
+    'shared/fonts',
+    'shared/colours',
+    'shared/main';
+
+// Components
+@import
+    'components/button',
+    'components/form';
+    // 'components/modal';
+
+    // Styles for views
+@import
+    'pages/signup',
+    'pages/login';
+    // 'pages/auth';
+
+// For things like class reset
+@import
+    'shared/helpers';

@@ -1,5 +1,5 @@
 <template>
-    <login-view></login-view>
+    <login-layout></login-layout>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import LoginLayout from '../components/auth/login/LoginLayout.vue'
 export default {
     name: 'LoginView',
     components: {
-    'login-layout' : LoginLayout
+        'login-layout' : LoginLayout
   },
   props: {
     msg: String

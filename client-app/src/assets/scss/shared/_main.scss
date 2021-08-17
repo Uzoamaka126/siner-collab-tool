@@ -2,12 +2,15 @@ body {
     font-size: $font-base;
     font-family: $font-stack;
     font-weight: $font-normal;
-    color: $text-color;
+    color: $text-color-dark;
     line-height: 1.5;
     letter-spacing: 0.4px;
     background-color: #f9faff;
     overflow-x:hidden;
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    border: 1px solid red;
 }
 
 html, html a {
@@ -58,9 +61,9 @@ html, html a {
         z-index: 4;
     }
 
-    @include media(768px) {
-        width: calc(100% - 196px);
-    }
+    // @include media(768px) {
+    //     width: calc(100% - 196px);
+    // }
 
 }
 .row-detail{
