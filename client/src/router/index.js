@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 export const router = createRouter({
     routes: [
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
-        },
+        // {
+        //     path: '/login',
+        //     name: 'login',
+        //     component: Login
+        // },
         {
             path: '/signup',
             name: 'signup',
@@ -18,5 +18,5 @@ export const router = createRouter({
     linkActiveClass: 'active'
 });
 
-const app = createApp({ /* your root component */ });
-app.use(router)
+// const app = createApp({ /* your root component */ });
+Vue.use(router)
