@@ -62,3 +62,10 @@
 
     Note that the development build is not optimized.
   To create a production build, run npm run build.
+
+
+  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
+
+  
+  // client
+  "build": "vue-cli-service build",
