@@ -5,9 +5,20 @@
     }
 
     &--logo {
-        margin-bottom: 70px;
+        margin-bottom: 50px;
 
     }
+
+    &--btn {
+        &__submit {
+            margin-top: 2.5rem;
+        }
+    }
+
+    &--checkbox {
+        margin-top: 2.5rem;
+    }
+
     &__title {
         color: #010101;
         font-size: 24px;
@@ -16,7 +27,7 @@
         margin-top: 0.5rem;
 
         &-wrap {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
     }
 
@@ -25,5 +36,20 @@
         box-shadow: 0 15px 35px 0 rgba(60, 66, 87, .08), 0 5px 15px 0 rgba(0, 0, 0, 0.12);
         background-color: #fff;
         border-radius: 4px;
+    }
+}
+
+// ***** LOGIN ****
+.login, .signup {
+    &__center {
+        justify-content: center;
+        padding-top: 56px;
+        z-index: 0;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        margin: 0 auto;
+        width: 1080px;
     }
 }

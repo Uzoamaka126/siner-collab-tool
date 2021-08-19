@@ -16,8 +16,12 @@
         flex-direction: column;
         
         &:not(:last-child) {
-            margin-bottom: 1rem;
+            margin-bottom: 0.825rem;
         }
+    }
+
+    &--btn__wrap {
+        width: 100%;
     }
 }
 
@@ -39,4 +43,22 @@ input {
     padding-top: 10px;
     padding-bottom: 10px;
     // box-shadow: rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(60 66 87 / 16%) 0px 0px 0px 1px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px;
+}
+
+.checkbox {
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+
+    &--label {
+        font-weight: 500;
+        font-size: 14px;
+        color: #3c4257;
+        display: block;
+        line-height: 20px;
+        white-space: normal;
+        margin-left: 5px;
+    }
+
 }

@@ -444,24 +444,6 @@
     }
 
 }
-// .flex-container{
-//     @include default-flex-container();
-//     &--center{
-//         @include flex-container($horizontal:center)
-//     }
-//     &--start-x{
-//         @include flex-container($horizontal:flex-start)
-//     }
-//     &--start-y{
-//         @include flex-container($vertical:flex-start)
-//     }
-//     &--end-x{
-//         @include flex-container($horizontal:flex-end)
-//     }
-//     &--end-y{
-//         @include flex-container($vertical:flex-end)
-//     }
-// }
 
 .background-grey{
     background:#c4cdd5;
