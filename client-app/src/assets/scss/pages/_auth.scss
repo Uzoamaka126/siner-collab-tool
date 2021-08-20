@@ -11,12 +11,12 @@
 
     &--btn {
         &__submit {
-            margin-top: 2.5rem;
+            margin-top: 1.5rem;
         }
     }
 
     &--checkbox {
-        margin-top: 2.5rem;
+        margin-top: 2rem;
     }
 
     &__title {
@@ -32,10 +32,13 @@
     }
 
     &--form {
-        padding: 56px 48px;
         box-shadow: 0 15px 35px 0 rgba(60, 66, 87, .08), 0 5px 15px 0 rgba(0, 0, 0, 0.12);
         background-color: #fff;
         border-radius: 4px;
+
+        &__wrap {
+            padding: 56px 48px 35px;
+        }
     }
 }
 
@@ -51,5 +54,15 @@
         height: 100%;
         margin: 0 auto;
         width: 1080px;
+    }
+}
+
+.signup--notify__wrap {
+    margin-top: 1rem;
+
+    a {
+        color: $text-color-link;
+        text-decoration: none;
+        font-weight: 500;
     }
 }
