@@ -31,7 +31,7 @@
                         </div>
                         <div class="checkbox__item auth--checkbox">
                             <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
-                            <label class="checkbox--label no--padding__all" for="termsAndService">Remember me</label>
+                            <label class="checkbox--label no--padding__all" for="termsAndService">I agree to the <router-link class="auth--form__link" :to="{ name: 'terms-and-service' }">Terms and Service</router-link></label>
                         </div>
 
                         <!-- signup form row -->
@@ -39,7 +39,7 @@
                             <button class="btn btn--bgPrimary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Sign up</button>
                         </div>
                         <div class="signup--notify__wrap">
-                            <div>Have an account? <router-link class="" :to="{ name: 'login' }">Login</router-link></div>
+                            <div>Have an account? <router-link class="auth--form__link" :to="{ name: 'login' }">Login</router-link></div>
                         </div>
                     </div>
                 </form>

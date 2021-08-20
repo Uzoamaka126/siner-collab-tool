@@ -39,6 +39,12 @@
         &__wrap {
             padding: 56px 48px 35px;
         }
+
+        &__link {
+            color: $text-color-link;
+            text-decoration: none;
+            font-weight: 500;
+        }
     }
 }
 
