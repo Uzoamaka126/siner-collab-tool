@@ -1,14 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <home-layout></home-layout>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import HomeLayout from '@/components/home/HomeLayout.vue'
 
 export default {
   name: 'Home',
+  components: {
+    'home-layout': HomeLayout
+  }
 }
 </script>
