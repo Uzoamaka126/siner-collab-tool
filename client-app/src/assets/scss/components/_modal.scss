@@ -9,6 +9,14 @@
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     outline: 0;
+    // background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(159, 163, 177, 0.50);
+
+
+    &.show {
+        display: block;
+        width: 100vw;
+    }
 
     &-open {
         overflow: hidden;
@@ -26,6 +34,7 @@
         position: relative;
         width: 100%;
         margin: 10px;
+        margin-top: 0;
         // @include media(768px) {
         //     width: 600px;
         //     margin-left: auto;
@@ -76,6 +85,10 @@
         -o-transform: scale(0.7);
         transform: scale(0.7);
         opacity: 0;
+
+        &--show {
+            opacity: 1;
+        }
     }
 
     &.in &__dialog {
