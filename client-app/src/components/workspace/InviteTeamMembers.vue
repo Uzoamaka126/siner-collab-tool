@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="goBack--icon goBack--icon__btn" @click="decreaseStep()">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(89, 109, 222, 1);transform: ;msFilter:;">
+                <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+            </svg>
+            <span class="goBack--icon--textSm">Back</span>
+        </div>
         <div>
             <p class="title">Invite your team members</p>
             <p class="sub-title">Workspaces help with organizing things into one place</p>
@@ -11,6 +17,9 @@
             </div>
             <div class="form__footer width--100">
                 <button class="btn btn--primary btn--lg width--100" type="submit" @click="increaseStep()">Send an Invite</button>
+                <div class="skip">
+                    <span class="text-faded text-normal">Skip. I'll do this later</span>
+                </div>
             </div>
         </form>
    </div>
@@ -24,11 +33,8 @@ export default {
         type: '',
         description: ''
     }),
-    props: ['count'],
+    props: ['count', 'decreaseStep'],
     methods: {
-        increaseStep() {
-            this.props.count++
-        }
     }
 }
 </script>
@@ -64,5 +70,13 @@ export default {
         font-weight: normal;
         line-height: 20px;
         margin: 8px 0 16px 0;
+    }
+    .skip {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.8rem;
+        cursor: pointer;
     }
 </style>

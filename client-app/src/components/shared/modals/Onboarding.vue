@@ -5,9 +5,18 @@
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section__left">
                     <div class="left--wrapper">
-                        <create-workspace :count="count"></create-workspace>
+                        <template v-if="count === 2">
+                            <create-workspace 
+                                :count="count" 
+                                :increaseStep="increaseStep"
+                            ></create-workspace>
+                        </template>
                         <template v-if="count === 3">
-                            <invite-team-members :count="count"></invite-team-members>
+                            <invite-team-members 
+                                :count="count"
+                                :decreaseStep="decreaseStep"
+                            >
+                            </invite-team-members>
                         </template>
                     </div>
                 </div>
@@ -45,6 +54,14 @@ export default {
             } else {
                 this.showOnboardingModal = false 
             }
+        },
+        increaseStep() {
+            this.count++;
+            console.log(this.count);
+        },
+        decreaseStep() {
+            this.count--;
+            console.log(this.count);
         }
     }
 }
@@ -58,6 +75,8 @@ export default {
         min-height: 500px;
         outline: 0;
         overflow: hidden;
+        height: 730px;
+        max-height: 730px;
     }
     .modal--section__left, .modal--section__right {
         width: 50%;

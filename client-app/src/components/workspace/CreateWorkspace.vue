@@ -33,12 +33,9 @@ export default {
         type: '',
         description: ''
     }),
-    props: ['count'],
+    props: ['count', 'increaseStep'],
     methods: {
-        increaseStep() {
-            this.count
-            console.log(this.count);
-        }
+        
     }
 }
 </script>

@@ -73,3 +73,18 @@ html, html a {
 .width--100 {
     width: 100%;
 }
+
+.goBack--icon {
+    color: #596DDE;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &__btn {
+        font-size: 12px;
+    }
+
+    &__textSm {
+        font-size: 12px;
+    }
+}
