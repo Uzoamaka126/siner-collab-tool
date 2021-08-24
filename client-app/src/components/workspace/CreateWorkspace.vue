@@ -2,7 +2,7 @@
    <div>
         <div>
             <p class="title">Let's create a Workspace for you</p>
-            <p class="sub-title">Workspaces help with organizing things into one place</p>
+            <p class="sub-title">A workspace helps you to organize projects and put them in one place</p>
         </div>
         <form @submit.prevent="" class="form--workspace__create">
             <div class="form__item">

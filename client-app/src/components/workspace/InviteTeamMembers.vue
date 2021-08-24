@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="form__footer width--100 mt--40">
-                <button class="btn btn--primary btn--lg width--100" type="submit">Send out Invite</button>
+                <button class="btn btn--primary btn--lg width--100" type="submit" :disabled="inviteeEmails.length <= 0">Send out Invite</button>
                 <div class="skip">
                     <span class="text-faded text-normal">Skip. I'll do this later</span>
                 </div>
@@ -45,14 +45,9 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import VueNextSelect from 'vue-next-select'
-import 'vue-next-select/dist/index.css'
-
 export default {
     name: 'InviteTeamMembers',
     components: {
-        'vue-select': VueNextSelect,
     },
     data: () => ({
         inviteeEmail: '',
