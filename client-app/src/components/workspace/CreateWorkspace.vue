@@ -7,16 +7,25 @@
         <form @submit.prevent="" class="form--workspace__create">
             <div class="form__item">
                 <label for="workspaceTitle" class="form__label">Give your workspace a name</label>
-                <input name="title" id="workspaceTitle" class="form__input" v-model="title" />
+                <input name="title" id="workspaceTitle" class="form__input" v-model="workspace.title" />
                 <p class="form__item--text">This can be the name of your team or company </p>
             </div>
             <div class="form__item">
+                    <!-- :reduce="currency => currency.name" -->
                 <label for="workspaceTitle" class="form__label">What kind of workspace is this?</label>
-                <input name="title" id="workspaceTitle" class="form__input" v-model="type" />
+                <vue-select 
+                    class="vs--button vs--button__md mr--15" 
+                    :options="workspaces"
+                    label-by="name"  
+                    v-model="workspace.type" 
+                    :placeholder="'Select a workspace type'" 
+                    :clearable=false
+                >
+                </vue-select>
             </div>
             <div class="form__item">
                 <label for="workspaceTitle" class="form__label">Describe your workspace <span class="text-faded text-normal">(optional)</span></label>
-                <textarea name="" id="resolveComment" cols="30" rows="4" class="form__input" v-model="description"></textarea>
+                <textarea name="" id="resolveComment" cols="30" rows="4" class="form__input" v-model="workspace.description"></textarea>
             </div>
             <div class="form__footer width--100">
                 <button class="btn btn--primary btn--lg width--100" type="submit" @click="increaseStep()">Continue</button>
@@ -26,12 +35,23 @@
 </template>
 
 <script>
+import { createApp } from 'vue'
+import VueNextSelect from 'vue-next-select'
+import { workspacesTypes } from '../../utils/dummy';
+import 'vue-next-select/dist/index.css'
+
 export default {
     name: 'CreateWorkspace',
+    components: {
+        'vue-select': VueNextSelect,
+    },
     data: () => ({
-        title: '',
-        type: '',
-        description: ''
+        workspace: {
+            title: '',
+            type: '',
+            description: ''
+        },
+        workspaces: workspacesTypes
     }),
     props: ['count', 'increaseStep'],
     methods: {
