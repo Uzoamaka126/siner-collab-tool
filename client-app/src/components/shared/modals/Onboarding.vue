@@ -74,9 +74,9 @@ export default {
         flex-direction: row;
         min-height: 500px;
         outline: 0;
-        overflow: hidden;
-        height: 730px;
-        max-height: 730px;
+        overflow: scroll;
+        // height: 730px;
+        // max-height: 730px;
     }
     .modal--section__left, .modal--section__right {
         width: 50%;

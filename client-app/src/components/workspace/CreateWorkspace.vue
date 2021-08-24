@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { createApp } from 'vue'
 import VueNextSelect from 'vue-next-select'
 import { workspacesTypes } from '../../utils/dummy';
 import 'vue-next-select/dist/index.css'
