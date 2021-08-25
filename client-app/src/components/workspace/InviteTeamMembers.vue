@@ -38,6 +38,14 @@
                 <button class="btn btn--primary btn--lg width--100" type="submit" :disabled="inviteeEmails.length <= 0">Send out Invite</button>
                 <div class="skip">
                     <span class="text-faded text-normal">Skip. I'll do this later</span>
+                    <span>
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(137, 141, 146, 1);transform: ;msFilter:;">
+                            <path d="M2 11h5v2H2zm15 0h5v2h-5zm-6 6h2v5h-2zm0-15h2v5h-2zM4.222 5.636l1.414-1.414 3.536 3.536-1.414 1.414zm15.556 12.728-1.414 1.414-3.536-3.536 1.414-1.414zm-12.02-3.536 1.414 1.414-3.536 3.536-1.414-1.414zm7.07-7.071 3.536-3.535 1.414 1.415-3.536 3.535z"></path>
+                        </svg> -->
+                        <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAedJREFUaEPtmN9NwzAQxs8JyjMjwAQwQtkANoABqBQVUTEBKqKK1A4AG8AGdASYAEbgGTUJMsJg0ib3x45aC/e1yd33u+/snK0g8J8KXD9EgE072JsDk+mstuHGo2EvuXoJqoVHAGJv/h8HiqLY/Sh3BuOL80dKcaQtNLmdH2fpcpHn+TslD8mBb/FPoOpDBXB2ORreY8ElADfT2WkNcAe1es7S5REFAgWwxRvRFAguwI94k4QIgQJoS0HVD82KYxAcgBXxvxAnWMuiADpWW4IuCCqAJLZdTBKABIIC4Cpe6yIDSCC6FroP8WyALogqKfev8vwN2530/9dFsZdU6St3Xa2LzXLABGhWD1vQ6xL7iCFyoAkhEe8zhsgBI0C3ArVt2lrLNYYTAKXf+34mAvRdYSz+igPND1BbAN8nLGneCIBZTP0/OkCt1LY9F7fRTTvi5IDrGGAmU5dxRAxgpskghzkfo7CPGKJxuu0kFcSBxtcx0OfxlLwGuOK36lDPFa8rTAHw4QTqQPAXW19Xi1W6AIAD89GibJ1UB9ouCgDgJUvKAXY/ijqgE9gQFPGcFrK/5FarksSzttGgr9cl8w63hSQ5WA5wE0QAYsVIi5gY689jwTsggZa805sDEjGSdyKApGo+3/kE+bqGQExtNDEAAAAASUVORK5CYII="/> -->
+                        <!-- <box-icon  type="solid" name="rocket"></box-icon> -->
+                        <box-icon name='loader' animation='spin' color='#898d92' ></box-icon>
+                    </span>
                 </div>
             </div>
         </form>
@@ -45,9 +53,12 @@
 </template>
 
 <script>
+import boxicons from 'boxicons'
+
 export default {
     name: 'InviteTeamMembers',
     components: {
+        'box-icons': boxicons
     },
     data: () => ({
         inviteeEmail: '',
@@ -109,9 +120,13 @@ export default {
         justify-content: center;
         margin-top: 0.8rem;
         cursor: pointer;
-    }
-    .vue-select {
-        width: 100% !important;
+
+        span {
+            &:nth-last-of-type() {
+                display: flex;
+                margin-left: 0.75rem;
+            }
+        }
     }
     .invitees {
         background-color: #fafbfc;
