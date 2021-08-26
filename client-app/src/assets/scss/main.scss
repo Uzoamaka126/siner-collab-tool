@@ -17,16 +17,16 @@
     'shared/colours',
     'shared/style';
 
+// For third parties
 // @import
 //     'vendor/nprogress',
 //     'vendor/izitoast',
 //     'vendor/v-select/vue-select';
 
 // Layout-related sections
-// @import
-//     'layout/nav',
-//     'layout/footer';
-    // 'layout/emptystate';
+@import
+    'layout/sidebar';
+    // 'layout/footer';
 
 // Components
 @import

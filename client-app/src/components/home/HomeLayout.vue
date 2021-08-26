@@ -2,7 +2,7 @@
     <div>
         <!-- <button class="btn btn--sm btn--default" @click="setShowOnboardingModal('show')">Modify Chargeback</button> -->
         <!-- sidebar here -->
-
+        <dashboard-layout></dashboard-layout>
         <!-- Dashboard contents here -->
 
         <!-- Add onboarding modal -->
@@ -20,6 +20,8 @@
 
 <script>
 import OnboardingModal from '../shared/modals/Onboarding.vue';
+import Dashboard from '../shared/navigation/Dashboard.vue';
+
 
 export default {
     name: 'HomeLayout',
@@ -36,7 +38,8 @@ export default {
         showOnboardingModal: false,
     }),
     components: {
-        'onboarding-modal': OnboardingModal
+        'onboarding-modal': OnboardingModal,
+        'dashboard-layout': Dashboard
     },
     methods: {
         setShowOnboardingModal(value) {
