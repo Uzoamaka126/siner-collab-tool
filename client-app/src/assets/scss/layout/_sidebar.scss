@@ -1,7 +1,8 @@
 .nav {
     display: flex;
     justify-content: space-between;
-    background-color: $brand-color;
+    background-color: $sidebar-bg-color;
+
     &__left {
         display: flex;
     }
@@ -9,6 +10,13 @@
     &__right {
         display: flex;
         justify-content: flex-end;//to be restored to space-between when search bar is back;
+    }
+
+    &--logo {
+        &__text {
+            font-size: 24px;
+            color: #343434;
+        }
     }
 
     &--noticePresent {
@@ -49,10 +57,10 @@
 
     &--sidebar {
         position: fixed;
-        left: -60px;
+        // left: -60px;
         top: 0;
         bottom: 0;
-        width: 60px;
+        width: 200px;
         padding-bottom: 22px;
         flex-direction: column;
         overflow: scroll;
@@ -107,7 +115,7 @@
 
         &__logo{
             padding: 17px 18px 14px 10px;
-            background: $brand-color;
+            background: inherit;
             border-right: solid 0.2px rgba(90, 104, 120, 0.9);
 
           svg{
