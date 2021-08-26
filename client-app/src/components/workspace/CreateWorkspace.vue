@@ -20,6 +20,7 @@
                     v-model="workspace.type" 
                     :placeholder="'Select a workspace type'" 
                     :clearable=false
+                    :close-on-select=true
                 >
                 </vue-select>
             </div>
@@ -90,5 +91,8 @@ export default {
         font-weight: normal;
         line-height: 20px;
         margin: 8px 0 16px 0;
+    }
+    .vue-select {
+        width: 100% !important;
     }
 </style>

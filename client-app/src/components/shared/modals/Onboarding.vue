@@ -1,7 +1,6 @@
 <template>
     <div>
-        <button class="btn btn--sm btn--default" @click="setShowOnboardingModal('show')">Modify Chargeback</button>
-        <main-modal :showModal="showOnboardingModal">
+        <main-modal :showModal="showOnboardingModal" :isCloseButton=false>
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section__left">
                     <div class="left--wrapper">
@@ -40,21 +39,11 @@ export default {
         'create-workspace': CreateWorkspace,
         'invite-team-members': InviteTeamMembers
     },
+    props: ["showOnboardingModal"],
     data: () => ({
-        showOnboardingModal: false,
         count: 2
     }),
-    props: ["user"],
     methods: {
-        setShowOnboardingModal(value) {
-            if(value === 'show') {
-                this.showOnboardingModal = true 
-            } else if(value === 'hide') {
-                this.showOnboardingModal = false 
-            } else {
-                this.showOnboardingModal = false 
-            }
-        },
         increaseStep() {
             this.count++;
             console.log(this.count);

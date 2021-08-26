@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- <button class="btn btn--sm btn--default" @click="setShowOnboardingModal('show')">Modify Chargeback</button> -->
         <!-- sidebar here -->
 
         <!-- Dashboard contents here -->
@@ -10,6 +11,7 @@
                 id: 1,
                 isVerified: true
             }"
+            :showOnboardingModal="showOnboardingModal"
         >
         </onboarding-modal>
         
@@ -20,12 +22,32 @@
 import OnboardingModal from '../shared/modals/Onboarding.vue';
 
 export default {
-    name: 'OnboardingLayout',
-    props: {
-        msg: String
+    name: 'HomeLayout',
+    created() {
+        console.log(this.user);
+        if(this.user && this.user.isRecentlyCreated === true) {
+            this.setShowOnboardingModal('show');
+        }
     },
+    props: {
+        user: Object
+    },
+    data: () => ({
+        showOnboardingModal: false,
+    }),
     components: {
         'onboarding-modal': OnboardingModal
+    },
+    methods: {
+        setShowOnboardingModal(value) {
+            if(value === 'show') {
+                this.showOnboardingModal = true 
+            } else if(value === 'hide') {
+                this.showOnboardingModal = false 
+            } else {
+                this.showOnboardingModal = false 
+            }
+        },
     }
 }
 </script>
