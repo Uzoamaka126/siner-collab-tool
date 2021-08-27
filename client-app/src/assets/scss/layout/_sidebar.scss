@@ -60,7 +60,7 @@
         // left: -60px;
         top: 0;
         bottom: 0;
-        width: 200px;
+        width: 240px;
         padding-bottom: 22px;
         flex-direction: column;
         overflow: scroll;
@@ -112,11 +112,10 @@
     }
 
     &__item {
-
         &__logo{
             padding: 17px 18px 14px 10px;
             background: inherit;
-            border-right: solid 0.2px rgba(90, 104, 120, 0.9);
+            // border-right: solid 0.2px rgba(90, 104, 120, 0.9);
 
           svg{
               width:150px;
@@ -149,7 +148,7 @@
         &__link {
             display: block;
             text-decoration: none;
-            color: white;
+            color: $brand-color;
             transition: all 0.3s ease-in-out;
             cursor: pointer;
             line-height: 1.71;
@@ -208,26 +207,36 @@
             text-transform: uppercase;
             margin-bottom: 12px;
             padding-left: 40px;
-            color: #637381;
+            color: $sidebar-bg-textColor;
+        }
+
+        &--item {
+            padding: 6px 8px 6px 0;
+            cursor: pointer;
+            
+            &:hover {
+                background: #eceff1;
+            }
         }
 
         &__content {
             &__group {
                 padding-bottom: 14px;
                 margin-bottom:20px;
-                &:not(:last-child){
+                margin-left: 8px;
+                margin-right: 8px;
+
+                &:not(:last-child) {
                   //border-bottom: solid 0.2px #5a6878;
-                  border-bottom: solid 0.2px rgba(90, 104, 120, 0.9);
+                  border-bottom: solid 0.2px #eee;
                 }
 
 
               &__title{
-                  font-size: 10px;
-                  font-weight: $font-semi-bold;
-                  color: rgba(255, 255, 255, 0.8);
-                  margin-bottom:9px;
-                  text-transform:uppercase;
-                  padding-left:10px;
+                  font-size: 0.875rem;
+                    font-weight: 600;
+                  color: $sidebar-bg-textColor;
+                //   text-transform:uppercase;
                 }
             }
         }
