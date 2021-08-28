@@ -1,13 +1,20 @@
-.sidebar--nav__wrap {
-    position: relative;
-    // z-index: 199;
+.sidebar--nav {
+    &__wrap {
+        position: relative;
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .dashboard--wrap {
     display: flex;
     height: 100%;
     position: relative;
-    grid-area: content / content / content / content;
+    // grid-area: content / content / content / content;
 }
 
 .nav {

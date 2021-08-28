@@ -1,17 +1,30 @@
 <template>
    <div class="dashboard--wrap">
         <div class="sidebar--nav__wrap">
-            <nav class="nav nav--sidebar">
+            <nav class="nav nav--sidebar" :style="{ width: sidebarWidth }">
             <!-- Navigation Section //random-->
                 <div class="nav__section">
                     <!-- Navigation Section content -->
                     <div class="nav__section__content">
-                        <div class="nav__section__content__group no--border">
+                        <div class="nav__section__content__group no--border sidebar--nav__brand">
                             <!-- navigation item -->
                             <div class="nav__item">
                                 <div class="nav__item__logo">
                                     <siner-logo :layout="'center'"></siner-logo>
                                 </div>
+                            </div>
+                            <div @click="toggleSidebar()" class="cursor-pointer">
+                                <template v-if="!collapse" >
+                                    <icon-svg 
+                                        fill="rgba(66, 82, 110)" 
+                                        class="nav__icon" 
+                                        name="arrow-from-right" 
+                                        icon-position="left"
+                                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                                        :width="'3rem'"
+
+                                    />  
+                                </template> 
                             </div>
                         </div>
 
@@ -24,7 +37,7 @@
                                         name="home" 
                                         icon-position="left"
                                         :style="{ fill: 'rgba(66, 82, 110)' }"
-                                        :width="'0.825rem'"
+                                        :width="'3rem'"
                                     />   
                                     <span class="nav__section__content__group__title">Home</span>
                                 </div>
@@ -35,7 +48,7 @@
                                         name="board" 
                                         icon-position="left"
                                         :style="{ fill: 'rgba(66, 82, 110)' }"
-                                        :width="'0.825rem'"
+                                        :width="'3rem'"
                                     />   
                                     <span class="nav__section__content__group__title">Boards</span>
                                 </div>
@@ -50,7 +63,7 @@
             </nav>
         </div>
     <!-- collapse button -->
-        <div data-resize-control="true" class="collapse--wrap">
+        <!-- <div data-resize-control="true" class="collapse--wrap">
             <div class="collapse--after"></div>
                 <button role="separator" aria-label="Resize" aria-expanded="true" class="collapse--btn">
                     <span></span>
@@ -65,7 +78,7 @@
                     <div class="css-z8pkji"></div>
                 </button>
             </div>
-        </div>
+        </div> -->
    </div>
 </template>
 
@@ -92,7 +105,8 @@ export default {
         // df () {
         //     return this.showOnboardingModal
         // }
-    }
+    },
+    props: ["toggleSidebar", "collapse", "sidebarWidth"]
 }
 </script>
 

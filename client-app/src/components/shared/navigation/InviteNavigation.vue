@@ -6,7 +6,7 @@
                 class="nav__icon" 
                 name="multiple-users" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
-                :width="'1rem'"
+                :width="'3rem'"
             />
             <span class="nav__section__content__group__title">Invite teammates</span>
         </div>

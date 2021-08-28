@@ -1,5 +1,4 @@
 <template>
- 
     <div class="nav__section__content__group">
         <div class="nav__section--item nav__section--item--sub">  
             <span class="nav__section__content__group__title">Workspaces</span>
@@ -9,8 +8,7 @@
                 class="nav__icon" 
                 name="add" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
-                :width="'0.825rem'"
-                
+                :width="'1rem'"
                 /> 
             </span>
         </div>

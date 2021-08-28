@@ -1,21 +1,46 @@
 <template>
     <div class="dashboard--container">
-        <side-bar></side-bar>
+        <side-bar 
+            :toggleSidebar="toggleSidebar"
+            :collapse="collapse"
+            :sidebarWidth="sidebarWidth"
+        ></side-bar>
+        <dashboard-content-layout
+            :toggleSidebar="toggleSidebar"
+            :collapse="collapse"
+            :sidebarWidth="sidebarWidth"
+        ></dashboard-content-layout>
     </div>
 </template>
 
 <script>
-import Sidebar from './SideBar.vue'
+import Sidebar from './SideBar.vue';
+import DashbaordContentLayout from './ContentLayout.vue';
+
 export default {
     name: 'Dashboard',
     props: {
         
     },
     data: () => ({
+        collapse: false,
+        sidebarWidth: '240px'
     }),
     components: {
-        'side-bar': Sidebar
-    }
+        'side-bar': Sidebar,
+    'dashboard-content-layout': DashbaordContentLayout
+    },
+     methods: {
+        toggleSidebar() {
+            if(this.collapse === false) {
+                this.collapse = true;
+                this.sidebarWidth = '20px'
+            } else {
+                this.collapse = false;
+                this.sidebarWidth = '240px'
+            }
+        }
+    },
 }
 </script>
 

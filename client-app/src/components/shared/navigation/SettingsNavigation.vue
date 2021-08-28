@@ -6,7 +6,7 @@
                 class="nav__icon" 
                 name="settings-2" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
-                :width="'0.825rem'"
+                :width="'3rem'"
             />
             <span class="nav__section__content__group__title">Settings</span>
         </div>

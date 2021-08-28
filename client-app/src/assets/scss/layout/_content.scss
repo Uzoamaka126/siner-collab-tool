@@ -1,0 +1,105 @@
+.content {
+    padding-left: 240px;
+    // width: 100%;
+    overflow: hidden;
+    // position: fixed;
+
+    &__layout {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-width: 920px;
+        position: relative;
+        border: 1px solid red
+    }
+
+    &--header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 72px;
+        // width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        &--btn {
+            border-radius: 3px;
+            border: 0;
+            text-decoration: none;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            // color: $brand-color;
+            display: flex;
+            font-weight: bold;
+            height: 32px;
+            line-height: 32px;
+            margin: 0 4px 0 0;
+            padding: 0;
+            white-space: nowrap;
+            // border: 1px solid $brand-color;
+            font-weight: 400 !important;
+            font-size: 14px !important;
+            padding: 0 12px !important;
+
+            p {
+                margin: 0;
+                font-weight: 400;
+                padding: 0 12px;
+            }
+
+            &--icon {
+                display: flex;
+                width: 32px;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+
+                svg {
+                    overflow: hidden;
+                    pointer-events: none;
+                    max-width: 100%;
+                    max-height: 100%;
+                    color: $brand-color;
+                    fill: $brand-color;
+                    vertical-align: bottom;
+                    height: 20px;
+                    width: 20px;
+                    line-height: 20px;
+                }
+            }
+        }
+
+        &__right {
+            display: flex;
+            align-items: center;
+        }
+
+        &__avatar {
+            align-items: center;
+            color: var(--color-text-weak);
+            display: flex;
+            margin-left: 12px;
+            transition: .2s background,.2s color,.2s box-shadow;
+
+            .avatar-wrap {
+                font-size: 12px;
+                height: 28px;
+                line-height: 28px;
+                min-width: 28px;
+                width: 28px;
+                transition: box-shadow .2s
+                
+            }
+        }
+    }
+
+    &__body {
+        min-height: calc(100vh - 72px);
+
+    }
+}
+
+.header__create {
+    cursor: pointer;
+}
