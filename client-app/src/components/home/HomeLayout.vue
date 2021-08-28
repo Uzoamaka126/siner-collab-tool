@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 100%">
         <!-- <button class="btn btn--sm btn--default" @click="setShowOnboardingModal('show')">Modify Chargeback</button> -->
         <!-- sidebar here -->
         <dashboard-layout></dashboard-layout>

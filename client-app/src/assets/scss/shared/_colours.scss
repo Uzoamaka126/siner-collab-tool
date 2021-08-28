@@ -5,5 +5,43 @@ $default-border-color: #dfdbfb;
 $default-icon-color: #7c828d;
 // $sidebar-bg-color: #FAFBFC;
 $sidebar-bg-color: rgb(250, 251, 252);
-$sidebar-bg-textColor: rgb(66, 82, 110)
+$sidebar-bg-textColor: rgb(66, 82, 110);
 // 
+.color{
+    &--red{
+        // color: $danger;
+    }
+    &--green{
+        // color:$tag-success;
+    }
+    &--blue{
+        color:#4a90e2;
+    }
+    &--deep-blue{
+        color:#00249F;
+    }
+    &--orange{
+        // color:$accent-color;
+    }
+    &--deep-green{
+        color:#27AE60;
+    }
+    &--white{
+        color:white;
+    }
+}
+
+.background-grey{
+    background:#c4cdd5;
+}
+.background{
+    &--grey{
+        background-color:#fcfcfc;
+    }
+    &--white{
+        background-color:#fff;
+    }
+    // &--lightRed{
+    //     background-color:lighten($danger, 20%)
+    // }
+}

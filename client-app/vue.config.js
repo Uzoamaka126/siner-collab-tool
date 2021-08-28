@@ -13,9 +13,9 @@ module.exports = {
         port: 3454,
     },
     runtimeCompiler: true,
-    resolve: {
-      alias: {
-        'vue$': 'vue/dist/vue.esm.js'
-      }
-    }
+    // resolve: {
+    //   alias: {
+    //     'vue$': 'vue/dist/vue.esm.js'
+    //   }
+    // }
 } 

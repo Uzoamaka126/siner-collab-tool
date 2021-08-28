@@ -55,6 +55,10 @@
     // }
 }
 
+#app {
+    height: 100vh;
+}
+
 .width{
     &--45{
         width:45%;
@@ -70,17 +74,6 @@
     }
 }
 
-.textCenter {
-    text-align: center;
-}
-.small-text {
-    color: $text-color-dark;
-    font-size: 12px;
-    &--link{
-        color:$brand-color;
-        cursor:pointer
-    }
-}
 
 .imgCircle {
     border-radius: 50%;
@@ -90,11 +83,6 @@
     width: 100%;
     object-fit: cover;
     height:auto;
-}
-
-.inlineBlock {
-    display: inline-block !important;
-    vertical-align: middle;
 }
 
 .visibilityNone {
@@ -109,14 +97,6 @@
     &:hover {
         color: $text-color-purple
     }
-}
-
-.textRight {
-    text-align: right;
-}
-
-.textLeft {
-    text-align: left;
 }
 
 .row {
@@ -171,62 +151,12 @@
             padding-bottom: 0;
         }
     }
-    &__menu{
-        width: 27px;
-        height: 27px;
-        background-color: transparent;
-        border-radius: 100%;
-        text-align: center;
-        transition: background 0.4s ease-in;
-        &--bg{
-            background-color: #f4f4f4;
-           
-        }
-        &--bgCard{
-            background-color: rgba(0, 0, 0, 0.31);
-        }
-    }
-    &__name-section{
-        &--text{
-            &:first-of-type{
-                margin-right:22px;
-            }
-        }
-        &--borderRight {
-            border-right: 1px solid #C4C4C4;
-        }
-    }
-
-    &--borderYellow {
-        border-bottom: 3px solid #eec200;
-        background-color: #fff;
-    }
 }
 
-.cursorPointer {
+.cursor-pointer {
     cursor: pointer;
 }
 
-.textRed {
-    // color: $danger;
-}
-.textPurple {
-    color: $text-color-purple
-}
-
-.small {
-    font-size: 10px;
-}
-
-.info-text {
-    color: $text-color-dark;
-    display: inline-block;
-    padding-top: 8px;
-    &--sm {
-        font-size: 12px;
-        color: #919EAB;
-    }
-}
 .info-icon{
     vertical-align: middle;
 }
@@ -239,11 +169,6 @@
     &:hover{
         color: $text-color-link;
     }
-}
-
-.big-text {
-    color: $text-color-dark;
-    font-size: 18px;
 }
 
 .positionRelative {
@@ -352,59 +277,6 @@
     box-shadow:none;
 }
 
-.pull{
-    &--right{
-        float:right;
-    }
-    &--left{
-        float:left;
-    }
-}
-.special-width{
-    max-width: 197px;
-    overflow-x: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    &--sm {
-        max-width: 100px;
-    }
-    &--lg {
-        max-width: 500px;
-    }
-    &--md{
-        max-width:394px;
-    }
-    &--break{
-        hyphens: auto;
-        word-break: break-word;
-    }
-    &--min-sm{
-        min-width:150px;
-    }
-}
-.color{
-    &--red{
-        // color: $danger;
-    }
-    &--green{
-        // color:$tag-success;
-    }
-    &--blue{
-        color:#4a90e2;
-    }
-    &--deep-blue{
-        color:#00249F;
-    }
-    &--orange{
-        // color:$accent-color;
-    }
-    &--deep-green{
-        color:#27AE60;
-    }
-    &--white{
-        color:white;
-    }
-}
 .divider{
     &--horizontal{
         width: 53px;
@@ -445,45 +317,6 @@
 
 }
 
-.background-grey{
-    background:#c4cdd5;
-}
-.background{
-    &--grey{
-        background-color:#fcfcfc;
-    }
-    &--white{
-        background-color:#fff;
-    }
-    // &--lightRed{
-    //     background-color:lighten($danger, 20%)
-    // }
-}
-.text{
-    &--upper{
-        text-transform:uppercase;
-    }
-    &--lower{
-        text-transform:lowercase;
-    }
-    &--capitalize{
-        text-transform:capitalize;
-    }
-}
-.subtext{
-    font-size:12px;
-    &--grey{
-        color:#888888;
-        letter-spacing: normal;
-        line-height:normal;
-    }
-}
-.maintext{
-    font-size:16px;
-    &--bold{
-        color:#3a3a3a;
-    }
-}
 .overflow-wrap{
     max-width: 200px;
     overflow-wrap: break-word;
@@ -527,19 +360,11 @@
     margin-left:5px;
     margin-right:5px;
 }
-.no--decor{
-    text-decoration:none;
-}
+
 .flex-wrap{
     flex-wrap:wrap;
 }
-.icon__googleLg{
-    position: absolute;
-    left: 50px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-}
+
 .stroke-icon{
     background:#4a4a4a;
     margin-right:10px;
@@ -558,19 +383,7 @@
         }
     }
 }
-.font{
-    &Lighter{
-        font-weight:lighter;
-    }
-}
-.flexWidth{
-    &--20{
-        flex-basis:20%;
-    }
-    &--25{
-        flex-basis:25%;
-    }
-}
+
 //css arrows
 .left-arrow {
     border-color: transparent black;
@@ -660,6 +473,7 @@
 
     }
 }
+
 .no--border {
     border: none;
     border-bottom: none !important;

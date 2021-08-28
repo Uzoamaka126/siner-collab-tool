@@ -1,51 +1,72 @@
 <template>
-    <nav class="nav nav--sidebar">
-        <!-- Navigation Section //random-->
-        <div class="nav__section">
-            <!-- Navigation Section content -->
-            <div class="nav__section__content">
-                <div class="nav__section__content__group no--border">
-                    <!-- navigation item -->
-                    <div class="nav__item">
-                        <div class="nav__item__logo">
-                            <siner-logo :layout="'center'"></siner-logo>
+   <div class="dashboard--wrap">
+        <div class="sidebar--nav__wrap">
+            <nav class="nav nav--sidebar">
+            <!-- Navigation Section //random-->
+                <div class="nav__section">
+                    <!-- Navigation Section content -->
+                    <div class="nav__section__content">
+                        <div class="nav__section__content__group no--border">
+                            <!-- navigation item -->
+                            <div class="nav__item">
+                                <div class="nav__item__logo">
+                                    <siner-logo :layout="'center'"></siner-logo>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="nav__section__content__links">
-                    <div class="nav__section__content__group">
-                        <div class="nav__section--item">
-                            <icon-svg 
-                                fill="rgba(66, 82, 110)" 
-                                class="nav__icon" 
-                                name="home" 
-                                icon-position="left"
-                                :style="{ fill: 'rgba(66, 82, 110)' }"
-                                :width="'0.825rem'"
-                            />   
-                            <span class="nav__section__content__group__title">Home</span>
-                        </div>
-                         <div class="nav__section--item">
-                            <icon-svg 
-                                fill="rgba(66, 82, 110)" 
-                                class="nav__icon" 
-                                name="board" 
-                                icon-position="left"
-                                :style="{ fill: 'rgba(66, 82, 110)' }"
-                                :width="'0.825rem'"
-                            />   
-                            <span class="nav__section__content__group__title">Boards</span>
+                        <div class="nav__section__content__links">
+                            <div class="nav__section__content__group">
+                                <div class="nav__section--item">
+                                    <icon-svg 
+                                        fill="rgba(66, 82, 110)" 
+                                        class="nav__icon" 
+                                        name="home" 
+                                        icon-position="left"
+                                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                                        :width="'0.825rem'"
+                                    />   
+                                    <span class="nav__section__content__group__title">Home</span>
+                                </div>
+                                <div class="nav__section--item">
+                                    <icon-svg 
+                                        fill="rgba(66, 82, 110)" 
+                                        class="nav__icon" 
+                                        name="board" 
+                                        icon-position="left"
+                                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                                        :width="'0.825rem'"
+                                    />   
+                                    <span class="nav__section__content__group__title">Boards</span>
+                                </div>
+                            </div>
+                            <!-- Workspace navigation group -->
+                            <workspace-navigation></workspace-navigation>
+                            <invite-navigation></invite-navigation>
+                            <settings-navigation></settings-navigation>
                         </div>
                     </div>
-                     <!-- Workspace navigation group -->
-                    <workspace-navigation></workspace-navigation>
-                    <invite-navigation></invite-navigation>
-                    <settings-navigation></settings-navigation>
                 </div>
+            </nav>
+        </div>
+    <!-- collapse button -->
+        <div data-resize-control="true" class="collapse--wrap">
+            <div class="collapse--after"></div>
+                <button role="separator" aria-label="Resize" aria-expanded="true" class="collapse--btn">
+                    <span></span>
+                </button>
+                <div role="presentation">
+                    <button data-resize-button="true" aria-expanded="true" aria-label="Toggle navigation" type="button" class="css-gb880y">
+                        <span role="presentation" aria-hidden="true" class="css-gv1w16" style="--icon-primary-color:currentColor; --icon-secondary-color:#FFFFFF;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" role="presentation">
+                                <path d="M10.294 9.698a.988.988 0 010-1.407 1.01 1.01 0 011.419 0l2.965 2.94a1.09 1.09 0 010 1.548l-2.955 2.93a1.01 1.01 0 01-1.42 0 .988.988 0 010-1.407l2.318-2.297-2.327-2.307z" fill="currentColor" fill-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    <div class="css-z8pkji"></div>
+                </button>
             </div>
         </div>
-    </nav>
+   </div>
 </template>
 
 <script>
