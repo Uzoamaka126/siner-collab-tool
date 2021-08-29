@@ -36,3 +36,21 @@ export const workspacesTypes = [
         name: 'Others'
     },
 ]
+
+export const createdWorkspaces = [
+    {
+        id: 1,
+        name: 'Workspace 1',
+        type: 'Marketing'
+    },
+    {
+        id: 2,
+        name: 'Workspace 2',
+        type: 'Operations'
+    },
+    {
+        id: 3,
+        name: 'Workspace 3',
+        type: 'Sales & CRM'
+    },
+]

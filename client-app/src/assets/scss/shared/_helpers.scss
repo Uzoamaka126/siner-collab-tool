@@ -99,6 +99,10 @@
     }
 }
 
+.pull--right {
+    float: right;
+}
+
 .row {
     display: flex;
     width: 100%;
@@ -137,6 +141,7 @@
 
     &__item {
         padding: 0 12px 9px;
+        
         &:last-child {
             padding-right: 0;
         }
