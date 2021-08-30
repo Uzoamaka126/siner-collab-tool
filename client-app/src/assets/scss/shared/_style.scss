@@ -121,9 +121,9 @@ html, html a {
     inset: 0px auto auto 0px;
     transform: translate3d(0px, 52px, 0px);
 
-    &.active {
-        display: block;
-    }
+    // &.active {
+    //     display: block;
+    // }
 
     &--sm {
         min-width: 200px;
@@ -220,4 +220,8 @@ html, html a {
             }
         }
     }
+}
+
+.active {
+    display: block;
 }

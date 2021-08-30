@@ -1,6 +1,6 @@
 <template>
-  <span class="svg-icon" @click="$emit('click')">
-    <component :is="{ template: iconName }" :style="styles" :width="width" :height="height" :fill="fill" />
+  <span class="svg-icon" @click="$emit('click')" :style="styles">
+    <component :is="{ template: iconName }" :width="width" :height="height" :fill="fill" />
     <!-- <component :is="iconName ? 'IconMain' : null" /> -->
   </span>
 </template>

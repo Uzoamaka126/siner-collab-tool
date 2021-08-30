@@ -35,6 +35,7 @@
         width: 100%;
         margin: 10px;
         margin-top: 0;
+
         // @include media(768px) {
         //     width: 600px;
         //     margin-left: auto;
@@ -52,6 +53,7 @@
             // @include media(768px) {
             //     width: 400px;
             // }
+                width: 400px;
         }
 
 
@@ -59,12 +61,14 @@
             // @include media(768px) {
             //     width: 500px;
             // }
+                width: 500px;
         }
 
         &--lg {
             // @include media(992px) {
             //     width: 620px;
             // }
+                width: 620px;
         }
         &--xlg {
             // @include media(992px) {
@@ -73,6 +77,22 @@
             // @include media(1200px) {
             //     width: 1000px;
             // }
+        }
+
+        &--header {
+            color: #172b4d;
+            font-size: 20px;
+            line-height: 1.5;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 1.5rem;
+
+            h2 {
+                font-weight: normal !important;
+            }
         }
     }
 
@@ -108,6 +128,7 @@
         border-radius: 6px;
         outline: 0;
         box-shadow: 0 2px 16px 0 rgba(33, 43, 54, 0.08), 0 31px 41px 0 rgba(33, 43, 54, 0.2);
+        padding: 16px 32px;
     }
 
     &-backdrop {

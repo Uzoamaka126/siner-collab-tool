@@ -157,7 +157,8 @@
     &__section {
         &__title {
             font-size: 12px;
-            font-weight: $font-bold;
+            // font-weight: $font-bold;
+            font-weight: $font-normal;
             text-transform: uppercase;
             margin-bottom: 12px;
             padding-left: 40px;
@@ -219,7 +220,7 @@
 
               &__title{
                   font-size: 0.875rem;
-                    font-weight: 600;
+                    font-weight: $font-normal;
                   color: $sidebar-bg-textColor;
                 }
             }
@@ -418,4 +419,9 @@
     -webkit-box-pack: center;
     justify-content: center;
     margin-right: 16px;
+}
+
+.nav--divider {
+    font-size: 1rem;
+    font-weight: 600;
 }
