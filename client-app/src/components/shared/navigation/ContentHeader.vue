@@ -121,7 +121,9 @@
             </div>
         </div>
     </div>
-    <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
+    <template>
+        <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
+    </template>
   </div>
 </template>
 
