@@ -5,14 +5,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-function customDirectives () {
-    return 
-}
-
-
 createApp(App)
+    .use(store)
+    .use(router)
+    .component('vue-select', vSelect)
     .directive('click-outside', {
         bind: function (el, binding, vNode) {
+            console.log(el, binding, vNode);
             // Provided expression must evaluate to a function.
             if (typeof binding.value !== 'function') {
                 const compName = vNode.context.name;
@@ -42,7 +41,4 @@ createApp(App)
 
         }
     })
-    .use(store)
-    .use(router)
-    .component('vue-select', vSelect)
     .mount('#app')

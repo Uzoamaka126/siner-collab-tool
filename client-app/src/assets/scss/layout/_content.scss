@@ -26,6 +26,7 @@
         padding-bottom: 5px;
         padding-top: 5px;
         box-shadow: 0 1px 4px 0 rgba(21, 7, 38, 0.08);
+        padding-right: 30px;
 
         &--btn {
             border-radius: 3px;
@@ -86,6 +87,9 @@
             display: flex;
             margin-left: 12px;
             transition: .2s background,.2s color,.2s box-shadow;
+            position: relative;
+            z-index: 4;
+            width: 100%;
 
             .avatar-wrap {
                 font-size: 12px;
@@ -107,4 +111,11 @@
 
 .header__create {
     cursor: pointer;
+
+    &--avatar {
+        // border: 1px solid red;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
 }

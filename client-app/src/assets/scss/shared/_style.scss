@@ -121,9 +121,22 @@ html, html a {
     inset: 0px auto auto 0px;
     transform: translate3d(0px, 52px, 0px);
 
-    // &.active {
-    //     display: block;
-    // }
+    &--avatar {
+        min-width: 280px;
+        max-width: 800px;
+        display: none;
+        position: absolute;
+        top: 130%;
+        z-index: 1000;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 16px 0 rgba(33, 43, 54, 0.08), 0 0 0 1px rgba(6, 44, 82, 0.01);
+        transition: all 0.3s ease-in-out;
+        min-width: 280px;
+        right: 0px;
+        transform: none;
+        inset: 130% 0px auto auto !important;
+    }
 
     &--sm {
         min-width: 200px;
@@ -173,7 +186,6 @@ html, html a {
             flex-shrink: 1;
             overflow: auto;
 
-
             &::before, &::after {
                 content: " ";
                 display: block;
@@ -217,6 +229,16 @@ html, html a {
                 font-weight: 700;
                 color: rgb(107, 119, 140);
                 padding: 0px 20px;
+            }
+
+            &--avatar {
+                border-bottom: 1px solid #f5f5f5;
+
+                &:hover {
+                    background-color: #EEEFFB;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 <template>
-    <login-layout></login-layout>
+    <!-- <div style="height: 100%;"> -->
+      <login-layout></login-layout>
+    <!-- </div> -->
 </template>
 
 <script>

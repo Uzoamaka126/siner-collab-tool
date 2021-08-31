@@ -1,5 +1,6 @@
 <template>
-  <div class="content--header">
+ <div>
+      <div class="content--header">
     <div class="content--header__left">
         <div class="collapse--content">
             <!-- <template>
@@ -16,7 +17,7 @@
         <div class="workspace--header__title">
         <!-- workspace -->
            <div class="row__item positionRelative" v-click-outside="hideDropdown">
-                <span class="pull--right cursor-pointer nav--dropdown--text" @click="dropdownIsActive.workspaces ? hideDropdown('workspaces') : openDropdown('workspaces', 0)">
+                <span class="pull--right cursor-pointer nav--dropdown--text" @click="toggleDropdown('workspaces', 0)">
                     <span class="">Workspace name here</span>
                     <span>
                          <icon-svg 
@@ -28,7 +29,7 @@
                         />  
                     </span>
                 </span>
-                <div class="dropdown dropdown--lg" :style="{}" :class="{ 'active' : dropdownIsActive.workspaces }" id="workspaces">
+                <div class="dropdown dropdown--lg" :class="{ 'active' : dropdownIsActive.workspaces }" id="workspaces">
                    <div class="dropdown__content">
                         <div class="dropdown__content--group" style="padding-left: 1rem;">
                             <span>
@@ -58,7 +59,7 @@
             <span class="nav--divider"> / </span>
             <!-- boards -->
             <div class="row__item positionRelative" v-click-outside="hideDropdown">
-                <span class="pull--right cursor-pointer nav--dropdown--text"  @click="dropdownIsActive.boards ? hideDropdown('boards') : openDropdown('boards', 1)">
+                <span class="pull--right cursor-pointer nav--dropdown--text"  @click="toggleDropdown('boards', 1)">
                     <span class="">Board name here</span>
                     <span>
                          <icon-svg 
@@ -113,18 +114,45 @@
                 :styles="iconStyles"
             />  
         </div>
-        <div class="header__create">
-            <div class="content--header__avatar">
+        <div class="header__create header__create--avatar" v-click-outside="hideDropdown">
+            <div class="content--header__avatar" @click="toggleDropdown('user', 2)">
                 <div class="avatar-wrap avatar">
                     UA
                 </div>
             </div>
+            <!-- dropdown content -->
+            <div class="dropdown dropdown--avatar" :class="{ 'active' : dropdownIsActive.user }" :style="{ }" id="user">
+                <div class="dropdown__content">
+                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
+                        <span>
+                            <div class="dropdown__item__link">
+                                <a class="title">Personal Settings</a>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
+                        <span>
+                            <div class="dropdown__item__link">
+                                <a class="title">Explore the dashboard</a>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
+                        <span>
+                            <div class="dropdown__item__link">
+                                <p class="title">Sign out</p>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!--  -->
+        <!--  -->
     </div>
-    <template>
-        <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
-    </template>
   </div>
+        <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
+ </div>
 </template>
 
 <script>
@@ -142,7 +170,8 @@ export default {
   data: () => ({
       dropdownIsActive: {
           workspaces: false,
-          boards: false
+          boards: false,
+          user: false
       },
       iconStyles: {
         display: 'flex', 
@@ -153,15 +182,14 @@ export default {
   }),
   props: [""],
   methods: {
-    openDropdown(name, index) {
+    toggleDropdown(name, index) {
         var getDropdownClass = document.getElementsByClassName("dropdown");
         for (var i = 0; i < getDropdownClass.length; i++) {
             if(i === index) {
-                console.log(name, getDropdownClass[i].id);
-                if(getDropdownClass[i])
-                // if
-                if(name === getDropdownClass[i].id && this.dropdownIsActive[name] === false) {
-                    this.dropdownIsActive[getDropdownClass[i].id] = true
+                // console.log(i, index, name, getDropdownClass[i].id);
+                // if(getDropdownClass[i])
+                if(name === getDropdownClass[i].id) {
+                    this.dropdownIsActive[getDropdownClass[i].id] = !this.dropdownIsActive[getDropdownClass[i].id]
                 }
             }
         }
@@ -173,8 +201,9 @@ export default {
         //     this.dropdownIsActive = false
         // }
     },
-    hideDropdown(name) {
-        this.dropdownIsActive[name] = false;
+    hideDropdown() {
+        this.dropdownIsActive['workspaces'] = false;
+        this.dropdownIsActive['boards'] = false;
     },
     toggleCreateBoardModal(value) {
         if(value === 'show') {
