@@ -21,6 +21,10 @@ html, html a {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 
+a {
+    text-decoration: none;
+}
+
 [class^="icon-"], [class*=" icon-"] {
     height: 32px;
     width: 32px;
@@ -234,10 +238,12 @@ html, html a {
             &--avatar {
                 border-bottom: 1px solid #f5f5f5;
 
-                &:hover {
-                    background-color: #EEEFFB;
-                    font-weight: 500;
-                    cursor: pointer;
+                &:not(:first-of-type) {
+                    &:hover {
+                        background-color: #EEEFFB;
+                        font-weight: 500;
+                        cursor: pointer;
+                    }
                 }
             }
         }

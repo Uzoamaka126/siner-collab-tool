@@ -22,7 +22,6 @@
                                         icon-position="left"
                                         :style="{ fill: 'rgba(66, 82, 110)' }"
                                         :width="'3rem'"
-
                                     />  
                                 </template> 
                             </div>
@@ -30,28 +29,7 @@
 
                         <div class="nav__section__content__links">
                             <div class="nav__section__content__group">
-                                <div class="nav__section--item">
-                                    <icon-svg 
-                                        fill="rgba(66, 82, 110)" 
-                                        class="nav__icon" 
-                                        name="home" 
-                                        icon-position="left"
-                                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                                        :width="'3rem'"
-                                    />   
-                                    <span class="nav__section__content__group__title">Home</span>
-                                </div>
-                                <div class="nav__section--item">
-                                    <icon-svg 
-                                        fill="rgba(66, 82, 110)" 
-                                        class="nav__icon" 
-                                        name="board" 
-                                        icon-position="left"
-                                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                                        :width="'3rem'"
-                                    />   
-                                    <span class="nav__section__content__group__title">Boards</span>
-                                </div>
+                                <home-navigation></home-navigation>
                             </div>
                             <!-- Workspace navigation group -->
                             <workspace-navigation></workspace-navigation>
@@ -88,6 +66,7 @@ import IconSvg from "../../icons/Icon-Svg.vue";
 import WorkspaceNavigation from './WorkspaceNavigation.vue';
 import SettingsNavigation from './SettingsNavigation.vue';
 import InviteNavigation from './InviteNavigation.vue';
+import HomeNavigation from './HomeNavigation.vue';
 
 export default {
     name: 'SideBarLayout',
@@ -96,7 +75,8 @@ export default {
         'icon-svg': IconSvg,
         'workspace-navigation': WorkspaceNavigation,
         'settings-navigation': SettingsNavigation,
-        'invite-navigation': InviteNavigation
+        'invite-navigation': InviteNavigation,
+        'home-navigation': HomeNavigation,
     },
     data: () => ({
         showOnboardingModal: false,
@@ -109,36 +89,3 @@ export default {
     props: ["toggleSidebar", "collapse", "sidebarWidth"]
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-    .nav__section--item {
-        display: flex;
-        align-items: center;
-        color: #42526e;
-        // margin-bottom:9px;
-        padding-left:10px;
-    }
-    .nav__icon {
-        width: 1rem;
-        margin-right: 10px;
-        display: flex;
-        height: 24px;
-        width: 24px;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        margin-right: 16px;
-    }
-    .nav__section--item--sub {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-transform: uppercase;
-        
-        span {
-            font-size: 12px;
-        }
-    }
-</style>

@@ -18,7 +18,7 @@ import Sidebar from './SideBar.vue';
 import DashbaordContentLayout from './ContentLayout.vue';
 
 export default {
-    name: 'Dashboard',
+    name: 'DashboardLayout',
     props: {
         
     },

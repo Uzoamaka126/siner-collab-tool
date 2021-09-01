@@ -1,22 +1,13 @@
 <template>
     <div style="height: 100%">
-        <!-- Add onboarding modal -->
-         <onboarding-modal 
-            :user="{
-                id: 1,
-                isVerified: true
-            }"
-            :showOnboardingModal="showOnboardingModal"
-        >
-        </onboarding-modal>
+       
     </div>
 </template>
 
 <script>
-import OnboardingModal from '../shared/modals/Onboarding.vue';
 
 export default {
-    name: 'HomeLayout',
+    name: 'BoardLayout',
     created() {
         console.log(this.user);
         if(this.user && this.user.isRecentlyCreated === true) {
@@ -30,7 +21,6 @@ export default {
         showOnboardingModal: false,
     }),
     components: {
-        'onboarding-modal': OnboardingModal,
     },
     methods: {
         setShowOnboardingModal(value) {

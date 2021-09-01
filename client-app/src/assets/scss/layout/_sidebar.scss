@@ -178,6 +178,7 @@
             padding: 8px 10px;
             padding-left: 0;
             padding-right: 0;
+            padding-left:10px;
             
             &:hover {
                 background: #eceff1;
@@ -356,15 +357,6 @@
             }
         }
     }
-}
-
-#nprogress .bar {
-    background: $accent-color;
-}
-
-#nprogress .spinner-icon {
-    border-top-color: $accent-color;
-    border-left-color: $accent-color;
 }
 
 .collapse {

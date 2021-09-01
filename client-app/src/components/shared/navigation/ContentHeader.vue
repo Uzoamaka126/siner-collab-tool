@@ -123,6 +123,19 @@
             <!-- dropdown content -->
             <div class="dropdown dropdown--avatar" :class="{ 'active' : dropdownIsActive.user }" :style="{ }" id="user">
                 <div class="dropdown__content">
+                     <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
+                       <div class="flex align-items-center mt--10">
+                            <span>
+                            <div class="avatar-wrap avatar cursor-text">
+                                UA
+                            </div>
+                            </span>
+                            <span>
+                                <p class="cursor-text avatar--text">Uzoamaka Anyanwu</p>
+                                <p class="cursor-text avatar--text">amakadarosie@gmail.com</p>
+                            </span>
+                       </div>
+                    </div>
                     <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
                         <span>
                             <div class="dropdown__item__link">
@@ -147,11 +160,9 @@
                 </div>
             </div>
         </div>
-        <!--  -->
-        <!--  -->
     </div>
   </div>
-        <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
+    <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
  </div>
 </template>
 
@@ -232,8 +243,42 @@ export default {
       display: flex;
       align-items: center;
 
-      span {
-          display: flex;
-      }
+    span {
+        display: flex;
+    }
+  }
+  .dropdown__content--group--avatar {
+      .avatar-wrap {
+        font-size: 18px;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        align-items: center;
+        background-color: #DFE1E6;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 0;
+        border-radius: 100%;
+        box-sizing: border-box;
+        color: #172B4D;
+        display: inline-flex;
+        margin-right: 12px;
+    }
+
+    .avatar--text {
+        &:first-of-type {
+            margin-top: 4px;
+            max-width: 230px;
+        }
+        &:last-of-type {
+            font-size: 9pt;
+            color: #B3BAC5;
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 230px;
+        }
+    }
   }
 </style>

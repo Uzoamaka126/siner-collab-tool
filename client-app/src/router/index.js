@@ -3,13 +3,10 @@ import HomeView from '../views/Home.vue'
 import Signup from '../views/Signup.vue';
 import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
+import DashboardView from '../views/Dashboard';
+import BoardsView from '../views/Boards.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
   // {
   //   path: '/about',
   //   name: 'About',
@@ -38,10 +35,21 @@ const routes = [
     component: Signup
   },
   {
-    path: '/home',
-    name: 'home',
-    component: HomeView
+    path: '/dashboard/',
+    name: 'siner-dashboard',
+    component: DashboardView,
+    // beforeEnter: requireAuth,
+    children:[
+      {path:'home', name:'home-view', component: HomeView},
+      {path:'boards', name:'board-view', component: BoardsView},
+      {path:'workspaces', name:'workspaces', component: WorkspaceView},
+    ]
   },
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   component: HomeView
+  // },
   {
     path: '/workspaces',
     name: 'workspaces',

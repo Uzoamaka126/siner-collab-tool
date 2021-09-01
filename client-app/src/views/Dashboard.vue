@@ -1,22 +1,15 @@
 <template>
     <div style="height: 100%">
-        <!-- Add onboarding modal -->
-         <onboarding-modal 
-            :user="{
-                id: 1,
-                isVerified: true
-            }"
-            :showOnboardingModal="showOnboardingModal"
-        >
-        </onboarding-modal>
+        <!-- <button class="btn btn--sm btn--default" @click="setShowOnboardingModal('show')">Modify Chargeback</button> -->
+        <dashboard-layout></dashboard-layout>
     </div>
 </template>
 
 <script>
-import OnboardingModal from '../shared/modals/Onboarding.vue';
+import Dashboard from '../components/shared/navigation/DashboardLayout.vue';
 
 export default {
-    name: 'HomeLayout',
+    name: 'Dashboard',
     created() {
         console.log(this.user);
         if(this.user && this.user.isRecentlyCreated === true) {
@@ -30,7 +23,7 @@ export default {
         showOnboardingModal: false,
     }),
     components: {
-        'onboarding-modal': OnboardingModal,
+        'dashboard-layout': Dashboard
     },
     methods: {
         setShowOnboardingModal(value) {

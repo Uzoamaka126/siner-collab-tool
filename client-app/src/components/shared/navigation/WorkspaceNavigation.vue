@@ -1,6 +1,6 @@
 <template>
     <div class="nav__section__content__group">
-        <div class="nav__section--item nav__section--item--sub">  
+        <router-link class="nav__section--item nav__section--item--sub"  :to="{name:'workspaces'}">  
             <span class="nav__section__content__group__title">Workspaces</span>
             <span class="cursor-pointer">
                 <icon-svg 
@@ -11,7 +11,7 @@
                 :width="'1rem'"
                 /> 
             </span>
-        </div>
+        </router-link>
     </div>
 </template>
 
