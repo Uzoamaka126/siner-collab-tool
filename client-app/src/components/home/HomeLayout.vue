@@ -1,6 +1,7 @@
 <template>
     <div style="height: 100%">
         <!-- Add onboarding modal -->
+        <p>lllll</p>
          <onboarding-modal 
             :user="{
                 id: 1,

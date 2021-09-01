@@ -1,6 +1,6 @@
 <template>
     <div class="nav__section__content__group" style="margin-bottom: 0px; padding-bottom: 0px;">
-        <router-link :to="{name:'home-view'}" class="nav__section--item">
+        <router-link :to="{ name:'home-view' }" class="nav__section--item">
             <!-- naviation item link text -->
             <icon-svg 
                 fill="rgba(66, 82, 110)" 
@@ -12,7 +12,7 @@
             />   
             <span class="nav__section__content__group__title">Home</span>
         </router-link>
-        <router-link :to="{name:'board-view'}" class="nav__section--item">
+        <router-link :to="{ name:'boards-view' }" class="nav__section--item">
             <icon-svg 
                 fill="rgba(66, 82, 110)" 
                 class="nav__icon" 

@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%">
-       
+       board
     </div>
 </template>
 

@@ -47,7 +47,7 @@ const routes = [
       },
       {
         path:'boards', 
-        name:'board-view', 
+        name:'boards-view', 
         component: BoardsView
       },
       {
