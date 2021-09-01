@@ -16,7 +16,8 @@
         </div>
         <div class="workspace--header__title">
         <!-- workspace -->
-           <div class="row__item positionRelative" v-click-outside="hideDropdown">
+           <template v-if="getRouterName === 'boards'">
+                <div class="row__item positionRelative" v-click-outside="hideDropdown">
                 <span class="pull--right cursor-pointer nav--dropdown--text" @click="toggleDropdown('workspaces', 0)">
                     <span class="">Workspace name here</span>
                     <span>
@@ -54,49 +55,50 @@
                         </div>
                    </div>
                 </div>
-            </div>
-            <!-- nav header divider -->
-            <span class="nav--divider"> / </span>
-            <!-- boards -->
-            <div class="row__item positionRelative" v-click-outside="hideDropdown">
-                <span class="pull--right cursor-pointer nav--dropdown--text"  @click="toggleDropdown('boards', 1)">
-                    <span class="">Board name here</span>
-                    <span>
-                         <icon-svg 
-                            fill="rgb(52, 69, 99)" 
-                            name="chevron-down" 
-                            icon-position="left"
-                            :width="'1.5rem'"
-                            style="{ display: flex; align-items: center }"
-                        />  
-                    </span>
-                </span>
-                <div class="dropdown dropdown--lg" :class="{ 'active' : dropdownIsActive.boards }" :style="{ }" id="boards">
-                   <div class="dropdown__content">
-                        <div class="dropdown__content--group" style="padding-left: 1rem;">
-                            <span>
-                                <div class="dropdown__item__link" v-for="item, index in createdWorkspaces" :key="index">
-                                    <p class="title">{{ item.name }}</p>
-                                    <p class="sub-title">{{ item.type }}</p>
-                                </div>
-                            </span>
-                        </div>
-                        <!-- group 2 -->
-                        <div class="dropdown__content--group dropdown__content--group--two" style="border-top: 2px solid rgba(9,30,66,0.08);">
-                            <span>
-                                <div class="">
-                                    <div class="dropdown__item__link">
-                                        <p class="title">See all workspaces</p>
-                                    </div>
-                                    <div class="dropdown__item__link">
-                                        <p class="title">Create a new workspaces</p>
-                                    </div>
-                                </div>
-                            </span>
-                        </div>
-                   </div>
                 </div>
-            </div>
+            <!-- nav header divider -->
+                <span class="nav--divider"> / </span>
+                <!-- boards -->
+                <div class="row__item positionRelative" v-click-outside="hideDropdown">
+                    <span class="pull--right cursor-pointer nav--dropdown--text"  @click="toggleDropdown('boards', 1)">
+                        <span class="">Board name here</span>
+                        <span>
+                            <icon-svg 
+                                fill="rgb(52, 69, 99)" 
+                                name="chevron-down" 
+                                icon-position="left"
+                                :width="'1.5rem'"
+                                style="{ display: flex; align-items: center }"
+                            />  
+                        </span>
+                    </span>
+                    <div class="dropdown dropdown--lg" :class="{ 'active' : dropdownIsActive.boards }" :style="{ }" id="boards">
+                    <div class="dropdown__content">
+                            <div class="dropdown__content--group" style="padding-left: 1rem;">
+                                <span>
+                                    <div class="dropdown__item__link" v-for="item, index in createdWorkspaces" :key="index">
+                                        <p class="title">{{ item.name }}</p>
+                                        <p class="sub-title">{{ item.type }}</p>
+                                    </div>
+                                </span>
+                            </div>
+                            <!-- group 2 -->
+                            <div class="dropdown__content--group dropdown__content--group--two" style="border-top: 2px solid rgba(9,30,66,0.08);">
+                                <span>
+                                    <div class="">
+                                        <div class="dropdown__item__link">
+                                            <p class="title">See all workspaces</p>
+                                        </div>
+                                        <div class="dropdown__item__link">
+                                            <p class="title">Create a new workspaces</p>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+           </template>
         </div>
     </div>
     <div class="content--header__right">
@@ -168,9 +170,9 @@
 
 <script>
 // @ is an alias to /src
-import IconSvg from "../../icons/Icon-Svg.vue";
-import { createdWorkspaces } from '../../../utils/dummy';
-import CreateBoardModal from '../modals/CreateBoard.vue';
+import IconSvg from "../../../icons/Icon-Svg.vue";
+import { createdWorkspaces } from '../../../../utils/dummy';
+import CreateBoardModal from '../../modals/CreateBoard.vue';
 
 export default {
   name: 'DashbaordContentHeader',
@@ -189,8 +191,24 @@ export default {
         'align-items': 'center'
       },
       createdWorkspaces: createdWorkspaces,
-      showCreateBoardModal: false
+      showCreateBoardModal: false,
   }),
+  computed: {
+      getRouterName() {
+        const routePath = this.$router.options.history.location.slice(11);
+        if (routePath === 'home') {
+            return 'home'
+        } else if(routePath === 'boards') {
+            return 'boards'
+        } else if(routePath === 'workspaces') {
+            return 'workspaces'
+        } else if(routePath === 'settings') {
+            return 'settings'
+        } else {
+            return 'none'
+        }
+      }
+  },
   props: [""],
   methods: {
     toggleDropdown(name, index) {

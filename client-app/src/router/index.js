@@ -40,9 +40,21 @@ const routes = [
     component: DashboardView,
     // beforeEnter: requireAuth,
     children:[
-      {path:'home', name:'home-view', component: HomeView},
-      {path:'boards', name:'board-view', component: BoardsView},
-      {path:'workspaces', name:'workspaces', component: WorkspaceView},
+      {
+        path:'home', 
+        name:'home-view', 
+        component: HomeView
+      },
+      {
+        path:'boards', 
+        name:'board-view', 
+        component: BoardsView
+      },
+      {
+        path:'workspaces', 
+        name:'workspaces', 
+        component: WorkspaceView
+      },
     ]
   },
   // {

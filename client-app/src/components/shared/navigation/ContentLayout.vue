@@ -12,7 +12,7 @@
 
 <script>
 // @ is an alias to /src
-import DashbaordContentHeader from './ContentHeader.vue';
+import DashbaordContentHeader from './headerNav/ContentHeader.vue';
 import DashbaordContentBody from './ContentBody.vue';
 
 export default {
