@@ -51,8 +51,18 @@ const routes = [
         component: BoardsView
       },
       {
+        path:'boards/:name', 
+        name:'boards-detail-view', 
+        component: BoardsView
+      },
+      {
         path:'workspaces', 
         name:'workspaces', 
+        component: WorkspaceView
+      },
+      {
+        path:'workspaces/:name', 
+        name:'workspace-detail-view', 
         component: WorkspaceView
       },
     ]

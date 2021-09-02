@@ -253,3 +253,91 @@ a {
 .active {
     display: block;
 }
+
+.home {
+    
+    &__wrap {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+
+        &--item {
+
+            .header {
+                align-items: center;
+                display: flex;
+                height: 32px;
+                justify-content: flex-start;
+                margin-bottom: 8px;
+                padding: 30px 50px;
+                justify-content: space-between;
+                border-bottom: 1px solid #e8ecee;
+                padding-left: 0;
+                padding-right: 0;
+                padding-bottom: 10px;
+
+                &__item--wrap {
+                    margin: auto;
+                    // max-width: 1200px;
+                    padding-left: 100px;
+                    padding-right: 100px;
+                }
+
+                .icon--wrap {
+                    flex: 0 0 auto;
+                    margin-left: -8px;
+                    position: relative;
+                    text-align: center;
+                    top: 1px;
+                    width: 32px;
+                }
+
+                .header--text {
+                    // color: #5E6C84;
+                    color: #151b26;
+                    font-weight: 500;
+                    letter-spacing: 0.04em;
+                    line-height: 16px;
+                    margin-top: 16px;
+                    // text-transform: uppercase;
+                    flex: 1 1 auto;
+                    margin: 0;
+                    font-size: 14px;
+                    line-height: 20px;
+                    
+                }
+            }
+        }
+    }
+
+    &--content {
+        margin: auto;
+        padding-left: 100px;
+        padding-right: 100px;
+
+        &__wrap {
+            margin-top: 1.5rem;
+            border-radius: 4px;
+            // display: flex;
+            overflow: hidden;
+            // flex-direction: column;
+            position: relative;
+        }
+
+        &--item {
+            margin-bottom: 1rem;
+
+            .workspace--theme--img {
+                background-size: cover;
+                border-radius: 4px;
+                display: block;
+                flex: 0 0 auto;
+                height: 28px;
+                margin-right: 8px;
+                width: 32px;
+                background-image: none;
+                background-color: rgb(210, 144, 52);
+            }
+        }
+    }
+}

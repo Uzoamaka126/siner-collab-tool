@@ -210,6 +210,7 @@
     }
 
 }
+
 .mb{
     &--15{
         margin-bottom: 15px;
@@ -221,6 +222,7 @@
         margin-bottom: 45px;
     }
 }
+
 .no--padding{
 
     &__all{
@@ -247,6 +249,7 @@
         padding-right:0;
     }
 }
+
 .no--margin{
 
     &__all{
@@ -331,6 +334,7 @@
         max-width:100%;
     }
 }
+
 .ml{
     &--5{
         margin-left:5px;
@@ -345,6 +349,7 @@
         margin-left:20px;
     }
 }
+
 .mr{
     &--5{
         margin-right:5px;
@@ -448,7 +453,7 @@
     }
 }
 
-.flexColumn {
+.flex-column {
     display: flex;
     flex-direction: column;
 }

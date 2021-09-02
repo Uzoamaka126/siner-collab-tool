@@ -183,11 +183,14 @@
             &:hover {
                 background: #eceff1;
                 border-radius: 3px;
-                background-color: rgb(235, 236, 240);
+                // background-color: rgb(235, 236, 240);
+                background-color: #e4e9fd;
+
             }
 
             &.active {
-                background-color: rgb(235, 236, 240);
+                // background-color: rgb(235, 236, 240);
+                background-color: #e4e9fd;
 
                span {
                     color: $brand-color;
