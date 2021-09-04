@@ -10,7 +10,7 @@
 export default {
     name: 'SettingsLayout',
     created() {
-        console.log(this.user);
+        // console.log(this.user);
         
     },
     props: {

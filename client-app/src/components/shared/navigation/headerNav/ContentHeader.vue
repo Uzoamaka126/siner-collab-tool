@@ -16,7 +16,7 @@
         </div>
         <div class="workspace--header__title">
         <!-- workspace -->
-           <template v-if="getRouterName === 'boards'">
+           <template v-if="getRouterName() === 'boards'">
                 <div class="row__item positionRelative" v-click-outside="hideDropdown">
                     <span class="pull--right cursor-pointer nav--dropdown--text" @click="toggleDropdown('workspaces', 0)">
                         <span class="">Workspace name here</span>
@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="content--header__right">
-        <div class="header__create" v-if="getRouterName === 'boards' ||getRouterName !== 'settings'">
+        <div class="header__create" v-if="getRouterName() === 'boards' || getRouterName() !== 'settings'">
             <button class="btn btn--primary content--header--btn" @click="toggleCreateBoardModal('show')">
                 Create
             </button>
@@ -180,22 +180,35 @@ export default {
     'icon-svg': IconSvg,
     'create-board-modal': CreateBoardModal
   },
+  created() {
+      this.getRouterName();
+  },
   data: () => ({
-      dropdownIsActive: {
-          workspaces: false,
-          boards: false,
-          user: false
-      },
-      iconStyles: {
-        display: 'flex', 
-        'align-items': 'center'
-      },
-      createdWorkspaces: createdWorkspaces,
-      showCreateBoardModal: false,
+    dropdownIsActive: {
+        workspaces: false,
+        boards: false,
+        user: false
+    },
+    iconStyles: {
+    display: 'flex', 
+    'align-items': 'center'
+    },
+    createdWorkspaces: createdWorkspaces,
+    showCreateBoardModal: false,
   }),
   computed: {
+  },
+   watch:{
+    //watch for route parameter change and execute method
+        '$route': 'getRouterName',
+        logThis() {
+            console.log(this.getRouterName());
+        }
+    },
+  methods: {
       getRouterName() {
-        const routePath = this.$router.options.history.location.slice(11);
+        const routePath = this.$route.path.slice(11);
+        console.log(routePath);
         if (routePath === 'home') {
             return 'home'
         } else if(routePath === 'boards') {
@@ -207,9 +220,7 @@ export default {
         } else {
             return 'none'
         }
-      }
-  },
-  methods: {
+    },
     toggleDropdown(name, index) {
         var getDropdownClass = document.getElementsByClassName("dropdown");
         for (var i = 0; i < getDropdownClass.length; i++) {

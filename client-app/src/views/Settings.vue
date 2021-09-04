@@ -10,7 +10,7 @@ import Settings from '../components/settings/SettingsLayout.vue';
 export default {
     name: 'Settings',
     created() {
-        console.log(this.user);
+        // console.log(this.user);
         if(this.user && this.user.isRecentlyCreated === true) {
             this.setShowOnboardingModal('show');
         }
