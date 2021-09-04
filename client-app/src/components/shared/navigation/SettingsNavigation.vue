@@ -1,15 +1,15 @@
 <template>
     <div class="nav__section__content__group">
-        <div class="nav__section--item">  
+        <router-link :to="{ name:'settings-view' }" class="nav__section--item">
             <icon-svg 
                 fill="rgba(66, 82, 110)" 
                 class="nav__icon" 
                 name="settings-2" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
                 :width="'3rem'"
-            />
+            />   
             <span class="nav__section__content__group__title">Settings</span>
-        </div>
+        </router-link>
     </div>
 </template>
 

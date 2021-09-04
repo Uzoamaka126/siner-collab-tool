@@ -5,6 +5,8 @@ import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
+import SettingsView from '../views/Settings.vue'
+
 
 const routes = [
   // {
@@ -65,17 +67,12 @@ const routes = [
         name:'workspace-detail-view', 
         component: WorkspaceView
       },
+      {
+        path:'settings', 
+        name:'settings-view', 
+        component: SettingsView
+      },
     ]
-  },
-  // {
-  //   path: '/home',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  {
-    path: '/workspaces',
-    name: 'workspaces',
-    component: WorkspaceView
   },
 ]
 

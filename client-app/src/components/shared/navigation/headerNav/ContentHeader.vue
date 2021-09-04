@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="content--header__right">
-        <div class="header__create">
+        <div class="header__create" v-if="getRouterName === 'boards' ||getRouterName !== 'settings'">
             <button class="btn btn--primary content--header--btn" @click="toggleCreateBoardModal('show')">
                 Create
             </button>
