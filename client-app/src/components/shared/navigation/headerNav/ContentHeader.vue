@@ -201,14 +201,10 @@ export default {
    watch:{
     //watch for route parameter change and execute method
         '$route': 'getRouterName',
-        logThis() {
-            console.log(this.getRouterName());
-        }
     },
   methods: {
       getRouterName() {
         const routePath = this.$route.path.slice(11);
-        console.log(routePath);
         if (routePath === 'home') {
             return 'home'
         } else if(routePath === 'boards') {
