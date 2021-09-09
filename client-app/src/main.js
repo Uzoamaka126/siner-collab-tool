@@ -4,13 +4,10 @@ import vSelect from 'vue-next-select';
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import {Tabs, Tab} from 'vue3-tabs-component';
 
 createApp(App)
     .use(store)
     .use(router)
-    .component('tabs', Tabs)
-    .component('tab', Tab)
     .component('vue-select', vSelect)
     .directive('click-outside', {
         bind: function (el, binding, vNode) {

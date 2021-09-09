@@ -114,22 +114,6 @@
         // }
     }
 
-    &--pay {
-        padding: 8px 32px;
-    }
-
-    &--bbw {
-        // @include media(1200px) {
-        //     padding: 12px 20px;
-        //     font-size: 18px;
-        // }
-
-        // @include media(1600px) {
-        //     font-size: 24px;
-        //     padding: 22px 30px;
-        // }
-    }
-
     &--fontRegular {
         font-weight: $font-normal;
     }
@@ -207,6 +191,22 @@
             svg{
                 fill:currentColor;
             }
+        }
+    }
+
+    &--ghost {
+        outline: none;
+        border: none;
+        color: #596DDE;
+        background: transparent !important;
+        font-size: 14px;
+        box-shadow: none;
+        padding-left: 0;
+
+        &:hover, &:active, &:focus {
+            outline: none;
+            border: none;
+            color: #4d5dbb;
         }
     }
 }

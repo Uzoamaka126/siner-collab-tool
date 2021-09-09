@@ -1,14 +1,5 @@
 <template>
     <div style="height: 100%" class="main">
-        <!-- main settings wrapper -->
-        <!-- <tabs>
-            <tab title="Profile" titleSlot="lll">
-
-            </tab>
-            <tab title="Display" titleSlot="bbb"></tab>
-            <tab title="Account Settings"></tab>
-        </tabs> -->
-
         <div class="tabs horizontal ">
             <ul class="tab-list left" role="tabList">
                 <li 
@@ -24,17 +15,16 @@
                 </li>
             </ul>
             <div class="tab">
-                <div class="tab-panel" role="tabPanel" data-v-0292cb4e="">
+                <div class="tab--panel" role="tabPanel" data-v-0292cb4e="">
                     <div class="tab-content">
                         <keep-alive>
-                    <component :is="currentTabComponent"></component>
-                </keep-alive>
+                            <component :is="currentTabComponent"></component>
+                        </keep-alive>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- tabindex="0" role="tabItem" aria-selected="true" aria-disabled="false" -->
 </template>
 
 <script>
@@ -93,8 +83,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
     .main {
-        padding-left: 50px;
         padding-top: 30px;
     }
 
 </style>
+
+<!-- <tabs>
+            <tab title="Profile" titleSlot="lll">
+
+            </tab>
+            <tab title="Display" titleSlot="bbb"></tab>
+            <tab title="Account Settings"></tab>
+        </tabs> -->

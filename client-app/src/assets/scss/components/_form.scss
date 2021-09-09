@@ -103,3 +103,14 @@ textarea {
     outline: none;
     border: 1px solid #e0e1e4;
 }
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    
+    label {
+        font-size: 12px;
+        color: #42526e;
+        margin-left: 5px
+    }
+}
