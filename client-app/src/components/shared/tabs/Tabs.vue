@@ -29,9 +29,9 @@ export default {
     position: {
       type: String,
       default: "left",
-        validator(value) {
-            return ["start", "end", "center"].includes(value);
-        },
+        // validator(value) {
+        //     return ["start", "end", "center"].includes(value);
+        // },
     },
     reverse: {
       type: Boolean,
@@ -50,6 +50,10 @@ export default {
     const selectedIndex = ref(0);
     const tabs = ref([]);
     const _tabItems = ref([]);
+    console.log({
+      'tabs': tabs,
+      'tabsValue': tabs.value
+    });
 
     const onTabKeyDown = (e) => {
       if (e.ctrlKey || e.metaKey) {
@@ -65,6 +69,11 @@ export default {
     };
 
     const switchTab = (_, index, isDisabled) => {
+      console.log('switchTab', {
+        '_': _,
+        'index': index,
+        'isDisabled': isDisabled
+      });
       if (!isDisabled) {
         selectedIndex.value = index;
         emit("tabChanged", index);
@@ -153,88 +162,5 @@ export default {
 </script>
 
 <style lang="scss">
-.tabs {
-  display: grid;
-  grid-template-columns: 1fr;
-  .tab-list {
-    list-style: none;
-    display: flex;
-    padding-left: 0;
-    border-bottom: 1px solid var(--border-color);
-    &.center {
-      justify-content: center;
-    }
-    &.end {
-      justify-content: flex-end;
-    }
-    &__item {
-      padding: 8px 10px;
-      cursor: pointer;
-      user-select: none;
-      transition: border 0.3s ease-in-out;
-      position: relative;
-      bottom: -1px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      letter-spacing: 0.05rem;
 
-      &:not(:first-child) {
-        margin-left: 10px;
-      }
-
-      &[aria-selected="true"] {
-        border-bottom: 2px solid var(--primary-color);
-        font-weight: 700;
-        color: var(--primary-color);
-      }
-      &[aria-disabled="true"] {
-        cursor: not-allowed;
-        color: var(--disabled-text-color);
-      }
-    }
-  }
-  &.horizontal {
-    &.reverse {
-      .tab-list {
-        grid-row: 2;
-        border: none;
-        border-top: 1px solid var(--border-color);
-      }
-    }
-  }
-
-  &.vertical {
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    .tab-list {
-      flex-direction: column;
-      border-bottom: none;
-      border-right: 1px solid var(--border-color);
-
-      &__item {
-        margin-left: 0;
-        border-radius: 0;
-
-        &[aria-selected="true"] {
-          border: none;
-          border-left: 2px solid var(--primary-color);
-        }
-      }
-    }
-
-    &.reverse {
-      grid-template-columns: 1fr auto;
-      .tab-list {
-        grid-column: 2;
-        border: none;
-        border-left: 1px solid var(--border-color);
-      }
-
-      .tab {
-        grid-row: 1;
-        grid-column: 1;
-      }
-    }
-  }
-}
 </style>

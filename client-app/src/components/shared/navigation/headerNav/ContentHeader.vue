@@ -99,6 +99,9 @@
                     </div>
                 </div>
            </template>
+           <!-- <template v-else-if="getRouterName() === 'settings'">
+               <settings-header></settings-header>
+           </template> -->
         </div>
     </div>
     <div class="content--header__right">
@@ -173,12 +176,14 @@
 import IconSvg from "../../../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../../utils/dummy';
 import CreateBoardModal from '../../modals/CreateBoard.vue';
+import SettingsHeader from '../../../settings/SettingsHeader.vue'
 
 export default {
   name: 'DashbaordContentHeader',
   components: {
     'icon-svg': IconSvg,
-    'create-board-modal': CreateBoardModal
+    'create-board-modal': CreateBoardModal,
+    'settings-header': SettingsHeader
   },
   created() {
       this.getRouterName();
@@ -205,6 +210,7 @@ export default {
   methods: {
       getRouterName() {
         const routePath = this.$route.path.slice(11);
+        console.log(routePath);
         if (routePath === 'home') {
             return 'home'
         } else if(routePath === 'boards') {

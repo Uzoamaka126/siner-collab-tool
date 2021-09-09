@@ -1,16 +1,15 @@
 <template>
   <div class="tab-panel" role="tabPanel">
-    <div class="tab-content"><slot></slot></div>
+    <div class="tab-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
 
 export default {
     name: 'Tab',
-    props: ["title", "titleSlot", "disabled"],
-    data: () => ({
-        isActive: true
-    }),
+    props: ["title", "titleSlot", "disabled"]
 }
 </script>
 
