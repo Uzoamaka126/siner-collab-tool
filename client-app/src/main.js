@@ -4,16 +4,18 @@ import jQuery from "jquery";
 import App from './App.vue'
 import router from './router'
 import store from './store';
-
+import VModal from 'vue-js-modal/dist/index.nocss.js'
+import 'vue-js-modal/dist/styles.css'
 
 // createApp()
 createApp(App)
     .use(store)
     .use(router)
+    .component('v-modal', VModal)
     .component('vue-select', vSelect)
     .component('$', jQuery)
     .directive('click-outside', {
-        bind: function (el, binding, vNode) {
+        mounted (el, binding, vNode) {
             console.log(binding);
             // Provided expression must evaluate to a function.
             if (typeof binding.value !== 'function') {
@@ -36,7 +38,7 @@ createApp(App)
             document.addEventListener('click', handler)
         },
 
-        unbind: function (el, binding) {
+        unmounted (el, binding) {
             // Remove Event Listeners
             document.removeEventListener('click', el.__vueClickOutside__)
             el.__vueClickOutside__ = null

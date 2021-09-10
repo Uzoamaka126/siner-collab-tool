@@ -4,7 +4,7 @@
             <div class="">
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Full Name</label>
-                    <input type="email" id="emailaddress" class="form__input form__input--lg">
+                    <input type="email" id="emailaddress" class="form__input form__input--lg" disabled>
                 </div>
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Username</label>
@@ -43,7 +43,7 @@ export default {
     name: 'SettingsProfile',
     created() {
         // console.log(this.user);
-        // console.log('$',typeof $);
+        console.log('$');
         console.log($("#changePassword" ));
         
     },
@@ -79,5 +79,14 @@ export default {
         margin-top: 1.5rem;
         padding-top: 2rem;
     }
-
+    input[disabled] {
+        background-color: #fafbfc;
+        cursor: not-allowed;
+    }
+    textarea {
+        min-height: 70px;
+    }
+    label {
+        font-size: 0.8rem;
+    }
 </style>
