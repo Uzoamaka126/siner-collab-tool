@@ -1,10 +1,13 @@
 <template :style="styles" :width="width" :height="height" :fill="fill">
+  <span>
+    <slot v-if="name"></slot>
+  </span>
 </template>
 
 <script>
 export default {
   name: 'IconMain',
-  props: {},
+  props: ['iconName'],
 
   data() {
     return {
@@ -21,7 +24,7 @@ export default {
   },
 
   components: {
-    // IconSvg,
+    // `${this.iconName.key}`: this.iconName.value
   },
 
   methods: {

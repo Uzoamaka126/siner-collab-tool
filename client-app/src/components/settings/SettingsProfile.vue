@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%">
-       <form class="form">
+       <form class="form" @submit.prevent>
             <div class="">
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Full Name</label>
@@ -19,7 +19,15 @@
                     <textarea type="email" id="emailaddress" class="form__input form__input--lg"/>
                 </div>
                  <div>
-                    <button class="btn btn--ghost" style="color: #42526e; font-weight: 400">Click here to change password</button>
+                    <button 
+                        class="btn btn--ghost" 
+                        style="color: #42526e; font-weight: 400" 
+                        data-toggle="modal" 
+                        data-target="#changePassword" 
+                        @click="togglePasswordChange()"
+                    >
+                    Click here to change password
+                </button>
                  </div>
                 <div>
                     <button class="btn btn--primary btn--md mt--40" :disabled="isBtnDisabled" type="submit">Update Profile</button>
@@ -35,6 +43,8 @@ export default {
     name: 'SettingsProfile',
     created() {
         // console.log(this.user);
+        // console.log('$',typeof $);
+        console.log($("#changePassword" ));
         
     },
     components: {
@@ -49,8 +59,9 @@ export default {
 
     },
     methods: {
-        togglePasswordChange(value) {
-            this.isPasswordChangeModal = value;
+        togglePasswordChange() {
+            // this.isPasswordChangeModal = value;
+            $("#changePassword" ).modal( "show" );
         }
     }
 }

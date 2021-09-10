@@ -1,29 +1,20 @@
 <template>
   <span class="svg-icon" @click="$emit('click')" :style="styles">
-    <component :is="{ template: iconName }" :width="width" :height="height" :fill="fill" />
-    <!-- <component :is="iconName ? 'IconMain' : null" /> -->
+    <keep-alive>
+        <component :is="{ template: iconName }" :width="width" :height="height" :fill="fill" />
+    </keep-alive>
+    <!-- <icon-main :width="width" :height="height" :fill="fill" ></icon-main> -->
   </span>
 </template>
 
 <script>
     import IconMain from './Icon.vue'
-/**
- * This components displays an svg icon by providing the name of the icon to display.
- * 
- * Props
- * ----------------
- * `name :string` - The name of the icon you want to display
- * `width :string | undefined` - The width of the icon you want to display
- * `height :string | undefined` - The height of the icon you want to display
- * 
- * Example
- * ---------------
- ```html
-  <icon-svg name="download"></icon-svg>
- ```
- */
+    
 export default {
     name: 'IconSvg',
+    created() {
+        console.log(this.iconName);
+    },
     props: {
         name: {
             type: String,
@@ -52,7 +43,8 @@ export default {
     },
 
     components: {
-        'icon-main': IconMain
+        'icon-main': IconMain,
+        
     },
     data: () => ({
         iconMap: {
@@ -107,7 +99,11 @@ export default {
 
     computed: {
         iconName() {
-            return this.iconMap[ this.name ];
+            // return {
+            //     key: this.name,
+            //     value: this.iconMap[ this.name ]
+            // }
+            return this.iconMap[ this.name ]
         }
     }
 }

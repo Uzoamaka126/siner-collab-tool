@@ -95,6 +95,11 @@ export default {
         overflow: scroll;
         // height: 730px;
         // max-height: 730px;
+
+        &--onboarding {
+            padding-left: 32px;
+            padding-right: 32px;
+        }
     }
     .modal--section__left, .modal--section__right {
         width: 50%;

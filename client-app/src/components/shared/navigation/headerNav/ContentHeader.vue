@@ -219,10 +219,12 @@ export default {
         }
     },
     toggleDropdown(name, index) {
+        console.log(name, index);
         var getDropdownClass = document.getElementsByClassName("dropdown");
         for (var i = 0; i < getDropdownClass.length; i++) {
+            console.log(i, index);
             if(i === index) {
-                // console.log(i, index, name, getDropdownClass[i].id);
+                console.log(i, index, name, getDropdownClass[i].id);
                 // if(getDropdownClass[i])
                 if(name === getDropdownClass[i].id) {
                     this.dropdownIsActive[getDropdownClass[i].id] = !this.dropdownIsActive[getDropdownClass[i].id]
