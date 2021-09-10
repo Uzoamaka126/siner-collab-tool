@@ -13,7 +13,6 @@
 export default {
     name: 'IconSvg',
     created() {
-        console.log(this.iconName);
     },
     props: {
         name: {

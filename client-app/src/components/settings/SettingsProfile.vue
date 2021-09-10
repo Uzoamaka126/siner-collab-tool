@@ -1,53 +1,54 @@
 <template>
     <div style="height: 100%">
-       <form class="form" @submit.prevent>
-            <div class="">
-                <div class="form__item">
-                    <label for="emailaddress" class="form__label">Full Name</label>
-                    <input type="email" id="emailaddress" class="form__input form__input--lg" disabled>
+        <div>
+            <form class="form" @submit.prevent>
+                <div class="">
+                    <div class="form__item">
+                    <label for="fullName" class="form__label">Full Name</label>
+                    <input type="email" id="fullName" class="form__input form__input--lg" disabled>
                 </div>
                 <div class="form__item">
-                    <label for="emailaddress" class="form__label">Username</label>
-                    <input type="email" id="emailaddress" class="form__input form__input--lg">
+                    <label for="username" class="form__label">Username</label>
+                    <input type="email" id="username" class="form__input form__input--lg" disabled>
                 </div>
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Email Address</label>
                     <input type="email" id="emailaddress" class="form__input form__input--lg">
                 </div>
-                 <div class="form__item">
-                    <label for="emailaddress" class="form__label">Bio</label>
-                    <textarea type="email" id="emailaddress" class="form__input form__input--lg"/>
+                <div class="form__item">
+                    <label for="bio" class="form__label">Bio</label>
+                    <textarea type="email" id="bio" class="form__input form__input--lg"/>
                 </div>
-                 <div>
+                <div>
                     <button 
                         class="btn btn--ghost" 
                         style="color: #42526e; font-weight: 400" 
                         data-toggle="modal" 
                         data-target="#changePassword" 
-                        @click="togglePasswordChange()"
+                        @click="togglePasswordChange(true)"
                     >
                     Click here to change password
                 </button>
-                 </div>
+                </div>
                 <div>
-                    <button class="btn btn--primary btn--md mt--40" :disabled="isBtnDisabled" type="submit">Update Profile</button>
+                    <button class="btn btn--primary btn--md mt--40" type="submit">Update Profile</button>
                 </div>
             </div>
-       </form>
+        </form>
     </div>
+    <change-password-modal :showModal="isPasswordChangeModal" :togglePasswordChange="togglePasswordChange"></change-password-modal>
+ </div>
 </template>
 
 <script>
+import ChangePasswordModal from '../shared/modals/ChangePassword.vue';
 
 export default {
     name: 'SettingsProfile',
     created() {
-        // console.log(this.user);
-        console.log('$');
-        console.log($("#changePassword" ));
-        
     },
     components: {
+        ChangePasswordModal
     },
     props: {
         user: Object
@@ -59,9 +60,8 @@ export default {
 
     },
     methods: {
-        togglePasswordChange() {
-            // this.isPasswordChangeModal = value;
-            $("#changePassword" ).modal( "show" );
+        togglePasswordChange(value) {
+            this.isPasswordChangeModal = value;
         }
     }
 }

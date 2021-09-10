@@ -35,6 +35,14 @@
         width: 100%;
         margin: 10px;
         margin-top: 0;
+        padding: 20px;
+        background: white;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        outline: 0;
+        box-shadow: 0 2px 16px 0 rgba(33, 43, 54, 0.08), 0 31px 41px 0 rgba(33, 43, 54, 0.2);
+        padding: 16px 0px;
+
 
         // @include media(768px) {
         //     width: 600px;
@@ -90,6 +98,9 @@
             white-space: nowrap;
             margin-bottom: 1.5rem;
             border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             h2 {
                 font-weight: normal !important;
@@ -122,14 +133,8 @@
 
     &__content {
         position: relative;
-        background-color: #fff;
         -webkit-background-clip: padding-box;
         background-clip: padding-box;
-        border: 1px solid transparent;
-        border-radius: 6px;
-        outline: 0;
-        box-shadow: 0 2px 16px 0 rgba(33, 43, 54, 0.08), 0 31px 41px 0 rgba(33, 43, 54, 0.2);
-        padding: 16px 0px;
     }
 
     &-backdrop {
@@ -158,11 +163,6 @@
     &__header {
         padding: 15px;
         border-bottom: 1px solid #e5e5e5;
-
-        .close {
-            margin-top: -2px;
-        }
-
     }
 
     &__title {
@@ -253,11 +253,8 @@
 .close {
     border: none;
     background-color: transparent;
-    position: absolute;
-    right: 20px;
-    top: 20px;
     cursor: pointer;
-    z-index: 3;
+    
     &:active, &:focus {
         outline: none;
         box-shadow: none;

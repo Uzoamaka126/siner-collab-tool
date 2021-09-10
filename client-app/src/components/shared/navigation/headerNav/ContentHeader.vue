@@ -99,6 +99,9 @@
                     </div>
                 </div>
            </template>
+           <template v-else-if="getRouterName() === 'workspaces'">
+               <p class="text--sm">WORKSPACES</p>
+           </template>
         </div>
     </div>
     <div class="content--header__right">
@@ -205,7 +208,7 @@ export default {
   methods: {
       getRouterName() {
         const routePath = this.$route.path.slice(11);
-        console.log(routePath);
+        // console.log(routePath);
         if (routePath === 'home') {
             return 'home'
         } else if(routePath === 'boards') {

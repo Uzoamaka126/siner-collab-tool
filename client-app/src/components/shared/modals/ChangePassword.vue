@@ -1,74 +1,60 @@
 <template>
-    <div 
-        class="modal fade " 
-        style="width: 620px; margin-left: auto; margin-right: auto;"
-        tabindex="-1" 
-        role="dialog" 
-        aria-labelledby="changePassword"
-    >
-        <div class="modal__dialog">
-            <div class="modal__dialog--lg" role="document">
-                <div class="modal__dialog--header">
-                     <h2>Change Password</h2>
-                <!-- close button -->
-                    <button type="button" class="close" style="top: 50px; margin-top: unset;" v-if="isCloseButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(232, 230, 243, 1);transform: ;msFilter:;">
-                            <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <!-- Modal content -->
-                <div class="modal__content">
-                    <!-- Modal Body -->
-                    <div class="modal__body modal__body--pad">
-                        <div class="modal__wrapper--onboarding">
-                            <div class="modal--section">
-                                <div class="">
-                                    <form @submit.prevent="" class="form--workspace__create">
-                                        <div class="form__item">
-                                            <label for="workspaceTitle" class="form__label">Give your board a name</label>
-                                            <input name="title" id="workspaceTitle" class="form__input" v-model="board.title" />
-                                        </div>
-                                        <div class="form__item">
-                                            <label for="workspaceTitle" class="form__label">Give your board a name</label>
-                                            <input name="title" id="workspaceTitle" class="form__input" v-model="board.title" />
-                                        </div>
-                                        <div class="form__item">
-                                            <label for="workspaceTitle" class="form__label">Give your board a name</label>
-                                            <input name="title" id="workspaceTitle" class="form__input" v-model="board.title" />
-                                        </div>
-                                        <div class="form__footer width--100">
-                                            <button class="btn btn--primary btn--md form__footer--btnFirst" :disabled="isBtnDisabled" type="submit">Create</button>
-                                            <button class="btn btn--secondary btn--md" type="submit" @click="toggleCreateBoardModal('hide')">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
+    <div>
+        <main-modal 
+            :showModal="showModal" 
+            :isCloseButton=true 
+            :modalSize="'modal__dialog--lg'"
+            :width="'620px'"
+            :position="'center'"
+            :title="'Change Password'"
+            :closeFn="togglePasswordChange"
+        >
+            <div class="modal__wrapper--onboarding">
+                <div class="modal--section">
+                    <div class="">
+                        <form @submit.prevent="" class="form--workspace__create">
+                            <div class="form__item">
+                                <label for="workspaceTitle" class="form__label">Old Password</label>
+                                <input name="title" id="workspaceTitle" class="form__input" v-model="user.old_password" />
                             </div>
-                        </div>
+                            <div class="form__item">
+                                <label for="workspaceTitle" class="form__label">New Password</label>
+                                <input name="title" id="workspaceTitle" class="form__input" v-model="user.new_password" />
+                            </div>
+                            <div class="form__item">
+                                <label for="workspaceTitle" class="form__label">Confirm New Password</label>
+                                <input name="title" id="workspaceTitle" class="form__input" v-model="user.confirm_new_password" />
+                            </div>
+                            <div class="form__footer width--100">
+                                <button class="btn btn--primary btn--md form__footer--btnFirst" :disabled="isBtnDisabled" type="submit">Save</button>
+                                <button class="btn btn--secondary btn--md" type="submit" @click="togglePasswordChange(false)">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    <div>
+        </main-modal>
+    </div>
 </template>
 
 <script>
-import { createdWorkspaces } from '../../../utils/dummy'
+import MainModal from './MainModal.vue';
 export default {
-    name: 'CreateBoardModal',
+    name: 'ChangePasswordModal',
     components: {
-        
+        'main-modal': MainModal,
     },
-    props: [],
+    props: ["showModal", "togglePasswordChange"],
     data: () => ({
-       board: {
-           title: '',
-           workspace: ''
+       user: {
+           old_password: '',
+           new_password: '',
+           confirm_new_password: ''
        },
     }),
     computed: {
         isBtnDisabled() {
-            if(!this.board.title || !this.board.workspace) {
+            if(!this.user.old_password || !this.user.new_password || !this.user.confirm_new_password) {
                 return true
             } else {
                 return false
@@ -88,8 +74,15 @@ export default {
         min-height: 500px;
         outline: 0;
         overflow: scroll;
+        // height: 730px;
+        // max-height: 730px;
+
+        &--onboarding {
+            padding-left: 32px;
+            padding-right: 32px;
+        }
     }
-    .modal--section__left {
+    .modal--section__left, .modal--section__right {
         width: 50%;
     }
     .modal--section__left {
@@ -107,5 +100,10 @@ export default {
         p {
             font-size: 14px;
         }
+    }
+
+    input {
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 </style>

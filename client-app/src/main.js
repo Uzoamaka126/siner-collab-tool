@@ -16,7 +16,6 @@ createApp(App)
     .component('$', jQuery)
     .directive('click-outside', {
         mounted (el, binding, vNode) {
-            console.log(binding);
             // Provided expression must evaluate to a function.
             if (typeof binding.value !== 'function') {
                 const compName = vNode.context.name
