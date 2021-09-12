@@ -8,6 +8,7 @@
             :position="'center'"
             :title="'Change Password'"
             :closeFn="togglePasswordChange"
+            :isShowHeader="true"
         >
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section">
@@ -25,7 +26,7 @@
                                 <label for="workspaceTitle" class="form__label">Confirm New Password</label>
                                 <input name="title" id="workspaceTitle" class="form__input" v-model="user.confirm_new_password" />
                             </div>
-                            <div class="form__footer width--100">
+                            <div class="form__footer width--100" style="margin-bottom: 1.5rem;">
                                 <button class="btn btn--primary btn--md form__footer--btnFirst" :disabled="isBtnDisabled" type="submit">Save</button>
                                 <button class="btn btn--secondary btn--md" type="submit" @click="togglePasswordChange(false)">Cancel</button>
                             </div>

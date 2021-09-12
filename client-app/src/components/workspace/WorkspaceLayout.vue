@@ -21,14 +21,13 @@
                 </div>
             </div>
                 <!-- :menu="createdWorkspaces" -->
-            <float-menu
+            <!-- <float-menu
                 :position="'top left'"
                 :dimension="50"
                 :fixed="true"
                 :menu-dimension="{height: 400, width: 300}"
-                :menu-data="{ items: [{ name: 'File' }, { name: 'Open' }, { name: 'Themes', subMenu: { items: [{  name: 'Dark' }]}}]}"
+                :menu-data="[{ name: 'File' }, { name: 'Open' }, { name: 'Themes', subMenu: { items: [{  name: 'Dark' }]}}]"
             >
-                <!-- menu-direction="l" -->
                 <icon-svg 
                     fill="rgba(194, 200, 212, 1)" 
                     class="nav__icon" 
@@ -37,23 +36,25 @@
                     :width="'24px'"
                     :height="'24px'"
                 /> 
-            </float-menu>
+            </float-menu> -->
             <div class="home--content__wrap">
                 <div class="home--content--item positionRelative" v-for="(item, index) in createdWorkspaces" :key="index">
-                     <template v-if="isMenuItemHover === item.name">
-                        <span 
-                            class="menu__wrap--icon cursor-pointer" 
-                            :class="{ show: isMenuItemHover === item.name }" 
-                            @click="toggleShowMenUHover(item.name)"
-                        >
-                            <icon-svg 
-                                fill="#fff" 
-                                class="nav__icon" 
-                                name="dots-horizontal-rounded" 
-                                icon-position="left"
-                                :width="'24px'"
-                                :height="'24px'"
-                            /> 
+                    <template v-if="isMenuItemHover === item.name">
+                        <div>
+                            <div 
+                                class="menu__wrap--icon cursor-pointer" 
+                                :class="{ show: isMenuItemHover === item.name }" 
+                                @click="toggleShowMenUHover(item.name)"
+                            >
+                                <icon-svg 
+                                    fill="#fff" 
+                                    class="nav__icon" 
+                                    name="dots-horizontal-rounded" 
+                                    icon-position="left"
+                                    :width="'24px'"
+                                    :height="'24px'"
+                                /> 
+                            </div>
                             <div class="dropdown dropdown--avatar dropdown--menu" :class="{ 'active' : isMenuDropdownShow === item.name }" id="user">
                                 <div class="dropdown__content">
                                     <div class="dropdown__content--group dropdown__content--group--avatar">
@@ -96,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </span>
+                        </div>
                     </template>
                     <router-link :to="{ path: `/dashboard/boards/${item.name }`}" >
                         <div 
@@ -144,7 +145,8 @@ export default {
     methods: {
         showMenuIconOnHover(name) {
             if(name === null) {
-                this.isMenuItemHover = '';
+                // this.isMenuItemHover = '';
+                // this.isMenuDropdownShow = '';
                 return
             } else {
                 const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name)
@@ -154,15 +156,18 @@ export default {
             }
         },
         toggleShowMenUHover(name) {
-            if(name === null) {
-                this.isMenuDropdownShow = '';
-                return
-            } else {
-               const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name)
+            // if(name === null) {
+            //     this.isMenuDropdownShow = '';
+            //     return
+            // } else {
+               const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name);
+            //    console.log(getWorkspaceItem);
                 if (getWorkspaceItem.name) {
                     this.isMenuDropdownShow = getWorkspaceItem.name;
+            console.log(name, this.isMenuDropdownShow);
+
                 }
-            }
+            // }
             
         }
     }

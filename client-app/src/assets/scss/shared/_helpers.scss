@@ -190,6 +190,9 @@
     border-color: rgba($text-color-dark, 0.2);
 }
 .mt{
+    &--0 {
+        margin-top: 0px;
+    }
     &--40{
         margin-top:40px;
     }

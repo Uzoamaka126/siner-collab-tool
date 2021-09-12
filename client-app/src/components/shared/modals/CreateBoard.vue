@@ -6,6 +6,7 @@
             :modalSize="'modal__dialog--lg'"
             :width="'620px'"
             :position="'center'"
+            :isShowHeader="true"
         >
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section">

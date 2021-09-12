@@ -1,17 +1,19 @@
 <template>
     <div class="nav__section__content__group">
-        <router-link class="nav__section--item nav__section--item--sub"  :to="{name:'workspaces'}">  
-            <span class="nav__section__content__group__title">Workspaces</span>
-            <span class="cursor-pointer">
+        <div class="nav__section--item nav__section--item--sub">
+            <router-link class="workspace-link" :to="{name:'workspaces'}">  
+                <span class="nav__section__content__group__title">Workspaces</span>
+            </router-link>
+            <span class="cursor-pointer" @click="createNewWorkspace()">
                 <icon-svg 
                 fill="rgba(66, 82, 110)" 
                 class="nav__icon" 
                 name="add" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
-                :width="'1rem'"
+                :width="'0.8rem'"
                 /> 
             </span>
-        </router-link>
+        </div>
     </div>
 </template>
 
@@ -29,9 +31,23 @@ export default {
         // df () {
         //     return this.showOnboardingModal
         // }
+    },
+    methods: {
+        createNewWorkspace() {
+            // console.log(this.$store.commit)
+            // this.$store.dispatch('viewCreateWorkspaceModal', true);
+            this.$store.commit('showCreateWorkspaceModal', true);
+        }
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+    .workspace-link.active {
+        span {
+            color: #5750ec;
+            font-weight: 600;
+        }
+    }
+</style>

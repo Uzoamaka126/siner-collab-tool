@@ -39,18 +39,39 @@ export const workspacesTypes = [
 
 export const createdWorkspaces = [
     {
-        id: 1,
+        id: '12234',
         name: 'Workspace 1',
-        type: 'Marketing'
+        type: 'Marketing',
+        members: [
+            {
+                id: '46789',
+                name: 'Uzoamaka Anyanwu',
+                type: 'uzo@gmail.com',
+            }
+        ]
     },
     {
-        id: 2,
+        id: '567890',
         name: 'Workspace 2',
-        type: 'Operations'
+        type: 'Operations',
+        members: [
+            {
+                id: '1122334',
+                name: 'Uzoamaka Anyanwu',
+                type: 'uzo@gmail.com',
+            }
+        ]
     },
     {
-        id: 3,
+        id: '56789',
         name: 'Workspace 3',
-        type: 'Sales & CRM'
+        type: 'Sales & CRM',
+        members: [
+            {
+                id: '1122334',
+                name: 'Uzoamaka Anyanwu',
+                type: 'uzo@gmail.com',
+            }
+        ]
     },
 ]

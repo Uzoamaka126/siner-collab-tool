@@ -19,7 +19,7 @@ export default {
   name: 'DashbaordContentLayout',
   components: {
     'dashboard-content-header': DashbaordContentHeader,
-    'dashboard-content-body': DashbaordContentBody
+    'dashboard-content-body': DashbaordContentBody,
   },
   props: ["toggleSidebar", "collapse", "sidebarWidth"]
 }

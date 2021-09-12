@@ -53,7 +53,7 @@ export default {
         },
         workspaces: workspacesTypes
     }),
-    props: ['count', 'increaseStep'],
+    props: ['count', 'increaseStep', 'isNew'],
     methods: {
         
     }
@@ -94,5 +94,8 @@ export default {
     }
     .vue-select {
         width: 100% !important;
+        border: 1.5px solid rgba(193, 163, 249, 0.25);
+        min-height: 20px;
+        background-color: #fafbfc;
     }
 </style>
