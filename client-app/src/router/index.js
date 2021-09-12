@@ -3,6 +3,7 @@ import HomeView from '../views/Home.vue'
 import Signup from '../views/Signup.vue';
 import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
+import WorkspaceItemView from '../views/WorkspaceItem.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
 import SettingsView from '../views/Settings.vue'
@@ -65,7 +66,7 @@ const routes = [
       {
         path:'workspaces/:name', 
         name:'workspace-detail-view', 
-        component: WorkspaceView
+        component: WorkspaceItemView
       },
       {
         path:'settings', 
