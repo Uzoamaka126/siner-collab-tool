@@ -1,11 +1,11 @@
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import vSelect from 'vue-next-select';
-import jQuery from "jquery";
 import App from './App.vue'
 import router from './router'
 import store from './store';
 import VModal from 'vue-js-modal/dist/index.nocss.js'
-import 'vue-js-modal/dist/styles.css'
+import 'vue-js-modal/dist/styles.css';
+import { FloatMenu } from 'vue-float-menu'
 
 // createApp()
 createApp(App)
@@ -13,7 +13,7 @@ createApp(App)
     .use(router)
     .component('v-modal', VModal)
     .component('vue-select', vSelect)
-    .component('$', jQuery)
+    .component('v-menu', FloatMenu)
     .directive('click-outside', {
         mounted (el, binding, vNode) {
             // Provided expression must evaluate to a function.

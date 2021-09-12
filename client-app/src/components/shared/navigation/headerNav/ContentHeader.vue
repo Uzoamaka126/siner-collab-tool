@@ -102,6 +102,9 @@
            <template v-else-if="getRouterName() === 'workspaces'">
                <p class="text--sm">WORKSPACES</p>
            </template>
+           <template v-else-if="getRouterName() === 'invites'">
+               <p class="text--sm">INVITES</p>
+           </template>
         </div>
     </div>
     <div class="content--header__right">
