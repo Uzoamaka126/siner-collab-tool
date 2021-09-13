@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     dggg() {
-      console.log(this.props);
     }
   },
   props: {

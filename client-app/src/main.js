@@ -3,15 +3,12 @@ import vSelect from 'vue-next-select';
 import App from './App.vue'
 import router from './router'
 import store from './store';
-import VModal from 'vue-js-modal/dist/index.nocss.js'
-import 'vue-js-modal/dist/styles.css';
 import { FloatMenu } from 'vue-float-menu'
 
 // createApp()
 createApp(App)
     .use(store)
     .use(router)
-    .component('v-modal', VModal)
     .component('vue-select', vSelect)
     .component('v-menu', FloatMenu)
     .directive('click-outside', {

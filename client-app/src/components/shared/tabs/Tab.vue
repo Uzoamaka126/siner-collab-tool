@@ -1,6 +1,6 @@
 <template>
-  <div class="tab-panel" role="tabPanel">
-    <div class="tab-content">
+  <div class="tab-panel" role="tabPanel" style="height: auto;">
+    <div class="tab-content" style="height: auto;">
       <slot></slot>
     </div>
   </div>

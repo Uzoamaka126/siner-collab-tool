@@ -18,7 +18,7 @@
                 <div class="tab--panel" role="tabPanel" data-v-0292cb4e="">
                     <div class="tab-content">
                         <keep-alive>
-                            <component :is="currentTabComponent"></component>
+                            <component :is="currentTabComponent" :currentWorkspaceItem="currentWorkspaceItem"></component>
                         </keep-alive>
                     </div>
                 </div>
@@ -30,17 +30,25 @@
 <script>
 import Tabs from '../shared/tabs/Tabs.vue';
 import Tab from '../shared/tabs/Tab.vue';
-
+import WorkspaceBoards from './WorkspaceBoards.vue';
+import WorkspaceMembers from './WorkspaceMembers.vue';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'WorkspaceItem',
     created() {
         // console.log(this.user);
-        
+        this.getWorkspaceDetails(this.$route.params.id)
+    },
+    watch:{
+    //watch for route parameter change and execute method
+        '$route': 'getWorkspaceDetails',
     },
     components: {
         Tabs,
-        Tab
+        Tab,
+        WorkspaceBoards,
+        WorkspaceMembers
     },
     props: {
         user: Object
@@ -64,18 +72,26 @@ export default {
                 id: 'Settings',
                 component: 'WorkspaceSettings'
             },
-            
         ],
-        selectedIndex: 0
+        selectedIndex: 0,
+        currentWorkspaceItem: undefined
     }),
     computed: {
-
+        
     },
     methods: {
+        ...mapActions(['setSingleWorkspaceDetails']),
         getCurrentTab(value, index) {
             this.currentTabComponent = value;
             this.selectedIndex = index;
-        }
+        },
+        getWorkspaceDetails(id) {
+            const workspaces = this.$store.state.workspaces;
+            const workspaceItem = workspaces.find(item => item.id === id);
+            // this.setSingleWorkspaceDetails(workspaceItem);
+            this.currentWorkspaceItem = workspaceItem;
+        },
+        
     }
 }
 </script>

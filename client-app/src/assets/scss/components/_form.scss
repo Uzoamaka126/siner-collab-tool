@@ -115,3 +115,15 @@ textarea {
         margin-left: 5px
     }
 }
+
+label {
+    &.label__sort, &.label__filter {
+        color: #5e6c84;
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        margin-bottom: 4px;
+        margin-top: 12px;
+    }
+}

@@ -215,6 +215,9 @@
 }
 
 .mb{
+    &--0 {
+        margin-bottom: 0px !important;
+    }
     &--15{
         margin-bottom: 15px;
     }
@@ -515,6 +518,15 @@
     justify-content: center;
 }
 
+.justify-content-between {
+    justify-content: space-between;
+}
+.justify-content-evenly {
+    justify-content: space-evenly;
+}
+.justify-content-end {
+    justify-content: flex-end;
+}
 .cursor-text {
     cursor: text;
 }

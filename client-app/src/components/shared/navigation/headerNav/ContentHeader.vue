@@ -209,7 +209,7 @@ export default {
         '$route': 'getRouterName',
     },
   methods: {
-      getRouterName() {
+    getRouterName() {
         const routePath = this.$route.path.slice(11);
         // console.log(routePath);
         if (routePath === 'home') {

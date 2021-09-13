@@ -7,5 +7,8 @@ export default {
     },
     viewCreateWorkspaceModal({ commit }, value) {
         commit('showCreateWorkspaceModal', value)
-    }
+    },
+    setSingleWorkspaceDetails({ commit }, data) {
+        commit('addSingleWorkspaceDetails', data)
+    },
 }

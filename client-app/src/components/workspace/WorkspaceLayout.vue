@@ -20,23 +20,6 @@
                     </span>
                 </div>
             </div>
-                <!-- :menu="createdWorkspaces" -->
-            <!-- <float-menu
-                :position="'top left'"
-                :dimension="50"
-                :fixed="true"
-                :menu-dimension="{height: 400, width: 300}"
-                :menu-data="[{ name: 'File' }, { name: 'Open' }, { name: 'Themes', subMenu: { items: [{  name: 'Dark' }]}}]"
-            >
-                <icon-svg 
-                    fill="rgba(194, 200, 212, 1)" 
-                    class="nav__icon" 
-                    name="add" 
-                    icon-position="left"
-                    :width="'24px'"
-                    :height="'24px'"
-                /> 
-            </float-menu> -->
             <div class="home--content__wrap">
                 <div class="home--content--item positionRelative" v-for="(item, index) in createdWorkspaces" :key="index">
                     <template v-if="isMenuItemHover === item.name">
@@ -99,7 +82,8 @@
                             </div>
                         </div>
                     </template>
-                    <router-link :to="{ path: `/dashboard/boards/${item.name }`}" >
+                    <!-- <router-link :to="{ path: `/dashboard/boards/${getHyphenatedPath(item.name, item.id)}`}"> -->
+                    <span class="cursor-pointer" @click="goToWorkspace(item.name, item.id)">
                         <div 
                             class="workspace--theme--img" 
                             @mouseenter="showMenuIconOnHover(item.name)"
@@ -110,7 +94,7 @@
                         <span class="flex flex-column">
                             <span class="text--color-dark text--sm text--bold mt--5 text-center">{{ item.name }}</span>
                         </span>
-                    </router-link>
+                    </span>
                 </div>
             </div>
         </div>
@@ -142,6 +126,8 @@ export default {
         IconSvg,
         FloatMenu
     },
+    computed: {
+    },
     methods: {
         showMenuIconOnHover(name) {
             if(name === null) {
@@ -169,6 +155,13 @@ export default {
                 }
             // }
             
+        },
+        getHyphenatedPath(str) {
+            return str.replace(/\s/g, "-").toLowerCase();
+        },
+        goToWorkspace(name, id) {
+            const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
+            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
         }
     }
 }

@@ -20,7 +20,11 @@
                 v-for="(item, index) in createdWorkspaces" 
                 :key="index"
             >
-                <router-link :to="{ path: `/dashboard/workspaces/${item.name }`}" class="nav__workspace--link">
+                    <!-- :to="{ path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`, params: { name: refinedPathName, id: id }}"  -->
+                <router-link 
+                    :to="{ name: 'workspace-detail-view' , params: { name: getHyphenatedPath(item.name), id: item.id }}" 
+                    class="nav__workspace--link"
+                >
                     <div class="workspace--theme--img"></div>
                     <span class="flex flex-column">
                         <span class="text--color-dark text--sm text--bold mt--5">{{ item.name }}</span>
@@ -47,14 +51,16 @@ export default {
     computed: {
         computeCreatedWorkspaces () {
             return this.createdWorkspaces.slice(0, 2)
-        }
+        },
     },
     methods: {
         createNewWorkspace() {
-            // console.log(this.$store.commit)
             // this.$store.dispatch('viewCreateWorkspaceModal', true);
             this.$store.commit('showCreateWorkspaceModal', true);
-        }
+        },
+        getHyphenatedPath(str) {
+            return str.replace(/\s/g, "-").toLowerCase();
+        },
     }
 }
 </script>
