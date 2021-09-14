@@ -5,8 +5,8 @@
                 <p class="title">
                 {{ 
                     (currentWorkspaceItem.members.length === 0 || currentWorkspaceItem.members.length > 1)
-                    ? currentWorkspaceItem.members.length + '' + 'Workspace Members' 
-                    : currentWorkspaceItem.members.length + '' + 'Workspace Member' 
+                    ? currentWorkspaceItem.members.length + ' ' + 'Workspace Members' 
+                    : currentWorkspaceItem.members.length + ' ' + 'Workspace Member' 
                 }}
                 </p>
                 <p class="sub-title">Members of a workspace can view and join all boards on that workspace. They can also create new boards on the Workspace.</p>
@@ -18,7 +18,7 @@
                 <input 
                     style="padding-top: 6px; padding-bottom: 6px;" 
                     class="" v-model="search.value" 
-                    placeholder="Search boards by name" 
+                    placeholder="Search members by name" 
                 />
             </div>
             <div class="flex align-center">
@@ -41,9 +41,33 @@
                 </span>
             </div>
         </div>
-
+        <!-- table -->
         <div style="display: flex; margin-top: 4rem;">
-            
+            <div class="member__item">
+                <div class="member--left">
+                    <div class="member__names--avatar">
+                        <span class="member__names--initials">AA</span>
+                    </div>
+                    <div class="member__names--details">
+                        <p class="full-name">anyanwu amaka</p>
+                        <p class="username">@uzoamakaanyanwu</p>
+                    </div>
+                </div>
+                <div class="member--right">
+                    <div class="member--right__boards">
+                        <button class="btn--ghost">2 boards on this workspace</button>
+                    </div>
+                    <div class="member--right__admin badge">Admin</div>
+                   <div class="member--right__actions">
+                        <button class="btn--ghost view--more">View more</button>
+                        <!-- if the user is an admin, they should be able to view this -->
+                        <!-- <div class="flex align-center"> -->
+                            <button class="btn--ghost">Edit</button>
+                            <button class="btn--ghost btn--danger">Remove</button>
+                        <!-- </div> -->
+                   </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

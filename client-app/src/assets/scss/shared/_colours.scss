@@ -6,10 +6,11 @@ $default-icon-color: #7c828d;
 // $sidebar-bg-color: #FAFBFC;
 $sidebar-bg-color: rgb(250, 251, 252);
 $sidebar-bg-textColor: rgb(66, 82, 110);
+$warning-color: #f1616f;
 // 
 .color{
     &--red{
-        // color: $danger;
+        color: #f1616f;
     }
     &--green{
         // color:$tag-success;

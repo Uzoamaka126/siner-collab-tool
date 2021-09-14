@@ -22,7 +22,13 @@
             >
                     <!-- :to="{ path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`, params: { name: refinedPathName, id: id }}"  -->
                 <router-link 
-                    :to="{ name: 'workspace-detail-view' , params: { name: getHyphenatedPath(item.name), id: item.id }}" 
+                    :to="{ 
+                        name: 'workspace-detail-view',
+                        path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`,
+                        params: { 
+                            name: getHyphenatedPath(item.name), 
+                            id: item.id 
+                        }}" 
                     class="nav__workspace--link"
                 >
                     <div class="workspace--theme--img"></div>

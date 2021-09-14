@@ -1,6 +1,31 @@
 <template>
     <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 2rem">
-        <div style="display: flex; margin-top: 4rem;">
+         <!-- boards functionalities header -->
+        <div class="flex align-center justify-content-between">
+            <div class="form__item mr--15 mb--0 justify-content-end" style="min-width: 30%">
+                <input 
+                    style="padding-top: 6px; padding-bottom: 6px;" 
+                    class="" v-model="search.value" 
+                    placeholder="Search boards by title" 
+                />
+            </div>
+            <div class="flex align-center">
+                <span class="form__item mr--15 mb--0">
+                    <label for="" class="label__sort">Sort by</label>
+                    <vue-select 
+                        class="text--sm"
+                        :options="[
+                            'Less Active', 
+                            'Most active', 
+                            'Alphabetically A - Z', 
+                            'Alphabetically A - Z'
+                            ]"
+                            v-model="sortValue"
+                    ></vue-select>
+                </span>
+            </div>
+        </div>
+        <div style="display: flex; margin-top: 2.5rem;">
             <div class="home--content__wrap create--workspace__wrap">
                 <div class="home--content--item">
                     <span>
@@ -59,7 +84,9 @@ export default {
         search: {
             active: false,
             value: ''
-        }
+        },
+        sortValue: '',
+        filterValue: ''
     }),
     components: {
         IconSvg,
