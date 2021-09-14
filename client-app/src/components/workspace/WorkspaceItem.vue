@@ -38,7 +38,8 @@ export default {
     name: 'WorkspaceItem',
     created() {
         // console.log(this.user);
-        this.getWorkspaceDetails(this.$route.params.id)
+        const id = localStorage.getItem('workspaceId')
+        this.getWorkspaceDetails(id)
     },
     watch:{
     //watch for route parameter change and execute method
@@ -74,7 +75,8 @@ export default {
             },
         ],
         selectedIndex: 0,
-        currentWorkspaceItem: undefined
+        currentWorkspaceItem: undefined,
+        workspaceId: ''
     }),
     computed: {
         
@@ -103,11 +105,3 @@ export default {
     }
 
 </style>
-
-<!-- <tabs>
-            <tab title="Profile" titleSlot="lll">
-
-            </tab>
-            <tab title="Display" titleSlot="bbb"></tab>
-            <tab title="Account Settings"></tab>
-        </tabs> -->

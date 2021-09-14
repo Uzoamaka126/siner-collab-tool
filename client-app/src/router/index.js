@@ -66,7 +66,8 @@ const routes = [
       {
         path:'workspaces/:name', 
         name:'workspace-detail-view', 
-        component: WorkspaceItemView
+        component: WorkspaceItemView,
+        props: true
       },
       {
         path:'settings', 

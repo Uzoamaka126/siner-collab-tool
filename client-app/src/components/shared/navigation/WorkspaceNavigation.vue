@@ -16,27 +16,27 @@
         </div>
         <div class="home--content__wrap">
             <div 
-                class="home--content--item"
+                class="home--content--item cursor-pointer"
                 v-for="(item, index) in createdWorkspaces" 
                 :key="index"
             >
                     <!-- :to="{ path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`, params: { name: refinedPathName, id: id }}"  -->
-                <router-link 
-                    :to="{ 
+                    <!-- :to="{ 
                         name: 'workspace-detail-view',
                         path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`,
-                        params: { 
-                            name: getHyphenatedPath(item.name), 
-                            id: item.id 
-                        }}" 
+                        params: { name: getHyphenatedPath(item.name)                
+                    }}"  -->
+                <span
+                    @click="goToWorkspace(item.name, item.id)"
                     class="nav__workspace--link"
+                    :class="{ active: activeWorkspace === item.name}"
                 >
                     <div class="workspace--theme--img"></div>
                     <span class="flex flex-column">
                         <span class="text--color-dark text--sm text--bold mt--5">{{ item.name }}</span>
                         <span class="text--xs text--normal text--color-normal" style="margin-top: 3px;">{{ item.type }}</span>
                     </span>
-                </router-link>
+                </span>
             </div>
         </div>
     </div>
@@ -48,11 +48,19 @@ import { createdWorkspaces } from '../../../utils/dummy'
 
 export default {
     name: 'WorkspaceNavigation',
+     watch:{
+        //watch for route parameter change and execute method
+        '$route': 'clearOnUnMount',
+    },
     components: {
         'icon-svg': IconSvg
     },
+    created() {
+        console.log(this.$route.path);
+    },
     data: () => ({
         createdWorkspaces: createdWorkspaces,
+        activeWorkspace: ''
     }),
     computed: {
         computeCreatedWorkspaces () {
@@ -67,7 +75,19 @@ export default {
         getHyphenatedPath(str) {
             return str.replace(/\s/g, "-").toLowerCase();
         },
-    }
+        goToWorkspace(name, id) {
+            const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
+            this.activeWorkspace = name
+            localStorage.setItem('workspaceId', id);
+            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
+        },
+        clearOnUnMount() {
+            const path = this.$route.path;
+            if(!path.includes('workspaces')) {
+                this.activeWorkspace = ''
+            }
+        }
+    },
 }
 </script>
 

@@ -161,7 +161,8 @@ export default {
         },
         goToWorkspace(name, id) {
             const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
+            localStorage.setItem('workspaceId', id);
+            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
         }
     }
 }
