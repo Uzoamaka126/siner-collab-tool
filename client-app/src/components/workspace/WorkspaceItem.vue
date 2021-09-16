@@ -41,6 +41,9 @@ export default {
         const id = localStorage.getItem('workspaceId')
         this.getWorkspaceDetails(id)
     },
+    unmounted() {
+        localStorage.removeItem('workspaceId')
+    },
     watch:{
     //watch for route parameter change and execute method
         '$route': 'getWorkspaceDetails',

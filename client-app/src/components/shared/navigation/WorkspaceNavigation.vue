@@ -83,11 +83,25 @@ export default {
         },
         clearOnUnMount() {
             const path = this.$route.path;
-            if(!path.includes('workspaces')) {
+            if (!path.includes('workspaces/')) {
                 this.activeWorkspace = ''
-            }
+            } 
+            // else {
+            //     const id = localStorage.getItem('workspaceId');
+            //     const findWorkspaceObj = createdWorkspaces.find(item => item.id === id);
+            //     if(findWorkspaceObj) {
+            //         this.activeWorkspace = findWorkspaceObj.name
+            //     }
+            // }
         }
     },
+    mounted() {
+        const id = localStorage.getItem('workspaceId');
+        const findWorkspaceObj = createdWorkspaces.find(item => item.id === id);
+        if(findWorkspaceObj) {
+            this.activeWorkspace = findWorkspaceObj.name
+        }
+    }
 }
 </script>
 

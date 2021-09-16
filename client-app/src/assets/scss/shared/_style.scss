@@ -366,6 +366,16 @@ a {
             }
         }
 
+        &__badge {
+            min-width: 56px;
+
+            &.blue {
+                border: 1px solid #6a78ad;
+                background: white;
+                color: #6a78ad;
+            }
+        }
+
         &__admin {
             color: #fff;
             background-color: #6aa4ad;
@@ -373,6 +383,10 @@ a {
             font-size: 70%;
             padding: 0.45rem 0.4rem;
             margin-right: 1.5rem;
+
+            border: 1px solid #6aa4ad;
+            background: white;
+            color: #6aa4ad;
         }
 
         &__actions {

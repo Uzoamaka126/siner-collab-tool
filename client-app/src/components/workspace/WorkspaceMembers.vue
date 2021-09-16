@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 1rem">
-         <div>
+         <div class="flex align-items-center mt--20 justify-content-between">
             <div class="heading">
                 <p class="title">
                 {{ 
@@ -9,11 +9,24 @@
                     : currentWorkspaceItem.members.length + ' ' + 'Workspace Member' 
                 }}
                 </p>
-                <p class="sub-title">Members of a workspace can view and join all boards on that workspace. They can also create new boards on the Workspace.</p>
+                <p class="sub-title">Members of a workspace can view, create and join all boards on that workspace.</p>
+            </div>
+            <div class="flex align-items-center cursor-pointer">
+                <span class="">
+                    <icon-svg 
+                        fill="#38434f" 
+                        class="nav__icon mr--0" 
+                        name="add" 
+                        icon-position="left"
+                        :width="'14px'"
+                        :height="'14px'"
+                    /> 
+                </span>
+                <span class="text--xs" style="color: #38434f; font-weight: 500;">New member</span>
             </div>
         </div>
         <!-- boards functionalities header -->
-        <div class="flex align-center justify-content-between">
+        <div class="flex align-center justify-content-between mt--20">
             <div class="form__item mr--15 mb--0 justify-content-end" style="min-width: 30%">
                 <input 
                     style="padding-top: 6px; padding-bottom: 6px;" 
@@ -42,30 +55,48 @@
             </div>
         </div>
         <!-- table -->
-        <div style="display: flex; margin-top: 4rem;">
-            <div class="member__item">
-                <div class="member--left">
-                    <div class="member__names--avatar">
-                        <span class="member__names--initials">AA</span>
+        <div class="mt--40 mb--20">
+            <div style="display: flex;" v-for="member in currentWorkspaceItem.members" :key="member.id">
+                <div class="member__item" >
+                    <div class="member--left">
+                        <div class="member__names--avatar">
+                            <span class="member__names--initials">AA</span>
+                        </div>
+                        <div class="member__names--details">
+                            <p class="full-name">{{ member.name }}</p>
+                            <p class="username">@{{ member.email }}</p>
+                        </div>
                     </div>
-                    <div class="member__names--details">
-                        <p class="full-name">anyanwu amaka</p>
-                        <p class="username">@uzoamakaanyanwu</p>
+                    <div class="member--right">
+                        <div class="member--right__boards">
+                            <button class="btn--ghost">2 boards on this workspace</button>
+                        </div>
+                        <div class="member--right__admin member--right__badge badge" :class="{ 'blue': badgeBgColor(member.type) === 'blue' }">{{ member.type }}</div>
+                        <div class="member--right__actions">
+                            <button class="btn--ghost view--more">View more</button>
+                            <!-- if the user is an admin, they should be able to view this -->
+                            <span class="ml--15 cursor-pointer">
+                                <icon-svg 
+                                    fill="rgba(194, 200, 212, 1)" 
+                                    class="nav__icon" 
+                                    name="edit" 
+                                    icon-position="left"
+                                    :width="'24px'"
+                                    :height="'24px'"
+                                /> 
+                            </span>
+                            <span class="cursor-pointer">
+                                <icon-svg 
+                                    fill="rgba(194, 200, 212, 1)" 
+                                    class="nav__icon mr--0" 
+                                    name="delete" 
+                                    icon-position="left"
+                                    :width="'24px'"
+                                    :height="'24px'"
+                                /> 
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="member--right">
-                    <div class="member--right__boards">
-                        <button class="btn--ghost">2 boards on this workspace</button>
-                    </div>
-                    <div class="member--right__admin badge">Admin</div>
-                   <div class="member--right__actions">
-                        <button class="btn--ghost view--more">View more</button>
-                        <!-- if the user is an admin, they should be able to view this -->
-                        <!-- <div class="flex align-center"> -->
-                            <button class="btn--ghost">Edit</button>
-                            <button class="btn--ghost btn--danger">Remove</button>
-                        <!-- </div> -->
-                   </div>
                 </div>
             </div>
         </div>
@@ -106,10 +137,13 @@ export default {
         ...mapState(['workspace']),
     },
     methods: {
-        // getHyphenatedPath(str) {
-        //     const routePath = this.$route.path.slice(22);
-        //     const newPath = routePath.replace(/\s/g, "-").toLowerCase();
-        // },
+         badgeBgColor(type) {
+            if(type === 'Member') {
+                return 'blue'
+            } else {
+                return 'green'
+            }
+        },
         showMenuIconOnHover(name) {
             if(name === null) {
                 // this.isMenuItemHover = '';
@@ -223,5 +257,8 @@ export default {
                 font-size: 14px;
             }
         }
+    }
+    .vue-select {
+        border: 1px solid rgba(194, 200, 212, 1);
     }
 </style>

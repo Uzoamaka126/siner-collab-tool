@@ -46,7 +46,14 @@ export const createdWorkspaces = [
             {
                 id: '46789',
                 name: 'Uzoamaka Anyanwu',
-                type: 'uzo@gmail.com',
+                email: 'uzo@gmail.com',
+                type: 'Admin',
+            },
+             {
+                id: '1232dfxxc',
+                name: 'Uzoamaka Anyanwu',
+                email: 'uzo@gmail.com',
+                type: 'Member',
             }
         ]
     },
@@ -58,7 +65,8 @@ export const createdWorkspaces = [
             {
                 id: '1122334',
                 name: 'Uzoamaka Anyanwu',
-                type: 'uzo@gmail.com',
+                email: 'uzo@gmail.com',
+                type: 'Admin',
             }
         ]
     },
@@ -70,7 +78,8 @@ export const createdWorkspaces = [
             {
                 id: '1122334',
                 name: 'Uzoamaka Anyanwu',
-                type: 'uzo@gmail.com',
+                email: 'uzo@gmail.com',
+                type: 'Admin',
             }
         ]
     },
