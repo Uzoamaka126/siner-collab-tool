@@ -27,13 +27,18 @@
                     </div>
 
                     <div class="nav__section__content__links">
-                        <div class="nav__section__content__group">
-                            <home-navigation></home-navigation>
-                        </div>
-                        <!-- Workspace navigation group -->
-                        <workspace-navigation></workspace-navigation>
-                        <invite-navigation></invite-navigation>
-                        <settings-navigation></settings-navigation>
+                        <template v-if="!showWorkspaceNav">
+                            <div class="nav__section__content__group">
+                                <home-navigation></home-navigation>
+                            </div>
+                            <!-- Workspace navigation group -->
+                            <workspace-navigation></workspace-navigation>
+                            <invite-navigation></invite-navigation>
+                            <settings-navigation></settings-navigation>
+                        </template>
+                        <template v-else>
+                            <workspace-item-navigation></workspace-item-navigation>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -48,6 +53,7 @@ import WorkspaceNavigation from './WorkspaceNavigation.vue';
 import SettingsNavigation from './SettingsNavigation.vue';
 import InviteNavigation from './InviteNavigation.vue';
 import HomeNavigation from './HomeNavigation.vue';
+import WorkspaceItemNavigation from './WorkspaceNavigationItem.vue'
 
 export default {
     name: 'SideBarLayout',
@@ -58,14 +64,32 @@ export default {
         'settings-navigation': SettingsNavigation,
         'invite-navigation': InviteNavigation,
         'home-navigation': HomeNavigation,
+        'workspace-item-navigation': WorkspaceItemNavigation
+    },
+    created() {
+        this.showWorkspaceNavComputed();
+    },
+    watch:{
+        //watch for route parameter change and execute method
+        '$route': 'showWorkspaceNavComputed',
     },
     data: () => ({
         showOnboardingModal: false,
+        showWorkspaceNav: false
     }),
     computed: {
-        // df () {
-        //     return this.showOnboardingModal
-        // }
+        
+    },
+    methods: {
+        showWorkspaceNavComputed () {
+            if(!JSON.parse(localStorage.getItem('showWorkspaceNav'))) {
+                this.showWorkspaceNav = false;
+                return false
+            } else {
+                this.showWorkspaceNav = true;
+                return true;
+            }
+        }
     },
     props: ["toggleSidebar", "collapse", "sidebarWidth"]
 }

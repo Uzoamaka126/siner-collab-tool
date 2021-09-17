@@ -27,10 +27,10 @@
                         params: { name: getHyphenatedPath(item.name)                
                     }}"  -->
                 <span
-                    @click="goToWorkspace(item.name, item.id)"
+                    @click="goToWorkspace(item.name, item.id, item)"
                     class="nav__workspace--link"
-                    :class="{ active: activeWorkspace === item.name}"
                 >
+                    <!-- :class="{ active: activeWorkspace === item.name}" -->
                     <div class="workspace--theme--img"></div>
                     <span class="flex flex-column">
                         <span class="text--color-dark text--sm text--bold mt--5">{{ item.name }}</span>
@@ -75,11 +75,18 @@ export default {
         getHyphenatedPath(str) {
             return str.replace(/\s/g, "-").toLowerCase();
         },
-        goToWorkspace(name, id) {
+        goToWorkspace(name, id, data) {
+            // const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
+            // this.activeWorkspace = name
+            // const workspaceDetails = this.createdWorkspaces.find(item )
+            // localStorage.setItem('workspaceId', id);
+            // this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
             const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            this.activeWorkspace = name
+            // this.activeWorkspace = name
             localStorage.setItem('workspaceId', id);
-            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
+            localStorage.setItem('workspaceDetails', JSON.stringify(data));
+            localStorage.setItem('showWorkspaceNav', true);
+            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
         },
         clearOnUnMount() {
             const path = this.$route.path;
@@ -118,7 +125,7 @@ export default {
         display: flex;
         align-items: center;
 
-        &.active {
+        &.active, &:hover {
             color: #5750ec;
             font-weight: 600;
             background-color: #e4e9fd;
