@@ -1,7 +1,10 @@
 <template>
-    <div class="nav__section__content__group ">
-        <div class="nav__section--item nav__section--item--sub" style="padding-left: 0">
-            <div class="workspace-link flex align-items-center cursor-pointer" @click="backToHome()" style="width: 100%;">  
+   <div>
+       <div 
+            class="nav__section--item nav__section--item--sub" 
+            style="padding-left: 0; margin-bottom: 1rem;"
+        >
+            <div class="workspace-link flex align-items-center cursor-pointer" @click="backToHome()" style="width: 100%; padding-left: 10px;">  
                 <span class="cursor-pointer ml--0">
                     <icon-svg 
                         fill="rgba(66, 82, 110)" 
@@ -14,121 +17,40 @@
                 <span class="nav__section__content__group__title cursor-pointer ml--0" style="text-transform: none">Back to home</span>
             </div>
         </div>
-        <div class="home--content__wrap">
-            <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                    <div class="workspace--theme--img" style="width: 24px; height: 24px; margin-right: 15px;"></div>
-                    <span class="flex flex-column">
-                        <span class="text--color-dark text--sm text--bold mt--5">{{ workspaceDetails.name }}</span>
-                        <span class="text--xs text--normal text--color-normal" style="margin-top: 3px;">{{ workspaceDetails.type }}</span>
+        <div class="nav__section__content__group ">
+            <div class="home--content__wrap">
+                <div class="home--content--item">
+                    <span
+                        class="nav__workspace--link"
+                    >
+                        <!-- :class="{ active: activeWorkspace === item.name}" -->
+                        <div class="workspace--theme--img" style="width: 24px; height: 24px; margin-right: 15px;"></div>
+                        <span class="flex flex-column">
+                            <span class="text--color-dark text--sm text--bold mt--5">{{ workspaceDetails.name }}</span>
+                            <span class="text--xs text--normal text--color-normal" style="margin-top: 3px;">{{ workspaceDetails.type }}</span>
+                        </span>
                     </span>
-                </span>
-            </div>
-            <!-- Other functionalities -->
-            <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                     <span class="cursor-pointer ml--0">
-                    <icon-svg 
-                        fill="rgba(66, 82, 110)" 
-                        class="nav__icon mr--15 ml--0" 
-                        name="board" 
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'24px'"
-                    /> 
-                </span>
-                    <span class="flex flex-column">
-                        <span class="workspace-nav-text text--sm mt--5">Boards</span>
-                    </span>
-                </span>
-            </div>
-            <!-- item -->
-             <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                     <span class="cursor-pointer ml--0">
-                        <icon-svg 
-                            fill="rgba(66, 82, 110)" 
-                            class="nav__icon mr--15 ml--0" 
-                            name="multiple-users" 
-                            :style="{ fill: 'rgba(66, 82, 110)' }"
-                            :width="'24px'"
-                        />
-                     </span>
-                    <span class="flex flex-column">
-                        <span class="workspace-nav-text text--sm mt--5">Members</span>
-                    </span>
-                </span>
-            </div>
-            <!-- item -->
-             <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                    <span class="cursor-pointer ml--0">
-                        <icon-svg 
-                            fill="rgba(66, 82, 110)" 
-                            class="nav__icon mr--15 ml--0" 
-                            name="notes" 
-                            :style="{ fill: 'rgba(66, 82, 110)' }"
-                            :width="'24px'"
-                        />
-                     </span>
-                    <span class="flex flex-column">
-                        <span class="workspace-nav-text text--sm mt--5">Meeting notes</span>
-                    </span>
-                </span>
-            </div>
-            <!-- item -->
-             <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                     <span class="cursor-pointer ml--0">
-                        <icon-svg 
-                            fill="rgba(66, 82, 110)" 
-                            class="nav__icon mr--15 ml--0" 
-                            name="sheet" 
-                            :style="{ fill: 'rgba(66, 82, 110)' }"
-                            :width="'24px'"
-                        />
-                     </span>
-                    <span class="flex flex-column">
-                        <span class="workspace-nav-text text--sm mt--5">Product requirements</span>
-                    </span>
-                </span>
-            </div>
-            <!-- item -->
-             <div class="home--content--item">
-                <span
-                    class="nav__workspace--link"
-                >
-                    <!-- :class="{ active: activeWorkspace === item.name}" -->
-                     <span class="cursor-pointer ml--0">
-                        <icon-svg 
-                            fill="rgba(66, 82, 110)" 
-                            class="nav__icon mr--15 ml--0" 
-                            name="settings-2" 
-                            :style="{ fill: 'rgba(66, 82, 110)' }"
-                            :width="'24px'"
-                        />
-                     </span>
-                    <span class="flex flex-column">
-                        <span class="workspace-nav-text text--sm mt--5">Settings</span>
-                    </span>
-                </span>
+                </div>
+                <!-- Other functionalities -->
+                <div class="home--content--item" v-for="(item, index) in workspaceNavItems" :key="index">
+                    <router-link :to="{ name: `${item.routeName}` }" class="nav__workspace--link">
+                        <span class="cursor-pointer ml--0">
+                            <icon-svg 
+                                fill="rgba(66, 82, 110)" 
+                                class="nav__icon mr--15 ml--0" 
+                                :name="`${item.iconName}`"
+                                :style="{ fill: 'rgba(66, 82, 110)' }"
+                                :width="'24px'"
+                            /> 
+                        </span>
+                        <span class="flex flex-column">
+                            <span class="workspace-nav-text text--sm mt--5">{{ item.name }}</span>
+                        </span>
+                    </router-link>
+                </div>
             </div>
         </div>
-    </div>
+   </div>
 </template>
 
 <script>
@@ -150,7 +72,14 @@ export default {
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         activeWorkspace: '',
-        workspaceDetails: JSON.parse(localStorage.getItem("workspaceDetails"))
+        workspaceDetails: JSON.parse(localStorage.getItem("workspaceDetails")),
+        workspaceNavItems: [
+            { id: 1, name: 'Boards', routeName: 'workspace-boards', iconName: 'board', path: 'boards' },
+            { id: 2, name: 'Members', routeName: 'workspace-members', iconName: 'multiple-users', path: 'members' },
+            // { id: 3, name: 'Meeting notes', routeName: 'workspace-meeting-notes', iconName: 'multiple-users' },
+            // { id: 4, name: 'Product requirements', routeName: 'workspace-product-requirements', iconName: 'notes' },
+            // { id: 5, name: 'Settings', routeName: 'workspace-settings', iconName: 'settings-2' },
+        ]
     }),
     computed: {
         computeCreatedWorkspaces () {
@@ -218,10 +147,9 @@ export default {
             font-weight: 400 !important;
             color: #212b36;
         }
-        &-link.active {
+        &-link.active, &-link:hover {
             span {
                 color: #5750ec;
-                font-weight: 600;
             }
         }
     }

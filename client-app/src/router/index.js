@@ -7,6 +7,8 @@ import WorkspaceItemView from '../views/WorkspaceItem.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
 import SettingsView from '../views/Settings.vue'
+import WorkspaceBoards from '../components/workspace/WorkspaceBoards.vue';
+import WorkspaceMembers from '../components/workspace/WorkspaceMembers.vue';
 
 
 const routes = [
@@ -67,7 +69,16 @@ const routes = [
         path:'workspaces/:name', 
         name:'workspace-detail-view', 
         component: WorkspaceItemView,
-        props: true
+        props: true,
+        redirect:{ name:'workspace-boards' },
+        // beforeEnter: requireAuth,
+        children:[
+          {path:'boards', name:'workspace-boards', component: WorkspaceBoards},
+          {path:'members', name:'workspace-members', component: WorkspaceMembers},
+          // {path:'meeting-notes', name:'workspace-meeting-notes', component: TransactionsList},
+          // {path:'product-requirements', name:'workspace-product-requirements', component: TransactionsList},
+          // {path:'settings', name:'workspace-settings', component: TransactionsList},
+        ]
       },
       {
         path:'settings', 

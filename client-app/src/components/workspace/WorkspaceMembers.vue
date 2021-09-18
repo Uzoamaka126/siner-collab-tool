@@ -4,9 +4,9 @@
             <div class="heading">
                 <p class="title">
                 {{ 
-                    (currentWorkspaceItem.members.length === 0 || currentWorkspaceItem.members.length > 1)
-                    ? currentWorkspaceItem.members.length + ' ' + 'Workspace Members' 
-                    : currentWorkspaceItem.members.length + ' ' + 'Workspace Member' 
+                    (members.length === 0 || members.length > 1)
+                    ? members.length + ' ' + 'Workspace Members' 
+                    : members.length + ' ' + 'Workspace Member' 
                 }}
                 </p>
                 <p class="sub-title">Members of a workspace can view, create and join all boards on that workspace.</p>
@@ -56,7 +56,7 @@
         </div>
         <!-- table -->
         <div class="mt--40 mb--20">
-            <div style="display: flex;" v-for="member in currentWorkspaceItem.members" :key="member.id">
+            <div style="display: flex;" v-for="member in members" :key="member.id">
                 <div class="member__item" >
                     <div class="member--left">
                         <div class="member__names--avatar">
@@ -117,7 +117,8 @@ export default {
         // if(this.user && this.user.isRecentlyCreated === true) {
         //     this.setShowOnboardingModal('show');
         // }
-        console.log(this.workspace);
+        this.fetchWorkspaceMembers();
+        // console.log(this.fetchWorkspaceMembers);
     },
     data: () => ({
         createdWorkspaces: createdWorkspaces.boards,
@@ -127,7 +128,8 @@ export default {
             value: ''
         },
         sortValue: '',
-        filterValue: ''
+        filterValue: '',
+        members: null
     }),
     components: {
         IconSvg,
@@ -154,6 +156,12 @@ export default {
                 if (getWorkspaceItem.name) {
                 this.isMenuItemHover = getWorkspaceItem.name;
                 }
+            }
+        },
+        fetchWorkspaceMembers() {
+            const currentWorkspace = JSON.parse(localStorage.getItem("workspaceDetails"));
+            if(currentWorkspace.members) {
+                this.members = currentWorkspace.members;
             }
         }
     }

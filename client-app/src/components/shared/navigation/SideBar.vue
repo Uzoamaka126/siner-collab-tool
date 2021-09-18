@@ -5,7 +5,7 @@
             <div class="nav__section">
                 <!-- Navigation Section content -->
                 <div class="nav__section__content">
-                    <div class="nav__section__content__group no--border sidebar--nav__brand">
+                    <div class="nav__section__content__group no--border sidebar--nav__brand mt--15">
                         <!-- navigation item -->
                         <div class="nav__item">
                             <div class="nav__item__logo">
