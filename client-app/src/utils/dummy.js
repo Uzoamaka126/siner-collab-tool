@@ -55,6 +55,40 @@ export const createdWorkspaces = [
                 email: 'uzo@gmail.com',
                 type: 'Member',
             }
+        ],
+        list: [
+            {
+                id: '12234',
+                name: 'Untitled ',
+                type: 'Marketing',
+                tasks: [
+                    {
+                        id: '122qws34',
+                        title: 'Workspace 1',
+                        asignee: {
+                            name: 'Uzoamaka Anyanwu',
+                            email: 'uzo@gmail.com'
+                        },
+                        due_date: new Date(),
+                        priority: 'low',
+                        description: 'This is a test task',
+                        isCompleted: false,
+                        comments: [
+                            {
+                                id: 'dewdsf12',
+                                createdAt: new Date(),
+                                updatedAt: new Date()
+                            }
+                        ]
+                    }
+                ]
+            },
+             {
+                id: '1232dfxxc',
+                name: 'Uzoamaka Anyanwu',
+                email: 'uzo@gmail.com',
+                type: 'Member',
+            }
         ]
     },
     {
@@ -68,7 +102,8 @@ export const createdWorkspaces = [
                 email: 'uzo@gmail.com',
                 type: 'Admin',
             }
-        ]
+        ],
+        list: []
     },
     {
         id: '56789',
@@ -81,6 +116,7 @@ export const createdWorkspaces = [
                 email: 'uzo@gmail.com',
                 type: 'Admin',
             }
-        ]
+        ],
+        list: []
     },
 ]

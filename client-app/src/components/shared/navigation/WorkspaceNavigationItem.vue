@@ -74,8 +74,9 @@ export default {
         activeWorkspace: '',
         workspaceDetails: JSON.parse(localStorage.getItem("workspaceDetails")),
         workspaceNavItems: [
-            { id: 1, name: 'Boards', routeName: 'workspace-boards', iconName: 'board', path: 'boards' },
-            { id: 2, name: 'Members', routeName: 'workspace-members', iconName: 'multiple-users', path: 'members' },
+            { id: 1, name: 'Lists', routeName: 'workspace-lists', iconName: 'list', path: 'lists' },
+            { id: 2, name: 'Boards', routeName: 'workspace-boards', iconName: 'board', path: 'boards' },
+            { id: 3, name: 'Members', routeName: 'workspace-members', iconName: 'multiple-users', path: 'members' },
             // { id: 3, name: 'Meeting notes', routeName: 'workspace-meeting-notes', iconName: 'multiple-users' },
             // { id: 4, name: 'Product requirements', routeName: 'workspace-product-requirements', iconName: 'notes' },
             // { id: 5, name: 'Settings', routeName: 'workspace-settings', iconName: 'settings-2' },

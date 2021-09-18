@@ -9,7 +9,7 @@ import BoardsView from '../views/Boards.vue'
 import SettingsView from '../views/Settings.vue'
 import WorkspaceBoards from '../components/workspace/WorkspaceBoards.vue';
 import WorkspaceMembers from '../components/workspace/WorkspaceMembers.vue';
-
+import WorkspaceList from '../components/workspace/WorkspaceLists.vue';
 
 const routes = [
   // {
@@ -75,6 +75,7 @@ const routes = [
         children:[
           {path:'boards', name:'workspace-boards', component: WorkspaceBoards},
           {path:'members', name:'workspace-members', component: WorkspaceMembers},
+          {path:'lists', name:'workspace-lists', component: WorkspaceList},
           // {path:'meeting-notes', name:'workspace-meeting-notes', component: TransactionsList},
           // {path:'product-requirements', name:'workspace-product-requirements', component: TransactionsList},
           // {path:'settings', name:'workspace-settings', component: TransactionsList},

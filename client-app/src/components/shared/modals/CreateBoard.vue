@@ -7,14 +7,12 @@
             :width="'620px'"
             :position="'center'"
             :isShowHeader="true"
+            :title="'Create board'"
         >
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section">
                     <div class="">
-                        <div class="modal__dialog--header">
-                            <h2>Create board</h2>
-                        </div>
-                        <form @submit.prevent="" class="form--workspace__create">
+                        <form @submit.prevent="" class="form--workspace__create mb--20">
                             <div class="form__item">
                                 <label for="workspaceTitle" class="form__label">Give your board a name</label>
                                 <input name="title" id="workspaceTitle" class="form__input" v-model="board.title" />

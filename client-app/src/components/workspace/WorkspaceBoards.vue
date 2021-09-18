@@ -86,7 +86,8 @@ export default {
             value: ''
         },
         sortValue: '',
-        filterValue: ''
+        filterValue: '',
+        boards: null
     }),
     components: {
         IconSvg,
@@ -102,6 +103,12 @@ export default {
                 if (getWorkspaceItem.name) {
                 this.isMenuItemHover = getWorkspaceItem.name;
                 }
+            }
+        },
+        fetchWorkspaceMembers() {
+            const currentWorkspace = JSON.parse(localStorage.getItem("workspaceDetails"));
+            if(currentWorkspace.boards) {
+                this.boards = currentWorkspace.boards;
             }
         }
     }

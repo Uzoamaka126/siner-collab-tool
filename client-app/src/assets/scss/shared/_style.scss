@@ -447,3 +447,17 @@ a {
         }
     }
 }
+
+.workspace {
+    &__content {
+        &--view {
+            border-radius: 3px;
+            background-color: #fff;
+            -webkit-box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 0.83px 1.6px 0 rgba(0, 0,0, 0.12);
+            width: 100%;
+            margin-bottom: 30px;
+            border: 1px solid rgba(193, 163, 249, 0.25);
+        }
+    }
+}

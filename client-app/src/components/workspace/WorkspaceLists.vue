@@ -106,10 +106,9 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
-import { mapState } from 'vuex';
 
 export default {
-    name: 'WorkspaceMembers',
+    name: 'WorkspaceList',
     watch:{
     //watch for route parameter change and execute method
     },
@@ -136,7 +135,6 @@ export default {
     },
     props: ['currentWorkspaceItem'],
     computed: {
-        ...mapState(['workspace']),
     },
     methods: {
          badgeBgColor(type) {

@@ -48,7 +48,7 @@
                 </div>
             </div> -->
         </div>
-        <div >
+        <div class="workspace__content--view">
             <router-view v-slot="{ route }">
                 <transition :name="route.meta.transition || 'fade'" mode="out-in">
                     <keep-alive>
@@ -68,6 +68,7 @@
 // import Tab from '../shared/tabs/Tab.vue';
 import WorkspaceBoards from './WorkspaceBoards.vue';
 import WorkspaceMembers from './WorkspaceMembers.vue';
+import WorkspaceList from './WorkspaceLists.vue'
 import { mapActions } from 'vuex';
 
 export default {
@@ -116,8 +117,9 @@ export default {
         selectedIndex: 0,
         workspaceId: '',
         workspaceNavItems: [
-            { id: 1, name: 'Boards', routeName: 'workspace-boards', component: 'WorkspaceBoards' },
-            { id: 2, name: 'Members', routeName: 'workspace-members', component: 'WorkspaceMembers' },
+            { id: 1, name: 'List', routeName: 'workspace-lists', component: 'WorkspaceList' },
+            { id: 2, name: 'Boards', routeName: 'workspace-boards', component: 'WorkspaceBoards' },
+            { id: 3, name: 'Members', routeName: 'workspace-members', component: 'WorkspaceMembers' },
             // { id: 3, name: 'Meeting notes', routeName: 'workspace-meeting-notes', iconName: 'multiple-users' },
             // { id: 4, name: 'Product requirements', routeName: 'workspace-product-requirements', iconName: 'notes' },
             // { id: 5, name: 'Settings', routeName: 'workspace-settings', iconName: 'settings-2' },
