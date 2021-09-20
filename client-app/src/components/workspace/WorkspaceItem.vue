@@ -89,7 +89,8 @@ export default {
         // Tabs,
         // Tab,
         WorkspaceBoards,
-        WorkspaceMembers
+        WorkspaceMembers,
+        WorkspaceList
     },
     props: {
         user: Object

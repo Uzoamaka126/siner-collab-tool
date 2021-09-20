@@ -34,6 +34,7 @@
                 <!-- Other functionalities -->
                 <div class="home--content--item" v-for="(item, index) in workspaceNavItems" :key="index">
                     <router-link :to="{ name: `${item.routeName}` }" class="nav__workspace--link">
+                    <!-- <router-link :to="{ path: `/dashboard/workspace/${workspaceDetails.name}/${item.path}` }" class="nav__workspace--link"> -->
                         <span class="cursor-pointer ml--0">
                             <icon-svg 
                                 fill="rgba(66, 82, 110)" 

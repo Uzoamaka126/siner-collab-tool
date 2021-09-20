@@ -49,4 +49,5 @@ export default {
   @import './assets/scss/main.scss';
   @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
   @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+  @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
 </style>

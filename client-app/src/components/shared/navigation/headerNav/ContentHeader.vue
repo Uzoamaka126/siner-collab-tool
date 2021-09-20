@@ -1,19 +1,19 @@
 <template>
  <div>
       <div class="content--header">
-    <div class="content--header__left">
-        <div class="collapse--content">
-            <!-- <template>
-                <icon-svg 
-                    fill="rgb(210, 144, 52)" 
-                    class="nav__icon" 
-                    name="arrow-from-left" 
-                    icon-position="left"
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'1.5rem'"
-                />  
-            </template>  -->
-        </div>
+        <div class="content--header__left">
+            <div class="collapse--content">
+                <!-- <template>
+                    <icon-svg 
+                        fill="rgb(210, 144, 52)" 
+                        class="nav__icon" 
+                        name="arrow-from-left" 
+                        icon-position="left"
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'1.5rem'"
+                    />  
+                </template>  -->
+            </div>
         <div class="workspace--header__title">
         <!-- workspace -->
            <template v-if="getRouterName() === 'boards'">
@@ -102,8 +102,16 @@
            <template v-else-if="getRouterName() === 'workspaces'">
                <p class="text--sm">WORKSPACES</p>
            </template>
-           <template v-else-if="getRouterName() === 'invites'">
+           <!-- <template v-else-if="getRouterName() === 'invites'">
                <p class="text--sm">INVITES</p>
+           </template> -->
+           <template v-else-if="getWorkspaceRouterPath() === 'lists'">
+               <ul class="breadcrumb">
+                    <li>
+                        <router-link :to="{ name: 'workspaces'}" class="cursor-pointer">Workspaces</router-link>
+                        </li>
+                    <li><span>{{ currentWorkspaceName }}</span></li>
+                </ul>
            </template>
         </div>
     </div>
@@ -201,12 +209,14 @@ export default {
     },
     createdWorkspaces: createdWorkspaces,
     showCreateBoardModal: false,
+    currentWorkspaceName: ''
   }),
   computed: {
   },
    watch:{
     //watch for route parameter change and execute method
         '$route': 'getRouterName',
+        '$route': 'getCurrentWorkspaceName'
     },
   methods: {
     getRouterName() {
@@ -222,6 +232,25 @@ export default {
             return 'settings'
         } else {
             return 'none'
+        }
+    },
+     getWorkspaceRouterPath() {
+        const routePath = this.$route.path;
+        // console.log(routePath);
+        if (routePath.includes('workspaces') && routePath.includes('lists')) {
+            return 'lists'
+        } else {
+            return 'none'
+        }
+    },
+    getCurrentWorkspaceName() { 
+        if(!JSON.parse(localStorage.getItem('workspaceDetails'))) {
+            console.log('ll');
+            return ''
+        } else {
+            console.log(JSON.parse(localStorage.getItem('workspaceDetails')));
+            this.currentWorkspaceName = JSON.parse(localStorage.getItem('workspaceDetails')).name
+            // return JSON.parse(localStorage.getItem('workspaceDetails')).name
         }
     },
     toggleDropdown(name, index) {
@@ -263,9 +292,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .home {
-    height: 100%;
-  }
   .workspace--header__title {
       display: flex;
       span {
@@ -314,4 +340,30 @@ export default {
         }
     }
   }
+    ul.breadcrumb {
+        list-style: none;
+    }
+    ul.breadcrumb li {
+        display: inline;
+    }
+    ul.breadcrumb li+li:before {
+        padding: 0px 3px 0px 8px;
+        color: black;
+        content: "/\00a0";
+    }
+    ul.breadcrumb li a, ul.breadcrumb li span {
+        text-decoration: none;
+        // color: #6B778C !important;
+        color: rgb(23, 43, 77);
+        height: auto;
+        line-height: inherit;
+        padding: 0;
+        vertical-align: baseline;
+        width: auto;
+        font-size: 0.8rem;
+    }
+    ul.breadcrumb li a:hover {
+        color: #0275d8;
+        text-decoration: underline;
+    }
 </style>

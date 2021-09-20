@@ -3,7 +3,9 @@ import vSelect from 'vue-next-select';
 import App from './App.vue'
 import router from './router'
 import store from './store';
-import { FloatMenu } from 'vue-float-menu'
+import { FloatMenu } from 'vue-float-menu';
+import { AgGridVue } from "ag-grid-vue3";
+import TableLite from "vue3-table-lite";
 
 // createApp()
 createApp(App)
@@ -11,6 +13,8 @@ createApp(App)
     .use(router)
     .component('vue-select', vSelect)
     .component('v-menu', FloatMenu)
+    .component('ag-grid-vue', AgGridVue)
+    .component('table-lite', TableLite)
     .directive('click-outside', {
         mounted (el, binding, vNode) {
             // Provided expression must evaluate to a function.

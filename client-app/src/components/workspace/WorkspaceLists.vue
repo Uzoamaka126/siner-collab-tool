@@ -1,31 +1,6 @@
 <template>
     <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 1rem">
-         <div class="flex align-items-center mt--20 justify-content-between">
-            <div class="heading">
-                <p class="title">
-                {{ 
-                    (members.length === 0 || members.length > 1)
-                    ? members.length + ' ' + 'Workspace Members' 
-                    : members.length + ' ' + 'Workspace Member' 
-                }}
-                </p>
-                <p class="sub-title">Members of a workspace can view, create and join all boards on that workspace.</p>
-            </div>
-            <div class="flex align-items-center cursor-pointer">
-                <span class="">
-                    <icon-svg 
-                        fill="#576b8c" 
-                        class="nav__icon mr--0" 
-                        name="add" 
-                        icon-position="left"
-                        :width="'14px'"
-                        :height="'14px'"
-                    /> 
-                </span>
-                <span class="text--xs" style="color: #172b4d; font-weight: 500;">New member</span>
-            </div>
-        </div>
-        <!-- boards functionalities header -->
+          <!-- boards functionalities header -->
         <div class="flex align-center justify-content-between mt--20">
             <div class="form__item mr--15 mb--0 justify-content-end" style="min-width: 30%">
                 <input 
@@ -35,19 +10,6 @@
                 />
             </div>
             <div class="flex align-center">
-                <span class="form__item mr--15 mb--0">
-                    <label for="" class="label__sort">Sort by</label>
-                    <vue-select 
-                        class="text--sm"
-                        :options="[
-                            'Less Active', 
-                            'Most active', 
-                            'Alphabetically A - Z', 
-                            'Alphabetically A - Z'
-                            ]"
-                            v-model="sortValue"
-                    ></vue-select>
-                </span>
                 <span class="form__item">
                     <label for="" class="label__filter">Filter by</label>
                     <vue-select class="text--sm" :options="['type']" v-model="filterValue"> </vue-select>
@@ -56,49 +18,26 @@
         </div>
         <!-- table -->
         <div class="mt--40 mb--20">
-            <div style="display: flex;" v-for="member in members" :key="member.id">
-                <div class="member__item" >
-                    <div class="member--left">
-                        <div class="member__names--avatar">
-                            <span class="member__names--initials">AA</span>
-                        </div>
-                        <div class="member__names--details">
-                            <p class="full-name">{{ member.name }}</p>
-                            <p class="username">@{{ member.email }}</p>
-                        </div>
-                    </div>
-                    <div class="member--right">
-                        <div class="member--right__boards">
-                            <button class="btn--ghost">2 boards on this workspace</button>
-                        </div>
-                        <div class="member--right__admin member--right__badge badge" :class="{ 'blue': badgeBgColor(member.type) === 'blue' }">{{ member.type }}</div>
-                        <div class="member--right__actions">
-                            <button class="btn--ghost view--more">View more</button>
-                            <!-- if the user is an admin, they should be able to view this -->
-                            <span class="ml--15 cursor-pointer">
-                                <icon-svg 
-                                    fill="rgba(194, 200, 212, 1)" 
-                                    class="nav__icon" 
-                                    name="edit" 
-                                    icon-position="left"
-                                    :width="'24px'"
-                                    :height="'24px'"
-                                /> 
-                            </span>
-                            <span class="cursor-pointer">
-                                <icon-svg 
-                                    fill="rgba(194, 200, 212, 1)" 
-                                    class="nav__icon mr--0" 
-                                    name="delete" 
-                                    icon-position="left"
-                                    :width="'24px'"
-                                    :height="'24px'"
-                                /> 
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <!-- <ag-grid-vue style="width: 500px; height: 500px;"
+                class="ag-theme-alpine"
+                :columnDefs="cols"
+                :rowData="rows"
+                rowSelection="multiple"
+            >
+            </ag-grid-vue> -->
+            <table-lite
+                :has-checkbox="true"
+                :is-loading="table.isLoading"
+                :is-re-search="table.isReSearch"
+                :columns="table.columns"
+                :rows="rows"
+                :total="table.totalRecordCount"
+                :sortable="table.sortable"
+                :messages="table.messages"
+                @do-search="doSearch"
+                @is-finished="tableLoadingFinish"
+                @return-checked-rows="updateCheckedRows"
+            ></table-lite>
         </div>
     </div>
 </template>
@@ -113,11 +52,20 @@ export default {
     //watch for route parameter change and execute method
     },
     created() {
-        // if(this.user && this.user.isRecentlyCreated === true) {
-        //     this.setShowOnboardingModal('show');
-        // }
         this.fetchWorkspaceMembers();
-        // console.log(this.fetchWorkspaceMembers);
+    },
+    beforeMount() {
+        this.cols = [
+            { field: 'make', sortable: true, filter: true },
+            { field: 'model', sortable: true, filter: true },
+            { field: 'price', sortable: true, filter: true }
+        ];
+
+        this.rows = [
+            { make: 'Toyota', model: 'Celica', price: 35000 },
+            { make: 'Ford', model: 'Mondeo', price: 32000 },
+            { make: 'Porsche', model: 'Boxter', price: 72000 }
+        ];
     },
     data: () => ({
         createdWorkspaces: createdWorkspaces.boards,
@@ -126,9 +74,60 @@ export default {
             active: false,
             value: ''
         },
-        sortValue: '',
         filterValue: '',
-        members: null
+        cols: null,
+        rows: null,
+        table: {
+            isLoading: false,
+            isReSearch: false,
+            columns: [
+                {
+                    label: "ID",
+                    field: "id",
+                    width: "3%",
+                    sortable: true,
+                    isKey: true,
+                },
+                {
+                    label: "Name",
+                    field: "name",
+                    width: "10%",
+                    sortable: true,
+                    display: function (row) {
+                        return (
+                        '<a href="#" data-id="' + row.user_id + '" class="name-btn">' + row.name + "</button>"
+                        );
+                    },
+                },
+                {
+                    label: "Email",
+                    field: "email",
+                    width: "15%",
+                    sortable: true,
+                },
+                {
+                    label: "",
+                    field: "quick",
+                    width: "10%",
+                    display: function (row) {
+                        return (
+                        '<button type="button" data-id="' + row.user_id + '" class="quick-btn">Button</button>'
+                        );
+                },
+            },
+            ],
+            totalRecordCount: 2,
+            sortable: {
+                order: "id",
+                sort: "asc",
+            },
+            messages: {
+                pagingInfo: "Showing {0}-{1} of {2}",
+                pageSizeChangeLabel: "Row count:",
+                gotoPageLabel: "Go to page:",
+                noDataAvailable: "No data",
+            },
+        }
     }),
     components: {
         IconSvg,
