@@ -18,13 +18,6 @@
         </div>
         <!-- table -->
         <div class="mt--40 mb--20">
-           <!-- <ag-grid-vue style="width: 500px; height: 500px;"
-                class="ag-theme-alpine"
-                :columnDefs="cols"
-                :rowData="rows"
-                rowSelection="multiple"
-            >
-            </ag-grid-vue> -->
             <table-lite
                 :has-checkbox="true"
                 :is-loading="table.isLoading"
@@ -166,104 +159,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .home--content__wrap {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .workspace--theme--img {
-        height: 120px;
-        width: 120px;
-        border-radius: 20px;
-    }
-    .home--content--item {
-        border-radius: 30px;
-        height: 226px;
-        min-width: 152px;
-        width: 152px;
-        align-items: center;
-        display: flex;
-        flex-flow: column;
-        position: relative;
-        transition-duration: .4s;
-        margin-right: 1.8rem;
-
-         &:hover {
-            transform: translate3d(0, 4px, 0);
-        }
-    }
-    .create--workspace {
-
-        &__wrap {
-            cursor: pointer;
-        }
-        &__img {
-            background: transparent;
-            border: 1px solid rgba(193, 163, 249, 0.25);
-            box-shadow: 0 0.03px .1px 0 rgba(0, 0, 0, 0.12);
-            span {
-                margin-right: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-    .menu__wrap--icon {
-        border: 1px solid red;
-        height: 24px;
-        position: absolute;
-        right: 0;
-        z-index: 1000;
-        top: 8px;
-        opacity: 0;
-        right: 8px;
-        transition: opacity .4s;
-
-        &.show {
-            opacity: 1;
-        }
-    }
-
-    .dropdown--menu {
-        max-width: 500px;
-        min-width: 180px;
-        font-size: 14px;
-        left: 0 !important;
-        z-index: 99999;
-        position: absolute;
-        will-change: transform;
-        top: 0px;
-        right: auto;
-        float: left;
-        border: 1px solid rgba(0,0,0,.15);
-        border-radius: .25rem;
-    }
-    .theme-display--preview {
-        border-radius: 3px;
-        height: 24px;
-        width: 24px;
-        background: antiquewhite;
-        margin-right: 5px;
-    }
-    .dropdown__item__link {
-        padding: 8px 10px 8px 10px;
-    }
-    .heading {
-        font-size: 18px;
-        line-height: 30px;
-
-         p {
-            &.title {
-                font-weight: 600;
-            }
-            &.sub-title {
-                font-size: 14px;
-            }
-        }
-    }
     .vue-select {
         border: 1px solid rgba(194, 200, 212, 1);
+    }
+    .card {
+        padding: 0 !important;
+    }
+     .dataTables_wrapper .row {
+        padding: 0 !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
     }
 </style>
