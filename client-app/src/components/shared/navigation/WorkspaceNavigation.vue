@@ -20,12 +20,6 @@
                 v-for="(item, index) in createdWorkspaces" 
                 :key="index"
             >
-                    <!-- :to="{ path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`, params: { name: refinedPathName, id: id }}"  -->
-                    <!-- :to="{ 
-                        name: 'workspace-detail-view',
-                        path: `/dashboard/workspaces/${getHyphenatedPath(item.name)}`,
-                        params: { name: getHyphenatedPath(item.name)                
-                    }}"  -->
                 <span
                     @click="goToWorkspace(item.name, item.id, item)"
                     class="nav__workspace--link"
@@ -76,11 +70,6 @@ export default {
             return str.replace(/\s/g, "-").toLowerCase();
         },
         goToWorkspace(name, id, data) {
-            // const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            // this.activeWorkspace = name
-            // const workspaceDetails = this.createdWorkspaces.find(item )
-            // localStorage.setItem('workspaceId', id);
-            // this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName, id: id } })
             const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
             // this.activeWorkspace = name
             localStorage.setItem('workspaceId', id);

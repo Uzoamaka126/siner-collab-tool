@@ -160,9 +160,9 @@ export default {
             return str.replace(/\s/g, "-").toLowerCase();
         },
         goToWorkspace(name, id) {
-            const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            localStorage.setItem('workspaceId', id);
-            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
+            // const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
+            // localStorage.setItem('workspaceId', id);
+            // this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
         }
     }
 }

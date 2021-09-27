@@ -86,7 +86,11 @@ const routes = [
         name:'settings-view', 
         component: SettingsView
       },
-    ]
+    ],
+  },
+  {
+    path: "/:catchAll(.*)*",
+    component: () => import("../views/ErrorPage.vue"),
   },
 ]
 
