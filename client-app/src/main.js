@@ -6,13 +6,16 @@ import store from './store';
 import { FloatMenu } from 'vue-float-menu';
 import { AgGridVue } from "ag-grid-vue3";
 import TableLite from "vue3-table-lite";
-
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+import { Dropdown, Popover } from 'bootstrap';
 // createApp()
 createApp(App)
     .use(store)
     .use(router)
     .component('vue-select', vSelect)
     .component('v-menu', FloatMenu)
+    .component('b-dropdown', Dropdown)
     .component('ag-grid-vue', AgGridVue)
     .component('table-lite', TableLite)
     .directive('click-outside', {

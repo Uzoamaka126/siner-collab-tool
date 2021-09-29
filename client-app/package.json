@@ -7,11 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.1",
     "ag-grid-community": "^26.0.0",
     "ag-grid-vue3": "^26.0.1",
+    "bootstrap": "^5.1.1",
     "boxicons": "^2.0.9",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
+    "popper.js": "^1.16.1",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-float-menu": "^1.9.0",

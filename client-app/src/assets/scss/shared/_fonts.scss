@@ -65,7 +65,10 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
         font-size: 10px;
     }
     &--xs {
-        font-size: 12px;
+        font-size: 12px !important;
+    }
+    &--xls {
+        font-size: 14px;
     }
     &--sm {
         font-size: 0.8rem;
