@@ -30,12 +30,12 @@
 
     @media screen and (min-width: 1200px) {
         left: 0;
-        width: 240px;
+        width: 200px;
     }
 
     @media screen and (min-width: 768px) {
         left: 0;
-        width: 240px;
+        width: 200px;
     }
 
     &--logo {
@@ -50,7 +50,7 @@
         // left: -60px;
         top: 0;
         bottom: 0;
-        width: 240px;
+        width: 200px;
         padding-bottom: 22px;
         flex-direction: column;
         overflow: scroll;
@@ -93,6 +93,7 @@
         &__logo{
             padding: 17px 18px 14px 10px;
             background: inherit;
+            padding-right: 0;
             // border-right: solid 0.2px rgba(90, 104, 120, 0.9);
 
           svg{
@@ -168,6 +169,8 @@
     }
 
     &__section {
+        width: 100%;
+
         &__title {
             font-size: 12px;
             // font-weight: $font-bold;
@@ -179,7 +182,7 @@
         }
 
         &--item {
-            display: flex;
+            display: flex !important;
             align-items: center;
             color: #42526e;
             padding-left:10px;
@@ -198,12 +201,13 @@
                 border-radius: 3px;
                 // background-color: rgb(235, 236, 240);
                 background-color: #e4e9fd;
-
+                background-color: #e9ebf3;
             }
 
             &.active {
                 // background-color: rgb(235, 236, 240);
                 background-color: #e4e9fd;
+                background-color: #e9ebf3;
 
                span {
                     color: $brand-color;
@@ -438,7 +442,7 @@
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: 10px;
 }
 
 .nav--divider {

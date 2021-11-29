@@ -1,5 +1,5 @@
 .content {
-    padding-left: 240px;
+    // padding-left: 200px;
     // width: 100%;
     overflow: hidden;
     // position: fixed;
@@ -105,7 +105,9 @@
 
     &__body {
         min-height: calc(100vh - 72px);
-        // overflow: scroll;
+        // max-width: 1200px;
+        // margin-left: auto;
+        // margin-right: auto;
     }
 }
 

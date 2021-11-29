@@ -1,12 +1,12 @@
 <template>
-  <div class="content">
+  <div class="content" :style="{ 'padding-left': collapse ? '30px' : '200px', transition: 'all .3s ease-out' }">
     <dashboard-content-header
         :toggleSidebar="toggleSidebar"
         :collapse="collapse"
         :sidebarWidth="sidebarWidth"
     >
     </dashboard-content-header>
-    <dashboard-content-body></dashboard-content-body>
+    <dashboard-content-body :collapse="collapse"></dashboard-content-body>
   </div>
 </template>
 

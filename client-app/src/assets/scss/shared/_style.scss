@@ -17,7 +17,7 @@ html, html a {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -252,9 +252,9 @@ a {
 .home {
     
     &__wrap {
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
+        // max-width: 1200px;
+        // margin-left: auto;
+        // margin-right: auto;
 
         &--item {
 

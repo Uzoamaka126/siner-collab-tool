@@ -6,7 +6,7 @@
                 class="nav__icon" 
                 name="settings-2" 
                 :style="{ fill: 'rgba(66, 82, 110)' }"
-                :width="'3rem'"
+                :width="'24px'"
             />   
             <span class="nav__section__content__group__title">Settings</span>
         </router-link>
@@ -39,18 +39,6 @@ export default {
         color: #42526e;
         // margin-bottom:9px;
         padding-left:10px;
-    }
-    .nav__icon {
-        width: 1rem;
-        margin-right: 10px;
-        display: flex;
-        height: 24px;
-        width: 24px;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        margin-right: 16px;
     }
     .nav__section--item--sub {
         display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <div class="content__body">
+  <div class="content__body" :style="collapseProp ? bodyStylesCollapse : bodyStyles">
     <router-view :key="$route.fullPath"></router-view>
     <create-workspace 
       :showOnboardingModal="this.$store.state.showCreateWorkspaceModal"
@@ -23,7 +23,24 @@ export default {
     'boards-view': BoardsView,
     CreateWorkspace
   },
-  props: ["toggleSidebar", "collapse", "sidebarWidth"]
+  props: ["collapse"],
+  data() {
+    return {
+      collapseProp: this.collapse,
+      bodyStyles: {
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        transition: 'all .3s ease-out'
+      },
+      bodyStylesCollapse: {
+        maxWidth: 'none',
+        marginLeft: '0px',
+        marginRight: '0px',
+        transition: 'all .3s ease-out'
+      },
+    }
+  }
 }
 </script>
 

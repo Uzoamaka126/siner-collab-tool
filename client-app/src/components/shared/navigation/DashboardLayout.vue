@@ -24,20 +24,20 @@ export default {
     },
     data: () => ({
         collapse: false,
-        sidebarWidth: '240px'
+        sidebarWidth: '200px'
     }),
     components: {
         'side-bar': Sidebar,
-    'dashboard-content-layout': DashbaordContentLayout
+        'dashboard-content-layout': DashbaordContentLayout
     },
      methods: {
         toggleSidebar() {
             if(this.collapse === false) {
                 this.collapse = true;
-                this.sidebarWidth = '20px'
+                this.sidebarWidth = '30px'
             } else {
                 this.collapse = false;
-                this.sidebarWidth = '240px'
+                this.sidebarWidth = '200px'
             }
         }
     },

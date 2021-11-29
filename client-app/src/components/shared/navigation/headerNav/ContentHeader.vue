@@ -3,16 +3,6 @@
       <div class="content--header">
         <div class="content--header__left">
             <div class="collapse--content">
-                <!-- <template>
-                    <icon-svg 
-                        fill="rgb(210, 144, 52)" 
-                        class="nav__icon" 
-                        name="arrow-from-left" 
-                        icon-position="left"
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'1.5rem'"
-                    />  
-                </template>  -->
             </div>
         <div class="workspace--header__title">
         <!-- workspace -->

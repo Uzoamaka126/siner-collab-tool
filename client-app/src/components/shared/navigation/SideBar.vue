@@ -5,39 +5,51 @@
             <div class="nav__section">
                 <!-- Navigation Section content -->
                 <div class="nav__section__content">
-                    <div class="nav__section__content__group no--border sidebar--nav__brand mt--15">
+                    <div class="nav__section__content__group no--border sidebar--nav__brand" style="margin-left: 0; margin-right: 0;">
                         <!-- navigation item -->
-                        <div class="nav__item">
+                        <template v-if="!collapse">
                             <div class="nav__item__logo">
                                 <siner-logo :layout="'center'"></siner-logo>
                             </div>
-                        </div>
-                        <div @click="toggleSidebar()" class="cursor-pointer">
-                            <template v-if="!collapse" >
+                            <div @click="toggleSidebar()" class="cursor-pointer">
                                 <icon-svg 
-                                    fill="rgba(66, 82, 110)" 
+                                    fill="rgba(125, 136, 157)" 
                                     class="nav__icon" 
-                                    name="arrow-from-right" 
+                                    name="list-minus" 
                                     icon-position="left"
-                                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                                    :width="'3rem'"
+                                    :style="{ fill: 'rgba(125, 136, 157)' }"
+                                    :width="'24px'"
                                 />  
-                            </template> 
-                        </div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div @click="toggleSidebar()" class="nav__item__logo cursor-pointer" style="padding-left: 2px; padding-right: 2px; width: 100%;">
+                                <icon-svg 
+                                    fill="rgba(125, 136, 157)" 
+                                    class="nav__icon" 
+                                    name="menu" 
+                                    icon-position="left"
+                                    :style="{ fill: 'rgba(125, 136, 157)' }"
+                                    :width="'24px'"
+                                />  
+                            </div>
+                        </template>
                     </div>
 
                     <div class="nav__section__content__links">
-                        <template v-if="!showWorkspaceNav">
-                            <div class="nav__section__content__group">
+                        <template v-if="!collapse">
+                            <template v-if="!showWorkspaceNav">
                                 <home-navigation></home-navigation>
-                            </div>
-                            <!-- Workspace navigation group -->
-                            <workspace-navigation></workspace-navigation>
-                            <invite-navigation></invite-navigation>
-                            <settings-navigation></settings-navigation>
+                                <!-- Operations navigation group -->
+                                <operations-navigation></operations-navigation>
+                                <!-- <workspace-navigation></workspace-navigation> -->
+                                <settings-navigation></settings-navigation>
+                            </template>
+                            <template v-else>
+                                <workspace-item-navigation></workspace-item-navigation>
+                            </template>
                         </template>
                         <template v-else>
-                            <workspace-item-navigation></workspace-item-navigation>
                         </template>
                     </div>
                 </div>
@@ -49,9 +61,8 @@
 <script>
 import Logo from '../Logo.vue';
 import IconSvg from "../../icons/Icon-Svg.vue";
-import WorkspaceNavigation from './WorkspaceNavigation.vue';
+import OperationsNavigation from './OperationsNavigation.vue';
 import SettingsNavigation from './SettingsNavigation.vue';
-import InviteNavigation from './InviteNavigation.vue';
 import HomeNavigation from './HomeNavigation.vue';
 import WorkspaceItemNavigation from './WorkspaceNavigationItem.vue'
 
@@ -60,9 +71,8 @@ export default {
     components: {
         'siner-logo': Logo,
         'icon-svg': IconSvg,
-        'workspace-navigation': WorkspaceNavigation,
+        'operations-navigation': OperationsNavigation,
         'settings-navigation': SettingsNavigation,
-        'invite-navigation': InviteNavigation,
         'home-navigation': HomeNavigation,
         'workspace-item-navigation': WorkspaceItemNavigation
     },
