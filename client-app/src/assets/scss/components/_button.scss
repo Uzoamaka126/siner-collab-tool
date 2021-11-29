@@ -1,5 +1,4 @@
 .btn {
-    color: inherit;
     display: inline-block;
     font-weight: $font-semi-bold;
     line-height: 1.71;
@@ -13,7 +12,7 @@
     user-select: none;
     border: none;
     border-radius: 5px;
-    padding: 8px 16px;
+    padding: 8px 16px !important;
     font-size: 16px;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
@@ -21,6 +20,7 @@
     outline: none;
     //box-shadow: 1px 1px 3px 0 rgba(50, 50, 54, 0.13), 0 0 3px 1px rgba(63, 63, 68, 0.05);
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+    font-weight: 500 !important;
     
     &:active {
         outline: none;
@@ -31,15 +31,16 @@
     &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+        background-color: #dbdbdb !important;
     }
 
     &--primary {
-        color: #fff;
-        background: #596DDE;
+        color: #fff !important;
+        background: #596DDE !important;
         box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
         
         &:hover {
-            background-color: darken(#596DDE, 14%);
+            background-color: darken(#596DDE, 14%) !important;
         }
     }
 
@@ -100,15 +101,16 @@
     }
 
     &--md {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
         min-width: 90px;
     }
 
     &--lg {
         font-size: 16px;
         font-weight: $font-semi-bold;
-        padding: 14px 16px;
+        padding-top: 14px !important;
+        padding-bottom: 14px !important;
         // @include media(768px) {
         //     font-size: 18px;
         //     padding: 18px 16px;

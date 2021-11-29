@@ -28,32 +28,55 @@
         <!-- table -->
         <div class="mt--40 mb--20">
         <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col" v-for="(item) in columns" :key="item.id">
-                        <span v-if="item.isComponent !== null && item.isComponent !== undefined">
-                             <div class="checkbox">
-                                <input type="checkbox" id="label_all" class="checkbox__input" v-model="v">
-                                <label for="label_all" class="checkbox__label no&#45;&#45;padding__all"></label>
-                            </div>
-                        </span>
-                        <span class="table--head--text" v-if="item.name">{{ item.name }}</span>
-                        <span class="table--head--icon" v-if="item.isComponent === null">
-                            <div class="btn-group">
-                                <div role="button" aria-label="Show sort options" aria-expanded="false" id="dropdownMenuButton1" data-bs-toggle="dropdown">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #6f7782;transform: ;msFilter:;">
-                                        <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
-                                    </svg>
+            <!-- if user selects no task -->
+            <template>
+                <thead>
+                    <tr>
+                        <th scope="col" v-for="(item) in columns" :key="item.id">
+                            <span v-if="item.isComponent !== null && item.isComponent !== undefined">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="label_all" class="checkbox__input" v-model="v">
+                                    <label for="label_all" class="checkbox__label no&#45;&#45;padding__all"></label>
                                 </div>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Sort A - Z</a></li>
-                                    <li><a class="dropdown-item" href="#">Sort Z - A</a></li>
-                                </ul>
-                            </div>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
+                            </span>
+                            <span class="table--head--text" v-if="item.name">{{ item.name }}</span>
+                            <span class="table--head--icon" v-if="item.isComponent === null">
+                                <div class="btn-group">
+                                    <div role="button" aria-label="Show sort options" aria-expanded="false" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #6f7782;transform: ;msFilter:;">
+                                            <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Sort A - Z</a></li>
+                                        <li><a class="dropdown-item" href="#">Sort Z - A</a></li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+            </template>
+            <!-- if user selects at least one task -->
+            <template>
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <span>
+                                2 selected
+                            </span>
+                        </th>
+                        <th scope="col">
+                            <span class="table--head--text">Assign</span>
+                        </th>
+                        <th scope="col">
+                            <span class="table--head--icon">
+                               Delete
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+            </template>
             <tbody>
                 <tr>
                     <th scope="row">
@@ -137,8 +160,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Create a new task</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                   <div class="modal__lists-icon flex align-items-center justify-content-end">
+                  <div class="modal__lists-icon flex align-items-center justify-content-end" style="padding-top: 1rem;">
                        <span class="text--xls text--color-normal mr--15 text--bold">Make public</span>
                        <span>
                            <icon-svg fill="#6f7782" class="nav__icon mr--10"  name="file"  :width="'16px'" :height="'16px'" />
@@ -150,7 +172,8 @@
                            <icon-svg fill="#6f7782" class="nav__icon mr--10" name="dots-horizontal-rounded"  :width="'16px'" :height="'16px'" />
                        </span>
                    </div>
-                   <div class="modal__lists--form">
+                <div class="modal-body">
+                   <div class="modal__lists--form" style="margin-top: 1rem;">
                        <div class="mb-3">
                             <label for="title" class="form-label text--xs">Title</label>
                             <input type="email" class="form-control form-control-sm" id="title">
@@ -201,8 +224,8 @@
                             </div>
                         </div>
                          <div class="mb-3">
-                            <label for="description" class="form-label text--xs">Description</label>
-                            <textarea class="form-control form-control-sm" id="description" rows="3"></textarea>
+                            <label for="description" class="form-label text--xs">Summary</label>
+                            <input type="email" class="form-control form-control-sm" id="title">
                         </div>
                    </div>
                 </div>

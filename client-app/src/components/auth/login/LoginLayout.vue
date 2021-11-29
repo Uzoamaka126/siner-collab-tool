@@ -1,17 +1,18 @@
 <template>
     <div class="auth__bg">
-        <div class="login__center">
-            <div>
-                <div class="logo auth--logo">
-                    <siner-logo :layout="'center'"></siner-logo>
-                </div>
-                <form class="form form__md form auth--form">
-                    <div class="auth--form__wrap">
-                        <div class="auth__title-wrap">
-                            <h2 class="auth__title" style="text-align: center; #2a2e32">Login</h2>
-                        </div>
-                        
-                           <a class="login-option login-option-google">
+        <div class="auth__wrapper">
+            <div class="logo auth--logo">
+                <siner-logo :layout="'center'"></siner-logo>
+            </div>
+            <div class="auth__wrap--center">
+                <div>
+                    <form class="form form__md form auth--form">
+                        <div class="auth--form__wrap">
+                            <div class="auth__title-wrap">
+                                <h2 class="auth__title" style="text-align: center; #2a2e32">Login</h2>
+                            </div>
+                            
+                            <a class="login-option login-option-google">
                                 <svg class="mr--10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
                                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
                                     <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -27,38 +28,39 @@
                                 <span>OR</span>
                                 <div class="or-1y5oso0"></div>
                             </div>                            
-                        <template v-if="loginOption === 'email'">
-                            <div class="form__item">
-                                <label for="emailaddress" class="form__label">Email Address</label>
-                                <input type="email" id="emailaddress" class="form__input form__input--lg" required="required" v-model="email">
+                            <template v-if="loginOption === 'email'">
+                                <div class="form__item">
+                                    <label for="emailaddress" class="form__label">Email Address</label>
+                                    <input type="email" id="emailaddress" class="form__input form__input--lg" required="required" v-model="email">
+                                </div>
+                                <div class="form__item mb--10">
+                                    <label for="password" class="form__label">Password</label>
+                                    <input type="email" id="password" class="form__input form__input--lg" required="required" v-model="password">
+                                </div>
+                                <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
+                                    <span class="textRed">{{ error.value  }}</span>
+                                </div>
+                                <div class="checkbox__item">
+                                    <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
+                                    <label class="checkbox--label no--padding__all" for="termsAndService">Remember me</label>
+                                </div>
+                                <div class="form--btn__wrap auth--btn__submit">
+                                    <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
+                                </div>
+                            </template>
+                            <template v-if="loginOption === ''">
+                                    <div class="login-option login-option-email" @click="setLoginOption('email')">
+                                        <span>Sign up with email</span>
+                                    </div>
+                            </template>
+                        <!-- no account -->
+                            <div class="signup--notify__wrap">
+                                <div class="text--xs">Don't have an account? <router-link class="auth--link" :to="{ name: 'signup' }">Sign up</router-link></div>
                             </div>
-                            <div class="form__item mb--10">
-                                <label for="password" class="form__label">Password</label>
-                                <input type="email" id="password" class="form__input form__input--lg" required="required" v-model="password">
-                            </div>
-                            <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
-                                <span class="textRed">{{ error.value  }}</span>
-                            </div>
-                            <div class="checkbox__item">
-                                <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
-                                <label class="checkbox--label no--padding__all" for="termsAndService">Remember me</label>
-                            </div>
-                            <div class="form--btn__wrap auth--btn__submit">
-                                <button class="btn btn--bgPrimary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
-                            </div>
-                        </template>
-                       <template v-if="loginOption === ''">
-                            <div class="login-option login-option-email" @click="setLoginOption('email')">
-                                <span>Sign up with email</span>
-                            </div>
-                       </template>
-                       <!-- no account -->
-                        <div class="signup--notify__wrap">
-                            <div class="text--xs">Don't have an account? <router-link class="" :to="{ name: 'signup' }">Sign up</router-link></div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+        </div>
         </div>
     </div>
 </template>
@@ -107,7 +109,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-    @import '../../../assets/scss/auth.scss';
-
-
+    @import '../../../assets/scss/pages/auth.scss'
 </style>

@@ -5,11 +5,9 @@
 //     'abstracts/variables',
 //     'abstracts/mixins';
 
-// Vendors
-// @import
-//     'vendor/normalize',
-//     'vendor-extensions/normalize',
-//     'vendor/neat/neat';
+// Reset File
+@import
+    'shared/reset';
 
 // Base stuff
 @import
@@ -38,8 +36,6 @@
 
     // Styles for views
 @import
-    'pages/signup',
-    'pages/login',
     'pages/auth';
 
 // For things like class reset

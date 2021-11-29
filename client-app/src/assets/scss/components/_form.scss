@@ -54,6 +54,8 @@
     }
 }
 
+// START OF INPUT
+
 input {
     position: relative;
     text-decoration: none;
@@ -64,16 +66,19 @@ input {
     transition: color .24s;
     border: 1.5px solid rgba(193, 163, 249, 0.25);
     min-height: 20px;
-    background-color: #fafbfc;
+    background-color: white;
     // -webkit-user-select: auto;
     // -ms-user-select: auto;
     // user-select: auto;
-    padding-right: 12px;
-    padding-left: 12px;
+    padding-right: 15px;
+    padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
     // box-shadow: rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(60 66 87 / 16%) 0px 0px 0px 1px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px, rgba(0 0 0 / 0%) 0px 0px 0px 0px;
 }
+
+// END OF INPUT
+
 
 .checkbox {
     &__item {
@@ -117,6 +122,8 @@ textarea {
 }
 
 label {
+    font-size: 14px!important;
+    
     &.label__sort, &.label__filter {
         color: #5e6c84;
         display: block;
