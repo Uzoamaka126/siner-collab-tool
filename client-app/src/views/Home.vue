@@ -1,23 +1,17 @@
 <template>
-  <div class="home">
-    <home-layout></home-layout>
+  <div>
+    <HelloWorld/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HomeLayout from '@/components/home/HomeLayout.vue'
+import HelloWorld from '../components/HelloWorld.vue';
 
 export default {
   name: 'Home',
+  
   components: {
-    'home-layout': HomeLayout
-  }
-}
+    HelloWorld,
+  },
+};
 </script>
-
-<style lang="scss" scoped>
-  .home {
-    height: 100%;
-  }
-</style>

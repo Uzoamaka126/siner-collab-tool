@@ -139,6 +139,7 @@ import OnboardingModal from '../shared/modals/Onboarding.vue';
 import IconSvg from "../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../utils/dummy'
 
+
 export default {
     name: 'HomeLayout',
     created() {
