@@ -1,26 +1,15 @@
-import './plugins/bootstrap-vue'
+import '@babel/polyfill'
+import 'mutationobserver-shim'
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 import vSelect from 'vue-next-select';
 import App from './App.vue'
 import router from './router'
 import store from './store';
 import { FloatMenu } from 'vue-float-menu';
-// import { AgGridVue } from "ag-grid-vue3";
-// import "bootstrap"
-// import "bootstrap/dist/css/bootstrap.min.css"
-// // npm 
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// /////
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import { Dropdown } from 'bootstrap';
 
 createApp(App)
     .use(store)
     .use(router)
-    .use(BootstrapVue)
     .component('b-dropdown', Dropdown)
     .component('vue-select', vSelect)
     .component('v-menu', FloatMenu)
