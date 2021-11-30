@@ -4,20 +4,20 @@ import App from './App.vue'
 import router from './router'
 import store from './store';
 import { FloatMenu } from 'vue-float-menu';
-import { AgGridVue } from "ag-grid-vue3";
-import TableLite from "vue3-table-lite";
+// import { AgGridVue } from "ag-grid-vue3";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
-import { Dropdown, Popover } from 'bootstrap';
-// createApp()
+import { Dropdown } from 'bootstrap';
+
+
 createApp(App)
     .use(store)
     .use(router)
     .component('vue-select', vSelect)
     .component('v-menu', FloatMenu)
     .component('b-dropdown', Dropdown)
-    .component('ag-grid-vue', AgGridVue)
-    .component('table-lite', TableLite)
+    // .component('ag-grid-vue', AgGridVue)
+    // .component('table-lite', TableLite)
     .directive('click-outside', {
         mounted (el, binding, vNode) {
             // Provided expression must evaluate to a function.

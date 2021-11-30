@@ -6,42 +6,40 @@
             </div>
         </div>
         <div class="home--content__wrap">
-                <router-link :to="{ name:'boards-view' }" class="nav__section--item">
-                    <icon-svg 
-                        fill="rgba(66, 82, 110)" 
-                        class="nav__icon" 
-                        name="board" 
-                        icon-position="left"
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'24px'"
-                    />   
-                    <span class="nav__section__content__group__title">Boards</span>
-                </router-link>
-                <router-link :to="{ name:'workspaces' }" class="nav__section--item">
-                    <icon-svg 
-                        fill="rgba(66, 82, 110)" 
-                        class="nav__icon" 
-                        name="layer" 
-                        icon-position="left"
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'24px'"
-                    />   
-                    <span class="nav__section__content__group__title">Workspaces</span>
-                </router-link>
-                <div class="nav__section--item">
-                    <icon-svg 
-                        fill="rgba(66, 82, 110)" 
-                        class="nav__icon" 
-                        name="folder" 
-                        icon-position="left"
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'24px'"
-                    />   
-                    <span class="nav__section__content__group__title">Projects</span>
-                </div>
-            
-            <!-- Workspace -->
-                <!-- <workspace-navigation></workspace-navigation> -->
+            <router-link :to="{ name:'workspaces' }" class="nav__section--item">
+                    <!-- name="layer"  -->
+                <icon-svg 
+                    fill="rgba(66, 82, 110)" 
+                    class="nav__icon" 
+                    icon-position="left"
+                    name="layer" 
+                    :style="{ fill: 'rgba(66, 82, 110)' }"
+                    :width="'24px'"
+                />   
+                <span class="nav__section__content__group__title">Clients</span>
+            </router-link>
+            <div class="nav__section--item">
+                <icon-svg 
+                    fill="rgba(66, 82, 110)" 
+                    class="nav__icon" 
+                    name="folder" 
+                    icon-position="left"
+                    :style="{ fill: 'rgba(66, 82, 110)' }"
+                    :width="'24px'"
+                />   
+                <span class="nav__section__content__group__title">Projects</span>
+            </div>
+             <router-link :to="{ name:'boards-view' }" class="nav__section--item">
+                <icon-svg 
+                    fill="rgba(66, 82, 110)" 
+                    class="nav__icon" 
+                    name="user-badge" 
+                    icon-position="left"
+                    :style="{ fill: 'rgba(66, 82, 110)' }"
+                    :width="'24px'"
+                />   
+                <span class="nav__section__content__group__title">Teams</span>
+            </router-link>
             <!-- Invite -->
              <div class="nav__section--item">  
                 <icon-svg 
