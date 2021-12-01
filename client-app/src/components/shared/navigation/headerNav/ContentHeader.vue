@@ -20,24 +20,24 @@
                             />  
                         </span>
                     </span>
-                    <div class="dropdown dropdown--lg" :class="{ 'active' : dropdownIsActive.workspaces }" id="workspaces">
-                    <div class="dropdown__content">
-                            <div class="dropdown__content--group" style="padding-left: 1rem;">
+                    <div class="dropdown-custom dropdown-custom--lg" :class="{ 'active' : dropdownIsActive.workspaces }" id="workspaces">
+                    <div class="dropdown-custom__content">
+                            <div class="dropdown-custom__content--group" style="padding-left: 1rem;">
                                 <span>
-                                    <div class="dropdown__item__link" v-for="item, index in createdWorkspaces" :key="index">
+                                    <div class="dropdown-custom__item__link" v-for="item, index in createdWorkspaces" :key="index">
                                         <p class="title">{{ item.name }}</p>
                                         <p class="sub-title">{{ item.type }}</p>
                                     </div>
                                 </span>
                             </div>
                             <!-- group 2 -->
-                            <div class="dropdown__content--group dropdown__content--group--two" style="border-top: 2px solid rgba(9,30,66,0.08);">
+                            <div class="dropdown-custom__content--group dropdown-custom__content--group--two" style="border-top: 2px solid rgba(9,30,66,0.08);">
                                 <span>
                                     <div class="">
-                                        <div class="dropdown__item__link">
+                                        <div class="dropdown-custom__item__link">
                                             <p class="title">See all workspaces</p>
                                         </div>
-                                        <div class="dropdown__item__link">
+                                        <div class="dropdown-custom__item__link">
                                             <p class="title">Create a new workspaces</p>
                                         </div>
                                     </div>
@@ -120,51 +120,42 @@
                 :styles="iconStyles"
             />  
         </div>
-        <div class="header__create header__create--avatar" v-click-outside="hideDropdown">
-            <div class="content--header__avatar" @click="toggleDropdown('user', 2)">
-                <div class="avatar-wrap avatar">
+        <div class="dropdown">
+            <div class="dropdown-toggle cursor-pointer dropdown-toggle--profile" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+               <div class="avatar profile--avatar">
                     UA
                 </div>
             </div>
-            <!-- dropdown content -->
-            <div class="dropdown dropdown--avatar" :class="{ 'active' : dropdownIsActive.user }" :style="{ }" id="user">
-                <div class="dropdown__content">
-                     <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
-                       <div class="flex align-items-center mt--10">
-                            <span>
-                            <div class="avatar-wrap avatar cursor-text">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <div class="profile__bio align-items-center mt--10 dropdown-item dropdown-custom-item">
+                        <span>
+                            <div class="profile__bio--avatar avatar cursor-text">
                                 UA
                             </div>
-                            </span>
-                            <span>
-                                <p class="cursor-text avatar--text">Uzoamaka Anyanwu</p>
-                                <p class="cursor-text avatar--text">amakadarosie@gmail.com</p>
-                            </span>
-                       </div>
-                    </div>
-                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
+                        </span>
                         <span>
-                            <div class="dropdown__item__link">
-                                <a class="title">Personal Settings</a>
-                            </div>
+                            <p class="profile__bio--sub cursor-text avatar--text">Uzoamaka Anyanwu</p>
+                            <p class="profile__bio--sub cursor-text avatar--text">amakadarosie@gmail.com</p>
                         </span>
                     </div>
-                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
-                        <span>
-                            <div class="dropdown__item__link">
-                                <a class="title">Explore the dashboard</a>
-                            </div>
-                        </span>
+                </li>
+                <li>
+                    <div class="profile__item__link dropdown-item dropdown-custom-item">
+                        <a class="profile__bio--title">Personal Settings</a>
                     </div>
-                    <div class="dropdown__content--group dropdown__content--group--avatar" style="padding-left: 1rem;">
-                        <span>
-                            <div class="dropdown__item__link">
-                                <p class="title">Sign out</p>
-                            </div>
-                        </span>
+                </li>
+                <li>
+                    <div class="profile__item__link dropdown-item dropdown-custom-item">
+                        <a class="profile__bio--title">Explore the dashboard</a>
                     </div>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <div class="profile__item__link dropdown-item dropdown-custom-item">
+                        <p class="profile__bio--title">Sign out</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
   </div>

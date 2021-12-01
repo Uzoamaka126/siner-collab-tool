@@ -31,7 +31,7 @@
     font-weight: 600;
     font-size: 14px;
 }
-.dropdown {
+.dropdown-custom {
     transform: translate3d(0px, 0px, 0px);
     min-width: 100px;
     transition: box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 0s;
@@ -42,6 +42,7 @@
 
     &__item__link {
         padding: 0px;
+        cursor: pointer;
 
         div {
             padding-left: 10px;
@@ -83,4 +84,17 @@
         margin-top: 2rem;
         margin-bottom: 10px;
     }
+}
+
+.dropdown-toggle--profile {
+    margin-left: 10px;
+
+    &::after {
+        vertical-align: baseline !important;
+    }
+}
+
+.dropdown-custom-item {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
 }

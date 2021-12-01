@@ -24,6 +24,7 @@
 // Layout-related sections
 @import
     'layout/sidebar',
+    'layout/header',
     'layout/content';
 
 // Components
@@ -36,7 +37,8 @@
 
     // Styles for views
 @import
-    'pages/auth';
+    'pages/auth',
+    'pages/home';
 
 // For things like class reset
 @import

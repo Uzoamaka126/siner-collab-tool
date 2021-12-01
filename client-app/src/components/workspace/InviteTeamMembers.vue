@@ -48,12 +48,10 @@
 </template>
 
 <script>
-import boxicons from 'boxicons'
 
 export default {
     name: 'InviteTeamMembers',
     components: {
-        'box-icons': boxicons
     },
     data: () => ({
         inviteeEmail: '',

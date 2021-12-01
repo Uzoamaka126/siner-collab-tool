@@ -4,14 +4,6 @@
         <div class="home__wrap">
             <div class="home__wrap--item">
                 <div class="header__item--wrap">
-                    <!-- <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-                        <b-dropdown-item>First Action</b-dropdown-item>
-                        <b-dropdown-item>Second Action</b-dropdown-item>
-                        <b-dropdown-item>Third Action</b-dropdown-item>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item active>Active action</b-dropdown-item>
-                        <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                    </b-dropdown> -->
                      <div class="list--view__type">
                         <span class="text--xs text--upper text--color-normal mr--10">VIEW AS</span>
                         <span class="positionRelative">
@@ -26,11 +18,11 @@
                                 />  
                             </div>
                             <!-- dropdown -->
-                            <div class="dropdown dropdown--lg" :class="{ 'active' : dropdownIsActive }" id="grid">
-                                <div class="dropdown__content">
+                            <div class="dropdown-custom dropdown-custom--lg" :class="{ 'active' : dropdownIsActive }" id="grid">
+                                <div class="dropdown-custom__content">
                                     <div class="dropdown__content--group">
                                         <span>
-                                            <div class="dropdown__item__link">
+                                            <div class="dropdown-custom__item__link">
                                                 <div @click="selectDisplayType('Tiles')">
                                                     <p class="sub-title">As Tiles</p>
                                                 </div>
@@ -138,6 +130,7 @@
 import OnboardingModal from '../shared/modals/Onboarding.vue';
 import IconSvg from "../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../utils/dummy'
+import { VaButtonDropdown } from 'vuestic-ui'
 
 
 export default {
@@ -181,6 +174,7 @@ export default {
     components: {
         'onboarding-modal': OnboardingModal,
         'icon-svg': IconSvg,
+        VaButtonDropdown
     },
     methods: {
         setShowOnboardingModal(value) {

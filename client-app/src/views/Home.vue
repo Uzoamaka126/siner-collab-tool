@@ -1,17 +1,22 @@
 <template>
-  <div>
-    <HelloWorld/>
+  <div class="home">
+    <home-layout></home-layout>
   </div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld.vue';
+import HomeLayout from '@/components/home/HomeLayout.vue'
 
 export default {
   name: 'Home',
-  
   components: {
-    HelloWorld,
+   'home-layout': HomeLayout
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    height: 100%;
+  }
+</style>

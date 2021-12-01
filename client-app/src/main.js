@@ -1,17 +1,18 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import vuetify from './plugins/vuetify'
-// import { loadFonts } from './plugins/webfontloader'
-
-// loadFonts()
+import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
+import 'vuestic-ui/dist/vuestic-ui.css' 
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap";
 
 createApp(App)
   .use(router)
   .use(store)
-  // .use(vuetify)
-  .component('vue-select', vSelect)
+  .use(VuesticPlugin)
+  .component('va-button', VaButton)
+  .component('va-button-dropdown', VaButtonDropdown)
   .directive('click-outside', {
     mounted (el, binding, vNode) {
         // Provided expression must evaluate to a function.
