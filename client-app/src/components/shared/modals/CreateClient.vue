@@ -8,6 +8,7 @@
             :position="'center'"
             :isShowHeader="true"
             :title="'New client'"
+            :headerSize="'20px'"
         >
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section">
@@ -20,8 +21,8 @@
                                 </div>
                             </div>
                             <div class="form__footer width--100">
-                                <button class="btn btn--primary btn--md form__footer--btnFirst" :disabled="!clientName" type="submit">Create</button>
-                                <button class="btn btn--secondary btn--md" type="submit" @click="toggleCreateBoardModal('hide')">Cancel</button>
+                                <button class="btn btn--secondary btn--md form__footer--btnFirst" type="submit" @click="toggleCreateBoardModal('hide')">Cancel</button>
+                                <button class="btn btn--primary btn--md" :disabled="!clientName" type="submit">Create</button>
                             </div>
                         </form>
                     </div>

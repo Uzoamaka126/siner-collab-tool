@@ -13,10 +13,19 @@
     background-color: rgba(159, 163, 177, 0.50);
     background-color: rgba(0, 0, 0, 0.5);
 
+    .modal.fade .modal__dialog {
+        transition: transform 0.3s ease-out;
+        transform: translate(0, -50px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .modal.fade .modal__dialog {
+            transition: none;
+        }
+    }
 
     &.show {
         display: block;
-        width: 100vw;
+        // width: 100vw;
     }
 
     &-open {
@@ -112,14 +121,12 @@
     }
 
     &.fade &__dialog {
-        -webkit-transition: all .3s ease-out;
-        -o-transition:      all .3s ease-out;
-        transition:         all .3s ease-out;
         -webkit-transform: scale(0.7);
         -ms-transform: scale(0.7);
         -o-transform: scale(0.7);
         transform: scale(0.7);
         opacity: 0;
+        transition: transform .3s ease-out;
 
         &--show {
             opacity: 1;

@@ -2,35 +2,31 @@
     <div style="height: 100%; padding-right: 30px; padding-left: 30px; padding-top: 2rem">
         <div class="workspace__content--view" >
            <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 2rem">
-                <div class="flex align-center justify-content-between">
-                <div class="form__item mr--15 mb--0 justify-content-end" style="min-width: 30%">
-                    <!-- <input 
-                        style="padding-top: 6px; padding-bottom: 6px;" 
-                        class="" v-model="search.value" 
-                        placeholder="Search boards by title" 
-                    /> -->
-                </div>
-                <div class="flex align-center">
-                    <span class="form__item mr--15 mb--0">
-                        <label for="" class="label__sort">Sort by</label>
-                        <!-- <vue-select 
-                            class="text--sm"
-                            :options="[
-                                'Less Active', 
-                                'Most active', 
-                                'Alphabetically A - Z', 
-                                'Alphabetically A - Z'
-                                ]"
-                                v-model="sortValue"
-                        ></vue-select> -->
-                    </span>
-                </div>
+                <div class="filter__actions--list">
+                    <div class="btn-group">
+                        <button class="btn text--xs mr--10 filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sort by
+                        </button>
+                        <ul class="dropdown-menu filter__dropdown-menu">
+                            <li><p class="dropdown-item text--xs">A - Z</p></li>
+                            <li><p class="dropdown-item text--xs">Z - A</p></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn text--xs filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter by
+                        </button>
+                        <ul class="dropdown-menu filter__dropdown-menu">
+                            <li><p class="dropdown-item text--xs">Industry</p></li>
+                            <li><p class="dropdown-item text--xs">Theme</p></li>
+                        </ul>
+                    </div>
                 </div>
                 <div style="display: flex; margin-top: 2.5rem;">
                     <div class="home--content__wrap create--workspace__wrap">
-                        <div class="home--content--item">
+                        <div class="home--content--item" style="display: block;">
                             <span data-toggle="modal" data-bs-target="#createClient" @click="toggleCreateBoardModal('show')">
-                                <div class="workspace--theme--img create--workspace__img">
+                                <div class="workspace--theme--img create--workspace__img" style="margin-right: 0px;">
                                     <icon-svg 
                                         fill="rgba(194, 200, 212, 1)" 
                                         class="nav__icon" 
@@ -40,9 +36,9 @@
                                         :height="'24px'"
                                     /> 
                                 </div>
-                                <span class="flex flex-column">
-                                    <span class="text--color-dark text--sm text--bold mt--5 text-center">New board</span>
-                                </span>
+                                <div>
+                                    <p class="text--color-dark text--sm text--bold mt--5 text-center">New board</p>
+                                </div>
                             </span>
                         </div>
                     </div>
@@ -119,10 +115,6 @@ export default {
             }
         },
         toggleShowMenUHover(name) {
-            // if(name === null) {
-            //     this.isMenuDropdownShow = '';
-            //     return
-            // } else {
                const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name);
             //    console.log(getWorkspaceItem);
                 if (getWorkspaceItem.name) {
@@ -160,9 +152,9 @@ export default {
         border-radius: 30px;
         box-sizing: border-box;
         height: 226px;
-        min-width: 152px;
+        // min-width: 152px;
         // padding: 16px 0;
-        width: 152px;
+        // width: 152px;
         align-items: center;
         display: flex;
         flex-flow: column;
