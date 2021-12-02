@@ -1,9 +1,13 @@
 <template>
   <div class="content__body" :style="collapseProp ? bodyStylesCollapse : bodyStyles">
-    <router-view :key="$route.fullPath"></router-view>
-    <create-workspace 
-      :showOnboardingModal="this.$store.state.showCreateWorkspaceModal"
-    ></create-workspace>
+    <div style="height: 100%; padding-right: 15px; padding-left: 15px; padding-top: 2rem">
+      <div class="workspace__content--view">
+        <router-view :key="$route.fullPath"></router-view>
+        <create-workspace 
+          :showOnboardingModal="this.$store.state.showCreateWorkspaceModal"
+        ></create-workspace>
+      </div>
+    </div>
   </div>
 </template>
 

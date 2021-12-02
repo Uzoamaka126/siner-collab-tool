@@ -6,6 +6,7 @@ import WorkspaceView from '../views/Workspace.vue'
 import WorkspaceItemView from '../views/WorkspaceItem.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
+import ProjectsView from '../views/Projects.vue'
 import SettingsView from '../views/Settings.vue'
 import WorkspaceBoards from '../components/workspace/WorkspaceBoards.vue';
 import WorkspaceMembers from '../components/workspace/WorkspaceMembers.vue';
@@ -64,6 +65,11 @@ const routes = [
         path:'workspaces', 
         name:'workspaces', 
         component: WorkspaceView
+      },
+      {
+        path:'projects', 
+        name:'projects-view', 
+        component: ProjectsView
       },
       // {
       //   path:'workspaces/:name?', 

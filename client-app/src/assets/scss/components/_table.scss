@@ -1,280 +1,75 @@
+table {
+    width: 100%;
+}
 
-    .table .thead-dark th {
-        border-bottom: 1px solid rgb(235, 236, 240) !important;
-        color: rgb(94, 108, 132) !important;
-        font-size: 13px !important;
-        cursor: default !important;
-        overflow: visible !important;
-        white-space: nowrap;
-        color: rgb(94, 108, 132) !important;
-        background-color: rgb(255, 255, 255) !important;
-        border-top: none !important;
-        border-right: none !important;
-        border-left: none !important;
-        padding: .3rem.75rem;
+thead, th {
+    border-style: hidden !important;
+    border-color: #eee !important;
+}
+
+.table {
+    &>:not(caption)>*>* {
+        font-size: 14px;
     }
-
-    .table-bordered td, .table-bordered th {
-        border: none !important;
-        border-bottom: 1px solid #ebecf0 !important;
-    }
-
-    .table {
-    display: table;
-    min-width: 100%;
-    &--fixed{
-        width:100%;
+    &.root {
+        border-radius: 0px;
+        padding: 0px;
+        background-color: rgb(255, 255, 255);
+        border-top: none;
+        border-collapse: initial;
+        box-shadow: rgb(235 231 235 / 50%) 0px -1px 0px 0px inset;
         table-layout: fixed;
-        overflow-wrap: break-word;
     }
-    &__container{
-        padding: 0 30px;
-        padding-bottom: 30px;
-        //margin-top:20px;
-    }
-    .flag--button {
-        opacity: 0;
-    }
-    .mark--reviewed-btn {
-        opacity: 0;
-    }
-    &--padded {
-        position: relative;
-        padding: 0;
-        padding-bottom:6px;
-        border-radius:3px;
-        box-shadow: 0 1px 3px 0 rgba(63, 63, 68, 0.15), 0 0 0 1px rgba(63, 63, 68, 0.05);
-        .table__header {
-            background-color: darken(#F5F5F6, 2%);
+
+    th {
+        &:first-of-type {
+            padding-left: 20px;
         }
 
-        &-detail{
-            .table__data{
-                padding: 30px 0;
-            }
-            .table__row:last-child{
-                .table__data{
-                    border-width:0;
-                }
-            }
+        &.first {
+            height: 50px;
+            padding: 0px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            vertical-align: middle;
+            color: rgb(149, 137, 155);
+            cursor: default;
+            text-transform: uppercase;
+            box-shadow: rgb(235 231 235 / 50%) 0px -1px 0px 0px inset;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
         }
-    }
 
-    &__row {
-        display: table-row;
-        color: inherit;
-        text-decoration: none;
-        &:hover {
-            .table__data {
-                background-color: lighten($brand-color, 35%);
-                box-shadow: inset 0 -1px 0 0 lighten($brand-color, 35%);
-            }
-
-            .flag--button {
-                opacity: 1;
-            }
-
-            .mark--reviewed-btn {
-                opacity: 1;
-            }
-
-            .copy__action {
-                opacity: 1;
-            }
-        }
-        &__deactivated{
-            .table__data{
-                background: lighten(#dfe3e8, 5%);
-                color: lighten($text-color-dark-2, 15%);
-                cursor: default;
-            }
-            &:hover{
-                .table__data{
-                    background-color:lighten(#dfe3e8, 5%);
-                    box-shadow:none;
-                }
-
-            }
+        &.header {
+            height: 50px;
+            padding: 0px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            vertical-align: middle;
+            color: rgb(149, 137, 155);
+            cursor: default;
+            text-transform: uppercase;
+            box-shadow: rgb(235 231 235 / 50%) 0px -1px 0px 0px inset;
+            text-align: left;
         }
     }
 
-    &--onesie-detail{
-        .table__data{
-            border-bottom:none;
-            &__sub{
-                color:$text-color-dark-2;
-            }
-            &__default{
-                color:#212b36;
-            }
-        }
-        &:hover {
-            .table__data {
-                background: none;
-                box-shadow:none;
-            }
-        }
+    tbody {
+        tr {
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            cursor: pointer;
 
-    }
-
-    &__section {
-        &--head {
-            display: table-header-group;
-            font-weight: $font-semi-bold;
-        }
-        &--body {
-            display: table-row-group;
-        }
-    }
-
-    &__header, &__data {
-        display: table-cell;
-        vertical-align: middle;
-        box-shadow: inset 0 -1px 0 0 #dfe3e8;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        padding:13px 16px;
-        &.table__checkbox {
-            width: 30px;
-        }
-
-        &.table__action {
-            width: 60px;
-        }
-    }
-
-    &__data{
-        padding: 10px 16px;
-        background:white;
-        font-size: 14px;
-
-        &:nth-of-type(2) {
-            width: 30%;
-        }
-        
-        &:not(:last-of-type) {
-            border-right: 1px solid #eee;
-        }
-
-        &--textbold{
-            color:#333;
-            font-weight:500;
-        }
-        &--noPaddingLeft {
-            padding-left: 0 !important;
-        }
-        .tag--grey{
-            font-size:14px;
-            padding-right:9px;
-            padding-left:9px;
-            line-height: 1.43;
-            letter-spacing: normal;
-        }
-    }
-
-    &__header {
-        background-color: #fff;
-        border:none;
-        font-size: 14px;
-        // padding: 12px 0;
-    }
-
-    &__dropdown {
-        position: absolute;
-        display:none;
-        top: 40px;
-        right: 15px;
-        width: 180px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        box-shadow: 0 2px 16px 0 rgba(33, 43, 54, 0.08), 0 0 0 1px rgba(6, 44, 82, 0.1);
-        z-index: 3;
-        text-align:left;
-        &.active{
-            display:block;
-        }
-        &.inactive{
-            opacity:0;
-            visibility: hidden;
-            .table__dropdown__item{
-                opacity:0;
-                visibility: hidden;
-            }
-        }
-        //&::before {
-        //    position: absolute;
-        //    top: -9px;
-        //    right: 21px;
-        //    content: '';
-        //    z-index: 2;
-        //    border-left: 10px solid transparent;
-        //    border-right: 10px solid transparent;
-        //    border-bottom: 10px solid #fff;
-        //}
-        //&::after {
-        //    position: absolute;
-        //    z-index: 1;
-        //    top: -10px;
-        //    right: 21px;
-        //    content: '';
-        //    border-left: 10px solid transparent;
-        //    border-right: 10px solid transparent;
-        //    border-bottom: 10px solid #E0E2E6;
-        //}
-        &__container{}
-        &__item {
-            padding: 10px 15px;
-            &:not(:last-of-type){
-                border-bottom: 1px solid $default-border-color;
-            }
-            &__link {
-                &:hover {
-                    color: #fff;
-                    cursor: pointer;
-                    background-color: lighten($brand-color, 5%);
-                }
+            &:hover, &:focus-within {
+                background: #e9ebf3 !important;
+                background-color: #e9ebf3 !important;
             }
         }
     }
 }
 
-.table__data--image {
-    width: 40px;
-    display: block;
+.table-hover>tbody>tr:hover>* {
+    background: #e9ebf3 !important;
+    background-color: #e9ebf3 !important;
 }
-
-.copy {
-    position: relative;
-    &__action {
-        display: flex;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 120px;
-        bottom: 0;
-        justify-content: flex-end;
-        align-items: center;
-        background-image: linear-gradient(to right, rgba(lighten($brand-color, 34%), 0.3), lighten($brand-color, 34%));
-        opacity: 0;
-        transition: all 0.3s ease-in-out;
-        &__item {
-            background-color: $brand-color;
-            font-size: 10px;
-            padding: 3px 6px;
-            border-radius: 3px;
-            color: #fff;
-        }
-    }
-}
-
-.image-pad--top {
-    padding-top: 2px;
-}
-.table-filters {
-    &--lg-filter {
-        .custom-filter {
-            width: 400px;
-         }
-    }
-}
-

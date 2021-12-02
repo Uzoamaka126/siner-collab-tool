@@ -18,7 +18,7 @@
                 />   
                 <span class="nav__section__content__group__title">Clients</span>
             </router-link>
-            <div class="nav__section--item">
+            <router-link class="nav__section--item" :to="{ name:'projects-view' }">
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 
                     class="nav__icon" 
@@ -28,7 +28,7 @@
                     :width="'24px'"
                 />   
                 <span class="nav__section__content__group__title">Projects</span>
-            </div>
+            </router-link>
              <router-link :to="{ name:'boards-view' }" class="nav__section--item">
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 
