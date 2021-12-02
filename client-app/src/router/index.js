@@ -65,21 +65,28 @@ const routes = [
         name:'workspaces', 
         component: WorkspaceView
       },
+      // {
+      //   path:'workspaces/:name?', 
+      //   name:'workspace-detail-view', 
+      //   component: WorkspaceItemView,
+      //   props: true,
+      //   redirect:{ name:'workspace-boards' },
+      //   // beforeEnter: requireAuth,
+      //   children:[
+      //     {path:'boards', name:'workspace-boards', component: WorkspaceBoards},
+      //     {path:'members', name:'workspace-members', component: WorkspaceMembers},
+      //     {path:'lists', name:'workspace-lists', component: WorkspaceList},
+      //     // {path:'meeting-notes', name:'workspace-meeting-notes', component: TransactionsList},
+      //     // {path:'product-requirements', name:'workspace-product-requirements', component: TransactionsList},
+      //     // {path:'settings', name:'workspace-settings', component: TransactionsList},
+      //   ]
+      // },
       {
-        path:'workspaces/:name?', 
-        name:'workspace-detail-view', 
-        component: WorkspaceItemView,
-        props: true,
-        redirect:{ name:'workspace-boards' },
+        path:'clients', 
+        name:'clients-view', 
+        component: WorkspaceView,
         // beforeEnter: requireAuth,
-        children:[
-          {path:'boards', name:'workspace-boards', component: WorkspaceBoards},
-          {path:'members', name:'workspace-members', component: WorkspaceMembers},
-          {path:'lists', name:'workspace-lists', component: WorkspaceList},
-          // {path:'meeting-notes', name:'workspace-meeting-notes', component: TransactionsList},
-          // {path:'product-requirements', name:'workspace-product-requirements', component: TransactionsList},
-          // {path:'settings', name:'workspace-settings', component: TransactionsList},
-        ]
+        
       },
       {
         path:'settings', 

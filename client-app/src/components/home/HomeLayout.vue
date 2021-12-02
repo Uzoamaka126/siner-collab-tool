@@ -98,9 +98,14 @@
                     <div class="link__workspaces">
                         <router-link class="sub-text--link text-underline-onHover text--sm" to="/dashboard/boards">See all boards</router-link>
                     </div>
-                    <div class="home--content__wrap">
-                        <div class="home--content--item" v-for="(item, index) in computeCreatedWorkspaces" :key="index">
-                            <router-link :to="{ path: `/dashboard/boards/${item.name }`}" >
+                    <div class="home--content__wrap" :class="toggleWorkspaceDisplayClass">
+                        <div 
+                            class="home--content--item" 
+                            :class="{ 'mr--25': workspaceDisplay === 'Tiles'}"  
+                            v-for="(item, index) in computeCreatedWorkspaces" 
+                            :key="index"
+                        >
+                            <div>
                                 <div class="workspace--theme--img">
                                     
                                 </div>
@@ -108,7 +113,7 @@
                                     <span class="text--color-dark text--sm text--bold mt--5">{{ item.name }}</span>
                                     <span class="text--xs text--normal text--color-normal" style="margin-top: 3px;">{{ item.type }}</span>
                                 </span>
-                            </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +162,12 @@ export default {
             }
         },
          computeCreatedWorkspaces() {
-            return this.createdWorkspaces.slice(0, 2)
+            //  make sure that the list view only shows not more than 3 items and make them horizontally scrollable
+            if(this.workspaceDisplay === 'List') {
+                return this.createdWorkspaces.slice(0, 2)
+            } else {
+                return this.createdWorkspaces.slice(0, 7)
+            }
         },
         viewTypeStyles() {
             return {

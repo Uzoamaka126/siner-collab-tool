@@ -1,0 +1,15 @@
+.workspace {
+
+    &__item {
+        &--list {
+            position: absolute;
+            top: 20px;
+            transition: position .3s ease-out;
+
+        }
+        &--option {
+            color: #fefefe;
+            display: flex;
+        }
+    }
+}

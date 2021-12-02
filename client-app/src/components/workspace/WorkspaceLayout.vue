@@ -1,103 +1,75 @@
 <template>
-    <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 4rem">
-        <div style="display: flex;">
-            <div class="home--content__wrap create--workspace__wrap">
-                <div class="home--content--item">
-                    <span>
-                        <div class="workspace--theme--img create--workspace__img">
-                            <icon-svg 
-                                fill="rgba(194, 200, 212, 1)" 
-                                class="nav__icon" 
-                                name="add" 
-                                icon-position="left"
-                                :width="'24px'"
-                                :height="'24px'"
-                            /> 
-                        </div>
-                        <span class="flex flex-column">
-                            <span class="text--color-dark text--sm text--bold mt--5 text-center">New workspace</span>
-                        </span>
+    <div style="height: 100%; padding-right: 30px; padding-left: 30px; padding-top: 2rem">
+        <div class="workspace__content--view" >
+           <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 2rem">
+                <div class="flex align-center justify-content-between">
+                <div class="form__item mr--15 mb--0 justify-content-end" style="min-width: 30%">
+                    <!-- <input 
+                        style="padding-top: 6px; padding-bottom: 6px;" 
+                        class="" v-model="search.value" 
+                        placeholder="Search boards by title" 
+                    /> -->
+                </div>
+                <div class="flex align-center">
+                    <span class="form__item mr--15 mb--0">
+                        <label for="" class="label__sort">Sort by</label>
+                        <!-- <vue-select 
+                            class="text--sm"
+                            :options="[
+                                'Less Active', 
+                                'Most active', 
+                                'Alphabetically A - Z', 
+                                'Alphabetically A - Z'
+                                ]"
+                                v-model="sortValue"
+                        ></vue-select> -->
                     </span>
                 </div>
-            </div>
-            <div class="home--content__wrap">
-                <div class="home--content--item positionRelative" v-for="(item, index) in createdWorkspaces" :key="index">
-                    <template v-if="isMenuItemHover === item.name">
-                        <div>
-                            <div 
-                                class="menu__wrap--icon cursor-pointer" 
-                                :class="{ show: isMenuItemHover === item.name }" 
-                                @click="toggleShowMenUHover(item.name)"
-                            >
-                                <icon-svg 
-                                    fill="#fff" 
-                                    class="nav__icon" 
-                                    name="dots-horizontal-rounded" 
-                                    icon-position="left"
-                                    :width="'24px'"
-                                    :height="'24px'"
-                                /> 
-                            </div>
-                            <div class="dropdown dropdown--avatar dropdown--menu" :class="{ 'active' : isMenuDropdownShow === item.name }" id="user">
-                                <div class="dropdown__content">
-                                    <div class="dropdown__content--group dropdown__content--group--avatar">
-                                        <span>
-                                            <div class="dropdown__item__link flex align-items-center">
-                                                <span class="theme-display--preview"></span>
-                                                <span class="title">Set Theme</span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="dropdown__content--group dropdown__content--group--avatar">
-                                        <span>
-                                            <div class="dropdown__item__link flex align-items-center">
-                                                <icon-svg 
-                                                    fill="rgba(194, 200, 212, 1)" 
-                                                    class="nav__icon mr--5" 
-                                                    name="link" 
-                                                    icon-position="left"
-                                                    :width="'16px'"
-                                                    :height="'16px'"
-                                                /> 
-                                                <span class="title">Copy Workspace Link</span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="dropdown__content--group dropdown__content--group--avatar">
-                                        <span>
-                                            <div class="dropdown__item__link flex align-items-center">
-                                                <icon-svg 
-                                                    fill="rgba(194, 200, 212, 1)" 
-                                                    class="nav__icon mr--5" 
-                                                    name="edit" 
-                                                    icon-position="left"
-                                                    :width="'16px'"
-                                                    :height="'16px'"
-                                                /> 
-                                                <span class="title">Edit Workspace</span>
-                                            </div>
-                                        </span>
-                                    </div>
+                </div>
+                <div style="display: flex; margin-top: 2.5rem;">
+                    <div class="home--content__wrap create--workspace__wrap">
+                        <div class="home--content--item">
+                            <span data-toggle="modal" data-bs-target="#createClient" @click="toggleCreateBoardModal('show')">
+                                <div class="workspace--theme--img create--workspace__img">
+                                    <icon-svg 
+                                        fill="rgba(194, 200, 212, 1)" 
+                                        class="nav__icon" 
+                                        name="add" 
+                                        icon-position="left"
+                                        :width="'24px'"
+                                        :height="'24px'"
+                                    /> 
                                 </div>
+                                <span class="flex flex-column">
+                                    <span class="text--color-dark text--sm text--bold mt--5 text-center">New board</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="home--content__wrap">
+                        <div class="home--content--item positionRelative" v-for="(item, index) in createdWorkspaces" :key="index">
+                            <div>
+                                <div 
+                                    class="workspace--theme--img" 
+                                    @mouseenter="showMenuIconOnHover(item.name)"
+                                    @mouseleave="showMenuIconOnHover(null)"
+                                    :id="item.name"
+                                >
+                                </div>
+                                <span class="flex flex-column">
+                                    <span class="text--color-dark text--sm text--bold mt--5 text-center">{{ item.name }}</span>
+                                </span>
                             </div>
                         </div>
-                    </template>
-                    <!-- <router-link :to="{ path: `/dashboard/boards/${getHyphenatedPath(item.name, item.id)}`}"> -->
-                    <span class="cursor-pointer" @click="goToWorkspace(item.name, item.id)">
-                        <div 
-                            class="workspace--theme--img" 
-                            @mouseenter="showMenuIconOnHover(item.name)"
-                            @mouseleave="showMenuIconOnHover(null)"
-                            :id="item.name"
-                        >
-                        </div>
-                        <span class="flex flex-column">
-                            <span class="text--color-dark text--sm text--bold mt--5 text-center">{{ item.name }}</span>
-                        </span>
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <create-client-modal 
+            :toggleCreateBoardModal="toggleCreateBoardModal" 
+            :showCreateBoardModal="showCreateBoardModal"
+        />
     </div>
 </template>
 
@@ -105,6 +77,7 @@
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
 import { FloatMenu } from 'vue-float-menu'
+import CreateClientModal from '../shared/modals/CreateClient.vue'
 
 export default {
     name: 'WorkspaceLayout',
@@ -120,11 +93,15 @@ export default {
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         isMenuItemHover: '',
-        isMenuDropdownShow: ''
+        isMenuDropdownShow: '',
+        clientName: '',
+        showCreateBoardModal: false,
+
     }),
     components: {
         IconSvg,
-        FloatMenu
+        FloatMenu,
+        CreateClientModal
     },
     computed: {
     },
@@ -156,13 +133,14 @@ export default {
             // }
             
         },
-        getHyphenatedPath(str) {
-            return str.replace(/\s/g, "-").toLowerCase();
-        },
-        goToWorkspace(name, id) {
-            // const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            // localStorage.setItem('workspaceId', id);
-            // this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
+        toggleCreateBoardModal(value) {
+            if(value === 'show') {
+                this.showCreateBoardModal = true;
+            } else if (value === 'hide') {
+                this.showCreateBoardModal = false;
+            } else {
+                this.showCreateBoardModal = false;
+            }
         }
     }
 }

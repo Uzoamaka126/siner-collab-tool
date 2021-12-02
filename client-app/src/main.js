@@ -4,12 +4,15 @@ import router from './router'
 import store from './store'
 import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
 import 'vuestic-ui/dist/vuestic-ui.css' 
+import jquery from 'jquery'
 import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap";
+
+// window.$ = window.jQuery = require('jquery');
 
 createApp(App)
   .use(router)
   .use(store)
+//   .use(jquery)
   .use(VuesticPlugin)
   .component('va-button', VaButton)
   .component('va-button-dropdown', VaButtonDropdown)

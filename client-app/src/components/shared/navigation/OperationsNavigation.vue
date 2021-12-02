@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="home--content__wrap">
-            <router-link :to="{ name:'workspaces' }" class="nav__section--item">
+            <router-link :to="{ name:'clients-view' }" class="nav__section--item">
                     <!-- name="layer"  -->
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 

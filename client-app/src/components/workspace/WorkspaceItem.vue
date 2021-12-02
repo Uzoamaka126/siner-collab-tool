@@ -1,52 +1,6 @@
 <template>
     <div style="height: 100%" class="main">
-        <!-- <div class="tabs horizontal ">
-            <ul class="tab-list left" role="tabList">
-                <li 
-                    v-for="(tab, index) in tabsList"
-                    :key="tab.name"
-                    class="tab-list__item"
-                    tabIndex="0"
-                    role="tabItem"
-                    :aria-selected="selectedIndex === index ? true : false"
-                    @click="getCurrentTab(tab.component, index)"
-                >
-                {{ tab.id }}
-                </li>
-            </ul>
-            <div class="tab">
-                <div class="tab--panel" role="tabPanel" data-v-0292cb4e="">
-                    <div class="tab-content">
-                        <keep-alive>
-                            <component :is="currentTabComponent" :currentWorkspaceItem="currentWorkspaceItem"></component>
-                        </keep-alive>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="tabs horizontal ">
-            <!-- <ul class="tab-list left" role="tabList">
-                <li 
-                    v-for="(tab, index) in tabsList"
-                    :key="tab.name"
-                    class="tab-list__item"
-                    tabIndex="0"
-                    role="tabItem"
-                    :aria-selected="selectedIndex === index ? true : false"
-                    @click="getCurrentTab(tab.component, index)"
-                >
-                {{ tab.id }}
-                </li>
-            </ul> -->
-            <!-- <div class="tab">
-                <div class="tab--panel" role="tabPanel" data-v-0292cb4e="">
-                    <div class="tab-content">
-                        <keep-alive>
-                            <component :is="currentTabComponent" :currentWorkspaceItem="currentWorkspaceItem"></component>
-                        </keep-alive>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="workspace__content--view">
             <router-view v-slot="{ route }">
