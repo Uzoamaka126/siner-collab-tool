@@ -1,13 +1,13 @@
 <template>
     <div>
         <main-modal 
-            :showModal="showCreateBoardModal" 
+            :showModal="showCreateProjectModal" 
             :isCloseButton=false 
             :modalSize="'modal__dialog--lg'"
             :width="'620px'"
             :position="'center'"
             :isShowHeader="true"
-            :title="'New client'"
+            :title="'Create new project'"
             :headerSize="'20px'"
         >
             <div class="modal__wrapper--onboarding">
@@ -16,12 +16,30 @@
                         <form @submit.prevent="" class="form--workspace__create mb--20">
                             <div class="form__item">
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" v-model="clientName" id="name" placeholder="Client X">
+                                    <label for="name" class="form-label">Project Name</label>
+                                    <input type="text" class="form-control" v-model="clientName" id="name" placeholder="Copy wriring for xyz company">
                                 </div>
                             </div>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Client</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Theme</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                             <select class="form-select" aria-label="Default select example">
+                                <option selected>Tags</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
                             <div class="form__footer width--100">
-                                <button class="btn btn--secondary btn--md form__footer--btnFirst" type="submit" @click="toggleCreateBoardModal('hide')">Cancel</button>
+                                <button class="btn btn--secondary btn--md form__footer--btnFirst" type="submit" @click="toggleCreateProjectModal('hide')">Cancel</button>
                                 <button class="btn btn--primary btn--md" :disabled="!clientName" type="submit">Create</button>
                             </div>
                         </form>
@@ -40,7 +58,7 @@ export default {
     components: {
         'main-modal': MainModal,
     },
-    props: ["showCreateBoardModal", "toggleCreateBoardModal"],
+    props: ["showCreateProjectModal", "toggleCreateProjectModal"],
     data: () => ({
        clientName: ''
     }),

@@ -71,3 +71,41 @@
     }
 }
 
+.header {
+    &__create {
+        cursor: pointer;
+
+        &--avatar {
+        // border: 1px solid red;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+    }
+
+    &__btn {
+        display: flex !important;
+        align-items: center;
+        border-radius: 3px;
+        border: 0;
+        box-shadow: none;
+        margin: 0 4px 0 0;
+        padding: 0;
+        white-space: nowrap;
+        padding: 0 12px !important;
+
+        span.text {
+            font-size: 12px !important;
+        }
+
+        .svg-icon {
+            margin-right: 12px;
+            
+            svg {
+                vertical-align: baseline;
+            }
+        }
+    }
+}
+
+

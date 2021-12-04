@@ -4,7 +4,7 @@
         <div class="flex align-items-center">
             <!-- Client count -->
             <div class="list--count">
-                <p>3 client(s)</p>
+                <p>3 Team members(s)</p>
             </div>
             <div class="filter__actions--list">
                 <!-- search list -->

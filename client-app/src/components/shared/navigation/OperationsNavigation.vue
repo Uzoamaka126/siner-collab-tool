@@ -33,7 +33,7 @@
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 
                     class="nav__icon" 
-                    name="user-badge" 
+                    name="multiple-users" 
                     icon-position="left"
                     :style="{ fill: 'rgba(66, 82, 110)' }"
                     :width="'24px'"
@@ -41,15 +41,26 @@
                 <span class="nav__section__content__group__title">Teams</span>
             </router-link>
             <!-- Invite -->
-             <div class="nav__section--item">  
+             <router-link :to="{ name:'tags-view' }" class="nav__section--item">  
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 
                     class="nav__icon" 
-                    name="multiple-users" 
+                    name="tag" 
                     :style="{ fill: 'rgba(66, 82, 110)' }"
                     :width="'24px'"
                 />
-                <span class="nav__section__content__group__title">Invite teammates</span>
+                <span class="nav__section__content__group__title">Tags</span>
+            </router-link>
+            <!-- Invoice -->
+            <div :to="{ name:'tags-view' }" class="nav__section--item">  
+                <icon-svg 
+                    fill="rgba(66, 82, 110)" 
+                    class="nav__icon" 
+                    name="receipt" 
+                    :style="{ fill: 'rgba(66, 82, 110)' }"
+                    :width="'24px'"
+                />
+                <span class="nav__section__content__group__title">Invoices</span>
             </div>
         </div>
     </div>
@@ -141,8 +152,8 @@ export default {
         }
     }
     .nav__section__content__group {
-        overflow-x: scroll;
-        max-height: 200px;
+        // overflow-x: scroll;
+        // max-height: 200px;
     }
     .home--content__wrap {
         flex-direction: row;

@@ -6,7 +6,7 @@
             </div>
         <div class="workspace--header__title">
         <!-- workspace -->
-           <template v-if="getRouterName() === 'boards'">
+           <template v-if="getRouterName === 'boards'">
                 <div class="row__item positionRelative" v-click-outside="hideDropdown">
                     <span class="pull--right cursor-pointer nav--dropdown--text" @click="toggleDropdown('workspaces', 0)">
                         <span class="">Workspace name here</span>
@@ -89,26 +89,29 @@
                     </div>
                 </div>
            </template>
-           <template v-else-if="getRouterName() === 'workspaces'">
-               <p class="text--sm">WORKSPACES</p>
+           <template v-else-if="getRouterName === 'projects'">
+               <p class="text--sm">PROJECTS</p>
            </template>
-           <!-- <template v-else-if="getRouterName() === 'invites'">
-               <p class="text--sm">INVITES</p>
-           </template> -->
-           <template v-else-if="getWorkspaceRouterPath() === 'lists'">
+           <!-- <template v-else-if="getWorkspaceRouterPath() === 'lists'">
                <ul class="breadcrumb">
                     <li>
                         <router-link :to="{ name: 'workspaces'}" class="cursor-pointer">Workspaces</router-link>
                         </li>
                     <li><span>{{ currentWorkspaceName }}</span></li>
                 </ul>
-           </template>
+           </template> -->
         </div>
     </div>
     <div class="content--header__right">
-        <div class="header__create" v-if="getRouterName() === 'boards' || getRouterName() !== 'settings'">
-            <button class="btn btn--primary content--header--btn" @click="toggleCreateBoardModal('show')">
-                Create
+        <div class="header__create" v-if="getRouterName !== 'settings' || getRouterName !== 'null'">
+            <button class="btn btn--primary header__btn" @click="toggleCreateBoardModal('show')">
+                <icon-svg 
+                    fill="#fff" 
+                    name="add" 
+                    icon-position="left"
+                    :width="'12px'"
+                />  
+               <span class="text">Add new {{ getRouterName }}</span>
             </button>
         </div>
         <div class="header__create" style="height: 100%; display: flex; justify-content: center; align-items: center;">
@@ -176,7 +179,6 @@ export default {
     'create-board-modal': CreateBoardModal,
   },
   created() {
-      this.getRouterName();
   },
   data: () => ({
     dropdownIsActive: {
@@ -193,6 +195,23 @@ export default {
     currentWorkspaceName: ''
   }),
   computed: {
+    getRouterName() {
+        const routeName = this.$route.name;
+        const routeNameMap = {
+            'home-view': 'home',
+            'projects-view': 'project',
+            'clients-view': 'client',
+            'settings-view': 'setting',
+            'tags-view': 'tag',
+            'teams-view': 'team',
+            'invoices-view': 'invoice'
+        }
+        if (routeName) {
+            return routeNameMap[routeName]
+        } else {
+            return null
+        }
+    },
   },
    watch:{
     //watch for route parameter change and execute method
@@ -200,22 +219,7 @@ export default {
         '$route': 'getCurrentWorkspaceName'
     },
   methods: {
-    getRouterName() {
-        const routePath = this.$route.path.slice(11);
-        // console.log(routePath);
-        if (routePath === 'home') {
-            return 'home'
-        } else if(routePath === 'boards') {
-            return 'boards'
-        } else if(routePath === 'workspaces') {
-            return 'workspaces'
-        } else if(routePath === 'settings') {
-            return 'settings'
-        } else {
-            return 'none'
-        }
-    },
-     getWorkspaceRouterPath() {
+     getPath() {
         const routePath = this.$route.path;
         // console.log(routePath);
         if (routePath.includes('workspaces') && routePath.includes('lists')) {
@@ -260,6 +264,9 @@ export default {
         this.dropdownIsActive['boards'] = false;
     },
     toggleCreateBoardModal(value) {
+        const path = this.getRouterName
+        // let's take a look at the path first
+        // if (path === )
         if(value === 'show') {
             this.showCreateBoardModal = true;
         } else if (value === 'hide') {
