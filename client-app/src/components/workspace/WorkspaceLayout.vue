@@ -2,7 +2,7 @@
     <div>
         <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 2rem">
             <!-- top header -->
-            <div class="flex align-items-center">
+            <div class="flex align-items-center justify-content-between">
                 <!-- Client count -->
                 <div class="list--count">
                     <p>3 client(s)</p>

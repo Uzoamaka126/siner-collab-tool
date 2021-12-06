@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%; padding-right: 25px; padding-left: 25px; padding-top: 2rem">
          <!-- top header -->
-        <div class="flex align-items-center">
+        <div class="flex align-items-center justify-content-between">
             <!-- Client count -->
             <div class="list--count">
                 <p>3 Team members(s)</p>

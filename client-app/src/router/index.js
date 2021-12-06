@@ -3,10 +3,11 @@ import HomeView from '../views/Home.vue'
 import Signup from '../views/Signup.vue';
 import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
-import WorkspaceItemView from '../views/WorkspaceItem.vue'
+// import WorkspaceItemView from '../views/WorkspaceItem.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
 import ProjectsView from '../views/Projects.vue'
+import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
 import TagsView from '../views/Tags.vue'
 
@@ -71,8 +72,9 @@ const routes = [
       {
         path:'projects', 
         name:'projects-view', 
-        component: ProjectsView
+        component: ProjectsView,
       },
+      {path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
        {
         path:'tags', 
         name:'tags-view', 

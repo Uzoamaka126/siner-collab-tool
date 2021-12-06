@@ -13,6 +13,10 @@
     background-color: rgba(159, 163, 177, 0.50);
     background-color: rgba(0, 0, 0, 0.5);
 
+    &-title {
+        font-size: 16px !important;
+    }
+
     .modal.fade .modal__dialog {
         transition: transform 0.3s ease-out;
         transform: translate(0, -50px);

@@ -26,6 +26,11 @@
         border-color: #dee2e6 !important;
         border: 1px solid #dee2e6 !important;
         box-shadow: none !important;
+
+        &__noBorder {
+            border: none !important;
+            outline: none !important;;
+        }
     }
 
     &__dropdown-menu {

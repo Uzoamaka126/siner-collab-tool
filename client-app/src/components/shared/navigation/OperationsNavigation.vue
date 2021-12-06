@@ -29,17 +29,26 @@
                 />   
                 <span class="nav__section__content__group__title">Projects</span>
             </router-link>
-             <router-link :to="{ name:'boards-view' }" class="nav__section--item">
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    name="multiple-users" 
-                    icon-position="left"
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />   
-                <span class="nav__section__content__group__title">Teams</span>
-            </router-link>
+             <div :to="{ name:'boards-view' }" class="nav__section--item">
+                <!-- <span> -->
+                   
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        name="multiple-users" 
+                        icon-position="left"
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />   
+                    <span 
+                        class="nav__section__content__group__title"
+                        data-bs-container="body" 
+                        data-bs-toggle="popover" 
+                        data-bs-placement="right"
+                        data-bs-content="Right popover"
+                    >Teams</span>
+                <!-- </span> -->
+            </div>
             <!-- Invite -->
              <router-link :to="{ name:'tags-view' }" class="nav__section--item">  
                 <icon-svg 
@@ -69,7 +78,6 @@
 <script>
 import IconSvg from "../../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../utils/dummy'
-// import WorkspaceNavigation from './WorkspaceNavigation.vue'
 
 export default {
     name: 'OperationsNavigation',
@@ -113,13 +121,6 @@ export default {
             if (!path.includes('workspaces/')) {
                 this.activeWorkspace = ''
             } 
-            // else {
-            //     const id = localStorage.getItem('workspaceId');
-            //     const findWorkspaceObj = createdWorkspaces.find(item => item.id === id);
-            //     if(findWorkspaceObj) {
-            //         this.activeWorkspace = findWorkspaceObj.name
-            //     }
-            // }
         }
     },
     mounted() {

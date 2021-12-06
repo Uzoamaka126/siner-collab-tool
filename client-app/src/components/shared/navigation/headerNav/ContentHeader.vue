@@ -92,26 +92,19 @@
            <template v-else-if="getRouterName === 'projects'">
                <p class="text--sm">PROJECTS</p>
            </template>
-           <!-- <template v-else-if="getWorkspaceRouterPath() === 'lists'">
-               <ul class="breadcrumb">
-                    <li>
-                        <router-link :to="{ name: 'workspaces'}" class="cursor-pointer">Workspaces</router-link>
-                        </li>
-                    <li><span>{{ currentWorkspaceName }}</span></li>
-                </ul>
-           </template> -->
         </div>
     </div>
+
     <div class="content--header__right">
-        <div class="header__create" v-if="getRouterName !== 'settings' || getRouterName !== 'null'">
-            <button class="btn btn--primary header__btn" @click="toggleCreateBoardModal('show')">
+        <div class="header__create" v-if="showHeaderActionButton">
+            <button class="btn btn--primary header__btn" data-bs-toggle="modal" :data-bs-target="getMatchingModal">   
                 <icon-svg 
                     fill="#fff" 
                     name="add" 
                     icon-position="left"
                     :width="'12px'"
                 />  
-               <span class="text">Add new {{ getRouterName }}</span>
+                <span class="text">Add new {{ getRouterName }}</span>
             </button>
         </div>
         <div class="header__create" style="height: 100%; display: flex; justify-content: center; align-items: center;">
@@ -162,7 +155,11 @@
         </div>
     </div>
   </div>
+  <!-- modals -->
     <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
+    <create-tag-modal></create-tag-modal>
+    <create-client-modal></create-client-modal>
+    <create-project-modal></create-project-modal>
  </div>
 </template>
 
@@ -171,12 +168,18 @@
 import IconSvg from "../../../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../../utils/dummy';
 import CreateBoardModal from '../../modals/CreateBoard.vue';
+import CreateTagModal from '../../modals/CreateTag.vue';
+import CreateClientModal from '../../modals/CreateClientTwo.vue';
+import CreateProjectModal from '../../modals/CreateProjectTwo.vue';
 
 export default {
   name: 'DashbaordContentHeader',
   components: {
     'icon-svg': IconSvg,
     'create-board-modal': CreateBoardModal,
+    'create-tag-modal': CreateTagModal,
+    'create-client-modal': CreateClientModal,
+    'create-project-modal': CreateProjectModal,
   },
   created() {
   },
@@ -192,7 +195,7 @@ export default {
     },
     createdWorkspaces: createdWorkspaces,
     showCreateBoardModal: false,
-    currentWorkspaceName: ''
+    currentWorkspaceName: '',
   }),
   computed: {
     getRouterName() {
@@ -201,7 +204,7 @@ export default {
             'home-view': 'home',
             'projects-view': 'project',
             'clients-view': 'client',
-            'settings-view': 'setting',
+            'settings-view': 'settings',
             'tags-view': 'tag',
             'teams-view': 'team',
             'invoices-view': 'invoice'
@@ -212,6 +215,36 @@ export default {
             return null
         }
     },
+    getMatchingModal() {
+        const routeName = this.$route.name;
+        const modalNameMap = {
+            'home-view': 'home',
+            'projects-view': 'createProject',
+            'clients-view': 'createClient',
+            'settings-view': 'settings',
+            'tags-view': 'createTag',
+            'teams-view': 'createTag',
+            'invoices-view': 'createTag',
+            'project-details': 'projectDetails'
+        }
+        if (routeName) {
+            return `#${modalNameMap[routeName]}`
+        } else {
+            return null
+        }
+    },
+    showHeaderActionButton() {
+        if (
+            this.getRouterName !== 'home' && 
+            this.getRouterName !== 'settings' && 
+            this.getRouterName !== 'projectDetails' && 
+            this.getRouterName !== 'null'
+        ) {
+            return true
+        } else {
+            return false
+        }
+    }
   },
    watch:{
     //watch for route parameter change and execute method

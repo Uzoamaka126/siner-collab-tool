@@ -40,7 +40,7 @@
                                 <button class="btn btn--bgPrimary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Sign up</button>
                             </div>
                             <div class="signup--notify__wrap ">
-                                <div class="text--xls">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
+                                <div class="text--sm">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
                             </div>
                         </div>
                     </form>

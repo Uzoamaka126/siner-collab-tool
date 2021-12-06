@@ -161,7 +161,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                   <div class="modal__lists-icon flex align-items-center justify-content-end" style="padding-top: 1rem;">
-                       <span class="text--xls text--color-normal mr--15 text--bold">Make public</span>
+                       <span class="text--sm text--color-normal mr--15 text--bold">Make public</span>
                        <span>
                            <icon-svg fill="#6f7782" class="nav__icon mr--10"  name="file"  :width="'16px'" :height="'16px'" />
                        </span>

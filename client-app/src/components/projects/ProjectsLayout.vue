@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%; padding-right: 25px; padding-left: 25px; padding-top: 2rem">
          <!-- top header -->
-        <div class="flex align-items-center">
+        <div class="flex align-items-center justify-content-between">
             <!-- Client count -->
             <div class="list--count">
                 <p>3 client(s)</p>
@@ -57,40 +57,26 @@
             <table class="table table-hover root">
                 <thead>
                     <tr>
-                    <th class="first header">Name</th>
-                    <th class="header">Client</th>
-                    <th class="header">Status</th>
-                    <th class="header">Time</th>
-                    <th class="header">No on team</th>
-                    <th class="header">Invoice</th>
+                        <th class="first header">Project title</th>
+                        <th class="header">Client</th>
+                        <th class="header">Status</th>
+                        <th class="header">Time</th>
+                        <th class="header">No on team</th>
+                        <th class="header">Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Twitter</td>
-                        <td>Pending</td>
-                        <td>0h</td>
-                        <td>1</td>
-                        <td>None</td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Twitter</td>
-                        <td>Pending</td>
-                        <td>0h</td>
-                        <td>1</td>
-                        <td>Available</td>
-                    </tr>
+                    <router-link :to="{name:'project-details', params:{ id:project.id }}" v-for="project in projects" :key="project.id">
+                        <td>{{ project.title }}</td>
+                        <td>{{ project.client }}</td>
+                        <td>{{ project.status }}</td>
+                        <td>{{ project.time }}</td>
+                        <td>{{ project.teamNum }}</td>
+                        <td>{{ project.invoices.length }}</td>
+                    </router-link>
                 </tbody>
             </table>
         </div>
-
-        <!-- modal -->
-         <create-project-modal 
-            :toggleCreateProjectModalal="toggleCreateProjectModalal" 
-            :showCreateBoardModal="showCreateBoardModal"
-        />
     </div>
 </template>
 
@@ -114,7 +100,26 @@ export default {
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         showCreateBoardModal: false,
-
+        projects: [
+            {
+                id: '1',
+                title: 'Twitter Landing page',
+                client: 'Twitter',
+                status: 'pending',
+                time: '0h',
+                teamNum: 1,
+                invoices: ["https:///", 'htps:///www']
+            },
+            {
+                id: '2',
+                title: 'Twitter Landing page',
+                client: 'Twitter',
+                status: 'pending',
+                time: '0h',
+                teamNum: 1,
+                invoices: ["https:///", 'htps:///www']
+            }
+        ]
     }),
     components: {
         IconSvg,

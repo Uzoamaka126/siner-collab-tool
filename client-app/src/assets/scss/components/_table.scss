@@ -56,7 +56,7 @@ thead, th {
     }
 
     tbody {
-        tr {
+        tr, a {
             background: rgb(255, 255, 255);
             color: rgb(0, 0, 0);
             cursor: pointer;
@@ -66,10 +66,23 @@ thead, th {
                 background-color: #e9ebf3 !important;
             }
         }
+
+        a {
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+
+            &:hover, &:focus-within {
+                background: #eff0f5 !important;
+                background-color: #eff0f5 !important;
+            }
+        }
     }
 }
 
-.table-hover>tbody>tr:hover>* {
-    background: #e9ebf3 !important;
-    background-color: #e9ebf3 !important;
+.table-hover>tbody>a:hover>* {
+    background: #f6f8fd !important;
+    background-color: #f6f8fd !important;
 }

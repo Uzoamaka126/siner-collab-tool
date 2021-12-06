@@ -23,11 +23,9 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
     &--medium {
         font-weight: $font-medium;
     }
-
     &--bold {
         font-weight: $font-bold;
     }
-
     &--upper {
         text-transform: uppercase;
     }
@@ -61,17 +59,26 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
     &-purple {
         color: $text-color-purple
     }
+    &--link{
+        color: $text-color-link;
+    }
     &--xxs {
         font-size: 10px;
     }
     &--xs {
         font-size: 12px !important;
     }
-    &--xls {
-        font-size: 14px !important;
-    }
     &--sm {
         font-size: 0.8rem;
+    }
+    &--md {
+        font-size: 18px;
+    }
+    &--xmd {
+        font-size: 22px;
+    }
+    &--lg {
+        font-size: 26px;
     }
 
 }

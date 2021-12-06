@@ -14,7 +14,7 @@
       justify-content: flex-end;
     }
     &__item {
-      padding: 8px 10px;
+      padding: 13px 10px;
       cursor: pointer;
       user-select: none;
       transition: border 0.3s ease-in-out;
@@ -23,6 +23,10 @@
       // text-transform: uppercase;
       font-size: 0.85rem;
       letter-spacing: 0.05rem;
+
+      &:first-of-type {
+        padding-left: 20px;
+      }
 
       &:not(:first-child) {
         margin-left: 10px;
@@ -86,15 +90,25 @@
 }
 
 .tab {
-    margin-top: 2.5rem;
+    margin-top: 1rem;
+
+    &-list {
+      -webkit-box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 0.83px 1.6px 0 rgba(0, 0,0, 0.12) !important;
+      padding: 0px 20px 0px 20px;
+      margin-bottom: 0px;
+    }
 
     &--panel {
       border-radius: 3px;
       background-color: #fff;
-      -webkit-box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12);
-      box-shadow: 0 0.83px 1.6px 0 rgba(0, 0,0, 0.12);
       width: 100%;
       margin-bottom: 30px;
-      border: 1px solid rgba(193, 163, 249, 0.25);
+    }
+
+    &-content {
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 20px;
     }
 }
