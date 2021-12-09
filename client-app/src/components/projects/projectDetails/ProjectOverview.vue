@@ -4,30 +4,53 @@
             <!-- title -->
            <div class="project__overview--item">
                <span class="text--color-dark text--medium">Title:</span>
-                <span v-if="!isEditableTitle">
-                    <span class="ml--10 text--sm">Test Title</span>
-                    <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleTitleEdit(true)">(Edit)</span>
-                </span>
-                <span v-else class="ml--10">
-                    <span class="bd-search position-relative cursor-pointer" style="margin-right: 0.825rem;" @click="toggleTitleEdit(false)">
-                        <span role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: -6px; z-index: 100; right: 5px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(45, 166, 8, 0.5);transform: ;msFilter:;">
-                                <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
-                            </svg>
-                        </span>
-                        <input 
-                            type="text" 
-                            class="form__input form__input--lg" 
-                            v-model="title"
-                            style="position: relative; vertical-align: top; font-size: 14px; padding-left: 10px;"
-                        >
+                <template v-if="!isEditableTitle">
+                    <span>
+                        <span class="ml--10 text--sm">Test Title</span>
+                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleTitleEdit(true)">(Edit)</span>
                     </span>
-                </span>
+                </template>
+                <template v-else>
+                    <span class="ml--10">
+                        <span class="bd-search position-relative cursor-pointer">
+                            <input 
+                                type="text" 
+                                class="form__input form__input--lg" 
+                                v-model="title"
+                                style="position: relative; vertical-align: top; font-size: 14px; padding-left: 10px;"
+                            >
+                            <span>
+                                <span class="ml--10 text--xs text-faded cursor-pointer" @click="toggleTitleEdit(false)">Cancel</span>
+                                <span class="ml--10 text--xs text--link cursor-pointer" :class="!title ? 'text--disabled' : '' ">Edit</span>
+                            </span>
+                        </span>
+                    </span>
+                </template>
            </div>
-           <div class="project__overview--item">
+           <div class="project__overview--item" style="display: flex;">
                <span class="text--color-dark text--medium">Status:</span>
-                <span class="ml--10 text--sm">Pending</span>
-                <span class="ml--10 text--xs text--link text-faded cursor-pointer">(Edit)</span>
+                <template v-if="!isEditableStatus">
+                    <span>
+                        <span class="ml--10 text--sm">Pending</span>
+                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleStatusEdit(true)">(Edit)</span>
+                    </span>
+                </template>
+                <template v-else>
+                    <span class="ml--10 align-items-center" style="display: flex; font-size: 12px;">
+                        <span>
+                            <select class="form-select form-select-sm" style="width: fit-content" aria-label=".form-select-sm example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </span>
+                        <span>
+                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleStatusEdit(false)">Cancel</span>
+                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" :class="!status ? 'text--disabled' : '' ">Save</span>
+                        </span>
+                    </span>
+                </template>
            </div>
             <div class="project__overview--item">
                <span class="text--color-dark text--medium">No of hours spent:</span>
@@ -56,7 +79,9 @@ export default {
     },
     data: () => ({
         isEditableTitle: false,
-        title: ''
+        isEditableStatus: false,
+        title: '',
+        status: ''
     }),
     computed: {
 
@@ -64,7 +89,10 @@ export default {
     methods: {
         toggleTitleEdit(value) {
             this.isEditableTitle = value;
-        }
+        },
+        toggleStatusEdit(value) {
+            this.isEditableStatus = value;
+        },
     }
 }
 </script>

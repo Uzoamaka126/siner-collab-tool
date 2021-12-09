@@ -30,9 +30,7 @@ import ProjectOverview from '../components/projects/projectDetails/ProjectOvervi
 import ProjectBoards from '../components/projects/projectDetails/ProjectBoards.vue';
 import ProjectMembers from '../components/projects/projectDetails/ProjectMembers.vue';
 import ProjectTasks from '../components/projects/projectDetails/ProjectTasks.vue';
-// import ProjectTracker from './ProjectTracker.vue';
-// import ProjectInvoices from './ProjectInvoices.vue';
-// import TabComp from '../components/shared/tabsTwo/TabComp.vue'
+import ProjectCalendar from '../components/projects/projectDetails/ProjectCalendar.vue';
 
 export default {
     name: 'SettingsLayout',
@@ -44,7 +42,7 @@ export default {
         ProjectOverview,
         ProjectBoards,
         ProjectMembers,
-        // ProjectTracker,
+        ProjectCalendar,
         // ProjectInvoices,
         // TabComp
         ProjectTasks
@@ -64,19 +62,23 @@ export default {
                 component: 'ProjectBoards'
             },
             {   
-                id: 'tasks',
+                id: 'Tasks',
                 component: 'ProjectTasks'
             },
-            // {   
-            //     id: 'Tracker',
-            //     component: 'ProjectTracker'
-            // },
             {   
-                id: 'Members',
-                component: 'ProjectOverview'
+                id: 'Tracker',
+                component: 'ProjectTracker'
+            },
+            {   
+                id: 'Calendar',
+                component: 'ProjectCalendar'
             },
             {   
                 id: 'Invoices',
+                component: 'ProjectOverview'
+            },
+            {   
+                id: 'Files',
                 component: 'ProjectOverview'
             },
         ],

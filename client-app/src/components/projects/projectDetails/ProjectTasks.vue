@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- boards functionalities header -->
-        <div class="flex align-items-center justify-content-between">
+        <div class="align-items-center justify-content-between" style="display: flex;">
             <div class="btn--outline__sm align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex;">
                <span class="flex ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="fill: #5e6c84;transform: ;msFilter:;">
@@ -29,7 +29,7 @@
                                 aria-autocomplete="list" 
                                 aria-expanded="false" 
                                 aria-owns="algolia-autocomplete-listbox-0" dir="auto" 
-                                style="position: relative; vertical-align: top; font-size: 14px; padding-left: 2rem;"
+                                style="position: relative; vertical-align: top; font-size: 12px; padding-left: 2rem;"
                             >
                                 <span role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 5px; z-index: 100; left: 5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #dee2e6;transform: ;msFilter:;">
@@ -60,11 +60,43 @@
                 </div>
             </div>
         </div>
+        <!-- content -->
+        <div>
+            <div class="col-12 mt--40">
+                <draggable 
+                    v-model="tasks" 
+                    group="people" 
+                    @start="dragging=true" 
+                    @end="dragging=false" 
+                    item-key="id"
+                >
+                    <template #item="{element}">
+                        <div class="task__completed--list">
+                            <span class="task__completed__wrap">
+                                <svg class="task__completed--icon" focusable="false" viewBox="0 0 32 32">
+                                    <path class="outer-path" d="M31,16c0,8.3-6.7,15-15,15S1,24.3,1,16S7.7,1,16,1S31,7.7,31,16z"></path>
+                                    <path class="inner-path" d="M13.4,22.1c-0.3,0-0.5-0.1-0.7-0.3l-3.9-3.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3.1,3.1l8.1-8.1c0.4-0.4,1-0.4,1.4,0   s0.4,1,0,1.4l-8.9,8.9C13.9,22,13.7,22.1,13.4,22.1z"></path>
+                                </svg>
+                            </span>
+                            <!-- name -->
+                            <input 
+                                class="form-control form-control-sm task__form--input" 
+                                type="text" 
+                                v-model="element.name" 
+                                @keyup="removeTaskByDeletion(element.id, element.name)"
+                                :id="element.id"
+                            >
+                        </div>
+                    </template>
+                </draggable>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import IconSvg from '../../icons/Icon-Svg.vue';
+import draggable from "vuedraggable";
 // import { mapState } from 'vuex';
 
 export default {
@@ -86,131 +118,54 @@ export default {
         },
         sortValue: '',
         filterValue: '',
-        members: null
+        members: null,
+        tasks: [
+            { name: "John", id: 0 },
+            { name: "Joao", id: 1 },
+            { name: "Jean", id: 2 }
+        ],
+        dragging: false,
+        enabled: true,
     }),
     components: {
         IconSvg,
+        draggable
     },
     props: ['currentWorkspaceItem'],
     computed: {
-        // ...mapState(['workspace']),
+        draggingInfo() {
+            return this.dragging ? "under drag" : "";
+        }
     },
     methods: {
-        showMenuIconOnHover(name) {
-            if(name === null) {
-                // this.isMenuItemHover = '';
-                // this.isMenuDropdownShow = '';
-                return
-            } else {
-                const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name)
-                if (getWorkspaceItem.name) {
-                this.isMenuItemHover = getWorkspaceItem.name;
-                }
-            }
+        add () {
+            this.list.push({ name: "Juan " + id, id: id++ });
         },
+        replace () {
+            this.list = [{ name: "Edgard", id: id++ }];
+        },
+        checkMove (e) {
+            window.console.log("Future index: " + e.draggedContext.futureIndex);
+        },
+        removeTaskByDeletion(id, value) {
+            var previousSibling = document.getElementById(id).previousElementSibling;
+            if (value === '') {
+                this.tasks = this.tasks.filter(item => item.id !== id)
+                console.log(previousSibling);
+                previousSibling.getElementsByTagName('input').focus
+            }
+        }
+        // selectFocus(id, value)
     }
 }
 </script>
 
-<style lang="scss" scoped>
-    .home--content__wrap {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .workspace--theme--img {
-        height: 120px;
-        width: 120px;
-        border-radius: 20px;
-    }
-    .home--content--item {
-        border-radius: 30px;
-        height: 226px;
-        min-width: 152px;
-        width: 152px;
-        align-items: center;
-        display: flex;
-        flex-flow: column;
-        position: relative;
-        transition-duration: .4s;
-        margin-right: 1.8rem;
-
-         &:hover {
-            transform: translate3d(0, 4px, 0);
-        }
-    }
-    .create--workspace {
-
-        &__wrap {
-            cursor: pointer;
-        }
-        &__img {
-            background: transparent;
-            border: 1px solid rgba(193, 163, 249, 0.25);
-            box-shadow: 0 0.03px .1px 0 rgba(0, 0, 0, 0.12);
-            span {
-                margin-right: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-    .menu__wrap--icon {
-        border: 1px solid red;
-        height: 24px;
-        position: absolute;
-        right: 0;
-        z-index: 1000;
-        top: 8px;
-        opacity: 0;
-        right: 8px;
-        transition: opacity .4s;
-
-        &.show {
-            opacity: 1;
-        }
-    }
-
-    .dropdown--menu {
-        max-width: 500px;
-        min-width: 180px;
-        font-size: 14px;
-        left: 0 !important;
-        z-index: 99999;
-        position: absolute;
-        will-change: transform;
-        top: 0px;
-        right: auto;
-        float: left;
-        border: 1px solid rgba(0,0,0,.15);
-        border-radius: .25rem;
-    }
-    .theme-display--preview {
-        border-radius: 3px;
-        height: 24px;
-        width: 24px;
-        background: antiquewhite;
-        margin-right: 5px;
-    }
-    .dropdown__item__link {
-        padding: 8px 10px 8px 10px;
-    }
-    .heading {
-        font-size: 18px;
-        line-height: 30px;
-
-         p {
-            &.title {
-                font-weight: 600;
-            }
-            &.sub-title {
-                font-size: 14px;
-            }
-        }
-    }
-    .vue-select {
-        border: 1px solid rgba(194, 200, 212, 1);
-    }
+<style lang="scss">
+.buttons {
+  margin-top: 35px;
+}
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
 </style>

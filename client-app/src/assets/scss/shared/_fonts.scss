@@ -81,6 +81,11 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
         font-size: 26px;
     }
 
+    &--disabled {
+        cursor: not-allowed;
+        color: $text-color-light-dark;
+    }
+
 }
 
 .big-text {

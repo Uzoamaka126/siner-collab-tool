@@ -4,10 +4,9 @@ import router from './router'
 import store from './store'
 import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
 import 'vuestic-ui/dist/vuestic-ui.css' 
-import jquery from 'jquery'
-import "bootstrap/dist/css/bootstrap.min.css"
-
-// window.$ = window.jQuery = require('jquery');
+import "bootstrap/dist/css/bootstrap.min.css";
+import Draggable from "vuedraggable";
+import { PopoverRow, Calendar } from 'v-calendar';
 
 createApp(App)
   .use(router)
@@ -15,7 +14,11 @@ createApp(App)
 //   .use(jquery)
   .use(VuesticPlugin)
   .component('va-button', VaButton)
+  .component('draggable', Draggable)
   .component('va-button-dropdown', VaButtonDropdown)
+  .component('popover-row', PopoverRow)
+  .component('v-calendar', Calendar)
+  // .use('v-calendar', VCalendar)
   .directive('click-outside', {
     mounted (el, binding, vNode) {
         // Provided expression must evaluate to a function.
