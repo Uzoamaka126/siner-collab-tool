@@ -6,7 +6,7 @@ import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
 import 'vuestic-ui/dist/vuestic-ui.css' 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Draggable from "vuedraggable";
-import { PopoverRow, Calendar } from 'v-calendar';
+import { PopoverRow, Calendar, DatePicker } from 'v-calendar';
 
 createApp(App)
   .use(router)
@@ -18,7 +18,7 @@ createApp(App)
   .component('va-button-dropdown', VaButtonDropdown)
   .component('popover-row', PopoverRow)
   .component('v-calendar', Calendar)
-  // .use('v-calendar', VCalendar)
+  .component('v-date-picker', DatePicker)
   .directive('click-outside', {
     mounted (el, binding, vNode) {
         // Provided expression must evaluate to a function.
