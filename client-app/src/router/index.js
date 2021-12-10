@@ -11,10 +11,6 @@ import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
 import TagsView from '../views/Tags.vue'
 
-import WorkspaceBoards from '../components/workspace/WorkspaceBoards.vue';
-import WorkspaceMembers from '../components/workspace/WorkspaceMembers.vue';
-import WorkspaceList from '../components/workspace/WorkspaceLists.vue';
-
 const routes = [
   // {
   //   path: '/about',

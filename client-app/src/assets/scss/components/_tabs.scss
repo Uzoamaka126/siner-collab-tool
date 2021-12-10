@@ -6,7 +6,7 @@
     list-style: none;
     display: flex;
     padding-left: 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #e0e1e4;
     &.center {
       justify-content: center;
     }
@@ -17,7 +17,6 @@
       padding: 13px 10px;
       cursor: pointer;
       user-select: none;
-      transition: border 0.3s ease-in-out;
       position: relative;
       bottom: -1px;
       // text-transform: uppercase;
@@ -93,8 +92,8 @@
     margin-top: 1rem;
 
     &-list {
-      -webkit-box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12) !important;
-      box-shadow: 0 0.83px 1.6px 0 rgba(0, 0,0, 0.12) !important;
+      // -webkit-box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12) !important;
+      // box-shadow: 0 0.83px 1.6px 0 rgba(0, 0,0, 0.12) !important;
       padding: 0px 20px 0px 20px;
       margin-bottom: 0px;
     }

@@ -31,6 +31,7 @@ import ProjectBoards from '../components/projects/projectDetails/ProjectBoards.v
 import ProjectMembers from '../components/projects/projectDetails/ProjectMembers.vue';
 import ProjectTasks from '../components/projects/projectDetails/ProjectTasks.vue';
 import ProjectCalendar from '../components/projects/projectDetails/ProjectCalendar.vue';
+import ProjectInvoice from '../components/projects/projectDetails/ProjectInvoice.vue'
 
 export default {
     name: 'SettingsLayout',
@@ -43,8 +44,7 @@ export default {
         ProjectBoards,
         ProjectMembers,
         ProjectCalendar,
-        // ProjectInvoices,
-        // TabComp
+        ProjectInvoice,
         ProjectTasks
     },
     props: {
@@ -75,7 +75,7 @@ export default {
             },
             {   
                 id: 'Invoices',
-                component: 'ProjectOverview'
+                component: 'ProjectInvoice'
             },
             {   
                 id: 'Files',
