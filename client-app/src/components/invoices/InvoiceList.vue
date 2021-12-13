@@ -85,7 +85,7 @@
              <template v-if="!totalInvoices">
                 <empty-page 
                     :title="'You have not created any invoices yet.'" 
-                    :subtitle="'Your invoices will show up here once you create them.'" 
+                    :subtitle="'Your invoices will show up here  when you create them.'" 
                     :iconName="'client'"
                     :width="'60px'"
                     :height="'60px'"
@@ -103,10 +103,10 @@
 </template>
 
 <script>
-import EmptyPage from '../../shared/emptyPage/EmptyPage.vue'
+import EmptyPage from '../shared/emptyPage/EmptyPage.vue'
 
 export default {
-    name: 'ProjectInvoice',
+    name: 'InvoiceList',
       created() {
     // const queryParams = this.$route.query;
     // this.fetchInvoices( queryParams );
@@ -238,7 +238,7 @@ export default {
     },
 
     createNewInvoice() {
-      this.$router.push({ name: 'create-invoice-view' });
+      this.$router.push({ name: 'create-invoice' });
     }
   },
 };

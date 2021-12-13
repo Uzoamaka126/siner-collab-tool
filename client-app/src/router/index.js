@@ -10,6 +10,8 @@ import ProjectsView from '../views/Projects.vue'
 import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
 import TagsView from '../views/Tags.vue'
+import InvoicesView from '../views/Invoices.vue'
+import CreateInvoiceView from '../components/invoices/CreateInvoice';
 
 const routes = [
   // {
@@ -71,10 +73,20 @@ const routes = [
         component: ProjectsView,
       },
       {path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
-       {
+      {
         path:'tags', 
         name:'tags-view', 
         component: TagsView
+      },
+      {
+        path:'invoices', 
+        name:'invoices-view', 
+        component: InvoicesView
+      },
+      {
+        path:'invoices/create', 
+        name:'create-invoice-view', 
+        component: CreateInvoiceView
       },
       // {
       //   path:'workspaces/:name?', 
