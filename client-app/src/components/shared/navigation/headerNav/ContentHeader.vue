@@ -146,9 +146,9 @@ export default {
             'settings-view': 'settings',
             'tags-view': 'tag',
             'teams-view': 'team',
-            'invoices-view': 'invoice',
-             'project-details': 'projectDetails',
-             'create-invoice-view': 'createInvoice',
+            'invoices-view': 'invoicesList',
+            'project-details': 'projectDetails',
+            'create-invoice-view': 'createInvoice',
         }
         if (routeName) {
             return routeNameMap[routeName]
@@ -164,9 +164,10 @@ export default {
             'clients-view': 'createClient',
             'settings-view': 'settings',
             'tags-view': 'createTag',
-            'teams-view': 'createTag',
-            'invoices-view': 'createTag',
-            'project-details': 'projectDetails'
+            'teams-view': 'createTeams',
+            'invoices-view': 'invoicesList',
+            'project-details': 'projectDetails',
+            'create-invoice-view': 'createInvoice',
         }
         if (routeName) {
             return `#${modalNameMap[routeName]}`
@@ -179,6 +180,7 @@ export default {
             this.getRouterName !== 'home' && 
             this.getRouterName !== 'settings' && 
             this.getRouterName !== 'projectDetails' && 
+            this.getRouterName !== 'invoicesList' && 
             this.getRouterName !== 'null'
         ) {
             return true

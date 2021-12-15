@@ -1,7 +1,15 @@
 <template>
   <div class="input-search-select" v-click-outside="hideDropdown">
     <div class="input-wrap">
-        <input :disabled="disabled" v-model="computedEmail" @click="showDropdown" @keyup="waitTillTypingIsDone" type="email" placeholder="Enter Email Address" class="form__input">  
+        <input 
+            :disabled="disabled" 
+            v-model="computedEmail" 
+            @click="showDropdown" 
+            @keyup="waitTillTypingIsDone" 
+            type="email" 
+            placeholder="Enter Email Address" 
+            class="form-control form-control-sm"
+        >  
         <span v-if="loading">
         </span>  
     </div>

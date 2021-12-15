@@ -1,4 +1,7 @@
 .invoice {
+    &__wrap {
+        // margin-top: 1.5rem;
+    }
     &__compile {
         &--row {
             display: flex;

@@ -3,6 +3,7 @@
         <div class="main__content">
             <div class="panel">    
                 <div class="panel__content">
+                  <div style="margin-top: 1rem;">
                     <div class="row hidden-xs">  
                         <div class="row__left">
                             <div class="row__item">
@@ -29,67 +30,40 @@
 
                     <div class="row invoice__row--shift-left block">
                         <div class="form__row customer-input-row">
-                            <div class="form__row__left">
-                                <label for class="form__label positionRelative block">
-                                    <span class="medium">Client info</span>
-                                    <span data-toggle="modal" data-target="#addNewCustomer" class="link positionAbsolute right-0">+ New Client</span>
-                                </label>
-                                <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
+                          <div class="form__row__left">
+                              <div class="align-items-center justify-content-between mb-2" style="display: flex">
+                                  <span class="invoice__compile--memo--label">Client info</span>
+                                  <span data-toggle="modal" data-target="#addNewCustomer" class="link text--sm">+ New Client</span>
+                              </div>
+                              <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
+                          </div>
+                          <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link mt--10">- Hide multiple emails</div>
+                          <div v-else @click="toggleOtherEmail = true" class="link m-t-15">+ Send to multiple emails</div>
+                          <div v-if="multipleEmailIsShown" class="row invoice__row--shift-left">
+                            <div class="form__row block">
+                              <label for class="form__label positionRelative block">
+                                <span class="medium">Other emails (Cc)</span>
+                              </label>
+                              <input-select-tabs 
+                                v-model="otherCustomerEmails"
+                                placeholder="Enter customer email..."
+                                :dropdown-fields="otherCustomersSearched" 
+                                @typing="searchCustomers" 
+                                dropdown-width="400px"
+                              />
                             </div>
+                          </div>
                         </div>
-                        <div class="form__row__right">
-                            <div class="flex-grow mr--20" style="width:30%;">
-                                <label for class="form__label medium">Due Date</label>
-                                <div class="form__item">
-                                    <v-date-picker v-model="invoice.due_date">
-                                        <template #default="{ inputValue, inputEvents }">
-                                            <input class="px-3 py-1 border rounded" :value="inputValue" v-on="inputEvents" />
-                                        </template>
-                                    </v-date-picker>
-                                    <span class="form__errors" v-show="!invoice.due_date || invoice.due_date === null">
-                                        <span class="form__errors__icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20">
-                                            <path fill="#ED6347" stroke="none" fill-rule="evenodd" d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-8h2V6H9v4zm0 4h2v-2H9v2z" />
-                                        </svg>
-                                        </span>
-                                        <span class="form__errors__text">Please enter a due date.</span>
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <div style="width:30%;">
+                        <div>
+                            <div class="form__row__left">
                                 <label for class="form__label medium">Currency</label>
                                 <div class="select visible--xs">
-                                    <select class="select__input" v-model="invoice.currency">
+                                    <select class="form-select" v-model="invoice.currency">
                                         <option :key="currency" v-for="currency in currencies" :value="currency">{{ currency }}</option>
                                     </select>
-                                    <div class="select__icon select__icon--sales">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10"><path fill="#637381" fill-rule="evenodd" d="M6.03 3.03L3.025.025.02 3.03h6.01zM5.88 7.071L2.975 9.975.07 7.07H5.88z"></path></svg>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link mt--10">- Hide multiple emails</div>
-                        <div v-else @click="toggleOtherEmail = true" class="link m-t-15">+ Send to multiple emails</div>
-                    </div>
-
-                    <div v-if="multipleEmailIsShown" class="row invoice__row--shift-left">
-                    <div class="form__row block">
-
-                        <label for class="form__label positionRelative block">
-                        <span class="medium">Other emails (Cc)</span>
-                        </label>
-
-                        <input-select-tabs 
-                        v-model="otherCustomerEmails"
-                        placeholder="Enter customer email..."
-                        :dropdown-fields="otherCustomersSearched" 
-                        @typing="searchCustomers" 
-                        dropdown-width="400px"
-                        />
-
-                    </div>
                     </div>
 
                     <div class="row block invoice__row--shift-left">
@@ -212,6 +186,7 @@
                         </div>
                       </div>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -1025,21 +1000,15 @@ export default {
 }
 </script>
 
-<style scoped>
-  .no-border-bottom {
-    border-bottom: none;
-  }
-
-  .customer-input-row {
-    height: 76px;
-  }
-
-  .border-bottom {
-    border-bottom: 1px solid #ECECEC;
-  }
-
-  .footer {
-    display: flex;
-    flex-direction: row-reverse;
-  }
+<style lang="scss" scoped>
+.row>* {
+  width: auto;
+}
+.row.hidden-xs {
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 2rem;
+}
+.form__row__left {
+  max-width: 500px;
+}
 </style>
