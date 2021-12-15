@@ -3,7 +3,7 @@
         <div class="main__content">
             <div class="panel">    
                 <div class="panel__content">
-                  <div style="margin-top: 1rem;">
+                  <div style="margin-top: 1rem; padding-bottom: 3rem;">
                     <div class="row hidden-xs">  
                         <div class="row__left">
                             <div class="row__item">
@@ -28,67 +28,69 @@
                         </div>
                     </div>
 
-                    <div class="row invoice__row--shift-left block">
-                        <div class="form__row customer-input-row">
-                          <div class="form__row__left">
-                              <div class="align-items-center justify-content-between mb-2" style="display: flex">
-                                  <span class="invoice__compile--memo--label">Client info</span>
-                                  <span data-toggle="modal" data-target="#addNewCustomer" class="link text--sm">+ New Client</span>
-                              </div>
-                              <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
-                          </div>
-                          <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link mt--10">- Hide multiple emails</div>
-                          <div v-else @click="toggleOtherEmail = true" class="link m-t-15">+ Send to multiple emails</div>
-                          <div v-if="multipleEmailIsShown" class="row invoice__row--shift-left">
-                            <div class="form__row block">
-                              <label for class="form__label positionRelative block">
-                                <span class="medium">Other emails (Cc)</span>
-                              </label>
-                              <input-select-tabs 
-                                v-model="otherCustomerEmails"
-                                placeholder="Enter customer email..."
-                                :dropdown-fields="otherCustomersSearched" 
-                                @typing="searchCustomers" 
-                                dropdown-width="400px"
-                              />
+                    <div class="row invoice__row block">
+                      <div class="form__row customer-input-row">
+                        <div class="form__row__left">
+                            <div class="align-items-center justify-content-between mb-2" style="display: flex">
+                                <span class="invoice__compile--memo--label">Client info</span>
+                                <span data-toggle="modal" data-target="#addNewCustomer" class="link text--sm">+ New Client</span>
                             </div>
+                            <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
+                        </div>
+                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link mt--10">- Hide multiple emails</div>
+                        <div v-else @click="toggleOtherEmail = true" class="link text--sm mt-2">+ Send to multiple emails</div>
+                        <div v-if="multipleEmailIsShown" class="row invoice__row--shift-left">
+                          <div class="form__row block">
+                            <label for class="form__label positionRelative block">
+                              <span class="medium">Other emails (Cc)</span>
+                            </label>
+                            <input-select-tabs 
+                              v-model="otherCustomerEmails"
+                              placeholder="Enter customer email..."
+                              :dropdown-fields="otherCustomersSearched" 
+                              @typing="searchCustomers" 
+                              dropdown-width="400px"
+                            />
                           </div>
                         </div>
-                        <div>
-                            <div class="form__row__left">
-                                <label for class="form__label medium">Currency</label>
-                                <div class="select visible--xs">
-                                    <select class="form-select" v-model="invoice.currency">
-                                        <option :key="currency" v-for="currency in currencies" :value="currency">{{ currency }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                      </div>
                     </div>
 
-                    <div class="row block invoice__row--shift-left">
-                        <div class="invoice-label form__row no--margin__yb">
-                            <div class="form__row__left">
-                                <label for class="form__label medium font--bold">Item</label>
+                    <!-- Currency -->
+                    <div class="row invoice__row" style="margin-top: 1rem;">
+                      <div class="form__row__left" style="width: 100%;">
+                        <label for class="mb-2 invoice__compile--memo--label">Currency</label>
+                        <div class="select visible--xs">
+                          <select class="form-select" v-model="invoice.currency">
+                              <option :key="currency" v-for="currency in currencies" :value="currency">{{ currency }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row invoice__row block">
+                        <div class="invoice__calculate--wrap">
+                          <div class="form__row__left" style="max-width: unset">
+                              <label for class="mb-2 invoice__compile--memo--label">Item(s)</label>
+                          </div>
+                          <div class="invoice__calculate--row form__row__right">
+                            <div style="display: flex; width: 100%;">
+                              <div class="invoice__quantity invoice__calculate--label">
+                                  <label class="form__label text--medium">Quantity</label>
+                              </div>
+                              <div class="invoice__price">
+                                  <label class="form__label text--medium">Price</label>
+                              </div>
+                              <div class="invoice__amount">
+                                  <label class="form__label text--medium block">Amount</label>
+                              </div>
                             </div>
-                            <div class="form__row__right invoice-computation">
-                                <div class="invoice-computation__row">
-                                    <div class="invoice-computation__label">
-                                        <label class="form__label text--medium">Quantity</label>
-                                    </div>
-                                    <div class="invoice-computation__action textLeft">
-                                        <label class="form__label text--medium">Price</label>
-                                    </div>
-                                    <div class="invoice-computation__amount">
-                                        <label class="form__label text--medium block">Amount</label>
-                                    </div>
-                                </div>
-                            </div>
+                          </div>
                         </div>
                     
-                        <div :key="i" v-for="(item, i) in invoice.meta.items"  class="invoice-input form__row positionRelative">
-                            <div class="form__row__left">
-                                <input v-model="item.item_name" type="text" class="form__input">
+                        <div :key="i" v-for="(item, i) in invoice.meta.items"  class="invoice__calculate--wrap">
+                            <div class="form__row__left" style="max-width: unset">
+                                <input v-model="item.item_name" type="text" class="form-control">
                                 <span class="form__errors" v-show="itemErrors[ i ]">
                                     <span class="form__errors__icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20">
@@ -99,20 +101,20 @@
                                 </span>
                             </div>
                             
-                            <div class="form__row__right invoice-computation">
-                                <div class="invoice-computation__row">
-                                    <!-- Qty -->
-                                    <div class="invoice-computation__label">
-                                        <money v-model="item.item_quantity" @keydown.native="preventKeys" v-bind="config.number" class="form__input" style="width: 80%" spellcheck="false"></money>
-                                    </div>
-                                    <!-- Price -->
-                                    <div class="invoice-computation__action textLeft">
-                                        <money v-model="item.item_unit" @keydown.native="preventKeys" v-bind="moneyConfig" class="form__input" style="width: 80%" spellcheck="false"></money>                                                                    
-                                    </div>
-                                    <div class="invoice-computation__amount">
-                                        <div class="p-t-10 m-b-30 textRight">{{ invoice.currency }} {{ itemAmount( i ) | format_amount }}</div>
-                                    </div>
-                                </div>
+                            <div class="form__row__right invoice__calculate--row">
+                              <div class="invoice__calculate--row">
+                                  <!-- Qty -->
+                                  <div class="invoice__calculate--wrap invoice__quantity" style="width: fit-content !important; flex-basis: 35%;">
+                                      <money v-model="item.item_quantity" @keydown.native="preventKeys" v-bind="config.number" class="form-control" style="width: 80%" spellcheck="false"></money>
+                                  </div>
+                                  <!-- Price -->
+                                  <div class="invoice__price">
+                                      <money v-model="item.item_unit" @keydown.native="preventKeys" v-bind="moneyConfig" class="form-control" style="width: 80%" spellcheck="false"></money>                                                                    
+                                  </div>
+                                  <div class="invoice__amount">
+                                      <div class="p-t-10 m-b-30 textRight">{{ invoice.currency }} {{ itemAmount( i ) | format_amount }}</div>
+                                  </div>
+                              </div>
                             </div>
                             <!-- 
                             Don't show the close button for the first element. 
@@ -125,64 +127,84 @@
                                 </svg>
                             </div>
                         </div>
-                        
-                        <div class="flex align-items-center form__row">
-                            <div class="form__row__left">
-                                <span @click="addAnotherInvoiceItem" class="link">+ Add Item</span>
-                            </div>
-                            <div class="form__row__right invoice-compile">
-                                <div class="invoice__compile--row">
-                                    <div class="invoice__compile--label">Subtotal</div>
-                                    <div class="invoice__compile--value">NGN 0.00</div>
-                                </div>
-                               <div>
-                                  <div class="invoice__compile--row">
-                                    <div class="dropdown">
-                                      <div class="invoice__compile--btn cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Add Tax</div>
-                                      <ul class="dropdown-menu invoice__tax--item" aria-labelledby="dropdownMenuButton1">
-                                        <li style="margin-top: 14px">
-                                          <div class="dropdown-item invoice__tax--item">
-                                            <select class="form-select form-select-sm invoice__compile--select" aria-label="Default select example">
-                                              <option selected>Tax Type</option>
-                                              <option value="percentage">Percentage</option>
-                                              <option value="flat">Flat</option>
-                                            </select>
-                                          </div>
-                                          </li>
-                                        <li>
-                                          <div class="dropdown-item invoice__tax--item" style="margin-top: 10px">
-                                            <input value="money" class="form-control" />
-                                          </div>
-                                        </li>
-                                        <li>
-                                          <div class="invoice__tax--item last dropdown-item">
-                                            <button type="button" class="btn btn--secondary btn--sm text--xs">Cancel</button>
-                                            <button type="button" class="btn btn--primary btn--sm text--xs">Add</button>
-                                          </div>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <div class="invoice__compile--value">NGN 0.00</div>
-                                    <!-- <span>
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #4f566b;transform: ;msFilter:;">
-                                        <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
-                                      </svg>
-                                    </span> -->
-                                  </div>
-                               </div>
-                                <div class="invoice__compile--row invoice__row__total">
-                                    <div class="invoice-computation__label bold">Total</div>
-                                    <div class="invoice-computation__action"></div>
-                                    <div class="invoice-computation__item bold">{{ invoice.currency }} {{ invoiceTotal || 0 | format_amount }}</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
+                    <!-- Add Item + computation -->
+                    <div class="row block">
+                        <div class="flex align-items-center form__row">
+                          <div class="form__row__left">
+                              <span @click="addAnotherInvoiceItem" class="link">+ Add Item</span>
+                          </div>
+                          <div class="form__row__right invoice-compile">
+                              <div class="invoice__compile--row">
+                                  <div class="invoice__compile--label">Subtotal</div>
+                                  <div class="invoice__compile--value">NGN 0.00</div>
+                              </div>
+                              <div>
+                                <div class="invoice__compile--row">
+                                  <div class="dropdown">
+                                    <div class="invoice__compile--btn cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Add Tax</div>
+                                    <ul class="dropdown-menu invoice__tax--item" aria-labelledby="dropdownMenuButton1">
+                                      <li style="margin-top: 14px">
+                                        <div class="dropdown-item invoice__tax--item">
+                                          <select class="form-select form-select-sm invoice__compile--select" aria-label="Default select example">
+                                            <option selected>Tax Type</option>
+                                            <option value="percentage">Percentage</option>
+                                            <option value="flat">Flat</option>
+                                          </select>
+                                        </div>
+                                        </li>
+                                      <li>
+                                        <div class="dropdown-item invoice__tax--item" style="margin-top: 10px">
+                                          <input value="money" class="form-control" />
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="invoice__tax--item last dropdown-item">
+                                          <button type="button" class="btn btn--secondary btn--sm text--xs">Cancel</button>
+                                          <button type="button" class="btn btn--primary btn--sm text--xs">Add</button>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="invoice__compile--value">NGN 0.00</div>
+                                  <!-- <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #4f566b;transform: ;msFilter:;">
+                                      <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
+                                    </svg>
+                                  </span> -->
+                                </div>
+                              </div>
+                              <div class="invoice__compile--row invoice__row__total">
+                                  <div class="invoice-computation__label bold">Total</div>
+                                  <div class="invoice-computation__action"></div>
+                                  <div class="invoice-computation__item bold">{{ invoice.currency }} {{ invoiceTotal || 0 | format_amount }}</div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <!-- Memo -->
                     <div class="row">
                       <div class="invoice__compile--row invoice__compile--memo">
                         <div class="">
                           <label for="exampleFormControlTextarea1" class="mb-3 invoice__compile--memo--label">Memo</label>
                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                     <!-- Due date -->
+                    <div class="row">
+                      <div class="invoice__compile--row invoice__compile--memo">
+                        <div class="">
+                          <p class="mb-3 invoice__compile--memo--label">Reminder</p>
+                          <label for="exampleFormControlTextarea1" class="mb-2 text--xs" style="color: #687383;">(Due date)</label>
+                          <v-date-picker v-model="date">
+                            <template #default="{ inputValue, inputEvents }">
+                                <input class="px-3 py-1 border rounded due_date form-control" :value="inputValue" v-on="inputEvents" />
+                            </template>
+                          </v-date-picker>
                         </div>
                       </div>
                     </div>
@@ -1010,5 +1032,10 @@ export default {
 }
 .form__row__left {
   max-width: 500px;
+}
+.row.invoice__row  {
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 </style>

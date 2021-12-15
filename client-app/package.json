@@ -22,6 +22,7 @@
     "portal-vue": "^2.1.7",
     "roboto-fontface": "*",
     "v-calendar": "^3.0.0-alpha.6",
+    "v-money3": "^3.20.1",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-float-menu": "^1.9.0",

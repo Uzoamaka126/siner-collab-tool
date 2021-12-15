@@ -181,6 +181,7 @@ export default {
             this.getRouterName !== 'settings' && 
             this.getRouterName !== 'projectDetails' && 
             this.getRouterName !== 'invoicesList' && 
+            this.getRouterName !== 'createInvoice' && 
             this.getRouterName !== 'null'
         ) {
             return true

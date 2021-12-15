@@ -7,16 +7,15 @@ import 'vuestic-ui/dist/vuestic-ui.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Draggable from "vuedraggable";
 import { PopoverRow, Calendar, DatePicker } from 'v-calendar';
-// import moment from 'moment';
+import { Money3Component } from 'v-money3';
 
 window.moment = require('moment');
-
 
 createApp(App)
   .use(router)
   .use(store)
   .use(VuesticPlugin)
-  // .use(moment)
+  .component('money', Money3Component)
   .component('va-button', VaButton)
   .component('draggable', Draggable)
   .component('va-button-dropdown', VaButtonDropdown)
