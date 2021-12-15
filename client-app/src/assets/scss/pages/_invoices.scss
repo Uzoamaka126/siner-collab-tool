@@ -1,0 +1,60 @@
+.invoice {
+    &__compile {
+        &--row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+        &--label, &--value , &--btn {
+            color: #3c4257;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        &--value {
+            font-weight: normal;
+        }
+        &--btn {
+            color: #5469d4;
+        }
+        &--select {
+            max-width: 208px;
+        }
+        &--memo {
+            margin-top: 3rem !important;
+            display: block !important;
+
+            &--label {
+                font-feature-settings: "pnum";
+                font-variant: proportional-nums;
+                line-height: 28px;
+                font-weight: 700;
+                font-size: 20px !important;
+                color: #3c4257;
+            }
+            textarea {
+                width: 352px;
+            }
+        }
+    }
+    &__tax {
+        &--item {
+            &:hover {
+                background: none !important;
+                background-color: transparent !important;
+            }
+
+            &.last {
+                margin-top: 14px;
+                margin-bottom: 14px;
+
+                .btn--secondary {
+                    margin-right: 10px;
+                }
+            }
+            &.dropdown-menu {
+                margin-top: 14px;
+            }
+        }
+    }
+}

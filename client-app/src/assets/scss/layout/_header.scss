@@ -108,4 +108,21 @@
     }
 }
 
+.page {
+    &__back {
+        &--wrap {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        &--icon {
+            // margin-right: 2px;
+        }
+        &--text {
+            font-size: 14px;
+            color: #5469d4;
+        }
+    }
+}
+
 

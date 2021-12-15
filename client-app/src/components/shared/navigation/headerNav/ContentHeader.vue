@@ -1,7 +1,7 @@
 <template>
  <div>
       <div class="content--header">
-        <div class="content--header__left">
+        <div class="content--header__left" style="display: flex; align-items: center;">
             <div class="collapse--content">
             </div>
         <div class="workspace--header__title">
@@ -17,6 +17,19 @@
                         <li class="breadcrumb-item active text--sm" aria-current="page">Single project name</li>
                     </ol>
                 </nav>
+           </template>
+            <template v-if="getRouterName === 'createInvoice'">
+                <!-- Go back to invoices -->
+                <div>
+                    <router-link :to="{ name: 'invoices-view' }" tag="div" class="page__back--wrap">
+                        <div class="page__back--icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #5469d4;transform: ;msFilter:;">
+                                <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                            </svg>
+                        </div>
+                        <div class="page__back--text">Invoices</div>
+                    </router-link>
+                </div>
            </template>
         </div>
     </div>
@@ -134,7 +147,8 @@ export default {
             'tags-view': 'tag',
             'teams-view': 'team',
             'invoices-view': 'invoice',
-             'project-details': 'projectDetails'
+             'project-details': 'projectDetails',
+             'create-invoice-view': 'createInvoice',
         }
         if (routeName) {
             return routeNameMap[routeName]

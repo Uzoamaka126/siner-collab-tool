@@ -1,16 +1,5 @@
 <template>
     <div class="invoice__wrap">
-        <!-- Go back to invoices -->
-        <router-link :to="{ name: 'invoices-view' }" tag="div" class="page-url">
-            <!-- page url icon -->
-            <div class="page-url__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="12" viewBox="0 0 8 14">
-                <path fill="none" fill-rule="evenodd" stroke-width="1.5" d="M7.5.5L1.5 7l6 6.5"></path>
-            </svg>
-            </div>
-            <div class="page-url__text">Invoices</div>
-        </router-link>
-
         <div class="main__content">
             <div class="panel">    
                 <div class="panel__content">
@@ -167,46 +156,47 @@
                             <div class="form__row__left">
                                 <span @click="addAnotherInvoiceItem" class="link">+ Add Item</span>
                             </div>
-                            <div class="form__row__right invoice-computation">
-                                <div class="invoice-computation__row">
-                                    <div class="invoice-computation__label__border">Subtotal</div>
-                                    <div class="invoice-computation__action__border link"></div>
-                                    <div class="invoice-computation__item">{{ invoice.currency }} {{ invoiceSubTotal || 0 | format_amount }}</div>
+                            <div class="form__row__right invoice-compile">
+                                <div class="invoice__compile--row">
+                                    <div class="invoice__compile--label">Subtotal</div>
+                                    <div class="invoice__compile--value">NGN 0.00</div>
                                 </div>
-
-                                <div class="invoice-computation__row">
-                                    <div class="invoice-computation__label__border">Tax</div>
-                                    <drop-down-menu width="80px" align="left" closeSelectors=".close-add-tax" class="invoice-computation__action__border">
-                                        <template slot="target"><div class="link text-center">+ Add Tax</div></template>
-                                        <template slot="content">
-                                            <div class="dropdown__item">
-                                                <div class="select">
-                                                    <select v-model="invoiceTaxType.type" class="select__input">
-                                                        <option value="percentage">Percentage</option>
-                                                        <option value="flat">Flat</option>
-                                                    </select>
-                                                    <div class="select__icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10">
-                                                            <path fill="#637381" fill-rule="evenodd" d="M6.03 3.03L3.025.025.02 3.03h6.01zM5.88 7.071L2.975 9.975.07 7.07H5.88z" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown__item">
-                                                <money v-if="invoiceTaxType.type === 'flat'" v-model="invoiceTax" @keydown.native="preventKeys" v-bind="moneyConfig" class="form__input" spellcheck="false"></money>
-                                                <!-- <input-number v-else class="form__input" v-model="invoiceTaxType.value" prefix="%" precision="2" />                                                                                           -->
-                                                <input-money max="100" v-else class="form__input" v-model="invoiceTaxType.value" prefix="%" precision="2" />                                                                                          
-                                            </div>
-                                        
-                                            <div class="dropdown__item link">Add Tax</div>
-                                            <div class="dropdown__item flex flex--sb">
-                                                <button @click="invoiceTax = 0" class="close-add-tax btn btn--default btn--flex btn--sm">Clear</button>
-                                                <button class="close-add-tax btn btn--primary btn--flex btn--sm">Done</button>
-                                            </div>
-                                        </template>
-                                    </drop-down-menu>
-                                </div>
-                                <div class="invoice-computation__row invoice__row__total">
+                               <div>
+                                  <div class="invoice__compile--row">
+                                    <div class="dropdown">
+                                      <div class="invoice__compile--btn cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Add Tax</div>
+                                      <ul class="dropdown-menu invoice__tax--item" aria-labelledby="dropdownMenuButton1">
+                                        <li style="margin-top: 14px">
+                                          <div class="dropdown-item invoice__tax--item">
+                                            <select class="form-select form-select-sm invoice__compile--select" aria-label="Default select example">
+                                              <option selected>Tax Type</option>
+                                              <option value="percentage">Percentage</option>
+                                              <option value="flat">Flat</option>
+                                            </select>
+                                          </div>
+                                          </li>
+                                        <li>
+                                          <div class="dropdown-item invoice__tax--item" style="margin-top: 10px">
+                                            <input value="money" class="form-control" />
+                                          </div>
+                                        </li>
+                                        <li>
+                                          <div class="invoice__tax--item last dropdown-item">
+                                            <button type="button" class="btn btn--secondary btn--sm text--xs">Cancel</button>
+                                            <button type="button" class="btn btn--primary btn--sm text--xs">Add</button>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div class="invoice__compile--value">NGN 0.00</div>
+                                    <!-- <span>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #4f566b;transform: ;msFilter:;">
+                                        <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
+                                      </svg>
+                                    </span> -->
+                                  </div>
+                               </div>
+                                <div class="invoice__compile--row invoice__row__total">
                                     <div class="invoice-computation__label bold">Total</div>
                                     <div class="invoice-computation__action"></div>
                                     <div class="invoice-computation__item bold">{{ invoice.currency }} {{ invoiceTotal || 0 | format_amount }}</div>
@@ -214,16 +204,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row invoice__row--shift-left no-border-bottom">
-                        <div class="form__row">
-                            <div class="form__row__left">
-                                <div class="form m-t-20">
-                                    <label class="form__label medium">Invoice Notes</label>
-                                    <textarea type="text" v-model="invoiceNotes" class="form__input"></textarea>
-                                </div>
-                            </div>
+                    <div class="row">
+                      <div class="invoice__compile--row invoice__compile--memo">
+                        <div class="">
+                          <label for="exampleFormControlTextarea1" class="mb-3 invoice__compile--memo--label">Memo</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -355,8 +342,6 @@
 // import DatePicker from "vue2-datepicker";
 // import toast from "@/functions/toast";
 import SearchClientInput from "./helperComponents/SearchCustomerInput.vue";
-// import DropDownMenu from "@/ui/dropdown-menu.vue";
-// import InputSelectTabs from "../../../ui/input-select-tabs.vue"
 // import { createQueryString } from '../../../functions/request';
 // import { debounce, arrayToObject } from "../../../functions/utils";
 // import InputNumber from "@/ui/input-number.vue";
@@ -364,19 +349,15 @@ import SearchClientInput from "./helperComponents/SearchCustomerInput.vue";
 
 
 export default {
-  
   components: {
     // DatePicker,
     SearchClientInput,
-    // DropDownMenu,
     // InputSelectTabs,
     // InputNumber,
     // InputMoney,
   },
 
   created() {
-    // this.fetchShippingFees();
-    // this.fetchCountries();
   },
   
   data() {
@@ -470,7 +451,8 @@ export default {
         value: 0
       },
       remindersNames: [],
-      reminderIsSet: false      
+      reminderIsSet: false,
+      isShowAddTax: false   
     }
   },
 
@@ -663,107 +645,6 @@ export default {
     removeInvoiceItem( index = this.invoice.meta.items.length - 1 ) {
       this.$delete( this.invoice.meta.items, index );
     },
-
-
-    fetchShippingFees() {
-      return this.$http.get('v2/keystores').then(({ ok, data }) => {
-        
-        if( ok !== true ) return reject( "Couldn't Fetch Shipping Fee Clients" );
-  
-        let keyStores = data.data;
-
-        /**
-         * When keystores has not been set for a user. It returns an object, instead
-         * of an array of objects.
-         * 
-         * We care about the array of objects not the object.
-         * So on the event we do not get an array, we return an empty array.
-         */
-        if ( keyStores instanceof Array === false ) return keyStores = []
-
-
-        
-        const shippingFees = keyStores.filter( key => key.key_name === "SHIPPING_CLIENTS" )
-          .map( key => ({
-            id: key.id,
-            name: key.key_value,
-            fee: key.key_prop_value,
-          }));
-
-        this.shippingFees = shippingFees;
-        this.savedShippingFees.push( ...shippingFees );
-        
-      })
-
-    },
-    clearShippingFee() {
-
-      const clientIsSaved = this.savedShippingFees.find( client => client.name === this.shippingClient.name );
-      if( !clientIsSaved ) {
-        const clientIndex = this.shippingFees.findIndex( client => client.name === this.shippingClient.name );
-        this.$delete( this.shippingFees, clientIndex );
-      }
-
-      this.shippingClient.name = null;
-      this.$set( this.invoice.meta.shipping_fee, "0", {
-        fee_description: "",
-        fee_name: "",
-        fee_type: "",
-        fee_value: 0,
-      });
-      this.hideShippingFeeDropdown();
-
-    },
-    addNewShippingFee() {
-      const requestObject = {
-        key_name: 'SHIPPING_CLIENTS',
-        key_value: this.newShippingFee.client,
-        key_prop: 'client_fee',
-        key_prop_value: this.newShippingFee.fee,
-      };
-      
-      // Save the Shipping Client to the KeyStore DataBase for later use.
-      if( this.newShippingFee.shouldSave === true ) {
-        
-        this.$http.post( "v2/keystores/create", requestObject ).then(({ ok, data })  => {
-          if( ok !== true || data.status !== "success" ) return console.log( "Couldn't create a key store." )
-        })
-        .catch( err => {
-          console.log( "Error:", err );
-        });
-
-      }
-
-      // This will map the request object to the api expected in the shipping client and
-      // push it to the shippingClients array.
-      this.shippingClient = [ requestObject ].map( this.mapShippingKeyStores )[ 0 ];
-      this.shippingFees.push( this.shippingClient );
-
-      // Revert back the drop down..
-      this.newShippingFee.hide = true;
-
-      this.invoiceShippingFee = { 
-        fee_name: "vat", 
-        fee_description: this.shippingClient.name, 
-        fee_value: this.newShippingFee.fee, 
-        fee_type: "flat", 
-      }
-
-    },
-    mapShippingKeyStores( shippingKey ) {
-      return {
-        id: shippingKey.id,
-        name: shippingKey.key_value,
-        fee: shippingKey.key_prop_value,
-      }
-    },
-    hideShippingFeeDropdown() {
-      this.$refs.shippingFeeDropdown.menuIsShown = false;
-    },
-
-
-
-
     fetchCountries () {
       this.$http.get('i/v1/extras/countries?view_group=2').then( res => {
         this.countries = res.body.data
@@ -794,7 +675,6 @@ export default {
 
     },
     createNewCustomer() {
-
       const isValidated = this.validateNewCustomerField();
       if( isValidated === false ) return;
 
@@ -835,7 +715,6 @@ export default {
       })
 
     },
-
 
     validateItems() {
       let isValid = true;
@@ -880,6 +759,7 @@ export default {
       return isValid;
 
     },
+
     createInvoicePayload() {
       return {
         amount: this.invoiceTotal,
@@ -898,49 +778,39 @@ export default {
         meta: this.invoice.meta
       };
     },
+
     saveExistingInvoice( payload ) {
       return this.$http.post(`v2/invoices/${ this.invoice.id }/edit`, payload )
     },
+
     saveNewInvoice( payload ) {
       return this.$http.post(`v2/invoices`, payload ).then( resp => {
-
         // Track invoice creation on mixpanel
         mixpanel.track("Invoice Created", {
           "$email": window.localStorage.userEmail
         });
-
         return resp;
-
       });
     },
-    sendCreatedInvoice( invoice ) {
-      
-      return this.$http.post( `v2/invoices/${ invoice.id  }/send` ).then(({ ok, data }) => {
 
+    sendCreatedInvoice( invoice ) {
+      return this.$http.post( `v2/invoices/${ invoice.id  }/send` ).then(({ ok, data }) => {
         if( ok === false || data.status !== "success" ) {
           return console.error("Couldn't Save Invoices for customer.");
         }
-
         toast.green( "Invoice has been sent successfully" );
-
         mixpanel.track( "Invoice Sent", {
           "$email": window.localStorage.userEmail
         })
-    
         this.$router.push({ name: "invoices-list" });
-      
       })
-          
       .catch( error => {
-
         toast.red( error.data.message );
-
         console.log( error.data.message );
       });
-
     },
-    saveInvoice() {
 
+    saveInvoice() {
       const payload = this.createInvoicePayload();
 
       const isValid = this.validateItems();
@@ -998,42 +868,35 @@ export default {
       };
       
     },
-    sendInvoice() {
-      
-      const payload = this.createInvoicePayload();
 
+    sendInvoice() {
+      const payload = this.createInvoicePayload();
       const isValid = this.validateItems();
       if( isValid === false ) return undefined;
 
       this.requestIsDisabled = true;
 
       if( this.type.newInvoice ) {
-          
         this.saveNewInvoice( payload )
         .then(({ ok, data }) => this.sendCreatedInvoice( data.data ) ).then( () => {
           this.requestIsDisabled = false;
         })
         .catch(error => {
           toast.red( error.data.message );
-
           this.requestIsDisabled = false;
         });
-
       } else {
-
         return this.saveExistingInvoice( payload )
         .then(({ ok, data }) => this.sendCreatedInvoice( data.data )).then(() => {
           this.requestIsDisabled = false;
         })
         .catch(error => {
           toast.red( error.data.message );
-
           this.requestIsDisabled = false;
         });
-
       }
-            
     },
+
     deleteInvoice() {
       this.requestIsDisabled = true;
       this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
@@ -1050,7 +913,6 @@ export default {
         console.log( error.data.message );
       });
     },
-
 
     fetchInvoice() {
       const queryString = `v2/invoices/${ this.refNo }/?include_customer=1`;
@@ -1103,14 +965,12 @@ export default {
 
     setReminders() {
       this.invoice.meta.reminders = [];
-
       for(let i = 0; i < this.remindersNames.length; i++) {
         this.invoice.meta.reminders.push({
           reminder_name: this.remindersNames[i],
           reminder_date: moment().format('YYYY-MM-DD HH:mm:ss'),
           reminder_note: this.getReminderNote( this.remindersNames[i] ),
         })
-
       }
       
       if (this.remindersNames.length > 0) this.reminderIsSet = true;
@@ -1124,8 +984,10 @@ export default {
         case reminderName.endsWith( "after" ): return "Remind After Due Date";
         default: return "N/A"
       }
+    },
+    showAddTaxView() {
+      this.isShowAddTax = !this.isShowAddTax
     }
-
   },
 
   watch: {
