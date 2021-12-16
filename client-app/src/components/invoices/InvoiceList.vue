@@ -1,11 +1,10 @@
 <template>
   <!-- Main Body layout -->
-    <div>
+    <div style="height: 100%; padding-right: 25px; padding-left: 25px; padding-top: 2rem">
         <div class="row__header--item align-items-center justify-content-between hidden-xs" style="display: flex;">
             <div class="row__left">
                 <div class="page__result" v-if="totalInvoices === 1">{{ totalInvoices }} Invoice</div>
                 <div class="page__result" v-if="totalInvoices > 1">{{ totalInvoices }} Invoices</div>
-                <!-- <div class="page__result" v-if="totalInvoices === 0"> No Invoices</div> -->
             </div>
 
             <!-- others -->
@@ -25,7 +24,7 @@
                     <form class="bd-search position-relative" style="margin-right: 0.5rem;">
                         <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
                             <input 
-                                type="search" class="form-control" id="search-input" placeholder="Search invoices..." 
+                                type="search" class="form-control" id="search-input" :placeholder="filterType === '' ? 'Search invoices...' : 'Search invoices...' + '' + filterType" 
                                 aria-label="Search docs for..." autocomplete="off" data-bd-docs-version="5.1" spellcheck="false" 
                                 aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" 
                                 style="position: relative; vertical-align: top; font-size: 12px; padding-left: 2rem;"
@@ -39,7 +38,7 @@
                     </form>
                     <div class="btn-group">
                         <button class="btn text--xs filter--btn filter--btn__noBorder btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter by
+                            {{ filterType === '' ? 'Filter by' : filterType }}
                         </button>
                         <ul class="dropdown-menu filter__dropdown-menu">
                             <li><p class="dropdown-item text--xs">Email</p></li>
@@ -58,26 +57,49 @@
 
         <div v-else>
             <div v-show="totalInvoices">
-                <table class="table table-hover root">
+                <table class="table root mt--40">
                     <thead>
                         <tr>
-                            <th class="header">Client email</th>
+                            <th class="first header">Client email</th>
                             <th class="header">Amount</th>
                             <th class="header">Invoice No.</th>
-                            <th class="header">Invoice Type</th>
-                            <th class="header">Date</th>
-                            <th class="first header">Status</th>
+                            <th class="header">Date Created</th>
+                            <th class="header">Due Date</th>
+                            <th class="header">Status</th>
+                            <th class="header"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <router-link v-for="invoice in invoices" :key="invoice.id">
-                            <td :class="['table__data--main', 'tag', invoiceTagMap['paid']]">{{ invoice.title }}</td>
-                            <td>{{ invoice.client }}</td>
-                            <td>{{ invoice.status }}</td>
-                            <td>{{ invoice.time }}</td>
-                            <td>{{ invoice.teamNum }}</td>
-                            <td>{{ invoice.invoices.length }}</td>
-                        </router-link>
+                        <tr v-for="invoice in invoices" :key="invoice.id">
+                            <td class="first">{{ invoice.client_email }}</td>
+                            <td>{{ invoice.currency }} {{ formatMoney(invoice.amount) }}</td>
+                            <td>{{ invoice.invoice_num }}</td>
+                            <td>{{ formatDateTime(invoice.date_created) }}</td>
+                            <td>{{ formatDateTime(invoice.due_date) }}</td>
+                            <td :class="['table__data--main', 'tag', invoiceTagMap['paid']]">{{ invoice.status }}</td>
+                            <td class="dropdown">
+                                <!-- <div class=""> -->
+                                    <div class=" cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #95899b;transform: ;msFilter:;">
+                                            <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <router-link 
+                                                class="dropdown-item cursor-pointer text--xs text--link" 
+                                                :to="{ name:'project-details', params:{ id:invoice.id }}"
+                                            >
+                                                View invoice
+                                            </router-link>
+                                        </li>
+                                        <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
+                                        <li><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
+                                        <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete invoice</p></li>
+                                    </ul>
+                                <!-- </div> -->
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -104,6 +126,7 @@
 
 <script>
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue'
+import { dummyInvoicesData } from '../../utils/dummy';
 
 export default {
     name: 'InvoiceList',
@@ -130,7 +153,8 @@ export default {
             items: { due:"Due", paid:"Paid", issued:"Issued", draft:"Draft" },
             },
         },
-        invoices: [],
+        filterType: '',
+        invoices: dummyInvoicesData,
         /**
          * Returns the appropriate CSS status tag for each invoice status
          */
@@ -143,7 +167,7 @@ export default {
         downloadButtonIsClicked: false,
         noOfPages: 1,
         currentPage: 1,
-        totalInvoices: 0,
+        totalInvoices: 3,
         pageIsEmpty: false,
         noData: false,
         };
@@ -217,9 +241,12 @@ export default {
     },
 
     formatDateTime: function (log) {
-    //   return moment(log, 'YYYY-MM-DD HH:mm:ss').format('Do MMMM YYYY');
+      return moment(log, 'YYYY-MM-DD HH:mm:ss').format('Do MMMM YYYY');
     },
 
+    formatMoney: function (x) {
+        return (x) ? x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : x;
+    },
     filterInvoices() {
     //   const params = {
     //     from: moment( this.filter.dueDate.from ).format( "YYYY-MM-DD" ) + " 00:00:00",
@@ -238,7 +265,7 @@ export default {
     },
 
     createNewInvoice() {
-      this.$router.push({ name: 'create-invoice' });
+      this.$router.push({ name: 'create-invoice-view' });
     }
   },
 };

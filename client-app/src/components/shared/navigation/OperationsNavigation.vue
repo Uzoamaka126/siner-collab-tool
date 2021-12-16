@@ -61,7 +61,7 @@
                 <span class="nav__section__content__group__title">Tags</span>
             </router-link>
             <!-- Invoice -->
-            <div :to="{ name:'tags-view' }" class="nav__section--item">  
+            <router-link :to="{ name:'invoices-view' }" class="nav__section--item">  
                 <icon-svg 
                     fill="rgba(66, 82, 110)" 
                     class="nav__icon" 
@@ -70,7 +70,7 @@
                     :width="'24px'"
                 />
                 <span class="nav__section__content__group__title">Invoices</span>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>

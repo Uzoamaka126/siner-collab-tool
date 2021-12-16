@@ -59,7 +59,7 @@ thead, th {
         tr, a {
             background: rgb(255, 255, 255);
             color: rgb(0, 0, 0);
-            cursor: pointer;
+            // cursor: pointer;
 
             &:hover, &:focus-within {
                 background: #e9ebf3 !important;
@@ -67,8 +67,20 @@ thead, th {
             }
         }
 
+        td {
+            transition: all 0.3s ease-in-out;
+            vertical-align: middle;
+
+            &.first {
+                max-width: 197px;
+                overflow-x: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+
         a {
-            display: table-row;
+            // display: table-row;
             vertical-align: inherit;
             border-color: inherit;
             border-style: solid;
