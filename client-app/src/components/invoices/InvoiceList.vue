@@ -89,6 +89,7 @@
                                             <router-link 
                                                 class="dropdown-item cursor-pointer text--xs text--link" 
                                                 :to="{ name:'project-details', params:{ id:invoice.id }}"
+                                                style="display: block;"
                                             >
                                                 View invoice
                                             </router-link>
