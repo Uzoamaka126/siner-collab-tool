@@ -200,7 +200,7 @@
                         <div class="">
                           <p class="mb-3 invoice__compile--memo--label">Reminder</p>
                           <label for="exampleFormControlTextarea1" class="mb-2 text--xs" style="color: #687383;">(Due date)</label>
-                          <v-date-picker v-model="date">
+                          <v-date-picker v-model="due_date">
                             <template #default="{ inputValue, inputEvents }">
                                 <input class="px-3 py-1 border rounded due_date form-control" :value="inputValue" v-on="inputEvents" />
                             </template>
@@ -347,11 +347,8 @@ import SearchClientInput from "./helperComponents/SearchCustomerInput.vue";
 
 export default {
   components: {
-    // DatePicker,
     SearchClientInput,
-    // InputSelectTabs,
     // InputNumber,
-    // InputMoney,
   },
 
   created() {
@@ -370,10 +367,10 @@ export default {
         currency: 'NGN',
         customer: {},
         customer_email: "",
-        date_created: "",
-        date_paid: "",
+        date_created: new Date(),
+        date_paid: new Date(),
         description: "",
-        due_date: moment(),
+        due_date: new Date(),
         id: 0,
         meta: {
           cc_emails: "",
@@ -453,18 +450,18 @@ export default {
     }
   },
 
-  beforeRouteEnter( to, from, next ) {
-    next( vm => {
-      if( to.name === "edit-invoice") { 
-        vm.refNo = vm.$route.params.id;
-        vm.fetchInvoice();
-        vm.type.existingInvoice = true;
-      }
-      else vm.type.newInvoice = true;
+  // beforeRouteEnter( to, from, next ) {
+  //   next( vm => {
+  //     if( to.name === "edit-invoice") { 
+  //       vm.refNo = vm.$route.params.id;
+  //       vm.fetchInvoice();
+  //       vm.type.existingInvoice = true;
+  //     }
+  //     else vm.type.newInvoice = true;
 
-      next();
-    })
-  },
+  //     next();
+  //   })
+  // },
 
   computed: {
     multipleEmailIsShown() {

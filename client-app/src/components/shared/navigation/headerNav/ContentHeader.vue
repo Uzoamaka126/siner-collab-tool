@@ -18,17 +18,23 @@
                     </ol>
                 </nav>
            </template>
-            <template v-if="getRouterName === 'createInvoice'">
+            <template v-if="getRouterName === 'createInvoice' || getRouterName === 'invoiceDetails'">
                 <!-- Go back to invoices -->
-                <div>
-                    <router-link :to="{ name: 'invoices-view' }" tag="div" class="page__back--wrap">
-                        <div class="page__back--icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #5469d4;transform: ;msFilter:;">
+                <div style="display: flex; margin-top: 1rem;">
+                    <router-link :to="{ name: 'invoices-view' }" tag="div" class="page__back--wrap" style="margin-top: 0rem;">
+                        <div class="page__back--icon" v-if="getRouterName === 'createInvoice'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #5469d4;transform: ;msFilter:;">
                                 <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
                             </svg>
                         </div>
-                        <div class="page__back--text">Invoices</div>
+                        <div class="page__back--text">
+                            Invoices 
+                        </div>
                     </router-link>
+                     <template v-if="getRouterName === 'invoiceDetails'">
+                        <span class="invoice__breadcrumb--text"> / </span> 
+                        <span class="invoice__breadcrumb--text">{{ getRouterName === 'invoiceDetails' ? currentId : ''}}</span>
+                    </template>
                 </div>
            </template>
         </div>
@@ -96,7 +102,6 @@
   </div>
   <!-- modals -->
     <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
-    <create-tag-modal></create-tag-modal>
     <create-client-modal></create-client-modal>
     <create-project-modal></create-project-modal>
  </div>
@@ -107,152 +112,131 @@
 import IconSvg from "../../../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../../utils/dummy';
 import CreateBoardModal from '../../modals/CreateBoard.vue';
-import CreateTagModal from '../../modals/CreateTag.vue';
 import CreateClientModal from '../../modals/CreateClientTwo.vue';
 import CreateProjectModal from '../../modals/CreateProjectTwo.vue';
 
 export default {
-  name: 'DashbaordContentHeader',
-  components: {
-    'icon-svg': IconSvg,
-    'create-board-modal': CreateBoardModal,
-    'create-tag-modal': CreateTagModal,
-    'create-client-modal': CreateClientModal,
-    'create-project-modal': CreateProjectModal,
-  },
-  created() {
-  },
-  data: () => ({
-    dropdownIsActive: {
-        workspaces: false,
-        boards: false,
-        user: false
+    name: 'DashbaordContentHeader',
+    
+    components: {
+        'icon-svg': IconSvg,
+        'create-board-modal': CreateBoardModal,
+        'create-client-modal': CreateClientModal,
+        'create-project-modal': CreateProjectModal,
     },
-    iconStyles: {
-    display: 'flex', 
-    'align-items': 'center'
+
+    created() {
     },
-    createdWorkspaces: createdWorkspaces,
-    showCreateBoardModal: false,
-    currentWorkspaceName: '',
-  }),
-  computed: {
-    getRouterName() {
-        const routeName = this.$route.name;
-        const routeNameMap = {
-            'home-view': 'home',
-            'projects-view': 'project',
-            'clients-view': 'client',
-            'settings-view': 'settings',
-            'tags-view': 'tag',
-            'teams-view': 'team',
-            'invoices-view': 'invoicesList',
-            'project-details': 'projectDetails',
-            'create-invoice-view': 'createInvoice',
-        }
-        if (routeName) {
-            return routeNameMap[routeName]
-        } else {
-            return null
-        }
-    },
-    getMatchingModal() {
-        const routeName = this.$route.name;
-        const modalNameMap = {
-            'home-view': 'home',
-            'projects-view': 'createProject',
-            'clients-view': 'createClient',
-            'settings-view': 'settings',
-            'tags-view': 'createTag',
-            'teams-view': 'createTeams',
-            'invoices-view': 'invoicesList',
-            'project-details': 'projectDetails',
-            'create-invoice-view': 'createInvoice',
-        }
-        if (routeName) {
-            return `#${modalNameMap[routeName]}`
-        } else {
-            return null
-        }
-    },
-    showHeaderActionButton() {
-        if (
-            this.getRouterName !== 'home' && 
-            this.getRouterName !== 'settings' && 
-            this.getRouterName !== 'projectDetails' && 
-            this.getRouterName !== 'invoicesList' && 
-            this.getRouterName !== 'createInvoice' && 
-            this.getRouterName !== 'null'
-        ) {
-            return true
-        } else {
-            return false
-        }
-    }
-  },
-   watch:{
-    //watch for route parameter change and execute method
-        '$route': 'getRouterName',
-        '$route': 'getCurrentWorkspaceName'
-    },
-  methods: {
-     getPath() {
-        const routePath = this.$route.path;
-        // console.log(routePath);
-        if (routePath.includes('workspaces') && routePath.includes('lists')) {
-            return 'lists'
-        } else {
-            return 'none'
-        }
-    },
-    getCurrentWorkspaceName() { 
-        if(!JSON.parse(localStorage.getItem('workspaceDetails'))) {
-            console.log('ll');
-            return ''
-        } else {
-            console.log(JSON.parse(localStorage.getItem('workspaceDetails')));
-            this.currentWorkspaceName = JSON.parse(localStorage.getItem('workspaceDetails')).name
-            // return JSON.parse(localStorage.getItem('workspaceDetails')).name
-        }
-    },
-    toggleDropdown(name, index) {
-        console.log(name, index);
-        var getDropdownClass = document.getElementsByClassName("dropdown");
-        for (var i = 0; i < getDropdownClass.length; i++) {
-            console.log(i, index);
-            if(i === index) {
-                console.log(i, index, name, getDropdownClass[i].id);
-                // if(getDropdownClass[i])
-                if(name === getDropdownClass[i].id) {
-                    this.dropdownIsActive[getDropdownClass[i].id] = !this.dropdownIsActive[getDropdownClass[i].id]
-                }
+
+    data: () => ({
+        dropdownIsActive: {
+            workspaces: false,
+            boards: false,
+            user: false
+        },
+        iconStyles: {
+        display: 'flex', 
+        'align-items': 'center'
+        },
+        createdWorkspaces: createdWorkspaces,
+        showCreateBoardModal: false,
+        currentWorkspaceName: '',
+    }),
+    
+    computed: {
+        currentId() {
+            return this.$route.params.id ? this.$route.params.id : '';
+        },
+        getRouterName() {
+            const routeName = this.$route.name;
+            const routeNameMap = {
+                'home-view': 'home',
+                'projects-view': 'project',
+                'clients-view': 'client',
+                'settings-view': 'settings',
+                'tags-view': 'tag',
+                'teams-view': 'team',
+                'invoices-view': 'invoicesList',
+                'project-details': 'projectDetails',
+                'create-invoice-view': 'createInvoice',
+                'details-invoice-view': 'invoiceDetails',
+            }
+            if (routeName) {
+                return routeNameMap[routeName]
+            } else {
+                return null
+            }
+        },
+        getMatchingModal() {
+            const routeName = this.$route.name;
+            const modalNameMap = {
+                'home-view': 'home',
+                'projects-view': 'createProject',
+                'clients-view': 'createClient',
+                'settings-view': 'settings',
+                'teams-view': 'createTeams',
+                'invoices-view': 'invoicesList',
+                'project-details': 'projectDetails',
+                'create-invoice-view': 'createInvoice',
+                'details-invoice-view': 'invoiceDetails',
+            }
+            if (routeName) {
+                return `#${modalNameMap[routeName]}`
+            } else {
+                return null
+            }
+        },
+        showHeaderActionButton() {
+            if (
+                this.getRouterName !== 'home' && 
+                this.getRouterName !== 'settings' && 
+                this.getRouterName !== 'projectDetails' && 
+                this.getRouterName !== 'invoicesList' && 
+                this.getRouterName !== 'createInvoice' && 
+                this.getRouterName !== 'tag' && 
+                this.getRouterName !== 'invoiceDetails' &&
+                this.getRouterName !== 'null'
+            ) {
+                return true
+            } else {
+                return false
             }
         }
-        // check if another dropdown is open
-        // if(this.dropdownIsActive) {
-        //     this.dropdownIsActive = false
-        // }
-        // if(name === getDropdownClass[index].id) {
-        //     this.dropdownIsActive = false
-        // }
     },
-    hideDropdown() {
-        this.dropdownIsActive['workspaces'] = false;
-        this.dropdownIsActive['boards'] = false;
+    
+    watch:{
+    //watch for route parameter change and execute method
+        '$route': 'this.$route.params.id',
     },
-    toggleCreateBoardModal(value) {
-        const path = this.getRouterName
-        // let's take a look at the path first
-        // if (path === )
-        if(value === 'show') {
-            this.showCreateBoardModal = true;
-        } else if (value === 'hide') {
-            this.showCreateBoardModal = false;
-        } else {
-            this.showCreateBoardModal = false;
+
+    methods: {
+        toggleDropdown(name, index) {
+            console.log(name, index);
+            var getDropdownClass = document.getElementsByClassName("dropdown");
+            for (var i = 0; i < getDropdownClass.length; i++) {
+                console.log(i, index);
+                if(i === index) {
+                    console.log(i, index, name, getDropdownClass[i].id);
+                    // if(getDropdownClass[i])
+                    if(name === getDropdownClass[i].id) {
+                        this.dropdownIsActive[getDropdownClass[i].id] = !this.dropdownIsActive[getDropdownClass[i].id]
+                    }
+                }
+            }
+        },
+        toggleCreateBoardModal(value) {
+            const path = this.getRouterName
+            // let's take a look at the path first
+            // if (path === )
+            if(value === 'show') {
+                this.showCreateBoardModal = true;
+            } else if (value === 'hide') {
+                this.showCreateBoardModal = false;
+            } else {
+                this.showCreateBoardModal = false;
+            }
         }
     }
-  }
 }
 </script>
 
@@ -262,48 +246,6 @@ export default {
       span {
         font-size: 14px;
       }
-  }
-  .nav--dropdown--text {
-      display: flex;
-      align-items: center;
-
-    span {
-        display: flex;
-    }
-  }
-  .dropdown__content--group--avatar {
-      .avatar-wrap {
-        font-size: 18px;
-        height: 40px;
-        width: 40px;
-        line-height: 40px;
-        align-items: center;
-        background-color: #DFE1E6;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        border: 0;
-        border-radius: 100%;
-        box-sizing: border-box;
-        color: #172B4D;
-        display: inline-flex;
-        margin-right: 12px;
-    }
-
-    .avatar--text {
-        &:first-of-type {
-            margin-top: 4px;
-            max-width: 230px;
-        }
-        &:last-of-type {
-            font-size: 9pt;
-            color: #B3BAC5;
-            display: block;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 230px;
-        }
-    }
   }
     ul.breadcrumb {
         list-style: none;
@@ -330,5 +272,16 @@ export default {
     ul.breadcrumb li a:hover {
         color: #0275d8;
         text-decoration: underline;
+    }
+    .invoice__breadcrumb--text {
+        color: #a4a59a; 
+        text-transform: capitalize; 
+        font-size: 15px; 
+        font-weight: 700;
+        margin-right: 10px;
+
+        &:first-of-type {
+            margin-left: 10px;
+        }
     }
 </style>

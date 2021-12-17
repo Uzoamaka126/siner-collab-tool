@@ -11,7 +11,8 @@ import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
 import TagsView from '../views/Tags.vue'
 import InvoicesView from '../views/Invoices.vue'
-import CreateInvoiceView from '../components/invoices/CreateInvoice';
+import CreateInvoiceView from '../components/invoices/CreateInvoice.vue';
+import InvoiceDetailsView from '../components/invoices/InvoiceDetails.vue';
 
 const routes = [
   // {
@@ -79,31 +80,20 @@ const routes = [
         component: TagsView
       },
       {
-        path:'invoices', 
-        name:'invoices-view', 
+        path: 'invoices', 
+        name: 'invoices-view', 
         component: InvoicesView
       },
       {
-        path:'invoices/create', 
-        name:'create-invoice-view', 
+        path: 'invoices/create', 
+        name: 'create-invoice-view', 
         component: CreateInvoiceView
       },
-      // {
-      //   path:'workspaces/:name?', 
-      //   name:'workspace-detail-view', 
-      //   component: WorkspaceItemView,
-      //   props: true,
-      //   redirect:{ name:'workspace-boards' },
-      //   // beforeEnter: requireAuth,
-      //   children:[
-      //     {path:'boards', name:'workspace-boards', component: WorkspaceBoards},
-      //     {path:'members', name:'workspace-members', component: WorkspaceMembers},
-      //     {path:'lists', name:'workspace-lists', component: WorkspaceList},
-      //     // {path:'meeting-notes', name:'workspace-meeting-notes', component: TransactionsList},
-      //     // {path:'product-requirements', name:'workspace-product-requirements', component: TransactionsList},
-      //     // {path:'settings', name:'workspace-settings', component: TransactionsList},
-      //   ]
-      // },
+      {
+        path: 'invoices/view/:id', 
+        name: 'details-invoice-view', 
+        component: InvoiceDetailsView
+      },
       {
         path:'clients', 
         name:'clients-view', 

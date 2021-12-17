@@ -88,14 +88,14 @@
                                         <li>
                                             <router-link 
                                                 class="dropdown-item cursor-pointer text--xs text--link" 
-                                                :to="{ name:'project-details', params:{ id:invoice.id }}"
+                                                :to="{ name:'details-invoice-view', params:{ id: invoice.id }}"
                                                 style="display: block;"
                                             >
                                                 View invoice
                                             </router-link>
                                         </li>
                                         <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
-                                        <li><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
+                                        <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
                                         <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete invoice</p></li>
                                     </ul>
                                 <!-- </div> -->
@@ -141,7 +141,6 @@ export default {
     },
     data () {
         return {
-            billImage: '../../../',
         loading: false,
         filter: {
             dueDate: {

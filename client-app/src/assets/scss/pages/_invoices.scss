@@ -98,4 +98,31 @@
             }
         }
     }
+
+    &__client {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .heading {
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #637381;
+            font-size: 14px;
+        }
+        &--bio {
+            width: auto;
+
+            .title {
+                color: #a9a9a9;
+                font-weight: 400;
+                text-transform: capitalize;
+                font-size: 12px;
+            }
+            .sub-title {
+                color: #212b36;
+            }
+
+        }
+    }
 }

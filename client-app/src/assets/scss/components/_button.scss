@@ -45,11 +45,11 @@
     }
 
     &--danger {
-        color: $warning-color !important;
-        // background-color: $danger;
-        // box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+        background-color: $warning-color !important;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.113791);
+        color: #f2f2f2 !important;
         &:hover {
-            // background-color: darken($danger, 14%);
+            background-color: darken($warning-color, 14%);
         }
     }
 

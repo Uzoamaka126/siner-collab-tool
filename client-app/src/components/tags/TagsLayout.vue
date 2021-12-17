@@ -1,8 +1,22 @@
 <template>
+    <div>
     <div style="height: 100%; padding-right: 25px; padding-left: 25px; padding-top: 2rem">
          <!-- top header -->
-        <div class="list--count">
-            <p>{{ tags.length }} Tag{{ tags.length > 1 ? '(s)' : '' }}</p>
+        <div class="justify-content-between align-items-center" style="display: flex;">
+            <div class="list--count">
+                <p>{{ tags.length }} Tag{{ tags.length > 1 ? '(s)' : '' }}</p>
+            </div>
+            <div>
+                <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createTag">   
+                    <icon-svg 
+                        fill="#fff" 
+                        name="add" 
+                        icon-position="left"
+                        :width="'12px'"
+                    />  
+                    <span class="text">Add new tag</span>
+                </button>
+            </div>
         </div>
         <div style="display: flex; margin-top: 2.5rem;"> 
             <div style="">
@@ -12,27 +26,25 @@
                     </div>
                     <div class="tags--project-action">
                         <div class="icon" tabindex="-1" title="More options">
-                            <svg class="css-17keszd-EnhancedContextMenuIcon e16olzom2" width="4" height="16" viewBox="0 0 4 16">
+                            <svg class="css-17keszd-EnhancedContextMenuIcon e16olzom2" width="4" height="12" viewBox="0 0 4 16">
                                 <path fill="#95899b" fill-rule="evenodd" d="M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 12a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0-6a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
                             </svg>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-                            <!-- modal -->
-         <create-project-modal 
-            :toggleCreateProjectModalal="toggleCreateProjectModalal" 
-            :showCreateBoardModal="showCreateBoardModal"
-        />
+        </div>        
+    </div>
+
+    <!-- modal -->
+    <create-tag-modal></create-tag-modal>
     </div>
 </template>
 
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
-import { FloatMenu } from 'vue-float-menu'
-import CreateProjectModal from '../shared/modals/CreateProject.vue'
+import CreateTagModal from '../shared/modals/CreateTag.vue';
 
 export default {
     name: 'WorkspaceLayout',
@@ -52,8 +64,7 @@ export default {
     }),
     components: {
         IconSvg,
-        FloatMenu,
-        CreateProjectModal
+        'create-tag-modal': CreateTagModal,
     },
     computed: {
     },
