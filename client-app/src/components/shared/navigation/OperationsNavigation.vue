@@ -29,25 +29,24 @@
                 />   
                 <span class="nav__section__content__group__title">Projects</span>
             </router-link>
-             <div :to="{ name:'boards-view' }" class="nav__section--item">
-                <!-- <span> -->
-                   
-                    <icon-svg 
-                        fill="rgba(66, 82, 110)" 
-                        class="nav__icon" 
-                        name="multiple-users" 
-                        icon-position="left"
-                        :style="{ fill: 'rgba(66, 82, 110)' }"
-                        :width="'24px'"
-                    />   
-                    <span 
-                        class="nav__section__content__group__title"
-                        data-bs-container="body" 
-                        data-bs-toggle="popover" 
-                        data-bs-placement="right"
-                        data-bs-content="Right popover"
-                    >Teams</span>
-                <!-- </span> -->
+             <div 
+                    class="nav__section--item" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="right" 
+                    title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
+                    data-bs-custom-class="'beautifier'"
+                    data-bs-html="true"
+                    data-bs-trigger="click hover"
+                >
+                <icon-svg 
+                    fill="rgba(66, 82, 110)" 
+                    class="nav__icon" 
+                    name="multiple-users" 
+                    icon-position="left"
+                    :style="{ fill: 'rgba(66, 82, 110)' }"
+                    :width="'24px'"
+                />   
+                <span class="nav__section__content__group__title">Teams</span>
             </div>
             <!-- Invite -->
              <router-link :to="{ name:'tags-view' }" class="nav__section--item">  
@@ -83,7 +82,6 @@ export default {
     name: 'OperationsNavigation',
      watch:{
         //watch for route parameter change and execute method
-        '$route': 'clearOnUnMount',
     },
     components: {
         'icon-svg': IconSvg,
@@ -101,35 +99,7 @@ export default {
         },
     },
     methods: {
-        createNewWorkspace() {
-            // this.$store.dispatch('viewCreateWorkspaceModal', true);
-            this.$store.commit('showCreateWorkspaceModal', true);
-        },
-        getHyphenatedPath(str) {
-            return str.replace(/\s/g, "-").toLowerCase();
-        },
-        goToWorkspace(name, id, data) {
-            const refinedPathName = name.replace(/\s/g, "-").toLowerCase();
-            // this.activeWorkspace = name
-            localStorage.setItem('workspaceId', id);
-            localStorage.setItem('workspaceDetails', JSON.stringify(data));
-            localStorage.setItem('showWorkspaceNav', true);
-            this.$router.push({ name: 'workspace-detail-view', params: { name: refinedPathName } })
-        },
-        clearOnUnMount() {
-            const path = this.$route.path;
-            if (!path.includes('workspaces/')) {
-                this.activeWorkspace = ''
-            } 
-        }
     },
-    mounted() {
-        const id = localStorage.getItem('workspaceId');
-        const findWorkspaceObj = createdWorkspaces.find(item => item.id === id);
-        if(findWorkspaceObj) {
-            this.activeWorkspace = findWorkspaceObj.name
-        }
-    }
 }
 </script>
 
@@ -152,10 +122,6 @@ export default {
             background-color: #e4e9fd;
         }
     }
-    .nav__section__content__group {
-        // overflow-x: scroll;
-        // max-height: 200px;
-    }
     .home--content__wrap {
         flex-direction: row;
         justify-content: flex-start;
@@ -163,8 +129,9 @@ export default {
         margin-top: 0;
         padding-left: 0;
     }
-    .workspace--theme--img {
-        width: 1rem;
-        height: 1rem;
+    .beautifier {
+        padding: 10px 15px !important;
+        background: #000 !important;
+        color: #f2f2f2 !important;
     }
 </style>

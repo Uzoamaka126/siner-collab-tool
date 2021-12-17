@@ -1,9 +1,9 @@
 <template>
-    <div class="modal fade" id="createClient" tabindex="-1" aria-labelledby="createClientLabel" aria-hidden="true">
+    <div class="modal fade" id="createOrEditClient" tabindex="-1" aria-labelledby="createOrEditClientLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createClientLabel">Add client </h5>
+                <h5 class="modal-title" id="createOrEditClientLabel">{{ isEdit ? 'Edit Client' : 'Add client' }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -17,7 +17,8 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn--primary btn--sm">Create client</button>
+                <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn--primary btn--sm">{{isEdit ? 'Update client' : 'Create client'}}</button>
             </div>
             </div>
         </div>
@@ -28,11 +29,13 @@
 
 export default {
     name: 'CreateClient',
-    props: [],
+    props: ['isEdit', 'editValue'],
     data: () => ({
-       clientName: ''
     }),
     computed: {
+        clientName() {
+            return this.isEdit ? this.editValue : ''
+        }
     },
     methods: {
     }

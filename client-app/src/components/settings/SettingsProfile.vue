@@ -5,19 +5,19 @@
                 <div class="">
                     <div class="form__item">
                     <label for="fullName" class="form__label">Full Name</label>
-                    <input type="email" id="fullName" class="form__input form__input--lg" disabled>
+                    <input type="email" id="fullName" class="form-control" disabled>
                 </div>
                 <div class="form__item">
                     <label for="username" class="form__label">Username</label>
-                    <input type="email" id="username" class="form__input form__input--lg" disabled>
+                    <input type="email" id="username" class="form-control" disabled>
                 </div>
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Email Address</label>
-                    <input type="email" id="emailaddress" class="form__input form__input--lg">
+                    <input type="email" id="emailaddress" class="form-control">
                 </div>
                 <div class="form__item">
                     <label for="bio" class="form__label">Bio</label>
-                    <textarea type="email" id="bio" class="form__input form__input--lg"/>
+                    <textarea type="email" id="bio" class="form-control"/>
                 </div>
                 <div>
                     <button 

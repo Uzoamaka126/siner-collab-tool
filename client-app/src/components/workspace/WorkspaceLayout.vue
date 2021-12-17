@@ -32,7 +32,7 @@
                             </span>
                         </span>
                     </form>
-                    <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createClient">   
+                    <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createOrEditClient">   
                         <icon-svg 
                             fill="#fff" 
                             name="add" 
@@ -45,7 +45,7 @@
             </div>
             <!-- Content -->
             <div style="display: flex; margin-top: 2.5rem;">
-                <div class="home--content__wrap create--workspace__wrap">
+                <!-- <div class="home--content__wrap create--workspace__wrap">
                     <div class="home--content--item" style="display: block;">
                         <span data-toggle="modal" data-bs-target="#createClient" @click="toggleCreateBoardModal('show')">
                             <div class="workspace--theme--img create--workspace__img" style="margin-right: 0px;">
@@ -63,7 +63,7 @@
                             </div>
                         </span>
                     </div>
-                </div>
+                </div> -->
                 <div class="home--content__wrap">
                     <div class="home--content--item positionRelative" v-for="(item, index) in createdWorkspaces" :key="index">
                         <div class="list-options">
@@ -80,7 +80,7 @@
                             <!-- overlay contents -->
                             <div class="list__overlay">
                                 <div class="list__overlay-text-wrap">
-                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;">
+                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="startEditClient(item.name)">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
                                             class="nav__icon mr--0" 
@@ -91,7 +91,7 @@
                                         /> 
                                         <p class="text">Edit</p>
                                     </div>
-                                    <div style="display: flex; align-items: center">
+                                    <div style="display: flex; align-items: center" @click="startDelete(item.id)">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
                                             class="nav__icon mr--0" 
@@ -111,7 +111,8 @@
         </div>
 
         <!-- modal -->
-        <create-client-modal></create-client-modal>
+        <create-or-edit-client-modal :isEdit="isEdit" :editValue="client.name"></create-or-edit-client-modal>
+        <delete-client-modal :handleDeleteClient="handleDeleteClient"></delete-client-modal>
     </div>
 </template>
 
@@ -119,8 +120,8 @@
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
 import { FloatMenu } from 'vue-float-menu'
-import CreateClientModal from '../shared/modals/CreateClientTwo.vue';
-
+import CreateOrEditClientModal from '../shared/modals/CreateClientTwo.vue';
+import DeleteClientModal from '../shared/modals/DeleteClient.vue';
 
 export default {
     name: 'WorkspaceLayout',
@@ -136,15 +137,17 @@ export default {
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         isMenuItemHover: '',
-        isMenuDropdownShow: '',
-        clientName: '',
-        showCreateBoardModal: false,
-
+        client: {
+            name: '',
+            id: ''
+        },
+        isEdit: false,
     }),
     components: {
         IconSvg,
         FloatMenu,
-        CreateClientModal
+        CreateOrEditClientModal,
+        DeleteClientModal
     },
     computed: {
     },
@@ -159,25 +162,18 @@ export default {
                 }
             }
         },
-        toggleShowMenUHover(name) {
-               const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name);
-            //    console.log(getWorkspaceItem);
-                if (getWorkspaceItem.name) {
-                    this.isMenuDropdownShow = getWorkspaceItem.name;
-            console.log(name, this.isMenuDropdownShow);
-
-                }
-            // }
-            
+        startEditClient(val) {
+            this.isEdit = true;
+            this.client.name = val;
+            $("#createOrEditClient").modal("show");
         },
-        toggleCreateBoardModal(value) {
-            if(value === 'show') {
-                this.showCreateBoardModal = true;
-            } else if (value === 'hide') {
-                this.showCreateBoardModal = false;
-            } else {
-                this.showCreateBoardModal = false;
-            }
+        startDelete(id) {
+            this.client.id = id;
+            $("#deleteClient").modal("show");
+        },
+        handleDeleteClient() {
+            this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.client.id);
+            this.client.id = ''
         }
     }
 }
