@@ -102,7 +102,6 @@
   </div>
   <!-- modals -->
     <create-board-modal :toggleCreateBoardModal="toggleCreateBoardModal" :showCreateBoardModal="showCreateBoardModal"></create-board-modal>
-    <create-client-modal></create-client-modal>
     <create-project-modal></create-project-modal>
  </div>
 </template>
@@ -112,7 +111,6 @@
 import IconSvg from "../../../icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../../utils/dummy';
 import CreateBoardModal from '../../modals/CreateBoard.vue';
-import CreateClientModal from '../../modals/CreateClientTwo.vue';
 import CreateProjectModal from '../../modals/CreateProjectTwo.vue';
 
 export default {
@@ -121,7 +119,6 @@ export default {
     components: {
         'icon-svg': IconSvg,
         'create-board-modal': CreateBoardModal,
-        'create-client-modal': CreateClientModal,
         'create-project-modal': CreateProjectModal,
     },
 
@@ -172,13 +169,10 @@ export default {
             const modalNameMap = {
                 'home-view': 'home',
                 'projects-view': 'createProject',
-                'clients-view': 'createClient',
                 'settings-view': 'settings',
                 'teams-view': 'createTeams',
                 'invoices-view': 'invoicesList',
                 'project-details': 'projectDetails',
-                'create-invoice-view': 'createInvoice',
-                'details-invoice-view': 'invoiceDetails',
             }
             if (routeName) {
                 return `#${modalNameMap[routeName]}`
@@ -187,16 +181,7 @@ export default {
             }
         },
         showHeaderActionButton() {
-            if (
-                this.getRouterName !== 'home' && 
-                this.getRouterName !== 'settings' && 
-                this.getRouterName !== 'projectDetails' && 
-                this.getRouterName !== 'invoicesList' && 
-                this.getRouterName !== 'createInvoice' && 
-                this.getRouterName !== 'tag' && 
-                this.getRouterName !== 'invoiceDetails' &&
-                this.getRouterName !== 'null'
-            ) {
+            if (this.getRouterName === 'project') {
                 return true
             } else {
                 return false
@@ -206,7 +191,6 @@ export default {
     
     watch:{
     //watch for route parameter change and execute method
-        '$route': 'this.$route.params.id',
     },
 
     methods: {

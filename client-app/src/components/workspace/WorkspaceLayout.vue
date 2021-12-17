@@ -32,25 +32,15 @@
                             </span>
                         </span>
                     </form>
-                    <div class="btn-group">
-                        <button class="btn text--xs mr--10 filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort by
-                        </button>
-                        <ul class="dropdown-menu filter__dropdown-menu">
-                            <li><p class="dropdown-item text--xs">A - Z</p></li>
-                            <li><p class="dropdown-item text--xs">Z - A</p></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn text--xs filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter by
-                        </button>
-                        <ul class="dropdown-menu filter__dropdown-menu">
-                            <li><p class="dropdown-item text--xs">Industry</p></li>
-                            <li><p class="dropdown-item text--xs">Theme</p></li>
-                            <li><p class="dropdown-item text--xs">Tags</p></li>
-                        </ul>
-                    </div>
+                    <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createClient">   
+                        <icon-svg 
+                            fill="#fff" 
+                            name="add" 
+                            icon-position="left"
+                            :width="'12px'"
+                        />  
+                        <span class="text">Add new client</span>
+                    </button>
                 </div>
             </div>
             <!-- Content -->
@@ -120,10 +110,8 @@
             </div>
         </div>
 
-        <create-client-modal 
-            :toggleCreateBoardModal="toggleCreateBoardModal" 
-            :showCreateBoardModal="showCreateBoardModal"
-        />
+        <!-- modal -->
+        <create-client-modal></create-client-modal>
     </div>
 </template>
 
@@ -131,7 +119,8 @@
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
 import { FloatMenu } from 'vue-float-menu'
-import CreateClientModal from '../shared/modals/CreateClient.vue'
+import CreateClientModal from '../shared/modals/CreateClientTwo.vue';
+
 
 export default {
     name: 'WorkspaceLayout',

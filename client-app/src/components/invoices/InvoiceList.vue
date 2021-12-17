@@ -78,27 +78,25 @@
                             <td>{{ formatDateTime(invoice.due_date) }}</td>
                             <td :class="['table__data--main', 'tag', invoiceTagMap['paid']]">{{ invoice.status }}</td>
                             <td class="dropdown">
-                                <!-- <div class=""> -->
-                                    <div class=" cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #95899b;transform: ;msFilter:;">
-                                            <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-                                        </svg>
-                                    </div>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li>
-                                            <router-link 
-                                                class="dropdown-item cursor-pointer text--xs text--link" 
-                                                :to="{ name:'details-invoice-view', params:{ id: invoice.id }}"
-                                                style="display: block;"
-                                            >
-                                                View invoice
-                                            </router-link>
-                                        </li>
-                                        <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
-                                        <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
-                                        <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete invoice</p></li>
-                                    </ul>
-                                <!-- </div> -->
+                                <div class=" cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #95899b;transform: ;msFilter:;">
+                                        <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                                    </svg>
+                                </div>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li>
+                                        <router-link 
+                                            class="dropdown-item cursor-pointer text--xs text--link" 
+                                            :to="{ name:'details-invoice-view', params:{ id: invoice.id }}"
+                                            style="display: block;"
+                                        >
+                                            View invoice
+                                        </router-link>
+                                    </li>
+                                    <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
+                                    <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
+                                    <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete invoice</p></li>
+                                </ul>
                             </td>
                         </tr>
                     </tbody>

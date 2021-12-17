@@ -24,12 +24,16 @@
                     <div class="tags--project-text">
                         <span class="">{{ tag }}</span>
                     </div>
-                    <div class="tags--project-action">
-                        <div class="icon" tabindex="-1" title="More options">
+                    <div class="tags--project-action dropdown">
+                        <div class="icon" tabindex="-1" title="More options" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg class="css-17keszd-EnhancedContextMenuIcon e16olzom2" width="4" height="12" viewBox="0 0 4 16">
                                 <path fill="#95899b" fill-rule="evenodd" d="M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 12a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0-6a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
                             </svg>
                         </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width: 5rem;">
+                            <li><p class="dropdown-item cursor-pointer text--xs">Edit</p></li>
+                            <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete</p></li>
+                        </ul>
                     </div>
                 </div>
             </div>
