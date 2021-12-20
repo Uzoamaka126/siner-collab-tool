@@ -12,16 +12,7 @@
             <div class="flex align-center">
                 <span class="form__item mr--15 mb--0">
                     <label for="" class="label__sort">Sort by</label>
-                    <vue-select 
-                        class="text--sm"
-                        :options="[
-                            'Less Active', 
-                            'Most active', 
-                            'Alphabetically A - Z', 
-                            'Alphabetically A - Z'
-                            ]"
-                            v-model="sortValue"
-                    ></vue-select>
+                   
                 </span>
             </div>
         </div>

@@ -20,7 +20,6 @@
                 <span class="flex align-center">
                     <span class="form__item">
                         <label for="" class="label__filter mt--0">Filter by</label>
-                        <vue-select class="text--sm" :options="['type']" v-model="filterValue"> </vue-select>
                     </span>
                 </span>
             </div>
@@ -307,9 +306,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .vue-select {
-        border: 1px solid rgba(194, 200, 212, 1);
-    }
     .card {
         padding: 0 !important;
     }

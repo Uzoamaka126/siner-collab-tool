@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="row invoice__row block">
-                      <div class="form__row customer-input-row">
+                      <div class="form__row">
                         <div class="form__row__left">
                             <div class="align-items-center justify-content-between mb-2" style="display: flex">
                                 <span class="invoice__compile--memo--label">Client info</span>
@@ -37,21 +37,25 @@
                             </div>
                             <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
                         </div>
-                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link mt--10">- Hide multiple emails</div>
+                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link text--sm mt--10">- Hide multiple emails</div>
                         <div v-else @click="toggleOtherEmail = true" class="link text--sm mt-2">+ Send to multiple emails</div>
-                        <div v-if="multipleEmailIsShown" class="row invoice__row--shift-left">
-                          <div class="form__row block">
-                            <label for class="form__label positionRelative block">
-                              <span class="medium">Other emails (Cc)</span>
-                            </label>
-                            <input-select-tabs 
-                              v-model="otherCustomerEmails"
-                              placeholder="Enter customer email..."
-                              :dropdown-fields="otherCustomersSearched" 
-                              @typing="searchCustomers" 
-                              dropdown-width="400px"
-                            />
-                          </div>
+                      </div>
+                    </div>
+
+                    <!-- other emails -->
+                    <div v-if="multipleEmailIsShown" class="row invoice__row">
+                      <div class="form__row block">
+                        <div class="form__row__left">
+                          <label for class="positionRelative block">
+                            Send to other emails
+                          </label>
+                          <input-multiple-emails
+                            v-model="otherCustomerEmails"
+                            placeholder="Enter customer email..."
+                            :dropdown-fields="otherCustomersSearched" 
+                            @typing="searchCustomers" 
+                            dropdown-width="400px"
+                          />
                         </div>
                       </div>
                     </div>
@@ -112,7 +116,7 @@
                                       <money v-model="item.item_unit" @keydown.native="preventKeys" v-bind="moneyConfig" class="form-control" style="width: 80%" spellcheck="false"></money>                                                                    
                                   </div>
                                   <div class="invoice__amount">
-                                      <div class="p-t-10 m-b-30 textRight">{{ invoice.currency }} {{ itemAmount( i ) | format_amount }}</div>
+                                      <div class="p-t-10 m-b-30 textRight">{{ invoice.currency }}</div>
                                   </div>
                               </div>
                             </div>
@@ -178,7 +182,7 @@
                               <div class="invoice__compile--row invoice__row__total">
                                   <div class="invoice-computation__label bold">Total</div>
                                   <div class="invoice-computation__action"></div>
-                                  <div class="invoice-computation__item bold">{{ invoice.currency }} {{ invoiceTotal || 0 | format_amount }}</div>
+                                  <div class="invoice-computation__item bold">{{ invoice.currency }}</div>
                               </div>
                           </div>
                         </div>
@@ -200,7 +204,7 @@
                         <div class="">
                           <p class="mb-3 invoice__compile--memo--label">Reminder</p>
                           <label for="exampleFormControlTextarea1" class="mb-2 text--xs" style="color: #687383;">(Due date)</label>
-                          <v-date-picker v-model="due_date">
+                          <v-date-picker v-model="invoice.due_date">
                             <template #default="{ inputValue, inputEvents }">
                                 <input class="px-3 py-1 border rounded due_date form-control" :value="inputValue" v-on="inputEvents" />
                             </template>
@@ -336,19 +340,18 @@
 
 <script>
 // import { userCountry, paymentLinkSupportedCountries } from "../../../functions/countries"
-// import DatePicker from "vue2-datepicker";
 // import toast from "@/functions/toast";
 import SearchClientInput from "./helperComponents/SearchCustomerInput.vue";
+import InputMultipleEmails from '../shared/input/InputMultipleEmails'
 // import { createQueryString } from '../../../functions/request';
 // import { debounce, arrayToObject } from "../../../functions/utils";
 // import InputNumber from "@/ui/input-number.vue";
 // import InputMoney from "@/ui/input-money.vue";
 
-
 export default {
   components: {
     SearchClientInput,
-    // InputNumber,
+    InputMultipleEmails
   },
 
   created() {
@@ -360,7 +363,6 @@ export default {
         newInvoice: false,
         existingInvoice: false,
       },
-      
       refNo: undefined,
       invoice: {
         amount: 0,
@@ -595,22 +597,6 @@ export default {
         ) - parseFloat(this.invoiceDiscount)
       )
     },
-
-    disable14DaysBefore() {
-      if(moment(this.invoice.due_date).subtract(13, 'days').isSameOrAfter(moment())) return false;
-      else return true;
-    },
-
-    disable7DaysBefore() {
-      if(moment(this.invoice.due_date).subtract(6, 'days').isSameOrAfter(moment())) return false;
-      else return true;
-    },
-
-    disable3DaysBefore() {
-      if(moment(this.invoice.due_date).subtract(2, 'days').isSameOrAfter(moment())) return false;
-      else return true;
-    }
-
   },
 
   methods: {

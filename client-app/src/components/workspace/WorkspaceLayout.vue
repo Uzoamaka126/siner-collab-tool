@@ -111,7 +111,7 @@
         </div>
 
         <!-- modal -->
-        <create-or-edit-client-modal :isEdit="isEdit" :editValue="client.name"></create-or-edit-client-modal>
+        <create-or-edit-client-modal :isEdit="isEdit" :editValue="client.name" :clearEditClient="clearEditClient"></create-or-edit-client-modal>
         <delete-client-modal :handleDeleteClient="handleDeleteClient"></delete-client-modal>
     </div>
 </template>
@@ -162,10 +162,15 @@ export default {
                 }
             }
         },
+        clearEditClient() {
+            this.isEdit = false;
+            this.client.name = '';
+            $("#createOrEditClient").modal("hide");
+        },
         startEditClient(val) {
+            $("#createOrEditClient").modal("show");
             this.isEdit = true;
             this.client.name = val;
-            $("#createOrEditClient").modal("show");
         },
         startDelete(id) {
             this.client.id = id;

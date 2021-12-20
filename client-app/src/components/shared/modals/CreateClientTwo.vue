@@ -17,7 +17,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close" @click="clearEditClient">Cancel</button>
                 <button type="button" class="btn btn--primary btn--sm">{{isEdit ? 'Update client' : 'Create client'}}</button>
             </div>
             </div>
@@ -29,7 +29,7 @@
 
 export default {
     name: 'CreateClient',
-    props: ['isEdit', 'editValue'],
+    props: ['isEdit', 'editValue', 'clearEditClient'],
     data: () => ({
     }),
     computed: {

@@ -13,16 +13,7 @@
             <div class="form__item">
                     <!-- :reduce="currency => currency.name" -->
                 <label for="workspaceTitle" class="form__label">What kind of workspace is this?</label>
-                <vue-select 
-                    class="vs--button vs--button__md mr--15" 
-                    :options="workspaces"
-                    label-by="name"  
-                    v-model="workspace.type" 
-                    :placeholder="'Select a workspace type'" 
-                    :clearable=false
-                    :close-on-select=true
-                >
-                </vue-select>
+               
             </div>
             <div class="form__item">
                 <label for="workspaceTitle" class="form__label">Describe your workspace <span class="text-faded text-normal">(optional)</span></label>
@@ -36,14 +27,11 @@
 </template>
 
 <script>
-import VueNextSelect from 'vue-next-select'
 import { workspacesTypes } from '../../utils/dummy';
-import 'vue-next-select/dist/index.css'
 
 export default {
     name: 'CreateWorkspace',
     components: {
-        'vue-select': VueNextSelect,
     },
     data: () => ({
         workspace: {
@@ -91,11 +79,5 @@ export default {
         font-weight: normal;
         line-height: 20px;
         margin: 8px 0 16px 0;
-    }
-    .vue-select {
-        width: 100% !important;
-        border: 1.5px solid rgba(193, 163, 249, 0.25);
-        min-height: 20px;
-        background-color: #fafbfc;
     }
 </style>

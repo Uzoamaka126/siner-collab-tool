@@ -37,20 +37,10 @@
             <div class="flex align-center">
                 <span class="form__item mr--15 mb--0">
                     <label for="" class="label__sort">Sort by</label>
-                    <vue-select 
-                        class="text--sm"
-                        :options="[
-                            'Less Active', 
-                            'Most active', 
-                            'Alphabetically A - Z', 
-                            'Alphabetically A - Z'
-                            ]"
-                            v-model="sortValue"
-                    ></vue-select>
+                   
                 </span>
                 <span class="form__item">
                     <label for="" class="label__filter">Filter by</label>
-                    <vue-select class="text--sm" :options="['type']" v-model="filterValue"> </vue-select>
                 </span>
             </div>
         </div>
@@ -265,8 +255,5 @@ export default {
                 font-size: 14px;
             }
         }
-    }
-    .vue-select {
-        border: 1px solid rgba(194, 200, 212, 1);
     }
 </style>

@@ -19,17 +19,7 @@
                             </div>
                             <div class="form__item">
                                 <label for="workspaceTitle" class="form__label">Choose a workspace to put this board in</label>
-                                <vue-select 
-                                    class="vs--button vs--button__md mr--15" 
-                                    :options="createdWorkspaces"
-                                    label-by="name"  
-                                    v-model="board.workspace" 
-                                    :placeholder="'Select a workspace'" 
-                                    :clearable=false
-                                    :close-on-select=true
-                                    :style="vueSelectStyles"
-                                >
-                                </vue-select>
+                               
                             </div>
                             <div class="form__info--warning">
                                <p>You can only create 10 boards per workspace for a free plan.</p>
