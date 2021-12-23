@@ -43,18 +43,16 @@
                     </div>
 
                     <!-- other emails -->
-                    <div v-if="multipleEmailIsShown" class="row invoice__row">
-                      <div class="form__row block">
+                    <div v-if="multipleEmailIsShown" class="row invoice__row block">
+                      <div class="form__row">
                         <div class="form__row__left">
                           <label for class="positionRelative block">
                             Send to other emails
                           </label>
+                            <!-- v-model="otherCustomerEmails" -->
                           <input-multiple-emails
-                            v-model="otherCustomerEmails"
-                            placeholder="Enter customer email..."
                             :dropdown-fields="otherCustomersSearched" 
                             @typing="searchCustomers" 
-                            dropdown-width="400px"
                           />
                         </div>
                       </div>
@@ -474,13 +472,15 @@ export default {
        * After the initial state the toggle buttons will either set `toggleOtherEmails` to
        * true or false, In that case we just use that to determine the display.
        */
-      if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length > 0 ) {
-        return true;
-      }
-      else if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length <= 0 ) {
-        return false;
-      }
-      else return this.toggleOtherEmail;
+      // if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length > 0 ) {
+      //   return true;
+      // }
+      // else if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length <= 0 ) {
+      //   return false;
+      // }
+      // else return this.toggleOtherEmail;
+
+      return true;
 
     },
     
@@ -669,31 +669,23 @@ export default {
           { metaname: "country", metavalue: this.newCustomer.country },
         ]
       }
-
       this.enableSaveCustomerButton = false;
 
       this.$http.post( "v2/customers/create", customerData ).then(({ ok, data }) => {
         if( ok !== true ) return console.error( "Couldn't create new customer" );
-
         const customer = data.data;
 
         this.invoice.customer_email = customer.customer_email;
         this.invoice.customer = customer;
         
         toast.green( "Successfully added new customer" )
-        
         // close modal
         $('#invoice__add-new-customer-modal').modal('hide');
-
       })
       .catch( error => {
-
         toast.red( error.data.message );
-
         console.log( error.data.message );
-
       })
-
     },
 
     validateItems() {
@@ -715,7 +707,6 @@ export default {
       }
 
       const items = this.invoice.meta.items;
-
       items.map(( item, i ) => {
         const invalid = ( 
           item.item_name === "" || 
@@ -735,7 +726,6 @@ export default {
       });
 
       if( this.invoiceTotal <= 0 ) return false;
-
       return isValid;
 
     },
@@ -792,14 +782,11 @@ export default {
 
     saveInvoice() {
       const payload = this.createInvoicePayload();
-
       const isValid = this.validateItems();
+      
       if( isValid === false ) return undefined;
-
       this.requestIsDisabled = true;
-
       if( this.type.newInvoice ) {
-        
         return this.saveNewInvoice( payload ).then(({ ok, data }) => {
 
           if( ok === false || data.status === "error" ) return console.log( "Couldn't create invoice" );
@@ -807,46 +794,30 @@ export default {
           toast.green( "Invoice has been saved successfully" );
 
           this.requestIsDisabled = false;
-
           this.$router.push({ name: "invoices-list" });
 
         })
         .catch( error => {
-
           toast.red( error.data.message );
-
           this.requestIsDisabled = false;
-
           console.log( error.data.message );
-
         });
-
       }
-      else {
-       
+      else {    
         return this.saveExistingInvoice( payload ).then(({ ok, data }) => {
-        
           if( ok === false || data.status === "error" ) return console.log( "Couldn't create invoice" );
 
           // Show success toast.
           toast.green( "Invoice has been modified successfully" );
-
           this.$router.push({ name: "invoices-list" })
-
         })
         .catch( error => {
-          
           // Show error toast.
-          toast.red( error.data.message )
-
+          toast.red( error.data.message );
           console.log( "<<<", payload );
-
           console.log( error.data.message );
-
         });
-
       };
-      
     },
 
     sendInvoice() {
@@ -909,15 +880,15 @@ export default {
     },
 
     searchCustomers( query ) {
-      debounce(() => {
-        query = query.trim();
-        if( query.length < 1 ) return;
-        const url = createQueryString( "v2/customers/query", { q: query });
-        this.$http.get( url ).then(({ ok, data }) => {
-          const customers = data.data.customers;
-          this.otherCustomersSearched = arrayToObject( customers, "customer_email", "customer_fullname" );
-        });
-      })
+      // debounce(() => {
+      //   query = query.trim();
+      //   if( query.length < 1 ) return;
+      //   const url = createQueryString( "v2/customers/query", { q: query });
+      //   this.$http.get( url ).then(({ ok, data }) => {
+      //     const customers = data.data.customers;
+      //     this.otherCustomersSearched = arrayToObject( customers, "customer_email", "customer_fullname" );
+      //   });
+      // })
     },
 
     /**
