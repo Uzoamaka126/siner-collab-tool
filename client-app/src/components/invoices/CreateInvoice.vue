@@ -45,7 +45,7 @@
                     <!-- other emails -->
                     <div v-if="multipleEmailIsShown" class="row invoice__row block">
                       <div class="form__row">
-                        <div class="form__row__left">
+                        <div class="">
                           <label for class="positionRelative block">
                             Send to other emails
                           </label>
