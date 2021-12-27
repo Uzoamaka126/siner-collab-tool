@@ -37,8 +37,8 @@
                             </div>
                             <search-client-input v-model="selectedCustomer" :disabled="invoice.status !== 'draft'" />
                         </div>
-                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link text--sm mt--10">- Hide multiple emails</div>
-                        <div v-else @click="toggleOtherEmail = true" class="link text--sm mt-2">+ Send to multiple emails</div>
+                        <div v-if="multipleEmailIsShown" @click="toggleOtherEmail = false" class="link text--sm mt--10">- Don't mail to other clients</div>
+                        <div v-else @click="toggleOtherEmail = true" class="link text--sm mt-2">+ Mail to more than one client</div>
                       </div>
                     </div>
 
@@ -90,44 +90,42 @@
                           </div>
                         </div>
                     
-                        <div :key="i" v-for="(item, i) in invoice.meta.items"  class="invoice__calculate--wrap">
+                        <div :key="i" v-for="(item, i) in invoice.meta.items">
+                          <div class="invoice__calculate--wrap positionRelative" :class="i > 0 ? 'mt--20' : ''">
                             <div class="form__row__left" style="max-width: unset">
-                                <input v-model="item.item_name" type="text" class="form-control">
-                                <span class="form__errors" v-show="itemErrors[ i ]">
-                                    <span class="form__errors__icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20">
-                                            <path fill="#ED6347" stroke="none" fill-rule="evenodd" d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-8h2V6H9v4zm0 4h2v-2H9v2z" />
-                                        </svg>
-                                    </span>
-                                    <span class="form__errors__text">Please fill the invoice item, quantity and unit price</span>
-                                </span>
+                              <input v-model="item.item_name" type="text" class="form-control">
                             </div>
-                            
+                              
                             <div class="form__row__right invoice__calculate--row">
-                              <div class="invoice__calculate--row">
+                                <div class="invoice__calculate--row">
                                   <!-- Qty -->
                                   <div class="invoice__calculate--wrap invoice__quantity" style="width: fit-content !important; flex-basis: 35%;">
                                       <money v-model="item.item_quantity" @keydown.native="preventKeys" v-bind="config.number" class="form-control" style="width: 80%" spellcheck="false"></money>
                                   </div>
                                   <!-- Price -->
                                   <div class="invoice__price">
-                                      <money v-model="item.item_unit" @keydown.native="preventKeys" v-bind="moneyConfig" class="form-control" style="width: 80%" spellcheck="false"></money>                                                                    
+                                      <money v-model="item.item_price" @keydown.native="preventKeys" v-bind="moneyConfig" class="form-control" style="width: 80%" spellcheck="false"></money>                                                                    
                                   </div>
                                   <div class="invoice__amount">
-                                      <div class="p-t-10 m-b-30 textRight">{{ invoice.currency }}</div>
+                                      <div class="p-t-10 m-b-30 textRight text--sm">{{ invoice.currency }} {{ itemAmount(i) }}</div>
                                   </div>
-                              </div>
+                                </div>
                             </div>
-                            <!-- 
-                            Don't show the close button for the first element. 
-                            By default we want to keep at list one invoice item field in the item list.
-                            -->
-                            <div class="invoice__form__close-item" @click="removeInvoiceItem( i )" v-show="i > 0">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="24" height="24" rx="12" fill="#B9B9B9"/>
-                                    <path d="M11.0492 12.0001L6.92 7.87094C6.66346 7.61462 6.66346 7.19873 6.92 6.94241C7.17654 6.68586 7.59199 6.68586 7.84853 6.94241L11.9777 11.0716L16.1071 6.94241C16.3636 6.68586 16.7791 6.68586 17.0356 6.94241C17.2922 7.19873 17.2922 7.61462 17.0356 7.87094L12.9062 12.0001L17.0356 16.1293C17.2922 16.3856 17.2922 16.8015 17.0356 17.0578C16.9074 17.1859 16.7392 17.25 16.5714 17.25C16.4035 17.25 16.2354 17.1859 16.1071 17.0576L11.9777 12.9284L7.84853 17.0576C7.72026 17.1859 7.55215 17.25 7.38426 17.25C7.21637 17.25 7.04827 17.1859 6.92 17.0576C6.66346 16.8013 6.66346 16.3854 6.92 16.1291L11.0492 12.0001Z" fill="white"/>
+                            <div class="invoice__form__close-item" @click="removeInvoiceItem(i)" v-show="i > 0">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <rect width="24" height="24" rx="12" fill="#B9B9B9"/>
+                                  <path d="M11.0492 12.0001L6.92 7.87094C6.66346 7.61462 6.66346 7.19873 6.92 6.94241C7.17654 6.68586 7.59199 6.68586 7.84853 6.94241L11.9777 11.0716L16.1071 6.94241C16.3636 6.68586 16.7791 6.68586 17.0356 6.94241C17.2922 7.19873 17.2922 7.61462 17.0356 7.87094L12.9062 12.0001L17.0356 16.1293C17.2922 16.3856 17.2922 16.8015 17.0356 17.0578C16.9074 17.1859 16.7392 17.25 16.5714 17.25C16.4035 17.25 16.2354 17.1859 16.1071 17.0576L11.9777 12.9284L7.84853 17.0576C7.72026 17.1859 7.55215 17.25 7.38426 17.25C7.21637 17.25 7.04827 17.1859 6.92 17.0576C6.66346 16.8013 6.66346 16.3854 6.92 16.1291L11.0492 12.0001Z" fill="white"/>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="form__errors" v-show="checkIfInvoiceItemIsEmpty(i) === true">
+                            <span class="form__errors--icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20">
+                                    <path fill="#ED6347" stroke="none" fill-rule="evenodd" d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-8h2V6H9v4zm0 4h2v-2H9v2z" />
                                 </svg>
-                            </div>
+                            </span>
+                            <span class="form__errors__text">Please fill the invoice item, quantity and unit price</span>
+                          </div>
                         </div>
                     </div>
 
@@ -135,7 +133,7 @@
                     <div class="row block">
                         <div class="flex align-items-center form__row">
                           <div class="form__row__left">
-                              <span @click="addAnotherInvoiceItem" class="link">+ Add Item</span>
+                              <span :class="isInvoiceEmpty === true ? 'disabled' : ''" @click="addAnotherInvoiceItem" class="link" >+ Add Item</span>
                           </div>
                           <div class="form__row__right invoice-compile">
                               <div class="invoice__compile--row">
@@ -379,7 +377,7 @@ export default {
           invoice_notes: [{ notes_description: null, notes_name: "invoice_notes", notes_type: "invoice_notes_1", notes_value: "" }],
           send_via_whatsapp: 0,
           reminders: [],
-          items: [{ item_description: null, item_name: "", item_price: 0, item_quantity: 1, item_unit: 0 }],
+          items: [{ item_name: "", item_price: 0, item_quantity: 1, item_unit: 0 }],
         },
         status: "draft",
         title: "INVOICE_FROM_DASHBOARD"
@@ -446,7 +444,8 @@ export default {
       },
       remindersNames: [],
       reminderIsSet: false,
-      isShowAddTax: false   
+      isShowAddTax: false,
+      isInvoiceEmpty: false   
     }
   },
 
@@ -472,16 +471,13 @@ export default {
        * After the initial state the toggle buttons will either set `toggleOtherEmails` to
        * true or false, In that case we just use that to determine the display.
        */
-      // if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length > 0 ) {
-      //   return true;
-      // }
-      // else if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length <= 0 ) {
-      //   return false;
-      // }
-      // else return this.toggleOtherEmail;
-
-      return true;
-
+      if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length > 0 ) {
+        return true;
+      }
+      else if( this.toggleOtherEmail === "initial-state" && this.otherCustomerEmails.length <= 0 ) {
+        return false;
+      }
+      else return this.toggleOtherEmail;
     },
     
     moneyConfig() {
@@ -603,26 +599,51 @@ export default {
     itemAmount( i ) {
       const item = this.invoice.meta.items[ i ]
       const quantity = item.item_quantity;
-      const unit = item.item_unit;
+      const unit = item.item_price;
       const price = parseFloat( quantity ) * parseFloat( unit );
-      this.invoice.meta.items[ i ].item_price = price;
+      this.invoice.meta.items[i].item_unit = price;
       return price;
     },
     addAnotherInvoiceItem() {
-      const length = this.invoice.meta.items.length;
-      this.$set( this.invoice.meta.items, length, {
-        item_description: null,
+      // if (this.checkIfInvoiceItemIsEmpty() === true) {
+      //   this.isInvoiceEmpty = true;
+      //   return;
+      // } else {
+      this.invoice.meta.items = [...this.invoice.meta.items, {
         item_name: "",
         item_price: 0,
         item_quantity: 1,
         item_unit: 0,
-      })
+      }]
+      // }
     },
-    /**
-     * This will remove an invoice item from the list of items based on the index.
-     * if none is defined, it removes the last item.
-     */
+    checkIfInvoiceItemIsEmpty(item) {
+      let isEmpty = true;
+      const invoiceItem = this.invoice.meta.items[item];
+      // this.invoice.meta.items.map(item => {
+      const emptyItemFields = (
+        invoiceItem.item_name === "" ||
+        parseFloat(invoiceItem.item_price) <= 0 ||
+        invoiceItem.item_quantity < 1 ||
+        invoiceItem.item_unit <= 0
+      )
+
+      console.log(emptyItemFields);
+        
+      if(emptyItemFields) {
+        isEmpty = true
+      } else {
+          isEmpty = false;
+      }
+      // });
+      this.isInvoiceEmpty = isEmpty;
+      return isEmpty
+    },
     removeInvoiceItem( index = this.invoice.meta.items.length - 1 ) {
+      /**
+       * This will remove an invoice item from the list of items based on the index.
+       * if none is defined, it removes the last item.
+       */
       this.$delete( this.invoice.meta.items, index );
     },
     fetchCountries () {
@@ -711,7 +732,7 @@ export default {
         const invalid = ( 
           item.item_name === "" || 
           item.item_name === undefined ||
-          parseInt( item.item_price ) < 1 ||
+          parseFloat( item.item_price) < 1 ||
           parseInt( item.item_quantity ) < 1 ||
           parseInt( item.item_unit ) < 1
         )
@@ -942,9 +963,7 @@ export default {
   },
 
   watch: {
-
     invoiceSubTotal( newVal ) {
-
       if( newVal <= 0 ) return;
 
       const taxIsPercentage = this.invoice.meta.tax[ 0 ].tax_type === "percentage";
@@ -959,18 +978,9 @@ export default {
 
     ["invoiceTaxType.value"]( newVal ) {
       if( this.invoiceSubTotal <= 0 ) return;
-      this.invoiceTax = parseFloat( ( newVal / 100 ) * this.invoiceSubTotal ).toFixed(2);
+      this.invoiceTax = parseFloat( (newVal / 100 ) * this.invoiceSubTotal ).toFixed(2);
     },
-
-    ["shippingClient.name"]( newVal ) {
-      const newFee = this.shippingFees.filter( client => client.name === newVal )[ 0 ] || { name: "", fee: 0 };
-      this.invoiceShippingFee = { 
-        fee_description: newFee.name, 
-        fee_value: parseFloat( newFee.fee ), 
-        fee_name: "vat", 
-        fee_type: "flat", 
-      }
-    },
+    // checkIfInvoiceItemIsEmpty(val)
   }
 
 }
@@ -991,5 +1001,12 @@ export default {
   border-bottom: 1px solid #f5f5f5;
   margin-bottom: 1rem;
   padding-bottom: 1.5rem;
+}
+
+.invoice__form__close-item {
+  position: absolute;
+  top: 5px;
+  right: -40px;
+  z-index: 9000;
 }
 </style>
