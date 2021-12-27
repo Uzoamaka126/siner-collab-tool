@@ -118,14 +118,14 @@
                               </svg>
                             </div>
                           </div>
-                          <div class="form__errors" v-show="checkIfInvoiceItemIsEmpty(i) === true">
+                          <!-- <div class="form__errors" v-show="checkIfInvoiceItemIsEmpty(i) === true">
                             <span class="form__errors--icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20">
                                     <path fill="#ED6347" stroke="none" fill-rule="evenodd" d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-8h2V6H9v4zm0 4h2v-2H9v2z" />
                                 </svg>
                             </span>
                             <span class="form__errors__text">Please fill the invoice item, quantity and unit price</span>
-                          </div>
+                          </div> -->
                         </div>
                     </div>
 
@@ -627,8 +627,6 @@ export default {
         invoiceItem.item_quantity < 1 ||
         invoiceItem.item_unit <= 0
       )
-
-      console.log(emptyItemFields);
         
       if(emptyItemFields) {
         isEmpty = true
@@ -980,7 +978,6 @@ export default {
       if( this.invoiceSubTotal <= 0 ) return;
       this.invoiceTax = parseFloat( (newVal / 100 ) * this.invoiceSubTotal ).toFixed(2);
     },
-    // checkIfInvoiceItemIsEmpty(val)
   }
 
 }

@@ -4,38 +4,6 @@
         <div class="home__wrap">
             <div class="home__wrap--item">
                 <div class="header__item--wrap">
-                     <div class="list--view__type">
-                        <span class="text--xs text--upper text--color-normal mr--10">VIEW AS</span>
-                        <span class="positionRelative">
-                            <div class="view--type" @click="toggleDropdown()" :style="viewTypeStyles2">
-                                <span class="wrap--text">{{ workspaceDisplay }}</span>
-                                <icon-svg 
-                                    fill="rgba(107, 119, 140, 1)" 
-                                    class="nav__icon no--margin__xr" 
-                                    name="chevron-down" 
-                                    icon-position="left"
-                                    :width="'1rem'"
-                                />  
-                            </div>
-                            <!-- dropdown -->
-                            <div class="dropdown-custom dropdown-custom--lg" :class="{ 'active' : dropdownIsActive }" id="grid">
-                                <div class="dropdown-custom__content">
-                                    <div class="dropdown__content--group">
-                                        <span>
-                                            <div class="dropdown-custom__item__link">
-                                                <div @click="selectDisplayType('Tiles')">
-                                                    <p class="sub-title">As Tiles</p>
-                                                </div>
-                                                <div @click="selectDisplayType('List')">
-                                                    <p class="sub-title">As List</p>
-                                                </div>
-                                            </div>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </span>
-                    </div>
                     <div class="header">
                         <div style="display: flex; align-items: center">
                             <icon-svg 
@@ -56,8 +24,7 @@
                     </div>
                     <div class="home--content__wrap" :class="toggleWorkspaceDisplayClass">
                         <div 
-                            class="home--content--item"
-                            :class="{ 'mr--25': workspaceDisplay === 'Tiles'}" 
+                            class="home--content--item" 
                             v-for="(item, index) in computeCreatedWorkspaces" 
                             :key="index"
                         >
@@ -152,26 +119,14 @@ export default {
     data: () => ({
         showOnboardingModal: false,
         createdWorkspaces: createdWorkspaces,
-        dropdownIsActive: false,
-        workspaceDisplay: 'List'
     }),
     computed: {
-        viewTypeStyles2() {
-            return {
-                outline: this.dropdownIsActive ? '2px ridge rgba(224, 200, 234, 0.6)' : ''
-            }
-        },
          computeCreatedWorkspaces() {
             //  make sure that the list view only shows not more than 3 items and make them horizontally scrollable
             if(this.workspaceDisplay === 'List') {
                 return this.createdWorkspaces.slice(0, 2)
             } else {
                 return this.createdWorkspaces.slice(0, 7)
-            }
-        },
-        viewTypeStyles() {
-            return {
-                focus: this.dropdownIsActive
             }
         },
         toggleWorkspaceDisplayClass() {
@@ -196,12 +151,6 @@ export default {
                 this.showOnboardingModal = false 
             }
         },
-        toggleDropdown() {
-            this.dropdownIsActive = !this.dropdownIsActive
-        },
-        selectDisplayType(value) {
-            this.workspaceDisplay = value
-        }
     }
 }
 </script>

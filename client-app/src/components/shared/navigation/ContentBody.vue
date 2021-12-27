@@ -22,11 +22,6 @@ export default {
   created() {
     // console.log(this.$store.state);
   },
-  components: {
-    'home-view': HomeView,
-    'boards-view': BoardsView,
-    CreateWorkspace
-  },
   props: ["collapse"],
   data() {
     return {
@@ -47,9 +42,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .home {
-    height: 100%;
-  }
-</style>

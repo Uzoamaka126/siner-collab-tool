@@ -8,7 +8,7 @@
 import Tags from '../components/tags/TagsLayout.vue';
 
 export default {
-    name: 'Settings',
+    name: 'Tags',
     created() {
     },
     props: {
