@@ -3,9 +3,9 @@
     <div style="height: 100%; padding-right: 15px; padding-left: 15px; padding-top: 2rem">
       <div class="workspace__content--view">
         <router-view :key="$route.fullPath"></router-view>
-        <create-workspace 
+        <!-- <create-workspace 
           :showOnboardingModal="this.$store.state.showCreateWorkspaceModal"
-        ></create-workspace>
+        ></create-workspace> -->
       </div>
     </div>
   </div>
@@ -13,9 +13,6 @@
 
 <script>
 // @ is an alias to /src
-import HomeView from '../../../views/Home.vue'
-import BoardsView from '../../../views/Boards.vue'
-import CreateWorkspace from '../modals/CreateWorkspace.vue'
 
 export default {
   name: 'DashbaordContentBody',

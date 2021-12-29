@@ -237,10 +237,20 @@ p {
         padding-left: 100px;
         padding-right: 100px;
 
+        // &:not(.hide) {
+        //     opacity: 1;
+        // }
+
+        &.hide {
+            height: 0px;
+            transition: transform 0.3s ease-out;
+            transition: opacity .15s ease-in-out;
+        }
+
         &__wrap {
             margin-top: 1.5rem;
             border-radius: 4px;
-            // display: flex;
+            height: 100%;
             overflow: hidden;
             // flex-direction: column;
             position: relative;

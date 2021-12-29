@@ -5,27 +5,27 @@
                 <div class="panel__content">
                   <div style="margin-top: 1rem; padding-bottom: 3rem;">
                     <div class="row hidden-xs">  
-                        <div class="row__left">
-                            <div class="row__item">
-                                <div v-if="refNo" class="page-title__text">INVOICE #{{ refNo }}</div>
-                                <div v-else class="bold">Create Invoice</div>
-                            </div>
-                        </div>
-                        <!-- invoice button actions -->
-                        <div class="row__right">
-                            <div class="row__item positionRelative">
-                                <button @click="previewInvoice()" class="btn btn--secondary btn--sm">Preview Invoice</button>
-                            </div>
-                            <div class="row__item positionRelative">
-                                <button :disabled="requestIsDisabled" @click="saveInvoice()" class="btn btn--secondary btn--sm">Save Invoice</button>
-                            </div>
-                            <div class="row__item positionRelative">
-                                <button :disabled="requestIsDisabled" @click="sendInvoice()" class="btn btn--primary btn--sm">Send Invoice</button>
-                            </div>
-                            <div class="row__item positionRelative" v-show="refNo">
-                                <button :disabled="requestIsDisabled" @click="deleteInvoice()" class="btn btn--danger btn--sm">Delete Invoice</button>
-                            </div>
-                        </div>
+                      <div class="row__left">
+                          <div class="row__item">
+                              <div v-if="refNo" class="page-title__text">INVOICE #{{ refNo }}</div>
+                              <div v-else class="bold">Create Invoice</div>
+                          </div>
+                      </div>
+                      <!-- invoice button actions -->
+                      <div class="row__right">
+                          <div class="row__item positionRelative">
+                              <button @click="previewInvoice()" class="btn btn--secondary btn--sm">Preview Invoice</button>
+                          </div>
+                          <div class="row__item positionRelative">
+                              <button :disabled="requestIsDisabled" @click="saveInvoice()" class="btn btn--secondary btn--sm">Save Invoice</button>
+                          </div>
+                          <div class="row__item positionRelative">
+                              <button :disabled="requestIsDisabled" @click="sendInvoice()" class="btn btn--primary btn--sm">Send Invoice</button>
+                          </div>
+                          <div class="row__item positionRelative" v-show="refNo">
+                              <button :disabled="requestIsDisabled" @click="deleteInvoice()" class="btn btn--danger btn--sm">Delete Invoice</button>
+                          </div>
+                      </div>
                     </div>
 
                     <div class="row invoice__row block">

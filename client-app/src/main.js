@@ -2,23 +2,26 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css' 
+// import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
+// import 'vuestic-ui/dist/vuestic-ui.css' 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Draggable from "vuedraggable";
 import { PopoverRow, Calendar, DatePicker } from 'v-calendar';
 import { Money3Component } from 'v-money3';
+import VueChartkick from 'vue-chartkick'
+import 'chartkick/chart.js'
 
 window.moment = require('moment');
 
 createApp(App)
   .use(router)
   .use(store)
-  .use(VuesticPlugin)
+//   .use(VuesticPlugin)
+  .use(VueChartkick)
   .component('money', Money3Component)
-  .component('va-button', VaButton)
+//   .component('va-button', VaButton)
   .component('draggable', Draggable)
-  .component('va-button-dropdown', VaButtonDropdown)
+//   .component('va-button-dropdown', VaButtonDropdown)
   .component('popover-row', PopoverRow)
   .component('v-calendar', Calendar)
   .component('v-date-picker', DatePicker)

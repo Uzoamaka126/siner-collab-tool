@@ -1,5 +1,5 @@
 <template>
-  <span class="svg-icon" @click="$emit('click')" :style="styles">
+  <span class="svg-icon"  @click="$emit('click')" :style="styles">
     <keep-alive>
         <component :is="{ template: iconName }" :width="width" :height="height" :fill="fill" />
     </keep-alive>
