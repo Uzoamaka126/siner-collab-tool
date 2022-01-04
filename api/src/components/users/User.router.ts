@@ -21,4 +21,4 @@ router
   .get(fetchSingleUser)
   .delete(deleteAUser)
 
-export default router
+export default router;

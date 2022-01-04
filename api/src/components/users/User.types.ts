@@ -7,9 +7,10 @@ export interface IBaseUser {
     username: string;
     jwt?: string;
     bio?: string;
-    workspaces?: {}[];
-    activities?: {}[];
-    cards?: {}[];
+    projects?: {}[];
+    clients?: {}[];
+    invoices?: {}[];
+    tags?: {}[];
     createdAt: Date;
 }
 
@@ -25,9 +26,9 @@ export interface IUserInput {
     password: IBaseUser['password'];
     username: IBaseUser['username'];
     bio?: IBaseUser['bio'];
-    workspaces?: IBaseUser['workspaces'];
-    activities?: IBaseUser['activities'];
-    cards?: IBaseUser['cards'];
+    projects?: IBaseUser['projects'];
+    clients?: IBaseUser['clients'];
+    tags?: IBaseUser['tags'];
     createdAt: IBaseUser['createdAt'];
 }
 
@@ -36,13 +37,14 @@ export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
   /**
    * Virtual path with full name of the user
    */
-  fullName: string;
-  workspaces: Types.ObjectId[];
 //   workspaces: Types.ObjectId[] | WorkspaceDocument[];
   /**
    * Hashes and compares given string to the existing user password
    * @param password password to compare with currently saved password
    */
+
+  checkPassword(): Promise<void>;
+  
   comparePassword(password: string): Promise<boolean>;
   /**
    * Sends an email confirmation link to the user's email.
@@ -56,10 +58,6 @@ export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
    * Generates refresh token JWT for the user and stores it in the RefreshToken collection.
    */
   generateRefreshToken(): Promise<string>;
-}
-
-export interface IUserDocument extends IUserBaseDocument {
-//   workspaces: Types.Array<WorkspaceDocument["_id"]>;
 }
 
 export interface IUserCreateDataResponse {

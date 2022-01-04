@@ -1,7 +1,7 @@
 const User = require('./Users.model');
 
 // Find a single user
-export const getSingleUser = () => async (id: string) => {
+export const getSingleUser = async (id: string) => {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false

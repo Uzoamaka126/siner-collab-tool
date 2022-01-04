@@ -1,12 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require("dotenv").config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires;
+
+require("dotenv").config({ path: __dirname+'/../.env' });
+
 // dotenv.config({path:__dirname+'/.env'});
-// || 5000
 export const port = process.env.PORT || 5500;
 export const JWT_SECRET = process.env.JWT_SECRET || "nebula";
 export const NODE_ENV = process.env.NODE_ENV || "development";
 const { DB_CONNECTION, DB_CONNECTION_TEST } = process.env;
-export const mongoURI = process.env.DB_CONNECTION;
+export const DB_CONNECTION_STRING = DB_CONNECTION;
 export const SENDER_EMAIL = process.env.SENDER_EMAIL || "test@email.com";
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "12345";
 export const EMAIL_SECRET = process.env.EMAIL_SECRET || "bleep";
@@ -32,14 +33,14 @@ export const EMAIL_SECRET = process.env.EMAIL_SECRET || "bleep";
 
 
 if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
-  // mongoURI = DB_CONNECTION_TEST.split("issue_tracker_testing").join(
+  // DB_CONNECTION_STRING = DB_CONNECTION_TEST.split("issue_tracker_testing").join(
   //   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   //   "testing_db_" + process.env.JEST_WORKER_ID
   // );
-  // console.log(mongoURI);
+  // console.log(DB_CONNECTION_STRING);
 } else if (DB_CONNECTION) {
-  // mongoURI = DB_CONNECTION;
+  // DB_CONNECTION_STRING = DB_CONNECTION;
 }
 // console.log("db_connection", process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
-console.log("mongoURI -->:", mongoURI);
+console.log("DB_CONNECTION_STRING -->:", DB_CONNECTION_STRING);
 

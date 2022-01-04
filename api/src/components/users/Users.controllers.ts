@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { userServices, getAllUsers, updateASingleUser, removeAUser } from './Users.service';
+import { getSingleUser, getAllUsers, updateASingleUser, removeAUser } from './Users.service';
 
 export const fetchSingleUser = async (req: Request, res: Response) => {
   try {
-      const user = await userServices().getSingleUser(req.params.id)
+      const user = await getSingleUser(req.params.id)
 
       if(!user.isSuccessful === false) {
           return res.status(404).json(user)
@@ -35,8 +35,9 @@ export const fetchAllUsers = async (req: Request, res: Response) => {
 
 // update a user's details
 export const updateAUserController = async (req: Request, res: Response) => {
+  const { body, params: { id } } = req;
   try {
-    const response = await updateASingleUser(req.body, req.params.id);
+    const response = await updateASingleUser(body, id);
     return res.status(response.status).json(response)
   } catch (e) {
     console.error(e)

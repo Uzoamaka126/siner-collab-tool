@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://amaka:amaka@cluster0.mhvtp.mongodb.net/test",
+  "jwtSecret": "secret",
+  "jwtExpiration": 360000,
+  "port": 5500
+}

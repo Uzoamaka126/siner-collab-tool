@@ -1,5 +1,4 @@
 import { Schema, Model } from "mongoose";
-import { IBaseUser, IUserBaseDocument } from "./User.types";
 const bcrypt = require("bcryptjs");
 
 const mongoose = require("mongoose");
@@ -45,19 +44,32 @@ export const userSchema: Schema = new Schema({
       trim: true,
       maxlength: 1000
     },
-    workspaces: {
+    clients: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Workspaces',
+      ref: 'Clients',
       required: false
     },
-    activities: [{}],
-    cards: [{}],
+    projects: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Projects',
+      required: false
+    },
+    invoices: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Invoices',
+      required: false
+    },
+    tags: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Tags',
+      required: false
+    },
     createdAt: Date,
-    // createdBy: {
-    //     type: mongoose.SchemaTypes.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // },
+    createdBy: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User',
+        required: true
+    },
 },
 { timestamps: true },
 );

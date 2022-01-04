@@ -1,7 +1,7 @@
-import { IBaseUser } from './User.types';
+import { IUserBaseDocument } from './User.types';
 import { userSchema } from './Users.schema'
-import { model } from 'mongoose'
+import { model, Model } from 'mongoose'
 
-const User = model <IBaseUser >("User", userSchema)
+const User: Model<IUserBaseDocument>  = model("User", userSchema)
 
 module.exports = User;

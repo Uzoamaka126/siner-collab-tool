@@ -1,11 +1,10 @@
 // Entry point for all libraries
 // Import necessary configured ports here
-require("dotenv").config();
-
 import { NODE_ENV, port } from "./config/index";
-import { dbConnect } from "./utils/db/db";
+import { dbConnect } from "./config/db/db";
+import { routes } from "./router/index";
 import { urlencoded, json } from 'body-parser';
-import express, { Application } from "express"
+import express, { Application, RouterOptions } from "express"
 
 // import necessary packages
 const cookieParser = require("cookie-parser");
@@ -13,7 +12,9 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const app: Application = express();
-const routes = require('./router/index')
+// const routes = require('./router/index');
+
+dbConnect();
 // import error handler file
 
 app.set("port", port);
@@ -36,20 +37,27 @@ app.use(morgan('dev'));
 // }
 
 // use express on the router
-routes(app, port);
+routes(app);
 
 // setup the error handler here
 // if (NODE_ENV === "dev" || NODE_ENV === "test") {
 //   app.use(errorHandler());
 // }
 
-export const start = async () => {   
-    dbConnect();
-    app.listen(port, () => {
-      console.log("Router is running here -->", port);
-    })
-}
+// export const start = () => {   
+//     // dbConnect();
+//     app.listen(port, () => {
+//       console.log('__dirname', __dirname)
+//       console.log("Router is running here -->", port);
+//     })
+// }
 
-start();
+export const start = app.listen(port, () => {
+  console.log('__dirname', __dirname)
+  console.log("Router is running here -->", port);
+})
 
-export default app;
+// start();
+
+export default start;
+// export default app;

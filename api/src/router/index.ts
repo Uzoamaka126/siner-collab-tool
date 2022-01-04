@@ -4,11 +4,7 @@ import workspacesRouter from '../components/workspaces/Workspace.router';
 import authRouter from '../components/auth/Auth.router';
 import { authMiddleware } from '../utils/middleware/auth';
 
-function routes(router:any) {        
-    router.use("/api/users", usersRouter);
-    router.use("/api/auth", authMiddleware, authRouter);
-    router.use("/api/workspaces", workspacesRouter);
-
+export function routes(router: any) {  
     router.get("/", (req: Request, res: Response) => {
         res.status(200).json({
             message: "API is uppp 🚀"
@@ -19,6 +15,10 @@ function routes(router:any) {
     router.all("*", (_:any, res: Response) => {
         res.status(404).json({ message: "This URL cannot be found!" });
     });    
+
+    router.use("/api/users", usersRouter);
+    router.use("/api/auth", authMiddleware, authRouter);
+    router.use("/api/workspaces", workspacesRouter);
 }
 
-module.exports = routes;
+// module.exports = routes;
