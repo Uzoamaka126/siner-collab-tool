@@ -74,3 +74,25 @@
   2. Members
   3. Timeline
   4. Issues
+
+
+
+#   
+// "clean": "rimraf dist",
+ // "build": "tsc --build",
+    // "dev": "tsc -watch & nodemon .",
+    // "watch:build": "tsc --watch",
+    // "watch:server": "nodemon 'dist/index.js' tsc --watch 'dist'",
+    // "all": "npm-run-all --sequential clean build watch:server --print-label"
+
+
+    #     "watch-tsc": "tsc -w",
+
+# "tsc": "tsc",
+    # "build": "tsc --build",
+    # "watch:build": "tsc --watch",
+    # "deploy": "node dist/index.js",
+    # "watch-deploy": "nodemon dist/index.js",
+    # "server": "concurrently \"npm run watch:build\" \"npm run watch-deploy\"",
+    # "start": "npm run deploy",
+    # "heroku-postbuild": "npm run tsc"

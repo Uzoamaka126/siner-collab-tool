@@ -1,27 +1,18 @@
-import { generateToken, generateVerificationToken } from '../../utils/authValidator';
-import { IBaseUser, IBaseUserLogin } from '../users/User.types';
-const bcrypt = require("bcryptjs");
+import { checkPassword, generateToken, hashPassword } from '../../utils/authValidator';
+import { IUserInput, IBaseUserLogin } from '../users/User.types';
 const User = require('../users/Users.model');
 
 // Create a new user
-// Find all users
-const createNewUser = () => async (data: IBaseUser) => {
+export async function createNewUser (data: IUserInput) {
     try {
-         // hash password before storing in the DB
-        const hash = bcrypt.hashSync(data.password, 10);
-        data.password = hash;
-        data.jwt = generateVerificationToken(15, "12345abcde");
+        const updatedUserData = hashPassword(data)
         const newUser = await User.create({
-            fullName: data.fullName,
-            email: data.email,
-            password: data.password,
-            jwt: data.jwt,
+            fullName: updatedUserData.fullName,
+            email: updatedUserData.email,
+            password: updatedUserData.password,
+            jwt: updatedUserData.jwt,
             is_verified: true,
-            username: data.username,
-            bio: data.bio || null,
-            workspaces: null,
-            activities: null,
-            cards: null,
+            username: updatedUserData.username,
             createdAt: new Date()
         });
         const token = generateToken(newUser);
@@ -66,7 +57,7 @@ export async function loginAUser({ email, password }:IBaseUserLogin) {
             }
         }
         // check for password match
-        const passwordMatchResponse = await user.checkPassword(password);
+        const passwordMatchResponse = await checkPassword(user.password, password);
         if(!passwordMatchResponse) {
             return {
                 status: 401,
@@ -94,6 +85,6 @@ export async function loginAUser({ email, password }:IBaseUserLogin) {
 }
 
 
-export const authServices = () => ({
-  createNewUser: createNewUser()
-})
+// export const authServices = () => ({
+//   createNewUser: createNewUser()
+// })

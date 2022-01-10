@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const mongoose = require("mongoose");
 
-export const userSchema: Schema = new Schema({
+export const userSchema = new Schema({
     fullName: {
       type: String,
       required: true,
@@ -38,12 +38,6 @@ export const userSchema: Schema = new Schema({
       type: Boolean, 
       default: false 
     },
-    bio: {
-      type: String,
-      required: false,
-      trim: true,
-      maxlength: 1000
-    },
     clients: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Clients',
@@ -65,11 +59,6 @@ export const userSchema: Schema = new Schema({
       required: false
     },
     createdAt: Date,
-    createdBy: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'User',
-        required: true
-    },
 },
 { timestamps: true },
 );
@@ -82,16 +71,3 @@ export const userSchema: Schema = new Schema({
 //   ) {
 //     return this.findOne({ fullName }).exec()
 // }
-
-userSchema.methods.checkPassword = function(this:any, password: string) {
-  const passwordHash = this.password;
-
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, passwordHash, (err:any, same:any) => {
-      if (err) {
-        return reject(err)
-      }
-      resolve(same)
-    })
-  })
-}

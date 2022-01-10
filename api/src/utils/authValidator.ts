@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction,  } from 'express';
 const jwt = require("jsonwebtoken");
-import { IUserBaseDocument } from '../components/users/User.types';
+const bcrypt = require("bcryptjs");
+import { IUserBaseDocument, IUserInput } from '../components/users/User.types';
 const mongoose = require('mongoose');
 const User = require('../components/users/Users.model');
 
-export function generateVerificationToken(len: number, arr:string) {
+function generateVerificationToken(len: number, arr:string) {
   var result = "";
   for (var i = len; i > 0; i--) {
     result += arr[Math.floor(Math.random() * arr.length)];
@@ -68,5 +68,24 @@ export const checkForDuplicateUsernameDB = async (username: string) => {
       result = false
     }
     return result;
+}
+
+export function hashPassword (data: IUserInput): IUserInput {
+    // hash password before storing in the DB
+    const hashedPassword = bcrypt.hashSync(data.password, 10);
+    const hashedJwt = generateVerificationToken(15, "12345abcde");
+
+    return {...data, password: hashedPassword, jwt: hashedJwt}
+}
+
+export function checkPassword (currentPassword: string, argPassword: string) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(argPassword, currentPassword, (err:any, same:any) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve(same)
+    })
+  })
 }
 

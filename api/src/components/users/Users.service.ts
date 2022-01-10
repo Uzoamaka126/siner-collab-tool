@@ -154,7 +154,6 @@ export const removeAUser = async (id: string) => {
 export const userServices = () => ({
 //   removeAUser: removeAUser,
   updateASingleUser: updateASingleUser,
-  getSingleUser: getSingleUser(),
 })
 
 /* 

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires;
 
-require("dotenv").config({ path: __dirname+'/../.env' });
+require("dotenv").config();
 
 // dotenv.config({path:__dirname+'/.env'});
 export const port = process.env.PORT || 5500;
@@ -30,8 +30,6 @@ export const EMAIL_SECRET = process.env.EMAIL_SECRET || "bleep";
 
   }
 
-
-
 if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
   // DB_CONNECTION_STRING = DB_CONNECTION_TEST.split("issue_tracker_testing").join(
   //   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -42,5 +40,5 @@ if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
   // DB_CONNECTION_STRING = DB_CONNECTION;
 }
 // console.log("db_connection", process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
-console.log("DB_CONNECTION_STRING -->:", DB_CONNECTION_STRING);
+console.log("DB_CONNECTION_STRING -->:", DB_CONNECTION_STRING, process.env.DB_CONNECTION);
 

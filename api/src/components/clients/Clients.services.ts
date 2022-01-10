@@ -1,5 +1,5 @@
 const Client = require('./Clients.model');
-import { userServices } from '../users/Users.service';
+import { getSingleUser } from '../users/Users.service';
 import { 
     IClientRequestPayload, 
     IClientSingleRequestPayload, 
@@ -54,7 +54,7 @@ export async function getUserClients(id: string) {
 
 export async function addNewClient(data: IClientRequestPayload) {
     const creatorId = data.user_id;
-    const getCreatorDetails = await userServices().getSingleUser(creatorId);
+    const getCreatorDetails = await getSingleUser(creatorId);
     console.log(getCreatorDetails);
     
     if(!getCreatorDetails.isSuccessful) {

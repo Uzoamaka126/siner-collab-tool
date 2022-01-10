@@ -7,14 +7,14 @@ export const checkPasswordLength = (req: Request, res: Response, next: NextFunct
     if(req.body.password && typeof req.body.password !== 'string') {
         return res.status(201).json({
             status: 200,
-            isSuccessful: true,
+            isSuccessful: false,
             message: "Password should be a string",
             data: null
         })
     } else if (req.body.password && req.body.password.length < 8) {
         return res.status(201).json({
             status: 200,
-            isSuccessful: true,
+            isSuccessful: false,
             message: "Password length should be up to 8 characters",
             data: null
         })
@@ -54,7 +54,6 @@ export const checkForDuplicateEmails = async (req: Request, res: Response, next:
     } else {
         next();
     }
-    
 }
 
 export const checkForDuplicateUsername = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,6 +1,5 @@
 const Workspace = require('./Workspace.model');
-import { userServices } from '../users/Users.service';
-import { IBaseWorkspace } from './Workspace.types';
+import { getSingleUser } from '../users/Users.service';
 
 // Find all users
 export async function getAllWorkspaces() {
@@ -27,7 +26,7 @@ export async function getAllWorkspaces() {
 
 export async function addNewWorkspace(data: any) {
     const creatorId = data.user_id;
-    const getCreatorDetails = await userServices().getSingleUser(creatorId);
+    const getCreatorDetails = await getSingleUser(creatorId);
     console.log(getCreatorDetails);
     
     if(!getCreatorDetails) {

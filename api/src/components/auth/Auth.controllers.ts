@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { IUserInput } from '../users/User.types';
-import { authServices, loginAUser } from './Auth.services';
+import { createNewUser, loginAUser } from './Auth.services';
 
 export const addNewUser = async (req: Request, res: Response) => {
   const newUser:IUserInput = req.body;
 
   try {
-    const doc = await authServices().createNewUser(newUser)
-    return res.status(201).json(doc)
+    const doc = await createNewUser(newUser)
+    return res.status(doc.status).json(doc)
   } catch (e) {
     console.error("error for controllers:", e)
     return res.status(400).json(e).end()

@@ -6,12 +6,11 @@ export interface IBaseUser {
     password: string;
     username: string;
     jwt?: string;
-    bio?: string;
-    projects?: {}[];
-    clients?: {}[];
-    invoices?: {}[];
-    tags?: {}[];
-    createdAt: Date;
+    // projects?: {}[];
+    // clients?: {}[];
+    // invoices?: {}[];
+    // tags?: {}[];
+    createdAt?: Date;
 }
 
 export interface IBaseUserLogin {
@@ -25,11 +24,7 @@ export interface IUserInput {
     email: IBaseUser['email'];
     password: IBaseUser['password'];
     username: IBaseUser['username'];
-    bio?: IBaseUser['bio'];
-    projects?: IBaseUser['projects'];
-    clients?: IBaseUser['clients'];
-    tags?: IBaseUser['tags'];
-    createdAt: IBaseUser['createdAt'];
+    jwt: IBaseUser['jwt'];
 }
 
 export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
@@ -44,7 +39,7 @@ export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
    */
 
   checkPassword(): Promise<void>;
-  
+
   comparePassword(password: string): Promise<boolean>;
   /**
    * Sends an email confirmation link to the user's email.

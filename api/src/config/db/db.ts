@@ -1,6 +1,6 @@
 import { DB_CONNECTION_STRING } from "../index";
 import config from "config";
-import { connect, ConnectOptions, ConnectionOptions } from "mongoose";
+import { connect } from "mongoose";
 import app from '../../index'
 
 // export const dbConnect = () => {
@@ -31,9 +31,13 @@ import app from '../../index'
 
 export const dbConnect = async () => {
   try {
-    const mongoURI: string = config.get("mongoURI");
-    const options: ConnectionOptions = {
-    //   useNewUrlParser: true,
+    // const mongoURI: string = config.get("mongoURI");
+   const mongoURI: string = process.env.DB_CONNECTION || DB_CONNECTION_STRING;
+   console.log(mongoURI);
+   
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
     //   useUnifiedTopology: true,

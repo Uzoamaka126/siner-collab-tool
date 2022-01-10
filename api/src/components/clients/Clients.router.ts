@@ -1,4 +1,5 @@
 const express = require('express');
+import { Router } from 'express';
 import { 
   fetchUserClients, 
   createANewClient,  
@@ -7,7 +8,7 @@ import {
   removeSingleClient,
 } from './Clients.controllers';
 
-const router = express.Router();
+const router: Router = express.Router();
 // @route   GET api/clients
 // @desc    Get authenticated user given the token
 // @access  Private
