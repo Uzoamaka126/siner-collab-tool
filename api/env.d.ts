@@ -1,6 +1,6 @@
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends Dictionary<string> {
+    interface ProcessEnv {
       JWT_SECRET?: string;
       NODE_ENV: "test" | "production" | "development";
       DB_CONNECTION_TEST?: string;
@@ -9,7 +9,7 @@ declare global {
       EMAIL_PASSWORD?: string;
       EMAIL_SECRET?: string;
       CLIENT_URL?: string;
-      PORT?: number;
+      PORT?: string;
     }
   }
 }

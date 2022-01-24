@@ -1,37 +1,12 @@
+require("dotenv").config();
+
 import { DB_CONNECTION_STRING } from "../index";
 import config from "config";
-import { connect } from "mongoose";
-import app from '../../index'
-
-// export const dbConnect = () => {
-//     console.log(DB_CONNECTION_STRING);
-//     // const mongoURI: string = DB_CONNECTION_STRING;
-//     const mongoURI: string = config.get("mongoURI");
-//     const options: ConnectionOptions = {
-//         // useNewUrlParser: true, 
-//         // useUnifiedTopology: true,
-//         useCreateIndex: true,
-//         useFindAndModify: false,
-//         connectTimeoutMS: 1000
-//     };
-    
-//     return connect(mongoURI, options)
-//     .then((conn: any) => {
-//         app.set("db_connection", conn);
-//         console.log(
-//         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-//         `MongoDB connection with url successful @: ${conn.connection.host}:${conn.connection.port}`
-//         );
-//     })
-//     .catch((err: {}) => {
-//         console.log(err, "This shouldn't be happening", DB_CONNECTION_STRING);
-//         process.exit(1);
-//     });
-// }
+// import { connect } from "mongoose";
+const mongoose = require('mongoose');
 
 export const dbConnect = async () => {
   try {
-    // const mongoURI: string = config.get("mongoURI");
    const mongoURI: string = process.env.DB_CONNECTION || DB_CONNECTION_STRING;
    console.log(mongoURI);
    
@@ -40,12 +15,13 @@ export const dbConnect = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-    //   useUnifiedTopology: true,
+      connectTimeoutMS: 1000
     };
-    await connect(mongoURI, options);
+    await mongoose.connect(mongoURI, options);
     console.log("MongoDB Connected...");
   } catch (err) {
     console.error(err.message);
+    console.log('Connected to Database')
     // Exit process with failure
     process.exit(1);
   }

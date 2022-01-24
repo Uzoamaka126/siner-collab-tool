@@ -15,6 +15,9 @@ export const createANewClient = async (req: Request, res: Response) => {
 
   try {
     const response = await addNewClient(newUser);
+
+    console.log(response);
+    
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)

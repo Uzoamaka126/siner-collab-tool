@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires;
 
-require("dotenv").config();
+// require("dotenv").config({path:__dirname+'/.env'});
+const dotenv = require("dotenv");
+dotenv.config();
 
-// dotenv.config({path:__dirname+'/.env'});
 export const port = process.env.PORT || 5500;
 export const JWT_SECRET = process.env.JWT_SECRET || "nebula";
 export const NODE_ENV = process.env.NODE_ENV || "development";
@@ -40,5 +41,5 @@ if (NODE_ENV === "test" && DB_CONNECTION_TEST) {
   // DB_CONNECTION_STRING = DB_CONNECTION;
 }
 // console.log("db_connection", process.env.DB_CONNECTION, process.env.JWT_SECRET, process.env.PORT);
-console.log("DB_CONNECTION_STRING -->:", DB_CONNECTION_STRING, process.env.DB_CONNECTION);
+console.log("DB_CONNECTION_STRING -->:", DB_CONNECTION_STRING);
 

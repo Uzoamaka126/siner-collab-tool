@@ -7,7 +7,7 @@ export interface IBaseClient {
 }
 
 export interface IClientRequestPayload {
-    title: IBaseClient['name'];
+    name: IBaseClient['name'];
     user_id: IBaseClient['user_id']; 
     // user_id: string; 
 }

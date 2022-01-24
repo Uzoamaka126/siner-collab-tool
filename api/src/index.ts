@@ -2,7 +2,6 @@
 // Import necessary configured ports here
 import { NODE_ENV, port } from "./config/index";
 import { dbConnect } from "./config/db/db";
-// import { routes } from "./router/index";
 import { urlencoded, json } from 'body-parser';
 import express, { Application, RouterOptions } from "express"
 
@@ -45,17 +44,12 @@ routes(app);
 // }
 
 export const start = () => {   
-    // dbConnect();
+    dbConnect();
     app.listen(port, () => {
       console.log('__dirname', __dirname)
       console.log("Router is running here -->", port);
     })
 }
-
-// export const start = app.listen(port, () => {
-//   console.log('__dirname', __dirname)
-//   console.log("Router is running here -->", port);
-// })
 
 start();
 

@@ -55,7 +55,7 @@ export async function getUserClients(id: string) {
 export async function addNewClient(data: IClientRequestPayload) {
     const creatorId = data.user_id;
     const getCreatorDetails = await getSingleUser(creatorId);
-    console.log(getCreatorDetails);
+    // console.log("getCreatorDetails", getCreatorDetails);
     
     if(!getCreatorDetails.isSuccessful) {
         return {
@@ -65,14 +65,13 @@ export async function addNewClient(data: IClientRequestPayload) {
             data: {}
         }
     }
-    try {
+    try {        
         const client = await Client
             .create({
-                title: data.title,
+                name: data.name,
                 user_id: data.user_id
             })
-            console.log(client);
-        console.log(client);
+            // console.log(client);
         
         return {
             status: 201,
@@ -81,7 +80,7 @@ export async function addNewClient(data: IClientRequestPayload) {
             data: client
         }
     } catch(err) {
-        console.error(err)
+        console.error(err);
         return {
             status: 400,
             isSuccessful: false,

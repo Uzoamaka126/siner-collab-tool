@@ -7,11 +7,17 @@
         {
             "name": "Launch Program",
             "program": "${workspaceFolder}/api/src/index.ts",
+            // "program": "${workspaceFolder}/api/dist/index.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"
+            "type": "pwa-node",
+            "env": {
+                "NODE_ENV": "development",
+                "port": "5500"
+            },
+            "envFile": "${workspaceFolder}/api/.env",
         },
         {
             "type": "pwa-node",
