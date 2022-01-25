@@ -1,5 +1,4 @@
 import { Schema, Model } from "mongoose";
-const bcrypt = require("bcryptjs");
 
 const mongoose = require("mongoose");
 

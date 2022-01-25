@@ -3,6 +3,7 @@ import usersRouter from "../components/users/User.router";
 import clientsRouter from '../components/clients/Clients.router';
 import authRouter from '../components/auth/Auth.router';
 import { authMiddleware } from '../utils/middleware/auth';
+import { validateUserToken } from '../utils/middleware/validateToken';
 
 function routes(router: any) {  
     router.get("/api/", (req: Request, res: Response) => {
@@ -21,9 +22,9 @@ function routes(router: any) {
          router.use(path, function)
     */
 
-    router.use("/api/users", usersRouter);
+    router.use("/api/users", validateUserToken, usersRouter);
     router.use("/api/auth", authMiddleware, authRouter);
-    router.use("/api/clients", clientsRouter);
+    router.use("/api/clients", validateUserToken, clientsRouter);
 }
 
 module.exports = routes;

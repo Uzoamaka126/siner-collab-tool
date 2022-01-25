@@ -1,4 +1,4 @@
-import { checkPassword, generateToken, hashPassword } from '../../utils/authValidator';
+import { checkPassword, generateToken, hashPassword } from '../../utils/validators/authDb';
 import { IUserInput, IBaseUserLogin } from '../users/User.types';
 const User = require('../users/Users.model');
 

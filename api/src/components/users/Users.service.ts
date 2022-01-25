@@ -1,4 +1,5 @@
 const User = require('./Users.model');
+// import {User} from './Users.model'
 
 // Find a single user
 export const getSingleUser = async (id: string) => {
@@ -155,17 +156,3 @@ export const userServices = () => ({
 //   removeAUser: removeAUser,
   updateASingleUser: updateASingleUser,
 })
-
-/* 
-{
-    "fullName": "Uzoamaka Test",
-    "email": "test@gmail.com",
-    "password": "test",
-    "username": "Test username",
-    "bio": "Test bip",
-    "workspaces": null,
-    "activities": null,
-    "cards": null,
-    "createdAt": "2017-05-15T15:12:59.152Z"
-}
-*/

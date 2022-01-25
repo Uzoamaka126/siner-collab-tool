@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction,  } from 'express';
-import { checkForDuplicateEmailsDB, checkForDuplicateUsernameDB } from '../authValidator';
-import { isEmpty } from '../isEmpty';
+import { checkForDuplicateEmailsDB, checkForDuplicateUsernameDB } from '../validators/authDb';
+import { isEmpty } from '../validators/inputValidator';
 import { ErrorTypes } from '../types';
 
 export const checkPasswordLength = (req: Request, res: Response, next: NextFunction) => {

@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-import { IUserBaseDocument, IUserInput } from '../components/users/User.types';
+import { IUserBaseDocument, IUserInput } from '../../components/users/User.types';
 const mongoose = require('mongoose');
-const User = require('../components/users/Users.model');
+const User = require('../../components/users/Users.model');
 
 function generateVerificationToken(len: number, arr:string) {
   var result = "";
@@ -88,4 +88,6 @@ export function checkPassword (currentPassword: string, argPassword: string) {
     })
   })
 }
+
+
 
