@@ -53,11 +53,14 @@ export const fetchUserClients = async (req: Request, res: Response) => {
   }
 }
 
-// Find a single client by User and client ID
+// Find a single client by client id
 export const fetchSingleClient = async (req: Request, res: Response) => {
-  const id = req.params.id
+  const id = req.params.id;
+
   try {
     const response = await getSingleClientById(id);
+    console.log(response);
+    
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

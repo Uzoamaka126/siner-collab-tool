@@ -60,7 +60,6 @@ export const checkForDuplicateUsernameDB = async (username: string) => {
         result = null;
       }
     });
-    console.log(response instanceof mongoose.Document);
     if (response instanceof mongoose.Document === true) {
       // doc may be null if no document is matched
       result = true;

@@ -4,7 +4,6 @@ const { JWT_SECRET } = require("../../config/index");
 
 export function validateUserToken (req: Request, res: Response, next: NextFunction) {
   const token = req.headers["authorization"];
-  console.log(token);
   
   if(token) {
     jwt.verify(token, JWT_SECRET, (err: Error, decoded: any) => {

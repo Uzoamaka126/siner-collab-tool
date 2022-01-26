@@ -6,6 +6,7 @@ import {
   fetchAllClients,
   updateSingleClient,
   removeSingleClient,
+  fetchSingleClient
 } from './Clients.controllers';
 
 const router: Router = express.Router();
@@ -19,13 +20,16 @@ router
   .get(fetchAllClients)
   .post(createANewClient)
 
+router
+.route('/users/:id')
+  .get(fetchUserClients)
 // /api/clients/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
 // @desc    Login user and get token
 // @access  Public
 router
 .route('/:id')
-  .get(fetchUserClients)
+  .get(fetchSingleClient)
   .patch(updateSingleClient)
   .delete(removeSingleClient)
 

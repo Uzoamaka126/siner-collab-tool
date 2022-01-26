@@ -1,5 +1,6 @@
 const Client = require('./Clients.model');
 import { getSingleUser } from '../users/Users.service';
+const User = require('../users/Users.model');
 import { 
     IClientRequestPayload, 
     IClientSingleRequestPayload, 
@@ -29,9 +30,28 @@ export async function getAllClients(): Promise<IClientFetchAllResponse> {
     }
 }
 
+// Find a list of clients belonging to a specific user
 export async function getUserClients(id: string) {
      try {
-        //  select clients that match with the passed in user ID
+         if(id.length < 24) {
+            return {
+                status: 400,
+                isSuccessful: true,
+                message: "This id does not exist!",
+                data: null
+            }
+         }
+        //  get user
+        const user = await User.findOne({ _id: id }).lean().exec()
+
+        if (!user) {
+            return {
+                status: 404,
+                isSuccessful: false,
+                message: "This user does not exist!",
+            }
+        }
+        //  select clients that match with the passed in user id
         const clients = await Client
             .find({ user_id:  id })
             .lean() // to get plain javascript objects
@@ -43,12 +63,12 @@ export async function getUserClients(id: string) {
             data: clients
         }
     } catch(err) {
-        console.error(err)
-        return {
-            status: err.status,
-            isSuccessful: false,
-            message: "An error occured",
-        }
+        throw new Error(err);
+        // return {
+        //     status: err.status,
+        //     isSuccessful: false,
+        //     message: "An error occured",
+        // }
     }
 }
 
@@ -91,19 +111,15 @@ export async function addNewClient(data: IClientRequestPayload) {
 
 export async function getSingleClientById(id: string) {
     try {
-        // do a check to see if an id is passed as an argument.
-        // If no id, then return false
-        if(!id) {
+        if (!id || typeof id !== 'string') {
             return {
                 status: 401,
                 isSuccessful: false,
-                message: "Workspace Id is required!",
+                message: "string id is required!",
             }
         }
-        // else continue
         const client = await Client.findOne({ _id: id }).lean().exec();
         console.log(client);
-
 
         // if no client was found on the db, then return false
         if(!client) {
@@ -205,33 +221,3 @@ export async function deleteSingleClientById(id:string) {
     }
   }
 }
-
-/* 
-{
-    "title": "New Test workspace One",
-    "type": "Marketing",
-    "description": "This is a space for the development of...",
-    "members": [
-        {
-           "_id": "610d4bb1815febe72d4ef5e2",
-            "fullName": "Uzoamaka Test",
-            "email": "test2@gmail.com",
-            "username": "Test username two",
-            "createdAt": "2021-08-06T14:48:17.229Z",
-            "updatedAt": "2021-08-06T14:48:17.229Z",
-            "status": "admin"
-        }
-    ],
-    "activities": null,
-    "boards": null,
-    "cards": null,
-   "createdBy": {
-        "fullName": "Uzoamaka Test",
-        "email": "test2@gmail.com",
-        "username": "Test username two"
-    }
-}
-
-
-
-*/
