@@ -5,7 +5,7 @@ import {
   fetchSingleWorkspace,
   updateASingleWorkspace,
   deleteASingleWorkspace
-} from './Workspace.controllers';
+} from './Invoices.controllers';
 
 const router = express.Router();
 

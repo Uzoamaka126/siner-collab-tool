@@ -5,8 +5,8 @@ import {
   getSingleWorkspace, 
   editSingleWorkspace,
   removeSingleWorkspace
-} from './Workspace.services';
-import { IWorkspaceInput } from './Workspace.types';
+} from './Invoices.services';
+import { IWorkspaceInput } from './Invoices.types';
 
 // Controller to create a new workspace
 export const createANewWorkspace = async (req: Request, res: Response) => {

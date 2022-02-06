@@ -40,12 +40,12 @@ export const fetchUserTags = async (req: Request, res: Response) => {
 
 // Update a single tag
 export const updateTag = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const _id = req.params.id;
   if(!req.body.name) return res.status(400).send({ error: "An error occurred!" }).end()
 
   const data = {
     name: req.body?.name,
-    id
+    _id
   }
   try {
     const response = await TagControllers.editTagById(data);
