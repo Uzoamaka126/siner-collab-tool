@@ -72,8 +72,14 @@ export const fetchSingleClient = async (req: Request, res: Response) => {
 // Update a single workspace
 export const updateSingleClient= async (req: Request, res: Response) => {
   const id = req.params.id;
+  if(!req.body.name) return res.status(400).send({ error: "An error occurred!" }).end()
+
+  const data = {
+    name: req.body?.name,
+    id
+  }
   try {
-    const response = await editSingleClientById(req.body, id);
+    const response = await editSingleClientById(data);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

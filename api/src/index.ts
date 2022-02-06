@@ -28,7 +28,7 @@ app.use(helmet());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
-// app.use(express.json());
+app.use(express.json());
 app.use(morgan('dev'));
 
 // if (!(NODE_ENV === "development" || NODE_ENV === "test")) {
@@ -46,12 +46,12 @@ routes(app);
 export const start = () => {   
     dbConnect();
     app.listen(port, () => {
-      console.log('__dirname', __dirname)
+      // console.log('__dirname', __dirname)
       console.log("Router is running here -->", port);
     })
 }
 
 start();
 
-export default start;
+// export default start;
 // export default app;

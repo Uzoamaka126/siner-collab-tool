@@ -30,7 +30,7 @@ router
 router
 .route('/:id')
   .get(fetchSingleClient)
-  .patch(updateSingleClient)
+  .put(updateSingleClient)
   .delete(removeSingleClient)
 
 export default router;

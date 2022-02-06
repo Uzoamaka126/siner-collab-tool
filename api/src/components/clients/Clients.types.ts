@@ -18,6 +18,17 @@ export interface IClientSingleRequestPayload {
     // user_id: string; 
 }
 
+export interface IClientPayload {
+    id: Types.ObjectId;
+    name: string;
+}
+
+export interface IClientProjectsPayload {
+    id: Types.ObjectId;
+    project_id: string;
+    // user_id: string; 
+}
+
 /** 
  * The IWorkspaceBaseDocument is for additional properties or methods you want to add to a schema
  *  **/

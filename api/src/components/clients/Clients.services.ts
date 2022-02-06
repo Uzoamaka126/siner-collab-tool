@@ -4,7 +4,8 @@ const User = require('../users/Users.model');
 import { 
     IClientRequestPayload, 
     IClientSingleRequestPayload, 
-    IClientFetchAllResponse 
+    IClientFetchAllResponse, 
+    IClientPayload
 } from './Clients.types';
 
 // Find all users
@@ -89,7 +90,8 @@ export async function addNewClient(data: IClientRequestPayload) {
         const client = await Client
             .create({
                 name: data.name,
-                user_id: data.user_id
+                user_id: data.user_id,
+                projects: []
             })
             // console.log(client);
         
@@ -146,26 +148,41 @@ export async function getSingleClientById(id: string) {
     }
 }
 
-export async function editSingleClientById(title: string, id: string) {
+export async function editSingleClientById(data: IClientPayload) {
+    /* 
+     "status": 200,
+    "isSuccessful": true,
+    "message": "Successful update!",
+    "data": {
+        "_id": "61edbfc4124d41e1a4fc8a36",
+        "name": "Test update name 2",
+        "user_id": "61edbd9ca3d644df266ba764",
+        "createdAt": "2022-01-23T20:51:16.817Z",
+        "updatedAt": "2022-02-06T12:17:28.277Z",
+        "__v": 0
+    } 
+    */
+
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
-        if(!id) {
+        if(!data.id) {
             return {
                 status: 401,
                 isSuccessful: false,
                 message: "Client Id is required!",
             }
         }
+
+        console.log(data);
+        const filter = { _id: data.id, };
+        const update = { name: data.name };
         // else continue
         const updatedClient = await Client
-            .findOneAndUpdate(
-                { _id: id, title: title },
-                { new: true }
-            )
+            .findOneAndUpdate(filter, update, { new: true})
             .exec()
             
-        console.log(updatedClient);
+        // console.log(updatedClient);
         
         return {
             status: 200,
@@ -195,24 +212,24 @@ export async function deleteSingleClientById(id:string) {
     const removedClient = await Client.findOneAndRemove({ _id: id })
 
     console.log(removedClient);
-    
 
-    if (!removedClient) {
+    if (!removedClient || removedClient === null) {
       return {
         status: 400,
         isSuccessful: false,
         message: "client not found",
        }
     } else {
-        return {
-            status: 200,
-            isSuccessful: true,
-            message: "client successfully removed!",
-            data: removedClient
-        }
+    return {
+        status: 200,
+        isSuccessful: true,
+        message: "client successfully deleted!",
+        data: removedClient
+    }
     }
   } catch (err) {
-    console.error(err)
+    console.error(err);
+    // throw new Error(err);
     return {
         status: 400,
         isSuccessful: false,
@@ -221,3 +238,41 @@ export async function deleteSingleClientById(id:string) {
     }
   }
 }
+
+// projects
+// export async function getProjects(data: ) {
+//     try {
+//         if (!data.id || typeof data.id !== 'string') {
+//             return {
+//                 status: 401,
+//                 isSuccessful: false,
+//                 message: "string id is required!",
+//             }
+//         }
+//         const client = await Client.findOne({ _id: data.id }).lean().exec();
+//         console.log(client);
+
+//         // if no client was found on the db, then return false
+//         if(!client) {
+//             return {
+//                 status: 404,
+//                 isSuccessful: false,
+//                 message: "Client not found!",
+//             }
+//         } else {
+//             return {
+//                 status: 200,
+//                 isSuccessful: true,
+//                 message: "Operation successful!",
+//                 data: client
+//             }
+//         }
+//     } catch(err) {
+//         console.error(err)
+//         return {
+//             status: 400,
+//             isSuccessful: false,
+//             message: "An error occurred",
+//         }
+//     }
+// }
