@@ -1,20 +1,28 @@
-import { Document, Types } from "mongoose"
+import { Document, Types } from "mongoose";
 
 // Define a document interface for its related moongoose schema, in this case, the Client schema
-export interface IBaseClient {
+export interface IBaseTag {
     name: string;
+    user_id: string
 }
 
 /** 
  * The IWorkspaceBaseDocument is for additional properties or methods you want to add to a schema
  *  **/
-export interface IClientDocument extends IBaseClient, Document<Types.ObjectId> {
+export interface ITagDocument extends IBaseTag, Document<Types.ObjectId> {
   _id: Types.ObjectId;
 }
 
-export interface IUserCreateDataResponse {
+export interface ITagsResponsePayload {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IBaseClient
+  data?: ITagDocument[]
+}
+
+export interface ITagResponsePayload {
+  status: number;
+  isSuccessful: boolean;
+  message: string;
+  data?: ITagDocument
 }
