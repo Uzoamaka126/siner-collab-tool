@@ -24,7 +24,7 @@ export default {
     return {
       collapseProp: this.collapse,
       bodyStyles: {
-        maxWidth: '1200px',
+        maxWidth: '95%',
         marginLeft: 'auto',
         marginRight: 'auto',
         transition: 'all .3s ease-out'
