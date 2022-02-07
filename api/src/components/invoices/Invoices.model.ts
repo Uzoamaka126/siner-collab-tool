@@ -1,7 +1,7 @@
-import { IBaseWorkspace } from './Invoices.types';
-import { workspaceSchema } from './Invoices.schema'
+import { IInvoiceBaseDocument } from './Invoices.types';
+import { invoiceSchema } from './Invoices.schema'
 import { model } from 'mongoose'
 
-const Workspace = model <IBaseWorkspace >("Workspace", workspaceSchema)
+const Invoice = model <IInvoiceBaseDocument >("Invoice", invoiceSchema)
 
-module.exports = Workspace;
+module.exports = Invoice;

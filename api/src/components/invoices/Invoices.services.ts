@@ -1,18 +1,17 @@
-const Workspace = require('./Workspace.model');
+const Invoices = require('./Invoices.model');
+import { v4 as uuidv4 } from 'uuid';
 import { getSingleUser } from '../users/Users.service';
+import { IBaseInvoice } from './Invoices.types';
 
 // Find all users
-export async function getAllWorkspaces() {
+export async function getAllInvoices() {
     try {
-        const workspaces = await Workspace
-            .find()
-            .lean()
-            .exec()
+        const invoices = await Invoices.find().lean().exec()
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: workspaces
+            data: invoices
         }
     } catch(err) {
         console.error(err)
@@ -24,69 +23,52 @@ export async function getAllWorkspaces() {
     }
 }
 
-export async function addNewWorkspace(data: any) {
-    const creatorId = data.user_id;
-    const getCreatorDetails = await getSingleUser(creatorId);
-    console.log(getCreatorDetails);
+export async function addNewInvoice(data: IBaseInvoice) {
+    const userId = data.user_id;
+    const validateUser = await getSingleUser(userId);
     
-    if(!getCreatorDetails) {
+    if(!validateUser) {
         return {
             status: 401,
             isSuccessful: false,
-            message: "An error occured while creating this workspace. Please, try again!",
+            message: "An error occured while creating this invoice. Please, try again!",
             data: null
         }
     }
     try {
-        const workspace = await Workspace
-            .create({
-                title: data.title,
-                type: data.type,
-                description: data.description ? data.description : null,
-                members: [{
-                   _id: getCreatorDetails.data._id,
-                    fullName: getCreatorDetails.data.fullName,
-                    email: getCreatorDetails.data.email,
-                    username: getCreatorDetails.data.username,
-                    createdAt: getCreatorDetails.data.createdAt,
-                    updatedAt: getCreatorDetails.data.updatedAt,
-                    status: 'admin'
-                }],
-                activities: null,
-                boards: null,
-                cards: null,
-                createdBy: {
-                     _id: getCreatorDetails.data._id,
-                    email: getCreatorDetails.data.email,
-                    fullName: getCreatorDetails.data.fullName,
-                    username: getCreatorDetails.data.username
-                }
-            })
-        if(!workspace) {
-            return {
-                status: 401,
-                isSuccessful: false,
-                message: "An error occured while creating this workspace. Please, try again!",
-                data: null
-            }
-        }
+        const invoice = await Invoices.create({
+            client_email: data.client_email,
+            currency: data.currency,
+            amount: data.amount,
+            due_date: data.due_date,
+            status: data.status,
+            invoice_no: uuidv4(), // generate uuid
+            other_emails: data.other_emails,
+            items: data.items,
+            price: data.price,
+            tax: data.tax,
+            total_amount: data.total_amount,
+            memo: data.memo,
+            user_id: data.user_id,
+            project_id: data.project_id,
+        })
         return {
             status: 201,
             isSuccessful: true,
             message: "Operation successful!",
-            data: workspace
+            data: invoice
         }
     } catch(err) {
         console.error(err)
         return {
             status: 400,
             isSuccessful: false,
-            message: "Service error!",
+            message: err
         }
     }
 }
 
-export async function getSingleWorkspace(id: string) {
+export async function getInvoice(id: string) {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
@@ -94,25 +76,25 @@ export async function getSingleWorkspace(id: string) {
             return {
                 status: 401,
                 isSuccessful: false,
-                message: "Workspace Id is required!",
+                message: "string invoice id is required!",
             }
         }
         // else continue
-        const workspace = await Workspace.findOne({ _id: id }).lean().exec()
+        const invoice = await Invoices.findOne({ _id: id }).lean().exec()
 
-        // if no workspace was found on the db, then return false
-        if(!workspace) {
+        // if no invoice was found on the db, then return false
+        if(!invoice) {
             return {
                 status: 404,
                 isSuccessful: false,
-                message: "Workspace not found!",
+                message: "invoice not found!",
             }
         } else {
             return {
                 status: 200,
                 isSuccessful: true,
                 message: "Operation successful!",
-                data: workspace
+                data: invoice
             }
         }
     } catch(err) {
@@ -120,12 +102,12 @@ export async function getSingleWorkspace(id: string) {
         return {
             status: 400,
             isSuccessful: false,
-            message: "An error occurred",
+            message: err
         }
     }
 }
 
-export async function editSingleWorkspace(data: any, id: string) {
+export async function editInvoice(data: any, id: string) {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
@@ -133,11 +115,11 @@ export async function editSingleWorkspace(data: any, id: string) {
             return {
                 status: 401,
                 isSuccessful: false,
-                message: "Workspace Id is required!",
+                message: "string id is required!",
             }
         }
         // else continue
-        const updatedWorkspace = await Workspace
+        const updatedInvoice = await Invoices
             .findOneAndUpdate(
                 { _id: id },
                 data,
@@ -146,18 +128,18 @@ export async function editSingleWorkspace(data: any, id: string) {
             .exec()
             
         // if no user was found on the db, then return false
-        if(!updatedWorkspace) {
+        if(!updatedInvoice) {
             return {
                 status: 404,
                 isSuccessful: false,
-                message: "This workspace was not found!",
+                message: "Invoice not found!",
             }
         } else {
             return {
                 status: 200,
                 isSuccessful: true,
                 message: "Successful update!",
-                data: updatedWorkspace
+                data: updatedInvoice
             }
         }
     } catch(err) {
@@ -165,34 +147,34 @@ export async function editSingleWorkspace(data: any, id: string) {
         return {
             status: 400,
             isSuccessful: false,
-            message: "An error occured",
+            message: err
         }
     }
 }
 
-export async function removeSingleWorkspace(id:string) {
+export async function removeInvoice(id:string) {
     if(!id) {
         return {
             status: 401,
             isSuccessful: false,
-            message: "Workspace id must be provided!",
+            message: "string invoice id is required!",
         }
     }
   try {
-    const removedWorkspace = await Workspace.findOneAndRemove({ _id: id })
+    const removedInvoice = await Invoices.findOneAndRemove({ _id: id })
 
-    if (!removedWorkspace) {
+    if (!removedInvoice) {
       return {
         status: 400,
         isSuccessful: false,
-        message: "Workspace was not found",
+        message: "Invoice not found",
        }
     } else {
         return {
             status: 200,
             isSuccessful: true,
-            message: "Workspace successfully removed!",
-            data: removedWorkspace
+            message: "Invoice successfully deleted!",
+            data: removedInvoice
         }
     }
   } catch (err) {
@@ -200,38 +182,7 @@ export async function removeSingleWorkspace(id:string) {
     return {
         status: 400,
         isSuccessful: false,
-        message: "An error occured during this operation",
-        data: err
+        message: err
     }
   }
 }
-
-/* 
-{
-    "title": "New Test workspace One",
-    "type": "Marketing",
-    "description": "This is a space for the development of...",
-    "members": [
-        {
-           "_id": "610d4bb1815febe72d4ef5e2",
-            "fullName": "Uzoamaka Test",
-            "email": "test2@gmail.com",
-            "username": "Test username two",
-            "createdAt": "2021-08-06T14:48:17.229Z",
-            "updatedAt": "2021-08-06T14:48:17.229Z",
-            "status": "admin"
-        }
-    ],
-    "activities": null,
-    "boards": null,
-    "cards": null,
-   "createdBy": {
-        "fullName": "Uzoamaka Test",
-        "email": "test2@gmail.com",
-        "username": "Test username two"
-    }
-}
-
-
-
-*/

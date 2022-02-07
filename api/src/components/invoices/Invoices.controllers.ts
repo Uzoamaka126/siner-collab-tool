@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 import { 
-  getAllWorkspaces, 
-  addNewWorkspace, 
-  getSingleWorkspace, 
-  editSingleWorkspace,
-  removeSingleWorkspace
+  getAllInvoices,
+  getInvoice,
+  removeInvoice,
+  addNewInvoice,
+  editInvoice
 } from './Invoices.services';
-import { IWorkspaceInput } from './Invoices.types';
+import { IBaseInvoice } from './Invoices.types';
 
 // Controller to create a new workspace
 export const createANewWorkspace = async (req: Request, res: Response) => {
-  const newUser:IWorkspaceInput = req.body;
+  const newInvoice:IBaseInvoice = req.body;
 
   try {
-    const response = await addNewWorkspace(newUser);
+    const response = await addNewInvoice(newInvoice);
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)
@@ -22,14 +22,14 @@ export const createANewWorkspace = async (req: Request, res: Response) => {
 }
 
 // Controller to fetch all workspaces
-export const fetchAllWorkspace = async (req: Request, res: Response) => {
+export const fetchAllInvoices= async (req: Request, res: Response) => {
   try {
-    const workspaces = await getAllWorkspaces()
+    const invoices = await getAllInvoices()
 
-    if(!workspaces.isSuccessful === false) {
-        return res.status(404).json(workspaces)
+    if(!invoices.isSuccessful === false) {
+        return res.status(404).json(invoices)
     } else {
-        return res.status(200).json(workspaces)
+        return res.status(200).json(invoices)
     }
   } catch (err) {
     console.error(err)
@@ -38,10 +38,10 @@ export const fetchAllWorkspace = async (req: Request, res: Response) => {
 }
 
 // Find a single workspace
-export const fetchSingleWorkspace = async (req: Request, res: Response) => {
+export const fetchInvoice = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await getSingleWorkspace(id);
+    const response = await getInvoice(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -53,21 +53,21 @@ export const fetchSingleWorkspace = async (req: Request, res: Response) => {
 export const updateASingleWorkspace = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await editSingleWorkspace(req.body, id);
+    const response = await editInvoice(req.body, id);
     return res.status(response.status).json(response)
   } catch(err) {
-      console.error(err)
-      return res.status(400).send({ error: "An error occurred!" }).end()
+    console.error(err)
+    return res.status(400).send({ error: "An error occurred!" }).end()
   }
 }
 
-export const deleteASingleWorkspace = async (req: Request, res: Response) => {
+export const deleteInvoice= async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await removeSingleWorkspace(id);
+    const response = await removeInvoice(id);
     return res.status(response.status).json(response)
   } catch(err) {
-      console.error(err)
-      return res.status(400).send({ error: "An error occurred!" }).end()
+    console.error(err)
+    return res.status(400).send({ error: "An error occurred!" }).end()
   }
 }
