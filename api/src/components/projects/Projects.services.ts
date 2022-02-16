@@ -160,9 +160,9 @@ export async function editProjectById(id: string, data: IBaseProject) {
         }
 
         const filter = { _id: id, };
-        const update = { name: data.name };
-        // else continue
-        const updatedClient = await Project.findOneAndUpdate(filter, update, { new: true}).exec()
+        const update = { ...data };
+        const options = { lean: true, new: true }
+        const updatedClient = await Project.findOneAndUpdate(filter, update, options).exec()
                     
         return {
             status: 200,
