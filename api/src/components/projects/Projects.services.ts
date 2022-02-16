@@ -1,25 +1,22 @@
-const Client = require('./Clients.model');
+const Project = require('./Projects.model');
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
-    IClientRequestPayload, 
-    IClientSingleRequestPayload, 
-    IClientFetchAllResponse, 
-    IClientPayload
+    IProjectCreatePayload, 
+    IBaseProject, 
+    IProjectFetchAllResponse, 
+    IProjectCreateResponse
 } from './Projects.types';
 
-// Find all users
-export async function getAllClients(): Promise<IClientFetchAllResponse> {
+// Find all projects
+export async function getAllProjects(): Promise<IProjectFetchAllResponse> {
     try {
-        const clients = await Client
-            .find({})
-            .lean()
-            .exec()
+        const projects = await Project.find({}).lean().exec();
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: clients
+            data: projects
         }
     } catch(err) {
         console.error(err)
@@ -31,8 +28,8 @@ export async function getAllClients(): Promise<IClientFetchAllResponse> {
     }
 }
 
-// Find a list of clients belonging to a specific user
-export async function getUserClients(id: string) {
+// Find a list of projects belonging to a specific user
+export async function getUserProjects(id: string): Promise<IProjectFetchAllResponse> {
      try {
          if(id.length < 24) {
             return {
@@ -52,8 +49,8 @@ export async function getUserClients(id: string) {
                 message: "This user does not exist!",
             }
         }
-        //  select clients that match with the passed in user id
-        const clients = await Client
+        //  select projects that match with the passed in user id
+        const clients = await Project
             .find({ user_id:  id })
             .lean() // to get plain javascript objects
             .exec()
@@ -73,33 +70,35 @@ export async function getUserClients(id: string) {
     }
 }
 
-export async function addNewClient(data: IClientRequestPayload) {
-    const creatorId = data.user_id;
-    const getCreatorDetails = await getSingleUser(creatorId);
-    // console.log("getCreatorDetails", getCreatorDetails);
+export async function addNewProject(data: IProjectCreatePayload): Promise<IProjectCreateResponse> {
+    const userId = data.user_id;
+    const verifyUserDetails = await getSingleUser(userId);
     
-    if(!getCreatorDetails.isSuccessful) {
+    if(!verifyUserDetails.isSuccessful) {
         return {
             status: 401,
             isSuccessful: false,
             message: "An error occured while adding this client. Please, try again!",
-            data: {}
+            data: null
         }
     }
     try {        
-        const client = await Client
+        const project = await Project
             .create({
-                name: data.name,
+                title: data.title,
                 user_id: data.user_id,
-                projects: []
+                tasks: [],
+                client_id: data.client_id,
+                status: data.status,
+                deadline: data.deadline,
+                tags: data.tags,
             })
-            // console.log(client);
         
         return {
             status: 201,
             isSuccessful: true,
             message: "Operation successful!",
-            data: client
+            data: project
         }
     } catch(err) {
         console.error(err);
@@ -111,7 +110,7 @@ export async function addNewClient(data: IClientRequestPayload) {
     }
 }
 
-export async function getSingleClientById(id: string) {
+export async function getProjectById(id: string) {
     try {
         if (!id || typeof id !== 'string') {
             return {
@@ -120,22 +119,22 @@ export async function getSingleClientById(id: string) {
                 message: "string id is required!",
             }
         }
-        const client = await Client.findOne({ _id: id }).lean().exec();
-        console.log(client);
+        const project = await Project.findOne({ _id: id }).lean().exec();
 
-        // if no client was found on the db, then return false
-        if(!client) {
+        // if no project was found on the db, then return false
+        if(!project) {
             return {
                 status: 404,
                 isSuccessful: false,
                 message: "Client not found!",
+                data: null
             }
         } else {
             return {
                 status: 200,
                 isSuccessful: true,
                 message: "Operation successful!",
-                data: client
+                data: project
             }
         }
     } catch(err) {
@@ -148,42 +147,23 @@ export async function getSingleClientById(id: string) {
     }
 }
 
-export async function editSingleClientById(data: IClientPayload) {
-    /* 
-     "status": 200,
-    "isSuccessful": true,
-    "message": "Successful update!",
-    "data": {
-        "_id": "61edbfc4124d41e1a4fc8a36",
-        "name": "Test update name 2",
-        "user_id": "61edbd9ca3d644df266ba764",
-        "createdAt": "2022-01-23T20:51:16.817Z",
-        "updatedAt": "2022-02-06T12:17:28.277Z",
-        "__v": 0
-    } 
-    */
-
+export async function editProjectById(id: string, data: IBaseProject) {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
-        if(!data.id) {
+        if(!id) {
             return {
                 status: 401,
                 isSuccessful: false,
-                message: "Client Id is required!",
+                message: "string id is required!",
             }
         }
 
-        console.log(data);
-        const filter = { _id: data.id, };
+        const filter = { _id: id, };
         const update = { name: data.name };
         // else continue
-        const updatedClient = await Client
-            .findOneAndUpdate(filter, update, { new: true})
-            .exec()
-            
-        // console.log(updatedClient);
-        
+        const updatedClient = await Project.findOneAndUpdate(filter, update, { new: true}).exec()
+                    
         return {
             status: 200,
             isSuccessful: true,
@@ -200,31 +180,29 @@ export async function editSingleClientById(data: IClientPayload) {
     }
 }
 
-export async function deleteSingleClientById(id:string) {
+export async function deleteProjectById(id:string) {
     if(!id) {
         return {
             status: 401,
             isSuccessful: false,
-            message: "client id must be provided!",
+            message: "string id must be provided!",
         }
     }
   try {
-    const removedClient = await Client.findOneAndRemove({ _id: id })
+    const deletedProject = await Project.findOneAndRemove({ _id: id })
 
-    console.log(removedClient);
-
-    if (!removedClient || removedClient === null) {
+    if (!deletedProject || deletedProject === null) {
       return {
         status: 400,
         isSuccessful: false,
-        message: "client not found",
+        message: "project not found",
        }
     } else {
     return {
         status: 200,
         isSuccessful: true,
-        message: "client successfully deleted!",
-        data: removedClient
+        message: "project successfully deleted!",
+        data: deletedProject
     }
     }
   } catch (err) {
@@ -238,41 +216,3 @@ export async function deleteSingleClientById(id:string) {
     }
   }
 }
-
-// projects
-// export async function getProjects(data: ) {
-//     try {
-//         if (!data.id || typeof data.id !== 'string') {
-//             return {
-//                 status: 401,
-//                 isSuccessful: false,
-//                 message: "string id is required!",
-//             }
-//         }
-//         const client = await Client.findOne({ _id: data.id }).lean().exec();
-//         console.log(client);
-
-//         // if no client was found on the db, then return false
-//         if(!client) {
-//             return {
-//                 status: 404,
-//                 isSuccessful: false,
-//                 message: "Client not found!",
-//             }
-//         } else {
-//             return {
-//                 status: 200,
-//                 isSuccessful: true,
-//                 message: "Operation successful!",
-//                 data: client
-//             }
-//         }
-//     } catch(err) {
-//         console.error(err)
-//         return {
-//             status: 400,
-//             isSuccessful: false,
-//             message: "An error occurred",
-//         }
-//     }
-// }

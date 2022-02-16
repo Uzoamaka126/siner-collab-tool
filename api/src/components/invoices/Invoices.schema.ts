@@ -14,7 +14,7 @@ export const invoiceSchema: Schema = new Schema({
       trim: true,
       minLength: 2,
       maxlength: 100,
-      ref: 'Users'
+      ref: 'User'
     },
     project_id: {
       type: String,

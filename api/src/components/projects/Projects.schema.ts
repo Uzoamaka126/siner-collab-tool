@@ -1,5 +1,6 @@
 import { Schema, ObjectId, Types } from "mongoose";
 import { tagSchema } from '../tags/Tags.schema'
+import { invoiceSchema } from '../invoices/Invoices.schema'
 
 // This is how you tell mongoose what your documents look like
 // Create a client schema
@@ -37,7 +38,7 @@ export const projectSchema = new Schema({
     ref: "Client"
   },
   tasks: {
-    type: [TaskSchema], 
+    type: [String], 
     required: false,
     ref: "Task"
   },
@@ -47,7 +48,7 @@ export const projectSchema = new Schema({
     ref: "Tag"
   },
   invoices: {
-    type: [InvoiceSchema], 
+    type: [invoiceSchema], 
     required: false,
     ref: "Invoice"
   }
