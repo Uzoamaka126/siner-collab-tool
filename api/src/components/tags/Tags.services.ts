@@ -139,8 +139,6 @@ async function deleteTagById(id: string) {
   try {
     const deletedTagItem = await Tag.findOneAndRemove({ _id: id })
     
-    console.log(deletedTagItem);
-
     if (!deletedTagItem) {
       return {
         status: 400,

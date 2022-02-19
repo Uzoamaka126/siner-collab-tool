@@ -1,12 +1,12 @@
 const express = require('express');
 import { Router } from 'express';
 import { 
-  fetchUserClients, 
-  createANewClient,  
-  fetchAllClients,
-  updateSingleClient,
-  removeSingleClient,
-  fetchSingleClient
+  fetchAllProjects,
+  fetchProject,
+  fetchUserProjects,
+  removeProject,
+  updateProject,
+  createNewProject
 } from './Projects.controllers';
 
 const router: Router = express.Router();
@@ -17,20 +17,21 @@ const router: Router = express.Router();
 // /api/users
 router
   .route('/')
-  .get(fetchAllClients)
-  .post(createANewClient)
+  .get(fetchAllProjects)
+  .post(createNewProject)
 
 router
-.route('/users/:id')
-  .get(fetchUserClients)
+.route('/users')
+  .post(fetchUserProjects)
+
 // /api/clients/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
 // @desc    Login user and get token
 // @access  Public
 router
 .route('/:id')
-  .get(fetchSingleClient)
-  .put(updateSingleClient)
-  .delete(removeSingleClient)
+  .get(fetchProject)
+  .put(updateProject)
+  .delete(removeProject)
 
 export default router;

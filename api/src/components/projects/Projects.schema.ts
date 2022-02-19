@@ -22,7 +22,7 @@ export const projectSchema = new Schema({
     ref: "User"
   },
   status: {
-    type: Boolean, 
+    type: String, 
     required: true,
   },
   deadline: {

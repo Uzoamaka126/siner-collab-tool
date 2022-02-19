@@ -1,23 +1,14 @@
 import { Request, Response } from 'express';
-import { 
-  getAllClients, 
-  addNewClient, 
-  getUserClients, 
-  editSingleClientById,
-  deleteSingleClientById,
-  getSingleClientById
-} from './Projects.services';
-import { IClientRequestPayload } from './Projects.types';
+import ProjectControllers from './Projects.services';
+
+import { IProjectCreatePayload } from './Projects.types';
 
 // Controller to create a new workspace
-export const createANewClient = async (req: Request, res: Response) => {
-  const newUser:IClientRequestPayload = req.body;
+export const createNewProject = async (req: Request, res: Response) => {
+  const newProject:IProjectCreatePayload = req.body;
 
   try {
-    const response = await addNewClient(newUser);
-
-    console.log(response);
-    
+    const response = await ProjectControllers.addNewProject(newProject);    
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)
@@ -25,61 +16,50 @@ export const createANewClient = async (req: Request, res: Response) => {
   }
 }
 
-// Controller to fetch all clients
-export const fetchAllClients = async (req: Request, res: Response) => {
+// Controller to fetch all projects
+export const fetchAllProjects = async (req: Request, res: Response) => {
   try {
-    const clients = await getAllClients()
-
-    if(!clients.isSuccessful) {
-        return res.status(404).json(clients)
-    } else {
-        return res.status(200).json(clients)
-    }
+    const response = await ProjectControllers.getAllProjects()
+    return res.status(response.status).json(response)
   } catch (err) {
     console.error(err)
-    return res.status(400).send({ error: "An error occurred!" }).end()
+    return res.status(400).send(err).end()
   }
 }
 
-// Find all clients belonging to a particular user
-export const fetchUserClients = async (req: Request, res: Response) => {
-  const id = req.params.id;
+// Find all projects belonging to a particular user
+export const fetchUserProjects = async (req: Request, res: Response) => {
+  const id = req.body.user_id;
   try {
-    const response = await getUserClients(id);
+    const response = await ProjectControllers.getUserProjects(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
-      return res.status(400).send({ error: "An error occurred!" }).end()
+      return res.status(400).send(err).end()
   }
 }
 
-// Find a single client by client id
-export const fetchSingleClient = async (req: Request, res: Response) => {
+// Find a single project by id
+export const fetchProject= async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const response = await getSingleClientById(id);
-    console.log(response);
-    
+    const response = await ProjectControllers.getProjectById(id);    
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
-      return res.status(400).send({ error: "An error occurred!" }).end()
+      return res.status(400).send(err).end()
   }
 }
 
 
 // Update a single workspace
-export const updateSingleClient= async (req: Request, res: Response) => {
+export const updateProject= async (req: Request, res: Response) => {
   const id = req.params.id;
-  if(!req.body.name) return res.status(400).send({ error: "An error occurred!" }).end()
+  const data = req.body;
 
-  const data = {
-    name: req.body?.name,
-    id
-  }
   try {
-    const response = await editSingleClientById(data);
+    const response = await ProjectControllers.editProjectById(id, data);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -87,10 +67,10 @@ export const updateSingleClient= async (req: Request, res: Response) => {
   }
 }
 
-export const removeSingleClient = async (req: Request, res: Response) => {
+export const removeProject = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await deleteSingleClientById(id);
+    const response = await ProjectControllers.deleteProjectById(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

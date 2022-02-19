@@ -1,5 +1,7 @@
 const Project = require('./Projects.model');
 import { getSingleUser } from '../users/Users.service';
+import { getSingleClientById } from '../clients/Clients.services';
+
 const User = require('../users/Users.model');
 import { 
     IProjectCreatePayload, 
@@ -78,10 +80,24 @@ export async function addNewProject(data: IProjectCreatePayload): Promise<IProje
         return {
             status: 401,
             isSuccessful: false,
-            message: "An error occured while adding this client. Please, try again!",
+            message: "User not found!",
             data: null
         }
     }
+
+    // check that client exists
+    const clientId = data.client_id;
+    const verifyClientDetails = await getSingleClientById(clientId);
+
+    if(!verifyClientDetails.isSuccessful) {
+        return {
+            status: 401,
+            isSuccessful: false,
+            message: "Client not found!",
+            data: null
+        }
+    }
+
     try {        
         const project = await Project
             .create({
@@ -89,9 +105,10 @@ export async function addNewProject(data: IProjectCreatePayload): Promise<IProje
                 user_id: data.user_id,
                 tasks: [],
                 client_id: data.client_id,
-                status: data.status,
-                deadline: data.deadline,
+                status: 'pending',
+                deadline: new Date (data.deadline),
                 tags: data.tags,
+                invoices: []
             })
         
         return {
@@ -216,3 +233,53 @@ export async function deleteProjectById(id:string) {
     }
   }
 }
+
+export async function deleteProjectTag(id:string) {
+    if(!id) {
+        return {
+            status: 401,
+            isSuccessful: false,
+            message: "string id must be provided!",
+        }
+    }
+  try {
+    const deletedTag = await Project.chil({ _id: id })
+
+    if (!deletedTag || deletedTag === null) {
+      return {
+        status: 400,
+        isSuccessful: false,
+        message: "tag not found",
+       }
+    } else {
+    return {
+        status: 200,
+        isSuccessful: true,
+        message: "project successfully deleted!",
+        data: deletedTag
+    }
+    }
+  } catch (err) {
+    console.error(err);
+    // throw new Error(err);
+    return {
+        status: 400,
+        isSuccessful: false,
+        message: "An error occured during this operation",
+        data: err
+    }
+  }
+}
+
+
+
+const ProjectControllers = {
+    getAllProjects,
+    getUserProjects,
+    addNewProject,
+    getProjectById,
+    editProjectById,
+    deleteProjectById
+}
+
+export default ProjectControllers;

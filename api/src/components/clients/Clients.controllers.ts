@@ -15,8 +15,6 @@ export const createANewClient = async (req: Request, res: Response) => {
 
   try {
     const response = await addNewClient(newUser);
-
-    console.log(response);
     
     return res.status(response.status).json(response)
   } catch (e) {
@@ -43,7 +41,7 @@ export const fetchAllClients = async (req: Request, res: Response) => {
 
 // Find all clients belonging to a particular user
 export const fetchUserClients = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = req.body.user_id;
   try {
     const response = await getUserClients(id);
     return res.status(response.status).json(response)
@@ -58,9 +56,7 @@ export const fetchSingleClient = async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const response = await getSingleClientById(id);
-    console.log(response);
-    
+    const response = await getSingleClientById(id);    
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

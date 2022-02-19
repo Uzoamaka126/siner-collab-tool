@@ -1,5 +1,5 @@
 import { checkPassword, generateToken, hashPassword } from '../../utils/validators/authDb';
-import { IUserInput, IBaseUserLogin } from '../users/User.types';
+import { IUserInput, IBaseUserLogin, IUserBaseDocument } from '../users/User.types';
 const User = require('../users/Users.model');
 
 // Create a new user
@@ -46,7 +46,7 @@ export async function createNewUser (data: IUserInput) {
 // find and then login a user
 export async function loginAUser({ email, password }:IBaseUserLogin) {
     try {
-        const user = await User.findOne({ email: email }).exec();
+        const user: IUserBaseDocument = await User.findOne({ email: email }).exec();
         // If no user is found, send an error message
         if (!user) {
             return {
@@ -71,7 +71,10 @@ export async function loginAUser({ email, password }:IBaseUserLogin) {
             status: 201,
             isSuccessful: true,
             message: "Successfully logged in!",
-            data: token
+            data: {
+                token,
+                id: user._id
+            }
         }
     } catch(err) {
         console.error(err)

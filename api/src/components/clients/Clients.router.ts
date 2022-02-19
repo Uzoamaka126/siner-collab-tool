@@ -21,8 +21,8 @@ router
   .post(createANewClient)
 
 router
-.route('/users/:id')
-  .get(fetchUserClients)
+.route('/users/')
+  .post(fetchUserClients)
 // /api/clients/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
 // @desc    Login user and get token

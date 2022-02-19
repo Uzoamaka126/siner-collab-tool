@@ -18,9 +18,6 @@ export const getSingleUser = async (id: string) => {
             .findOne({ _id: id })
             .lean()
             .exec()
-
-        console.log("userData:", user);
-        console.log("type of user:", typeof user);
             
         // if no user was found on the db, then return false
         if(!user) {
