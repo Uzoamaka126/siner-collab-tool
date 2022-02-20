@@ -1,5 +1,6 @@
 const express = require('express');
 import { Router } from 'express';
+import { validateBodyIdAsString, validateParamsIdAsString } from '../../utils/validators/validateItem';
 import { 
   createNewTag,
   fetchAllTags,
@@ -9,26 +10,28 @@ import {
 } from './Tags.controllers';
 
 const router: Router = express.Router();
-// @route   GET api/tags
-// @desc    Get authenticated user given the token
+// @route   GET and POST api/tags
+// @desc    Get all tags. Create a new tag
 // @access  Private
 
-// /api/users
+// /api/tags
 router
   .route('/')
   .get(fetchAllTags)
   .post(createNewTag)
 
+// /api/tags/users
 router
-.route('/users/:id')
-  .get(fetchUserTags)
+.route('/users')
+  .post(validateBodyIdAsString, fetchUserTags)
+
 // /api/tags/:id
-// @route   POST, GET, FETCH, PATCH, DELETE api/auth
-// @desc    Login user and get token
+// @route   PATCH, DELETE api/auth
+// @desc    update and delete tag
 // @access  Public
 router
 .route('/:id')
-  .put(updateTag)
-  .delete(removeTag)
+  .put(validateParamsIdAsString, updateTag)
+  .delete(validateParamsIdAsString, removeTag)
 
 export default router;

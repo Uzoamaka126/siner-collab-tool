@@ -100,7 +100,6 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
-import { FloatMenu } from 'vue-float-menu'
 import CreateOrEditClientModal from '../shared/modals/CreateClientTwo.vue';
 import DeleteClientModal from '../shared/modals/DeleteClient.vue';
 
@@ -126,7 +125,6 @@ export default {
     }),
     components: {
         IconSvg,
-        FloatMenu,
         CreateOrEditClientModal,
         DeleteClientModal
     },

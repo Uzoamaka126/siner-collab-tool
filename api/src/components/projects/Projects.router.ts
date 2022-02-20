@@ -1,6 +1,6 @@
 const express = require('express');
 import { Router } from 'express';
-import { validateAddProjectTagDataTypes } from '../../utils/validators/validateItem';
+import { validateRequestArray, validateBodyIdAsString } from '../../utils/validators/validateItem';
 import { 
   fetchAllProjects,
   fetchProject,
@@ -39,6 +39,6 @@ router
 
 router
 .route('/tags')
-  .post(validateAddProjectTagDataTypes, addProjectTags)
+  .post(validateBodyIdAsString, validateRequestArray, addProjectTags)
 
 export default router;

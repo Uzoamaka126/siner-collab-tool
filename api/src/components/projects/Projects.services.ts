@@ -266,7 +266,7 @@ export async function addProjectTag(id: string, tags: any) {
         { tags: [ ...getParentProject.data.tags, ...newTags ] }, // update 
         { new: true, select: '_id tasks title user_id client_id status deadline tags invoices' } // select all these fields and return them. 'new' returns the modified document instead of the original
     ).lean().exec();
-    // console.log('updatedProjectWithTags:', updatedProjectWithTags);
+    console.log('updatedProjectWithTags:', updatedProjectWithTags);
     
     return {
         status: 200,
@@ -281,6 +281,7 @@ export async function addProjectTag(id: string, tags: any) {
         status: 400,
         isSuccessful: false,
         message: err?.message,
+        // data: null
     }
   }
 }

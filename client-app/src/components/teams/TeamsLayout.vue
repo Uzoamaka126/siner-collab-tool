@@ -97,7 +97,6 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
-import { FloatMenu } from 'vue-float-menu'
 import CreateProjectModal from '../shared/modals/CreateProject.vue'
 
 export default {
@@ -118,7 +117,6 @@ export default {
     }),
     components: {
         IconSvg,
-        FloatMenu,
         CreateProjectModal
     },
     computed: {

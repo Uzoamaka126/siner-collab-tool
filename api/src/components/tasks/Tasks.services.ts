@@ -1,21 +1,19 @@
-const Tag = require('./Tags.model');
-import { validateItem } from '../../utils/validators/validateItem';
-import { getSingleUser } from '../users/Users.service';
+const Task = require('./Tasks.model');
+import { getProjectById } from '../projects/Projects.services';
 import { 
-    ITagsResponsePayload,
-    IBaseTag,
-    ITagResponsePayload
-} from './Tags.types';
+    ITaskResponsePayload,
+    IBaseTask,
+} from './Tasks.types';
 
 // Find all users
-async function getAllTags(): Promise<ITagsResponsePayload> {
+async function getTasks(): Promise<ITaskResponsePayload> {
     try {
-        const tags = await Tag.find({}).lean().exec()
+        const tasks = await Task.find({}).lean().exec()
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: tags
+            data: tasks
         }
     } catch(err) {
         console.error(err)
@@ -27,30 +25,30 @@ async function getAllTags(): Promise<ITagsResponsePayload> {
     }
 }
 
-// Find a list of tags belonging to a specific user
-async function getUserTags(id: string): Promise<ITagsResponsePayload> {
+// Find a list of tasks belonging to a specific project
+async function getTaskByProjectId(id: string): Promise<ITaskResponsePayload> {
     try {
         //  get user
-        const getUserDetails = await getSingleUser(id);
+        const getParentProject = await getProjectById(id);
     
-        if (!getUserDetails.isSuccessful) {
+        if(!getParentProject.isSuccessful) {
             return {
                 status: 401,
                 isSuccessful: false,
-                message: "Unable to fetch user",
+                message: "An error occured while adding fetching the project for this task. Please, try again!",
                 data: null
             }
         }
-        //  select tags that match with the passed in user id
-        const tags = await Tag
-            .find({ user_id:  id })
+        //  select clients that match with the passed in user id
+        const tasks = await Task
+            .find({ project_id:  id })
             .lean() // to get plain javascript objects
             .exec()
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: tags
+            data: tasks
         }
     } catch(err) {
         throw new Error(err);
@@ -62,50 +60,48 @@ async function getUserTags(id: string): Promise<ITagsResponsePayload> {
     }
 }
 
-async function addNewTag(data: IBaseTag): Promise<ITagResponsePayload> {
-    const userId = data.user_id;
-    const validateUser = await getSingleUser(userId);
+async function addNewTask (data: IBaseTask) {
+    const projectId = data.project_id;
+    const validateProject = await getProjectById(projectId);
     
-    if(!validateUser.isSuccessful) {
+    if(!validateProject.isSuccessful) {
         return {
             status: 401,
             isSuccessful: false,
-            message: "An error occured while adding this client. Please, try again!",
-            data: null
+            message: "Unable to find project",
+            data: {}
         }
     }
     try {        
-        const tag = await Tag
+        const task = await Task
             .create({
                 name: data.name,
-                user_id: userId,
+                project_id: data.project_id,
+                isCompleted: false
             })
         
         return {
             status: 201,
             isSuccessful: true,
             message: "Operation successful!",
-            data: tag
+            data: task
         }
     } catch(err) {
         console.error(err);
         return {
             status: 400,
             isSuccessful: false,
-            message: err.message
+            message: err
         }
     }
 }
 
-async function editTagById(data: any) {
-    // validate tag id
-    validateItem(data._id, 'tag');
-    
+async function editTask(id: string, data: any) {
     try {
-        const filter = { _id: data._id, };
-        const update = { name: data.name };
+        const filter = { _id: id, };
+        const update = { name: data.name, isCompleted: data.isCompleted };
         // else continue
-        const updatedClient = await Tag.findOneAndUpdate(filter, update, { new: true } ).exec()
+        const updatedClient = await Task.findOneAndUpdate(filter, update, { new: true } ).exec()
                     
         return {
             status: 200,
@@ -123,25 +119,22 @@ async function editTagById(data: any) {
     }
 }
 
-async function deleteTagById(id: string) {
-    // validate tag id
-    validateItem(id, 'tag');
-
+async function deleteTask(id: string) {
   try {
-    const deletedTagItem = await Tag.findOneAndRemove({ _id: id })
+    const deletedTaskItem = await Task.findOneAndRemove({ _id: id })
     
-    if (!deletedTagItem) {
+    if (!deletedTaskItem) {
       return {
         status: 400,
         isSuccessful: false,
-        message: "tag not found",
+        message: "task not found",
        }
     } else {
     return {
         status: 200,
         isSuccessful: true,
-        message: "tag successfully deleted!",
-        data: deletedTagItem
+        message: "task successfully deleted!",
+        data: deletedTaskItem
     }
     }
   } catch (err) {
@@ -156,12 +149,12 @@ async function deleteTagById(id: string) {
   }
 }
 
-const TagControllers = {
-    getAllTags,
-    getUserTags,
-    addNewTag,
-    editTagById,
-    deleteTagById
+const TaskControllers = {
+    getTasks,
+    getTaskByProjectId,
+    addNewTask,
+    editTask,
+    deleteTask
 }
 
-export default TagControllers;
+export default TaskControllers;

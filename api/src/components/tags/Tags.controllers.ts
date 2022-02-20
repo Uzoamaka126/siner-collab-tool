@@ -15,20 +15,20 @@ export const createNewTag = async (req: Request, res: Response) => {
   }
 }
 
-// Controller to fetch all clients
-export const fetchAllTags= async (req: Request, res: Response) => {
+// Controller to fetch all tags
+export const fetchAllTags = async (req: Request, res: Response) => {
   try {
-    const clients = await TagControllers.getAllTags()
-    return res.status(404).json(clients);
+    const tags = await TagControllers.getAllTags()
+    return res.status(404).json(tags);
   } catch (err) {
     console.error(err)
     return res.status(400).send({ error: "An error occurred!" }).end()
   }
 }
 
-// Find all clients belonging to a particular user
+// Find all tags belonging to a particular user
 export const fetchUserTags = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = req.body.user_id;
   try {
     const response = await TagControllers.getUserTags(id)
     return res.status(response.status).json(response)

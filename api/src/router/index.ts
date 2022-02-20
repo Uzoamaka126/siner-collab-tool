@@ -4,6 +4,7 @@ import clientsRouter from '../components/clients/Clients.router';
 import authRouter from '../components/auth/Auth.router';
 import tagsRouter from '../components/tags/Tags.router';
 import projectsRouter from '../components/projects/Projects.router';
+import tasksRouter from '../components/tasks/Tasks.router';
 import { authMiddleware } from '../utils/middleware/auth';
 import { validateUserToken } from '../utils/middleware/validateToken';
 
@@ -29,6 +30,7 @@ function routes(router: any) {
     router.use("/api/clients", validateUserToken, clientsRouter);
     router.use("/api/tags", validateUserToken, tagsRouter);
     router.use("/api/projects", validateUserToken, projectsRouter);
+    router.use("/api/tasks", validateUserToken, tasksRouter);
 }
 
 module.exports = routes;

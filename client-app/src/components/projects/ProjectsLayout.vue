@@ -82,7 +82,6 @@
 
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
-import { FloatMenu } from 'vue-float-menu'
 import CreateProjectModal from '../shared/modals/CreateProject.vue'
 
 export default {
@@ -121,7 +120,6 @@ export default {
         ]
     }),
     components: {
-        FloatMenu,
         CreateProjectModal
     },
     computed: {

@@ -1,7 +1,7 @@
 import { Schema, ObjectId, Types } from "mongoose";
 
 // This is how you tell mongoose what your documents look like
-// Create a client schema
+// Create a tag schema
 
 export const tagSchema = new Schema({
   name: {
