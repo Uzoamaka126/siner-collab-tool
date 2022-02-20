@@ -59,9 +59,9 @@
     }
 
     &__title {
-        color: #010101;
-        font-size: 24px;
-        font-weight: $font-bold;
+        color: #333;
+        font-size: 20px;
+        font-weight: 500;
         text-align: left;
         margin-top: 0.5rem;
 
@@ -76,7 +76,7 @@
         border-radius: 4px;
 
         &__wrap {
-            padding: 56px 48px 35px;
+            padding: 35px 48px 35px;
         }
 
         &__link {

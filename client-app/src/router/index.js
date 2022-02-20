@@ -3,7 +3,6 @@ import HomeView from '../views/Home.vue'
 import Signup from '../views/Signup.vue';
 import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
-// import WorkspaceItemView from '../views/WorkspaceItem.vue'
 import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
 import ProjectsView from '../views/Projects.vue'
