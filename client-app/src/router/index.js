@@ -12,6 +12,8 @@ import TagsView from '../views/Tags.vue'
 import InvoicesView from '../views/Invoices.vue'
 import CreateInvoiceView from '../components/invoices/CreateInvoice.vue';
 import InvoiceDetailsView from '../components/invoices/InvoiceDetails.vue';
+// const Register = () => import(/* webpackChunkname: "register" */'@/components/account/register.new')
+// const Invite = () => import(/* webpackChunkname: "invite" */'@/components/account/invited')
 
 const routes = [
   // {
@@ -24,17 +26,29 @@ const routes = [
   // },
   {
     path: '/',
-    redirect: { name: 'login' }
+    // redirect: { name: 'login' }
+    name: 'home',
+    redirect: '/login'
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    // component: LoginView,
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
     path: '/signup',
     name: 'signup',
-    component: Signup
+    // component: Signup
+    component: () => import(/* webpackChunkName: "login" */ '../views/Signup.vue')
+
+  },
+  {
+    path: '/reset',
+    name: 'reset',
+    // component: Signup
+    component: () => import(/* webpackChunkName: "login" */ '../views/Reset.vue')
+
   },
   {
     path: '/terms-and-service',
@@ -44,7 +58,9 @@ const routes = [
   {
     path: '/dashboard/',
     name: 'siner-dashboard',
-    component: DashboardView,
+    // component: DashboardView,
+    component: () => import(/* webpackChunkName: "login" */ '../views/Dashboard'),
+
     // beforeEnter: requireAuth,
     children:[
       {

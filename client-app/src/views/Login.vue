@@ -1,7 +1,5 @@
 <template>
-    <!-- <div style="height: 100%;"> -->
-      <login-layout></login-layout>
-    <!-- </div> -->
+    <login-layout></login-layout>
 </template>
 
 <script>
@@ -9,14 +7,10 @@ import LoginLayout from '../components/auth/login/LoginLayout.vue'
 export default {
     name: 'LoginView',
     components: {
-        'login-layout' : LoginLayout
+      LoginLayout
   },
   props: {
     msg: String
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>

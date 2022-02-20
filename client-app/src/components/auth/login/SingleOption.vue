@@ -23,19 +23,23 @@
                             <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
                                 <span class="textRed">{{ error.value  }}</span>
                             </div>
-                            <div class="checkbox__item">
+                            <!-- <div class="checkbox__item">
                                 <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
                                 <label class="checkbox--label no--padding__all" for="termsAndService">Remember me</label>
-                            </div>
+                            </div> -->
+                           
                             <div class="form--btn__wrap auth--btn__submit">
                                 <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
                             </div>
                         <!-- no account -->
-                            <div class="signup--notify__wrap">
-                                <div class="text--xs">Don't have an account? <router-link class="auth--link" :to="{ name: 'signup' }">Sign up</router-link></div>
+                            <div class="mt--20">
+                                <router-link class="auth--link text--xs" :to="{ name: 'reset' }">Forgot password?</router-link>
                             </div>
                         </div>
                     </form>
+                    <div class="signup--notify__wrap">
+                        <div class="text--xs">Don't have an account? <router-link class="auth--link" :to="{ name: 'signup' }">Sign up</router-link></div>
+                    </div>
                 </div>
             </div>
         </div>
