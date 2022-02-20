@@ -84,7 +84,7 @@ async function addNewTag(data: IBaseTag) {
         }
     }
     try {        
-        const client = await Tag
+        const tag = await Tag
             .create({
                 name: data.name,
                 user_id: userId,
@@ -94,7 +94,7 @@ async function addNewTag(data: IBaseTag) {
             status: 201,
             isSuccessful: true,
             message: "Operation successful!",
-            data: client
+            data: tag
         }
     } catch(err) {
         console.error(err);

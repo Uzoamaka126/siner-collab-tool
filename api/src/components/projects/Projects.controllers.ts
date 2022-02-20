@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ProjectControllers from './Projects.services';
+import ProjectServices from './Projects.services';
 
 import { IProjectCreatePayload } from './Projects.types';
 
@@ -8,7 +8,7 @@ export const createNewProject = async (req: Request, res: Response) => {
   const newProject:IProjectCreatePayload = req.body;
 
   try {
-    const response = await ProjectControllers.addNewProject(newProject);    
+    const response = await ProjectServices.addNewProject(newProject);    
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)
@@ -19,7 +19,7 @@ export const createNewProject = async (req: Request, res: Response) => {
 // Controller to fetch all projects
 export const fetchAllProjects = async (req: Request, res: Response) => {
   try {
-    const response = await ProjectControllers.getAllProjects()
+    const response = await ProjectServices.getAllProjects()
     return res.status(response.status).json(response)
   } catch (err) {
     console.error(err)
@@ -31,7 +31,7 @@ export const fetchAllProjects = async (req: Request, res: Response) => {
 export const fetchUserProjects = async (req: Request, res: Response) => {
   const id = req.body.user_id;
   try {
-    const response = await ProjectControllers.getUserProjects(id);
+    const response = await ProjectServices.getUserProjects(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -44,7 +44,7 @@ export const fetchProject= async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const response = await ProjectControllers.getProjectById(id);    
+    const response = await ProjectServices.getProjectById(id);    
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -59,7 +59,7 @@ export const updateProject= async (req: Request, res: Response) => {
   const data = req.body;
 
   try {
-    const response = await ProjectControllers.editProjectById(id, data);
+    const response = await ProjectServices.editProjectById(id, data);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -70,7 +70,38 @@ export const updateProject= async (req: Request, res: Response) => {
 export const removeProject = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await ProjectControllers.deleteProjectById(id);
+    const response = await ProjectServices.deleteProjectById(id);
+    return res.status(response.status).json(response)
+  } catch(err) {
+      console.error(err)
+      return res.status(400).send({ error: "An error occurred!" }).end()
+  }
+}
+
+export const removeProjectTag = async (req: Request, res: Response) => {
+  const id = req.body.id;
+  const tag_id = req.body.tag_id;
+  const data = {
+    id,
+    tag_id
+  }
+  try {
+    const response = await ProjectServices.deleteProjectTag(data);
+    return res.status(response.status).json(response)
+  } catch(err) {
+      console.error(err)
+      return res.status(400).send(err).end()
+  }
+}
+
+// for all things project tags
+
+// addProjectTag
+export const addProjectTags = async (req: Request, res: Response) => {
+  const { id, tags } = req.body;
+
+  try {
+    const response = await ProjectServices.addProjectTag(id, tags);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

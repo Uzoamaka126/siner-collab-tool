@@ -3,7 +3,14 @@ import { Document, Types } from "mongoose";
 // Define a document interface for its related moongoose schema, in this case, the Client schema
 export interface IBaseTag {
     name: string;
-    user_id: string
+    user_id?: string
+}
+
+export interface ProjectTag {
+  name: string;
+  _id: Types.ObjectId;
+  createdAt?: any
+  updatedAt?: any
 }
 
 /** 

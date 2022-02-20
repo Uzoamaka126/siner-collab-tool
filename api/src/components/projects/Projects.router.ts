@@ -6,7 +6,9 @@ import {
   fetchUserProjects,
   removeProject,
   updateProject,
-  createNewProject
+  createNewProject,
+  removeProjectTag,
+  addProjectTags
 } from './Projects.controllers';
 
 const router: Router = express.Router();
@@ -14,7 +16,7 @@ const router: Router = express.Router();
 // @desc    Get authenticated user given the token
 // @access  Private
 
-// /api/users
+// /api/projects
 router
   .route('/')
   .get(fetchAllProjects)
@@ -24,7 +26,7 @@ router
 .route('/users')
   .post(fetchUserProjects)
 
-// /api/clients/:id
+// /api/projects/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
 // @desc    Login user and get token
 // @access  Public
@@ -33,5 +35,9 @@ router
   .get(fetchProject)
   .put(updateProject)
   .delete(removeProject)
+
+router
+.route('/tags')
+  .post(addProjectTags)
 
 export default router;

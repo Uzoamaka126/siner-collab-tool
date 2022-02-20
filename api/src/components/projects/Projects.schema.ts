@@ -38,17 +38,17 @@ export const projectSchema = new Schema({
     ref: "Client"
   },
   tasks: {
-    type: [String], 
+    type: [Types.ObjectId], 
     required: false,
     ref: "Task"
   },
   tags: {
-    type: [tagSchema], 
+    type: [Types.ObjectId], 
     required: false,
     ref: "Tag"
   },
   invoices: {
-    type: [invoiceSchema], 
+    type: [Types.ObjectId], 
     required: false,
     ref: "Invoice"
   }

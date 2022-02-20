@@ -1,4 +1,5 @@
 import { Document, Types } from "mongoose"
+import { ProjectTag } from "../tags/Tags.types";
 
 // Define a document interface for its related moongoose schema, in this case, the Client schema
 export interface IBaseProject {
@@ -9,7 +10,7 @@ export interface IBaseProject {
     invoices?: [];
     status?: boolean;
     deadline?: Date | null
-    tags?: [];
+    tags?: ProjectTag[];
 }
 
 export interface IProjectCreatePayload {
@@ -36,9 +37,9 @@ export interface IProjectCreateResponse {
   data?: IProjectCreatePayload
 }
 
-export interface IProjectFetchAllResponse {
+export interface IProjectFetchResponse {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IProjectCreatePayload[]
+  data?: IBaseProject | null
 }
