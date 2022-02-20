@@ -1,4 +1,6 @@
-import { Document, Types } from "mongoose";
+import { Types } from "mongoose";
+import { Request, Response, NextFunction } from 'express';
+
 const Project = require('../../components/projects/Projects.model');
 
 
@@ -12,42 +14,31 @@ export function validateItem (id: string | Types.ObjectId , itemName: string): a
     }
 }
 
-export async function validateProject(id: string) {
-    if (!id || typeof id !== 'string') {
-        return {
-            status: 404,
-            isSuccessful: false,
-            message: 'string id is required!',
-            data: null
-        }
+export async function validateAddProjectTagDataTypes(req: Request, res: Response, next: NextFunction) {
+    if (typeof req.body.id !== 'string') {
+        return res.status(401).json({
+          message: 'project id should be a string'
+        })
     }
 
-    try {
-        const project = await Project.findOne({ _id: id }).lean().exec();
+    else if (req.body.id.length < 24) {
+        return res.status(401).json({
+          message: 'Incorrect project id. String should not be less than 24 characters'
+        })
+    }
 
-        // if no project was found on the db, then return false
-        if(!project) {
-            return {
-                status: 404,
-                isSuccessful: false,
-                message: 'Project not found!',
-                data: null
-            }
-        } else {
-            return {
-                status: 200,
-                isSuccessful: true,
-                message: "success",
-                data: project
-            }
-        }
-    } catch(err) {
-        console.error(err)
-        return {
-            status: 400,
-            isSuccessful: false,
-            message: "An error occurred",
-            data: err.message
-        }
+    else if (!req.body.tags.length) {
+        return res.status(401).json({
+          message: 'tags array should not be empty'
+        })
+    }
+    
+    else if (!Array.isArray(req.body.tags)) {
+        return res.status(401).json({
+          message: 'tags should be in an array format'
+        })
+    } 
+    else {
+        next();
     }
 }

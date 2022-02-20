@@ -252,38 +252,21 @@ export async function addProjectTag(id: string, tags: any) {
         }
     }
 
-    // console.log(getParentProject.data.tags);
-
-    // for (var i = 0; i < getParentProject.data.tags.length; i++) {
-    //     console.log("each tag:", typeof getParentProject.data.tags[i]._id);
-    // }
-
-    //  return {
-    //         status: 200,
-    //         isSuccessful: true,
-    //         message: "Successful update!",
-    //         // data: getParentProject.data
-    //     }
-
-    // then update parent project and create a single tag. Maximum of 3 tags allowed
     // define a variable to hold each newly created tag
     const newTags = [];
 
     for (var i = 0; i < tags.length; i++) {
         //    for every tag in the parameter tags array, create a new tag, add it to the tag database, then push it to the new tags array
-        const tag = await Tag.create({ name: tags[i].name, user_id: tags[i].user_id })
-        console.log("each tag:", tag._id, "getParentProject.data.tags:", getParentProject.data.tags);
-        
+        const tag = await Tag.create({ name: tags[i].name, user_id: tags[i].user_id })        
         newTags.push(tag._id)
     }
     
     const updatedProjectWithTags = await Project.findByIdAndUpdate(
         { _id: id },  // filter
-        // { tags: getParentProject.data.tags.concat(newTags)}, // update 
         { tags: [ ...getParentProject.data.tags, ...newTags ] }, // update 
         { new: true, select: '_id tasks title user_id client_id status deadline tags invoices' } // select all these fields and return them. 'new' returns the modified document instead of the original
     ).lean().exec();
-    console.log('updatedProjectWithTags:', updatedProjectWithTags);
+    // console.log('updatedProjectWithTags:', updatedProjectWithTags);
     
     return {
         status: 200,
@@ -298,7 +281,6 @@ export async function addProjectTag(id: string, tags: any) {
         status: 400,
         isSuccessful: false,
         message: err?.message,
-        // data: null
     }
   }
 }
