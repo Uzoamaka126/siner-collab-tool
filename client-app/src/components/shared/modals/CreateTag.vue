@@ -27,7 +27,7 @@
 <script>
 export default {
     name: 'CreateTag',
-    props: ["showCreateBoardModal", "toggleCreateBoardModal"],
+    props: [],
     data: () => ({
        tagName: ''
     }),

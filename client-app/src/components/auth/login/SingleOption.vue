@@ -20,8 +20,8 @@
                                 <label for="password" class="form__label">Password</label>
                                 <input type="email" id="password" class="form__input form__input--lg" required="required" v-model="password">
                             </div>
-                            <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
-                                <span class="textRed">{{ error.value  }}</span>
+                            <div v-if="error && error.message" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
+                                <span class="textRed">{{ error.message  }}</span>
                             </div>
                             <!-- <div class="checkbox__item">
                                 <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
@@ -54,16 +54,19 @@ export default {
   components: {
     'siner-logo': Logo
   },
+  created() {
+    window.localStorage.clear();
+  },
   data: () => ({
     email: '',
     password: '',
     error: {
         show: false,
-        value: ''
+        message: ''
     },
     termsAndService: '',
     btnDisabled: false,
-    loginOption: ''
+    state: 'initial'
   }),
   computed: {
       isBtnDisabled() {
@@ -75,14 +78,18 @@ export default {
       }
   },
   methods: {
-    setLoginOption(value) {
-        if(value === 'email') {
-            this.loginOption = 'email'
-        } else if (value === 'google') {
-            this.loginOption = 'google'
-        } else {
-            this.loginOption = ''
+    handleSubmit() {
+        this.state = 'submitting';
+        this.error.show = false;
+        this.error.message = ''
+
+        const requestPayload = {
+            email,
+            password
         }
+
+        // API call
+        
     }
   }
 }

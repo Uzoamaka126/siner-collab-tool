@@ -1,17 +1,46 @@
-import { createApp } from 'vue/dist/vue.esm-bundler.js'
+import { createApp } from 'vue/dist/vue.esm-bundler.js';
+import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import { VuesticPlugin, VaButtonDropdown, VaButton } from 'vuestic-ui'
-// import 'vuestic-ui/dist/vuestic-ui.css' 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Draggable from "vuedraggable";
 import { PopoverRow, Calendar, DatePicker } from 'v-calendar';
 import { Money3Component } from 'v-money3';
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
+import { isUserLoggedIn } from './utils/auth';
 
 window.moment = require('moment');
+const BASE_URL = process.env.BASE_URL;
+const TOKEN = 'token';
+
+let token = localStorage.getItem(TOKEN);
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.headers.common['Authorization'] = token;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.put['Content-Type'] = 'application/json';
+
+// Interceptor for Axios Requests
+axios.interceptors.request.use(function (config) {
+    let token = localStorage.getItem(TOKEN);
+    config.headers.common['Authorization'] = token;
+    return config;
+
+}, function (error) {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+// set a navigation guard for protected routes
+router.beforeEach((to, from, next) =>{
+  if (isUserLoggedIn()){
+    next('/dashboard/home')
+  } else{
+    next()
+  }
+});
+
 
 createApp(App)
   .use(router)
