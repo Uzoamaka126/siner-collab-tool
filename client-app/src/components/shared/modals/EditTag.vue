@@ -9,16 +9,17 @@
             <div class="modal-body">
             <form @submit.prevent="" class="form--workspace__create mb--20">
                 <div class="form__item">
-                    <div class="mb-3">
+                    <div>
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control form-control-sm" v-model="computedTagName" id="name">
+                        <input type="text" class="form-control form-control-sm" v-model="reactiveTagName" id="name">
                     </div>
+                    <p class="text-mute text--xxs text--info mt-1" v-if="reactiveTagNameLength < 3">Tag should be no less than three words </p>
                 </div>
             </form>
             </div>
             <div class="modal-footer flex items-center">
                 <button type="button" class="btn btn--secondary btn--sm" data-bs-dismiss="modal" aria-label="Close" @click="reset">Cancel</button>
-                <button type="button" class="btn btn--primary btn--sm">Save</button>
+                <button type="button" class="btn btn--primary btn--sm" :disabled="reactiveTagNameLength < 3">Save</button>
             </div>
             </div>
         </div>
@@ -29,37 +30,45 @@
 export default {
     name: 'EditTag',
     props: {
-        currentTagDetails: { type: Object, required: true, default: () => ({ _id: undefined, name: undefined, project_id: undefined }) },
-    },   
+        currentTagDetails: { type: Object, required: true, default: () => {}},
+        tagName: { type: String, default: undefined || '' },
+    }, 
+    model: {
+        prop: "value",
+        event: "change",
+    },  
     created() {
     },
 
     data () {
        return {
-           tagName: this.currentTagDetails.name || ''
+           reactiveTagName: this.tagName
        }
     },
     computed: {
-        computedTagName: {
-            get() { return this.currentTagDetails.name },
-            set (value) {
-                // some logic
-                this.$emit('update:currentTagDetails.name', value)
+        reactiveTagNameLength() {
+            if (!this.reactiveTagName && !this.reactiveTagName.length) {
+                return 0
+            } else {
+                return this.reactiveTagName.length
             }
-        },
+        }
     },
     methods: {
         reset() {
             this.$emit("resetCurrentTagDetails");
         }
     },
+    created() {
+    },
     watch: {
-    // whenever question changes, this function will run
-        // tagName(newName, oldName) {
-        //     if (typeof newName !== 'undefined') {
-        //         this.tagName = 
-        //     }
-        // }
-  },
+        tagName( newVal ) {
+            this.reactiveTagName = newVal;
+         },
+
+        reactiveTagName( newVal ) {
+            this.$emit( "change", newVal )
+        }
+    }
 }
 </script>

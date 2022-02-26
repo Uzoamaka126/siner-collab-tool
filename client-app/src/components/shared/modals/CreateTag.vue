@@ -9,15 +9,16 @@
             <div class="modal-body">
             <form @submit.prevent="" class="form--workspace__create mb--20">
                 <div class="form__item">
-                    <div class="mb-3">
+                    <div class="">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control form-control-sm" v-model="tagName" id="name" placeholder="Completed">
                     </div>
+                    <p class="text-mute text--xxs text--info mt-1" v-if="tagName.length < 3">Tag should be no less than three words </p>
                 </div>
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn--primary btn--sm">Create tag</button>
+                <button type="button" class="btn btn--primary btn--sm" :disabled="tagName.length < 3">Create tag</button>
             </div>
             </div>
         </div>

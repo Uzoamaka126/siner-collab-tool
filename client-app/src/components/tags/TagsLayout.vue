@@ -73,7 +73,7 @@
         </div>
             <!-- modal -->
         <create-tag-modal />
-        <edit-tag-modal :currentTagDetails="currentTagDetails"  @resetCurrentTagDetails="resetCurrentTagDetails" />
+        <edit-tag-modal :currentTagDetails="currentTagDetails"  @resetCurrentTagDetails="resetCurrentTagDetails" :tagName="currentTagDetails.name" />
         <!-- :tagName="currentTagDetails.name" -->
     </div>
 </template>
@@ -114,7 +114,7 @@ export default {
             }
         ],
         workspaceDisplay: 'Tiles',
-        currentTagDetails: undefined
+        currentTagDetails: {}
     }),
     computed: {},
     methods: {

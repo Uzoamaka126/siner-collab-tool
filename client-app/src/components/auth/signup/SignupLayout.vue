@@ -32,7 +32,7 @@
                             </div>
                             <div class="checkbox__item auth--checkbox">
                                 <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
-                                <label class="checkbox--label no--padding__all" for="termsAndService">I agree to the <router-link class="auth--form__link" :to="{ name: 'terms-and-service' }">Terms and Service</router-link></label>
+                                <span class="checkbox--label no--padding__all" for="termsAndService">I agree to the </span><router-link class="auth--form__link" :to="{ name: 'signup' }"> Terms and Service</router-link>
                             </div>
 
                             <!-- signup form row -->

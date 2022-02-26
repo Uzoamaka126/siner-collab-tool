@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
-import Signup from '../views/Signup.vue';
-import LoginView from '../views/Login.vue';
 import WorkspaceView from '../views/Workspace.vue'
-import DashboardView from '../views/Dashboard';
 import BoardsView from '../views/Boards.vue'
 import ProjectsView from '../views/Projects.vue'
 import ProjectsDetailsView from '../views/ProjectDetails.vue'
@@ -49,11 +46,6 @@ const routes = [
     // component: Signup
     component: () => import(/* webpackChunkName: "login" */ '../views/Reset.vue')
 
-  },
-  {
-    path: '/terms-and-service',
-    name: 'terms-and-service',
-    component: Signup
   },
   {
     path: '/dashboard/',

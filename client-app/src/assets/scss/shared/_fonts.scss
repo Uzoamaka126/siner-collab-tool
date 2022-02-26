@@ -92,6 +92,12 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
         cursor: not-allowed;
         color: $text-color-light-dark;
     }
+    &--info {
+        color: #1897b1 !important
+    }
+    &--mute {
+    color: #6c757d!important;
+}
 
 }
 
