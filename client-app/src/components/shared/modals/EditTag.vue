@@ -57,7 +57,7 @@ export default {
     methods: {
         reset() {
             this.$emit("resetCurrentTagDetails");
-        }
+        },
     },
     created() {
     },

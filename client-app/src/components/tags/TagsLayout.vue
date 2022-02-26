@@ -63,8 +63,12 @@
                                 </div>
                             </div>
                             <ul class="dropdown-menu dropdown-menu--tag" aria-labelledby="tagActions">
-                                <li><p class="dropdown-item cursor-pointer text--xs" @click="setCurrentTagDetails(tag)">Edit</p></li>
-                                <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete</p></li>
+                                <li>
+                                    <p class="dropdown-item cursor-pointer text--xs" @click="setCurrentTagDetails(tag)">Edit</p>
+                                </li>
+                                <li>
+                                    <p class="dropdown-item cursor-pointer text--xs text--color-warning" data-bs-toggle="modal" data-bs-target="#deleteTag">Delete</p>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -74,7 +78,7 @@
             <!-- modal -->
         <create-tag-modal />
         <edit-tag-modal :currentTagDetails="currentTagDetails"  @resetCurrentTagDetails="resetCurrentTagDetails" :tagName="currentTagDetails.name" />
-        <!-- :tagName="currentTagDetails.name" -->
+        <confirm-deletion-modal :type="'tag'" :action="handleDeleteTag" />
     </div>
 </template>
 
@@ -82,6 +86,7 @@
 import IconSvg from '../icons/Icon-Svg.vue';
 import CreateTagModal from '../shared/modals/CreateTag.vue';
 import EditTagModal from '../shared/modals/EditTag.vue';
+import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
 
 export default {
     name: 'TagsLayout',
@@ -93,7 +98,8 @@ export default {
     components: {
         IconSvg,
         CreateTagModal,
-        'edit-tag-modal': EditTagModal
+        'edit-tag-modal': EditTagModal,
+        ConfirmDeletionModal
     },
     data: () => ({
         tags: [
@@ -114,7 +120,8 @@ export default {
             }
         ],
         workspaceDisplay: 'Tiles',
-        currentTagDetails: {}
+        currentTagDetails: {},
+        state: 'default'
     }),
     computed: {},
     methods: {
@@ -127,7 +134,15 @@ export default {
         },
         resetCurrentTagDetails(data) {
             this.currentTagDetails = {};
-        }
+        },
+        fetchTags() {
+
+        },
+        handleUpdateTag() {},
+
+        handleDeleteTag(id) {
+
+        },
     }
 }
 </script>
