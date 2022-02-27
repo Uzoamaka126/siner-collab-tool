@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
-import WorkspaceView from '../views/Workspace.vue'
-import BoardsView from '../views/Boards.vue'
+import ClientsView from '../views/Clients.vue'
 import ProjectsView from '../views/Projects.vue'
 import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
@@ -23,7 +22,6 @@ const routes = [
   // },
   {
     path: '/',
-    // redirect: { name: 'login' }
     name: 'home',
     redirect: '/login'
   },
@@ -37,21 +35,21 @@ const routes = [
     path: '/signup',
     name: 'signup',
     // component: Signup
-    component: () => import(/* webpackChunkName: "login" */ '../views/Signup.vue')
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Signup.vue')
 
   },
   {
     path: '/reset',
     name: 'reset',
     // component: Signup
-    component: () => import(/* webpackChunkName: "login" */ '../views/Reset.vue')
+    component: () => import(/* webpackChunkName: "reset" */ '../views/Reset.vue')
 
   },
   {
     path: '/dashboard/',
     name: 'siner-dashboard',
     // component: DashboardView,
-    component: () => import(/* webpackChunkName: "login" */ '../views/Dashboard'),
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 
     // beforeEnter: requireAuth,
     children:[
@@ -61,19 +59,9 @@ const routes = [
         component: HomeView
       },
       {
-        path:'boards', 
-        name:'boards-view', 
-        component: BoardsView
-      },
-      {
-        path:'boards/:name', 
-        name:'boards-detail-view', 
-        component: BoardsView
-      },
-      {
         path:'workspaces', 
         name:'workspaces', 
-        component: WorkspaceView
+        component: ClientsView
       },
       {
         path:'projects', 
@@ -104,7 +92,8 @@ const routes = [
       {
         path:'clients', 
         name:'clients-view', 
-        component: WorkspaceView,
+        component: ClientsView,
+        component: () => import(/* webpackChunkName: "clients" */ '../views/Clients'),
         // beforeEnter: requireAuth,
         
       },

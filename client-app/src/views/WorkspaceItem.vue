@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import WorkspaceItemLayout from '../components/workspace/WorkspaceItem.vue'
+import WorkspaceItemLayout from '../components/clients/WorkspaceItem.vue'
 export default {
     name: 'WorkspaceItemView',
     components: {

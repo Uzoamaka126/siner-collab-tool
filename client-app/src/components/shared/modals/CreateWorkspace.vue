@@ -40,8 +40,8 @@
 
 <script>
 import MainModal from './MainModal.vue';
-import CreateWorkspace from '../../workspace/CreateWorkspace.vue';
-import InviteTeamMembers from '../../workspace/InviteTeamMembers.vue';
+import CreateWorkspace from '../../clients/CreateWorkspace.vue';
+import InviteTeamMembers from '../../clients/InviteTeamMembers.vue';
 
 export default {
     name: 'OnboardingModal',

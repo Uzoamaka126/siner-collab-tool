@@ -61,7 +61,7 @@
                             <!-- overlay contents -->
                             <div class="list__overlay">
                                 <div class="list__overlay-text-wrap">
-                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="startEditClient(item.name)">
+                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="startEditClient(item)">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
                                             class="nav__icon mr--0" 
@@ -93,15 +93,15 @@
 
         <!-- modal -->
         <create-or-edit-client-modal :isEdit="isEdit" :editValue="client.name" :clearEditClient="clearEditClient"></create-or-edit-client-modal>
-        <delete-client-modal :handleDeleteClient="handleDeleteClient"></delete-client-modal>
+        <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" />
     </div>
 </template>
 
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
-import CreateOrEditClientModal from '../shared/modals/CreateClientTwo.vue';
-import DeleteClientModal from '../shared/modals/DeleteClient.vue';
+import CreateOrEditClientModal from '../shared/modals/CreateClient.vue';
+import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
 
 export default {
     name: 'WorkspaceLayout',
@@ -111,9 +111,7 @@ export default {
             this.setShowOnboardingModal('show');
         }
     },
-    props: {
-        user: Object
-    },
+    props: {},
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         isMenuItemHover: '',
@@ -126,7 +124,7 @@ export default {
     components: {
         IconSvg,
         CreateOrEditClientModal,
-        DeleteClientModal
+        ConfirmDeletionModal
     },
     computed: {
     },
@@ -143,13 +141,13 @@ export default {
         },
         clearEditClient() {
             this.isEdit = false;
-            this.client.name = '';
+            this.client = {};
             $("#createOrEditClient").modal("hide");
         },
-        startEditClient(val) {
+        startEditClient(data) {
             $("#createOrEditClient").modal("show");
             this.isEdit = true;
-            this.client.name = val;
+            this.client.name = data;
         },
         startDelete(id) {
             this.client.id = id;
