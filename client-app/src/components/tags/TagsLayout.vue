@@ -132,7 +132,7 @@ export default {
             this.currentTagDetails = data;
             $("#editTag").modal("show");
         },
-        resetCurrentTagDetails(data) {
+        resetCurrentTagDetails() {
             this.currentTagDetails = {};
         },
         fetchTags() {

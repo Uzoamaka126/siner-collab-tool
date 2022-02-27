@@ -32,7 +32,7 @@
                             </span>
                         </span>
                     </form>
-                    <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createOrEditClient">   
+                    <button class="btn btn--primary header__btn" data-bs-toggle="modal" data-bs-target="#createClient">   
                         <icon-svg 
                             fill="#fff" 
                             name="add" 
@@ -61,7 +61,7 @@
                             <!-- overlay contents -->
                             <div class="list__overlay">
                                 <div class="list__overlay-text-wrap">
-                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="startEditClient(item)">
+                                    <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="setClientDetails(item)">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
                                             class="nav__icon mr--0" 
@@ -92,8 +92,9 @@
         </div>
 
         <!-- modal -->
-        <create-or-edit-client-modal :isEdit="isEdit" :editValue="client.name" :clearEditClient="clearEditClient"></create-or-edit-client-modal>
+        <create-or-edit-client-modal />
         <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" />
+        <client-details-modal :currentClientDetails="currentClient" :clientName="currentClient.name"  @resetCurrentClient="resetCurrentClient" />
     </div>
 </template>
 
@@ -102,6 +103,7 @@ import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../icons/Icon-Svg.vue';
 import CreateOrEditClientModal from '../shared/modals/CreateClient.vue';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
+import ClientDetailsModal from '../shared/modals/ViewClient.vue';
 
 export default {
     name: 'WorkspaceLayout',
@@ -111,23 +113,18 @@ export default {
             this.setShowOnboardingModal('show');
         }
     },
-    props: {},
     data: () => ({
         createdWorkspaces: createdWorkspaces,
         isMenuItemHover: '',
-        client: {
-            name: '',
-            id: ''
-        },
-        isEdit: false,
+        currentClient: {},
     }),
     components: {
         IconSvg,
         CreateOrEditClientModal,
-        ConfirmDeletionModal
+        ConfirmDeletionModal,
+        ClientDetailsModal
     },
-    computed: {
-    },
+    computed: {},
     methods: {
         showMenuIconOnHover(name) {
             if(name === null) {
@@ -139,23 +136,22 @@ export default {
                 }
             }
         },
-        clearEditClient() {
-            this.isEdit = false;
-            this.client = {};
-            $("#createOrEditClient").modal("hide");
+        resetCurrentClient() {
+            this.currentClient = {};
+            $("#clientDetails").modal("hide");
         },
-        startEditClient(data) {
-            $("#createOrEditClient").modal("show");
-            this.isEdit = true;
-            this.client.name = data;
+        setClientDetails(data) {
+            this.currentClient = data;
+            $("#clientDetails").modal("show");
         },
         startDelete(id) {
-            this.client.id = id;
+            this.currentClient.id = id;
             $("#deleteClient").modal("show");
         },
         handleDeleteClient() {
             this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.client.id);
-            this.client.id = ''
+            this.currentClient.id = ''
+             $("#deleteClient").modal("hide");
         }
     }
 }
