@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn--secondary btn--sm" @click="reset">Close</button>
+                    <button type="button" class="btn btn--secondary btn--sm" data-bs-dismiss="modal" aria-label="Close" @click="reset">Close</button>
                 </div>
             </div>
         </div>

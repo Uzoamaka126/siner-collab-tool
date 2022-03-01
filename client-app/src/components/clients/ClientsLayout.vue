@@ -72,7 +72,7 @@
                                         /> 
                                         <p class="text">Edit</p>
                                     </div>
-                                    <div style="display: flex; align-items: center" @click="startDelete(item.id)">
+                                    <div style="display: flex; align-items: center" @click="startDelete(item)">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
                                             class="nav__icon mr--0" 
@@ -93,7 +93,7 @@
 
         <!-- modal -->
         <create-or-edit-client-modal />
-        <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" />
+        <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" :reset="resetCurrentClient" />
         <client-details-modal :currentClientDetails="currentClient" :clientName="currentClient.name"  @resetCurrentClient="resetCurrentClient" />
     </div>
 </template>
@@ -138,21 +138,23 @@ export default {
         },
         resetCurrentClient() {
             this.currentClient = {};
-            $("#clientDetails").modal("hide");
+            // $("#clientDetails").modal("hide");
         },
         setClientDetails(data) {
             this.currentClient = data;
             $("#clientDetails").modal("show");
         },
-        startDelete(id) {
-            this.currentClient.id = id;
+        startDelete(data) {
+            this.currentClient = data;
             $("#deleteClient").modal("show");
         },
         handleDeleteClient() {
             this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.client.id);
             this.currentClient.id = ''
              $("#deleteClient").modal("hide");
-        }
+        },
+        handleAddClient() {},
+        handleEditClient() {},
     }
 }
 </script>

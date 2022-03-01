@@ -6,51 +6,7 @@
             <div class="list--count">
                 <p>3 client(s)</p>
             </div>
-            <div class="filter__actions--list">
-                <!-- search list -->
-                <form class="bd-search position-relative" style="margin-right: 0.825rem;">
-                    <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
-                        <input 
-                            type="search" 
-                            class="form-control" 
-                            id="search-input" 
-                            placeholder="Search clients..." 
-                            aria-label="Search docs for..." 
-                            autocomplete="off" 
-                            data-bd-docs-version="5.1" 
-                            spellcheck="false" 
-                            role="combobox" 
-                            aria-autocomplete="list" 
-                            aria-expanded="false" 
-                            aria-owns="algolia-autocomplete-listbox-0" dir="auto" 
-                            style="position: relative; vertical-align: top; font-size: 14px; padding-left: 2rem;">
-                            <span role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 5px; z-index: 100; left: 5px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #dee2e6;transform: ;msFilter:;">
-                                <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
-                            </svg>
-                        </span>
-                    </span>
-                </form>
-                <div class="btn-group">
-                    <button class="btn text--xs mr--10 filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sort by
-                    </button>
-                    <ul class="dropdown-menu filter__dropdown-menu">
-                        <li><p class="dropdown-item text--xs">A - Z</p></li>
-                        <li><p class="dropdown-item text--xs">Z - A</p></li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <button class="btn text--xs filter--btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Filter by
-                    </button>
-                    <ul class="dropdown-menu filter__dropdown-menu">
-                        <li><p class="dropdown-item text--xs">Industry</p></li>
-                        <li><p class="dropdown-item text--xs">Theme</p></li>
-                        <li><p class="dropdown-item text--xs">Tags</p></li>
-                    </ul>
-                </div>
-            </div>
+           <main-filter />
         </div>
         <!-- Content -->
         <div style="display: flex; margin-top: 2.5rem;">
@@ -83,6 +39,7 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import CreateProjectModal from '../shared/modals/CreateProject.vue'
+import MainFilter from '../shared/filter/Main'
 
 export default {
     name: 'WorkspaceLayout',
@@ -120,7 +77,8 @@ export default {
         ]
     }),
     components: {
-        CreateProjectModal
+        CreateProjectModal,
+        MainFilter
     },
     computed: {
     },

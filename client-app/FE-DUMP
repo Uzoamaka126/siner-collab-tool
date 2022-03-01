@@ -24,3 +24,71 @@
 function test(str) {
     return str.slice(1).split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 }
+
+ <ul class="dropdown-menu filter__dropdown-menu">
+            <li>
+                <div class="flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Title
+                        </label>
+                    </div>
+                </div>
+               <div class="reveal">
+                   
+               </div>
+            </li>
+            <li>
+                <div class="flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Client name
+                        </label>
+                    </div>
+                </div>
+               <div class="reveal">
+                   <InputSearch />
+               </div>
+            </li>
+            <li>
+                <div class="flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Search
+                        </label>
+                    </div>
+                </div>
+               <div class="reveal">
+                   <InputSearch />
+               </div>
+            </li>
+            <li>
+                <div class="flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Deadline
+                        </label>
+                    </div>
+                </div>
+               <div class="reveal">
+                   <InputSearch />
+               </div>
+            </li>
+            <li>
+                <div class="flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Date created
+                        </label>
+                    </div>
+                </div>
+               <div class="reveal">
+                   <InputSearch />
+               </div>
+            </li>
+        </ul>

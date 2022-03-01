@@ -16,8 +16,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                    <button type="button" class="btn btn--danger btn--sm" @click="action()">Delete {{ type }}</button>
+                    <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close" @click="reset()">Cancel</button>
+                    <button type="button" class="btn btn--danger btn--sm" @click="action()">Delete</button>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
 
 export default {
     name: 'ConfirmDeletion',
-    props: ['action', 'type'],
+    props: ['action', 'type', 'reset'],
     data: () => ({
         loading: false,
         attributes: {
