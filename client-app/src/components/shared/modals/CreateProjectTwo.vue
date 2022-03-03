@@ -29,10 +29,10 @@
                     </select>
                 </div>
                 <!-- invoice upload -->
-                <div class="form__item">
+                <!-- <div class="form__item">
                     <label for="formFileMultiple" class="form-label">Invoice<span class="text--xxs text-faded"> (Upload one or more files)</span></label>
                     <input class="form-control form-control-sm" type="file" id="formFileMultiple" multiple :value="files">
-                </div>
+                </div> -->
             </form>
             </div>
             <div class="modal-footer">

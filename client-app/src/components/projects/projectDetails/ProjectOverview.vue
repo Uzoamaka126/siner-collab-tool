@@ -3,11 +3,11 @@
         <div>
             <!-- title -->
            <div class="project__overview--item">
-               <span class="text--color-dark text--medium">Title:</span>
-                <template v-if="!isEditableTitle">
+               <span class="text--color-dark text--medium text--sm">Title:</span>
+                <template v-if="!overviewActions.isEditableTitle">
                     <span>
                         <span class="ml--10 text--sm">Test Title</span>
-                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleTitleEdit(true)">(Edit)</span>
+                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="startEditProjectDetails('isEditableTitle')">Edit</span>
                     </span>
                 </template>
                 <template v-else>
@@ -17,47 +17,48 @@
                                 type="text" 
                                 class="form__input form__input--lg" 
                                 v-model="title"
-                                style="position: relative; vertical-align: top; font-size: 14px; padding-left: 10px;"
+                                style="position: relative; vertical-align: top; font-size: 14px; padding-left: 10px; padding-top: 3px; padding-right: 3px;"
                             >
                             <span>
-                                <span class="ml--10 text--xs text-faded cursor-pointer" @click="toggleTitleEdit(false)">Cancel</span>
-                                <span class="ml--10 text--xs text--link cursor-pointer" :class="!title ? 'text--disabled' : '' ">Edit</span>
+                                <span class="ml--10 text--xs text-faded cursor-pointer" @click="cancelEditProjectDetails('isEditableTitle')">Cancel</span>
+                                <span class="ml--10 text--xs text--link cursor-pointer" :class="!title ? 'text--disabled' : '' " @click="handleEditProjectDetails('isEditableTitle')">Save</span>
                             </span>
                         </span>
                     </span>
                 </template>
            </div>
-           <div class="project__overview--item" style="display: flex;">
-               <span class="text--color-dark text--medium">Status:</span>
-                <template v-if="!isEditableStatus">
+           <div class="project__overview--item align-items-center" style="display: flex;">
+               <span class="text--color-dark text--medium text--sm">Status:</span>
+                <template v-if="!overviewActions.isEditableStatus">
                     <span>
-                        <span class="ml--10 text--sm">Pending</span>
-                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleStatusEdit(true)">(Edit)</span>
+                        <span class="ml--10 text--sm">{{ projectDetails.status }}</span>
+                        <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="startEditProjectDetails('isEditableStatus')">(Edit)</span>
                     </span>
                 </template>
                 <template v-else>
                     <span class="ml--10 align-items-center" style="display: flex; font-size: 12px;">
                         <span>
-                            <select class="form-select form-select-sm" style="width: fit-content" aria-label=".form-select-sm example">
+                            <select class="form-select form-select-sm" style="width: fit-content" aria-label=".form-select-sm example" v-model="projectDetails.status">
                                 <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="onHold">On-hold</option>
+                                <option value="inReview">In Review</option>
                             </select>
                         </span>
                         <span>
-                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="toggleStatusEdit(false)">Cancel</span>
-                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" :class="!status ? 'text--disabled' : '' ">Save</span>
+                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="cancelEditProjectDetails('isEditableStatus')">Cancel</span>
+                            <span class="ml--10 text--xs text--link text-faded cursor-pointer" @click="handleEditProjectDetails('isEditableStatus')" :class="!projectDetails.status ? 'text--disabled' : '' ">Save</span>
                         </span>
                     </span>
                 </template>
            </div>
             <div class="project__overview--item">
-               <span class="text--color-dark text--medium">No of hours spent:</span>
+               <span class="text--color-dark text--medium text--sm">Deadline:</span>
                 <span class="ml--10 text--sm">0h</span>
            </div>
             <div class="project__overview--item">
-               <span class="text--color-dark text--medium">Team Members:</span>
+               <span class="text--color-dark text--medium text--sm">Tags:</span>
                 <span class="ml--10 text--sm">1</span>
            </div>
     </div>
@@ -77,22 +78,39 @@ export default {
     props: {
         user: Object
     },
-    data: () => ({
-        isEditableTitle: false,
-        isEditableStatus: false,
-        title: '',
-        status: ''
-    }),
+    data(){
+        return {
+            title: '',
+            projectDetails: {
+                title: '',
+                status: 'pending',
+                deadline: null,
+                tags: []
+            },
+            overviewActions: {
+                isEditableTitle: false,
+                isEditableStatus: false,
+            }
+        }
+    },
     computed: {
 
     },
     methods: {
-        toggleTitleEdit(value) {
-            this.isEditableTitle = value;
+        startEditProjectDetails (actionVal) {
+            this.overviewActions[actionVal] = true;
         },
-        toggleStatusEdit(value) {
-            this.isEditableStatus = value;
+        cancelEditProjectDetails (actionVal) {
+            this.overviewActions[actionVal] = false;
         },
+        handleEditProjectDetails(actionVal) {
+            const payload = {
+                ...this.projectDetails
+            }
+
+            // if successful
+            this.overviewActions[actionVal] = false;
+        }
     }
 }
 </script>

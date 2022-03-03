@@ -38,25 +38,6 @@
                                 </span>
                         </span>
                     </form>
-                    <div class="btn-group">
-                        <button class="btn text--xs mr--10 filter--btn filter--btn__noBorder btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort by
-                        </button>
-                        <ul class="dropdown-menu filter__dropdown-menu">
-                            <li><p class="dropdown-item text--xs">A - Z</p></li>
-                            <li><p class="dropdown-item text--xs">Z - A</p></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn text--xs filter--btn filter--btn__noBorder btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter by
-                        </button>
-                        <ul class="dropdown-menu filter__dropdown-menu">
-                            <li><p class="dropdown-item text--xs">Industry</p></li>
-                            <li><p class="dropdown-item text--xs">Theme</p></li>
-                            <li><p class="dropdown-item text--xs">Tags</p></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -110,28 +91,30 @@ export default {
         // }
         // console.log(this.fetchWorkspaceMembers);
     },
-    data: () => ({
-        isMenuItemHover: '',
-        search: {
-            active: false,
-            value: ''
-        },
-        sortValue: '',
-        filterValue: '',
-        members: null,
-        tasks: [
-            { name: "John", id: 0 },
-            { name: "Joao", id: 1 },
-            { name: "Jean", id: 2 }
-        ],
-        dragging: false,
-        enabled: true,
-    }),
+    data () {
+        return {
+            isMenuItemHover: '',
+            search: {
+                active: false,
+                value: ''
+            },
+            sortValue: '',
+            filterValue: '',
+            members: null,
+            tasks: [
+                { name: "John", id: 0 },
+                { name: "Joao", id: 1 },
+                { name: "Jean", id: 2 }
+            ],
+            dragging: false,
+            enabled: true,
+        }
+    },
     components: {
         IconSvg,
         draggable
     },
-    props: ['currentWorkspaceItem'],
+    props: ['user'],
     computed: {
         draggingInfo() {
             return this.dragging ? "under drag" : "";

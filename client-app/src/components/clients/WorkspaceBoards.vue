@@ -183,13 +183,11 @@ export default {
         left: 0px;
         // transform: translate3d(0px, -116px, 0px);
         right: auto;
-    left: 0;
-    z-index: 1000;
-    float: left;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: .25rem;
-        // inset: unset !important;
-        // right: unset !important;
+        left: 0;
+        z-index: 1000;
+        float: left;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
     }
     .theme-display--preview {
         border-radius: 3px;

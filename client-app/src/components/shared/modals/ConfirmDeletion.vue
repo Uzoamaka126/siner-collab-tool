@@ -34,11 +34,12 @@ export default {
         attributes: {
             'client': {
                 name: 'client',
-                // action: this.action
             },
             'tag': {
                 name: 'tag',
-                // action: this.action
+            },
+            'project': {
+                name: 'project',
             }
         }
     }),

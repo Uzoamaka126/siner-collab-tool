@@ -16,36 +16,63 @@
             <button class="action--btns__run action--btns">Run</button>
         </div>
             <div class="accordion" id="accordionPanelsStayOpenExample">
+                <!-- project title -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Title
-                    </button>
-                    </h2>
+                    <div class="accordion-header width--100 align-items-center" style="display: flex;" id="panelsStayOpen-headingOne">
+                        <div class="accordion-button form-check form-check-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                id="flexCheckChecked" 
+                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                            />
+                            <label class="form-check-label text--xs ml--5" for="flexCheckChecked">
+                                Title
+                            </label>
+                        </div>
+                    </div>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <InputSearch />                
+                        <div class="accordion-body" style="padding-top: 0.5rem">
+                            <InputSearch :showIcon="false" />                
                         </div>
                     </div>
                 </div>
+                <!-- client name -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                        Client name
-                    </button>
-                    </h2>
+                    <div class="accordion-header width--100 align-items-center" id="panelsStayOpen-headingTwo">
+                        <div class="accordion-button form-check form-check-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                id="flexCheckCheckedTwo" 
+                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                            />
+                            <label class="form-check-label text--xs ml--5" for="flexCheckCheckedTwo">
+                                Client name
+                            </label>
+                        </div>
+                    </div>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                         <div class="accordion-body">
                             <InputSearch />                          
                         </div>
                     </div>
                 </div>
+                <!-- status -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                        Accordion Item #3
-                    </button>
-                    </h2>
+                    <div class="accordion-header width--100 align-items-center" id="panelsStayOpen-headingThree">
+                        <div class="accordion-button form-check form-check-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                id="flexCheckCheckedThree" 
+                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                            />
+                            <label class="form-check-label text--xs ml--5" for="flexCheckCheckedThree">
+                                Status
+                            </label>
+                        </div>
+                    </div>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                         <div class="accordion-body">
                             <InputSearch />                          
@@ -99,4 +126,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .form-check-input:checked {
+        background-color: #596dde;
+        border-color: #596dde;
+    }
+    .form-check-title {
+        display: flex;
+        align-items: end;
+        width: 100% !important;
+
+    }
+    .dropdown-menu.show {
+        transform: translate3d(-10px, 30px, 0px) !important;
+        width: 300px !important;
+        inset: 0px 0px auto auto !important;
+        padding: 0px !important;
+        box-shadow: inset 0 -1px rgba(235, 238, 241, 0) !important;
+        background-color: #f6f8fa !important;
+   }
 </style>

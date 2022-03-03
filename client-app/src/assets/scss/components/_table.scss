@@ -57,7 +57,7 @@ thead, th {
     }
 
     tbody {
-        tr, a {
+        tr, a, span {
             background: rgb(255, 255, 255);
             color: rgb(0, 0, 0);
             // cursor: pointer;
@@ -81,7 +81,7 @@ thead, th {
             }
         }
 
-        a {
+        a, span {
             display: table-row;
             vertical-align: inherit;
             border-color: inherit;

@@ -101,8 +101,9 @@ export default {
         'edit-tag-modal': EditTagModal,
         ConfirmDeletionModal
     },
-    data: () => ({
-        tags: [
+    data () {
+        return {
+            tags: [
             {
                 _id: '62102f08ca0f171b9c4aa048',
                 name: 'Finished',
@@ -118,11 +119,12 @@ export default {
                 name: 'Onboarding',
                 project_id: '62102f08ca0f171b9c4aa049'
             }
-        ],
-        workspaceDisplay: 'Tiles',
-        currentTagDetails: {},
-        state: 'default'
-    }),
+            ],
+            workspaceDisplay: 'Tiles',
+            currentTagDetails: {},
+            state: 'default'
+      }
+    },
     computed: {},
     methods: {
         selectDisplayType(value) {
