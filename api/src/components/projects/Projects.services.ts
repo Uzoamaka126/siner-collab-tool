@@ -109,7 +109,7 @@ export async function addNewProject(data: IProjectCreatePayload): Promise<IProje
                 tasks: [],
                 client_id: data.client_id,
                 status: 'pending',
-                deadline: new Date (data.deadline),
+                deadline: data.deadline,
                 tags: data.tags,
                 invoices: []
             })

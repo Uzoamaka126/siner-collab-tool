@@ -10,11 +10,11 @@
             <form @submit.prevent="" class="form--workspace__create mb--20">
                 <div class="form__item">
                     <label for="name" class="form-label">Title</label>
-                    <input type="text" class="form-control form-control-sm" v-model="title" id="name" placeholder="Client X">
+                    <input type="text" class="form-control form-control-sm" v-model="title" id="name" placeholder="Design for project X" required>
                 </div>
                  <div class="form__item">
                     <label for="name" class="form-label">Client</label>
-                    <select class="form-select" aria-label="Default select example" v-model="client">
+                    <select class="form-select" aria-label="Default select example" v-model="client" required>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -22,22 +22,21 @@
                 </div>
                  <div class="form__item">
                     <label for="name" class="form-label">Tags</label>
-                    <select class="form-select" aria-label="Default select example" v-model="tags">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <multi-select v-model="selectedTagsValue" :options="tags" mode="tags" :close-on-select="true" :searchable="true" :create-option="true"></multi-select>
                 </div>
-                <!-- invoice upload -->
-                <!-- <div class="form__item">
-                    <label for="formFileMultiple" class="form-label">Invoice<span class="text--xxs text-faded"> (Upload one or more files)</span></label>
-                    <input class="form-control form-control-sm" type="file" id="formFileMultiple" multiple :value="files">
-                </div> -->
+                <div class="form__item width--100">
+                    <label for="">Set a deadline</label>
+                    <v-date-picker v-model="deadline" class="width--100">
+                        <template #default="{ inputValue, inputEvents }">
+                            <input class="px-3 py-1 border rounded width--100" :value="inputValue" v-on="inputEvents" required />
+                        </template>
+                    </v-date-picker>
+                </div>
             </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn--secondary btn--sm" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn--primary btn--sm">Create project</button>
+                <button type="button" class="btn btn--primary btn--sm" :disabled="isCreateBtnDisabled">Create project</button>
             </div>
             </div>
         </div>
@@ -49,15 +48,29 @@
 export default {
     name: 'CreateProjectTwo',
     props: [],
-    data: () => ({
-       title: '',
-       client: '',
-       tags: [],
-       files: []
-    }),
+    data () {
+        return {
+           title: '',
+            client: '',
+            tags: ['design', 'onboarding', 'seo', 'frontend'],
+            deadline: '',
+            selectedTagsValue: null
+        }
+    },
     computed: {
+        isCreateBtnDisabled() {
+            if(!this.title || !this.client || !this.tags.length || !this.client || !this.deadline) {
+                return true
+            } else {
+                return false
+            }
+        }
     },
     methods: {
     }
 }
 </script>
+
+<style src="@vueform/multiselect/themes/default.css">
+
+</style>

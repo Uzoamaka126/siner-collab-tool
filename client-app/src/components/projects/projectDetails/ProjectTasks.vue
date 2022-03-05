@@ -59,14 +59,20 @@
                                     <path class="inner-path" d="M13.4,22.1c-0.3,0-0.5-0.1-0.7-0.3l-3.9-3.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3.1,3.1l8.1-8.1c0.4-0.4,1-0.4,1.4,0   s0.4,1,0,1.4l-8.9,8.9C13.9,22,13.7,22.1,13.4,22.1z"></path>
                                 </svg>
                             </span>
-                            <!-- name -->
-                            <input 
-                                class="form-control form-control-sm task__form--input" 
-                                type="text" 
-                                v-model="element.name" 
-                                @keyup="removeTaskByDeletion(element.id, element.name)"
-                                :id="element.id"
-                            >
+                            <div class="flex align-items-center width--100">
+                                <!-- name -->
+                                <input 
+                                    class="form-control form-control-sm task__form--input" 
+                                    type="text" 
+                                    v-model="element.name" 
+                                    @keyup="removeTaskByDeletion(element.id, element.name)"
+                                    :id="element.id"
+                                    style="min-width: 80%;"
+                                >
+                                <button class="btn--ghost text--xs text--color-warning width--100">
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </template>
                 </draggable>
