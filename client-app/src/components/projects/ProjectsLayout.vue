@@ -7,7 +7,10 @@
                 <div class="list--count">
                     <p>{{ projects.length }} project{{ projects.length > 1 ? 's' : '' }}</p>
                 </div>
-            <main-filter />
+                <div class="flex align-items-center">
+                    <main-filter />
+                    <sort-filter />
+                </div>
             </div>
             <!-- Content -->
             <div style="display: flex; margin-top: 2.5rem;">
@@ -25,7 +28,10 @@
                     </thead>
                     <tbody v-for="project in projects" :key="project.id">
                         <span>
-                            <td>{{ project.title }}</td>
+                            <td class="flex align-items-center">
+                                <span class="project--item__dot" :style="{ 'background-color': project.color }"></span>
+                                <span>{{ project.title }}</span>
+                                </td>
                             <td>{{ project.client }}</td>
                             <td>{{ project.status }}</td>
                             <td>{{ project.time }}</td>
@@ -63,6 +69,7 @@
 import { createdWorkspaces } from '../../utils/dummy'
 import CreateProjectModal from '../shared/modals/CreateProject'
 import MainFilter from '../shared/filter/Main';
+import SortFilter from '../shared/filter/Sort';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion';
 
 export default {
@@ -75,7 +82,8 @@ export default {
     components: {
         CreateProjectModal,
         MainFilter,
-        ConfirmDeletionModal
+        ConfirmDeletionModal,
+        SortFilter
     },
     data () {
         return {
@@ -89,7 +97,8 @@ export default {
                     status: 'pending',
                     time: '0h',
                     teamNum: 1,
-                    invoices: ["https:///", 'htps:///www']
+                    invoices: ["https:///", 'htps:///www'],
+                    color: '#d94182'
                 },
                 {
                     id: '2',
@@ -98,7 +107,8 @@ export default {
                     status: 'pending',
                     time: '0h',
                     teamNum: 1,
-                    invoices: ["https:///", 'htps:///www']
+                    invoices: ["https:///", 'htps:///www'],
+                    color: '#9e5bd9'
                 }
             ]
         }

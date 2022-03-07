@@ -1,10 +1,21 @@
 .project {
     &__overview {
-
         &--item {
             padding: 20px 0;
                     border-bottom: 1px solid #e5e5e5;
+        }
+    }
 
+    &--item {
+        &__dot {
+            margin: 0px 5px 0px 0px;
+            display: inline-block;
+            font-weight: 700;
+            // font-size: 26px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #d94182
         }
     }
 }
