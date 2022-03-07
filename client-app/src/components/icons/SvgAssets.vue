@@ -60,6 +60,9 @@ export default {
                             <path d="M57 0.36499H1C0.448 0.36499 0 0.81199 0 1.36499V45.365C0 45.918 0.448 46.365 1 46.365H27C27.552 46.365 28 45.918 28 45.365C28 44.812 27.552 44.365 27 44.365H2V2.36499H56V26.365C56 26.918 56.448 27.365 57 27.365C57.552 27.365 58 26.918 58 26.365V1.36499C58 0.81299 57.552 0.36499 57 0.36499Z" fill="#7B76E9"/>
                             </svg>
                         `,
+            'tasks': '<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" style="fill: #42526e;transform: ;msFilter:;"><path d="M19 15v-3h-2v3h-3v2h3v3h2v-3h3v-2h-.937zM4 7h11v2H4zm0 4h11v2H4zm0 4h8v2H4z"></path></svg>',
+
+            'invoice': '<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" style="fill: #42526e;transform: ;msFilter:;"><path d="M21 11h-3V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3v-6a1 1 0 0 0-1-1zM5 19a1 1 0 0 1-1-1V5h12v13c0 .351.061.688.171 1H5zm15-1a1 1 0 0 1-2 0v-5h2v5z"></path><path d="M6 7h8v2H6zm0 4h8v2H6zm5 4h3v2h-3z"></path></svg>'
         }
     }),
 

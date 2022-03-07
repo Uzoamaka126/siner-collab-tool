@@ -5,7 +5,7 @@
             <div class="flex align-items-center justify-content-between">
                 <!-- project count -->
                 <div class="list--count">
-                    <p>3 project{{ projects.length > 1 ? 's' : '' }}</p>
+                    <p>{{ projects.length }} project{{ projects.length > 1 ? 's' : '' }}</p>
                 </div>
             <main-filter />
             </div>
@@ -66,7 +66,7 @@ import MainFilter from '../shared/filter/Main';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion';
 
 export default {
-    name: 'WorkspaceLayout',
+    name: 'ProjectLayout',
     created() {
     },
     props: {

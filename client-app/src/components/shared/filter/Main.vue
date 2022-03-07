@@ -23,15 +23,15 @@
                             <input 
                                 class="form-check-input" 
                                 type="checkbox" 
-                                id="flexCheckChecked" 
-                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                                id="flexCheckCheckedOne" 
+                                v-model="projectTitleInputCheck"
                             />
-                            <label class="form-check-label text--xs ml--5" for="flexCheckChecked">
+                            <label class="form-check-label text--xs ml--5" for="flexCheckCheckedOne">
                                 Title
                             </label>
                         </div>
                     </div>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body" style="padding-top: 0.5rem">
                             <InputSearch :showIcon="false" />                
                         </div>
@@ -44,8 +44,8 @@
                             <input 
                                 class="form-check-input" 
                                 type="checkbox" 
-                                id="flexCheckCheckedTwo" 
-                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                                id="flexCheckCheckedTwo"
+                                v-model="clientNameInputCheck"
                             />
                             <label class="form-check-label text--xs ml--5" for="flexCheckCheckedTwo">
                                 Client name
@@ -66,7 +66,7 @@
                                 class="form-check-input" 
                                 type="checkbox" 
                                 id="flexCheckCheckedThree" 
-                                style="margin-left: 0; padding-right: 8px; padding-left: 8px; padding-top: 8px; padding-bottom: 8px; min-height: 10px; width: 12px; height: 12px"
+                                v-model="projectStatusInputCheck"
                             />
                             <label class="form-check-label text--xs ml--5" for="flexCheckCheckedThree">
                                 Status
@@ -103,13 +103,18 @@ export default {
     },
     data () {
        return {
-           reactiveValue: this.value || ''
+           reactiveValue: this.value || '',
+           clientNameInputCheck: false,
+           projectTitleInputCheck: false,
+           projectStatusInputCheck: false
        }
     },
     methods: {
         clearSearch() {
             // clear all custom filter data and close it
-            this.reactiveValue = ''
+            this.clientNameInputCheck = false,
+            this.projectTitleInputCheck = false,
+            this.projectStatusInputCheck = false
         },
 
     },
@@ -143,5 +148,15 @@ export default {
         padding: 0px !important;
         box-shadow: inset 0 -1px rgba(235, 238, 241, 0) !important;
         background-color: #f6f8fa !important;
+   }
+   .form-check-input {
+       margin-left: 0 !important; 
+       padding-right: 8px; 
+       padding-left: 8px; 
+       padding-top: 8px; 
+       padding-bottom: 8px; 
+       min-height: 10px; 
+       width: 12px; 
+       height: 12px
    }
 </style>

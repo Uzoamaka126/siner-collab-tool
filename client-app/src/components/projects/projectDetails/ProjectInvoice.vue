@@ -86,7 +86,7 @@
                 <empty-page 
                     :title="'You have not created any invoices yet.'" 
                     :subtitle="'Your invoices will show up here once you create them.'" 
-                    :iconName="'client'"
+                    :iconName="'invoice'"
                     :width="'60px'"
                     :height="'60px'"
                 />
