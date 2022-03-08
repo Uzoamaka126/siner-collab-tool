@@ -11,6 +11,7 @@
             Filter by
         </button>
         <div class="dropdown-menu filter__dropdown-menu">
+            <!-- action items -->
         <div class="action--btns__wrap">
             <button class="action--btns__clear action--btns">Clear</button>
             <button class="action--btns__run action--btns">Run</button>
@@ -98,9 +99,7 @@ export default {
         prop: "value",
         event: "change",
     },
-    props: {
-        value: { type: String, default: '' },
-    },
+    props: ['filter'],
     data () {
        return {
            reactiveValue: this.value || '',

@@ -192,7 +192,7 @@
             cursor: pointer;
             font-size: 12px !important;
 
-        &:active, &:focus, &:visited {
+        &.active, &:active, &:focus, &:visited {
             color: #596DDE !important;
             border: 1px solid #eee !important;
             box-shadow: none !important;

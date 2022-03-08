@@ -9,7 +9,7 @@
                 </div>
                 <div class="flex align-items-center">
                     <main-filter />
-                    <sort-filter />
+                    <sort-filter :filter="displayType" @setType="setDisplayType" />
                 </div>
             </div>
             <!-- Content -->
@@ -21,7 +21,7 @@
                             <th class="header">Client</th>
                             <th class="header">Status</th>
                             <th class="header">Deadline</th>
-                            <th class="header">Tags</th>
+                            <th class="header">No. of Tasks</th>
                             <th class="header">No. of Invoices</th>
                             <th class="header"></th>
                         </tr>
@@ -34,8 +34,8 @@
                                 </td>
                             <td>{{ project.client }}</td>
                             <td>{{ project.status }}</td>
-                            <td>{{ project.time }}</td>
-                            <td>{{ project.teamNum }}</td>
+                            <td>{{ formatProjectDateTime(project.time) }}</td>
+                            <td>{{ project.tasks }}</td>
                             <td>{{ project.invoices.length }}</td>
                             <td  aria-expanded="false">
                                 <div data-bs-toggle="dropdown">
@@ -66,11 +66,12 @@
 </template>
 
 <script>
-import { createdWorkspaces } from '../../utils/dummy'
 import CreateProjectModal from '../shared/modals/CreateProject'
 import MainFilter from '../shared/filter/Main';
 import SortFilter from '../shared/filter/Sort';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion';
+import { formatDateTime } from '../../utils/others'
+
 
 export default {
     name: 'ProjectLayout',
@@ -87,7 +88,6 @@ export default {
     },
     data () {
         return {
-            createdWorkspaces: createdWorkspaces,
             showCreateBoardModal: false,
             projects: [
                 {
@@ -95,29 +95,130 @@ export default {
                     title: 'Twitter Landing page',
                     client: 'Twitter',
                     status: 'pending',
-                    time: '0h',
-                    teamNum: 1,
+                    time: new Date('Sun Mar 31 2022 21:25:37 GMT+0100 (West Africa Standard Time)'),
+                    tasks: 6,
                     invoices: ["https:///", 'htps:///www'],
                     color: '#d94182'
                 },
                 {
                     id: '2',
-                    title: 'Twitter Landing page',
-                    client: 'Twitter',
+                    title: 'Netlify Deployment',
+                    client: 'Netlify',
                     status: 'pending',
-                    time: '0h',
-                    teamNum: 1,
+                    time: new Date('Thu Mar 10 2022 21:25:37 GMT+0100 (West Africa Standard Time)'),
+                    tasks: 10,
                     invoices: ["https:///", 'htps:///www'],
                     color: '#9e5bd9'
                 }
-            ]
+            ],
+            displayType: 'A - Z',
+            page: {
+                isLoading: 'default',
+                hasNoProjects: false,
+                pageNumber: 1,
+                totalPages: 1,
+                total: 0,
+            },
+            filterDataObject: {
+                 status: {
+                    types: {
+                        "pending": "Pending", 
+                        "on-hold": 'OnHold',
+                        'completed': 'Completed'
+                    },
+                    selected: [],
+                },
+                clientName: undefined,
+                projectTitle: undefined
+            }
         }
     },
     computed: {
+        // computeProjectList() {
+        //     if(this.displayType && this.displayType === 'A - Z') {
+
+        //     }
+        // },
+        // isFiltered() {
+        //     return objectIsEmpty( this.$route.query ) === false;
+        // },
     },
     methods: {
+        buildQueryParams(query = {}) {
+            return {
+                status: query.status || (this.filter.cardStatus.selected.length === 1 ? this.filter.cardStatus.selected.join(",") : undefined),                
+                clientName: query.clientName || this.filter.clientName,
+                projectTitle: query.projectTitle || this.filter.projectTitle,
+                page: query.page || this.page.pageNumber,
+            }
+        },
+
+        updateFilterDataObj(query) {
+            switch (query) {
+                case query.status:
+                    this.filter.status.selected = query.status.split(",");
+                case query.clientName:
+                    this.filter.clientName = query.clientName;
+                case query.projectTitle:
+                    this.filter.projectTitle = query.projectTitle;
+            }
+        },
+        formatProjectDateTime(date) {
+            if(date) {
+                return formatDateTime(date)
+            } else {
+                return 'None'
+            }
+        },
+        setDisplayType(val) {
+            this.displayType = val
+        },
         handleFetchProjects() {},
-        handleDeleteProject() {}
+        handleDeleteProject() {},
+        filterProjects () {
+            const params = this.buildQueryParams();
+            this.$router.replace({ name: 'projects', query: params });
+        },
+        sortProjects() {
+            if (this.displayType === 'A - Z') {
+                this.projects.sort((a, b) => {
+                    var lowerName = a.title.toLowerCase(); // ignore upper and lowercase
+                    var higherName = b.title.toLowerCase();
+
+                    if (lowerName < higherName) {
+                        return -1;
+                    }
+                    if (lowerName > higherName) {
+                        return 1;
+                    }
+
+                    return 0;
+                }) 
+            } else {
+                this.projects.sort((a, b) => {
+                    var lowerName = a.title.toLowerCase(); // ignore upper and lowercase
+                    var higherName = b.title.toLowerCase();
+
+                    if (lowerName < higherName) {
+                        return 1;
+                    }
+                    if (lowerName > higherName) {
+                        return -1;
+                    }
+
+                    return 0;
+                }) 
+            }
+        }
+    },
+    watch: {
+        displayType(newType, oldType) {
+            console.log('newType', newType, 'oldType', oldType);
+            console.log(newType !== oldType);
+            if(newType !== oldType) {
+                this.sortProjects()
+            }
+        }
     }
 }
 </script>

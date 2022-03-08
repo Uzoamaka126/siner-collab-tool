@@ -9,11 +9,10 @@
                 data-bs-toggle="dropdown" 
                 data-bs-auto-close="outside" 
             >
-            {{ displayType ? displayType : 'Sort by' }}
+            {{ filter ? filter : 'Sort by' }}
             </button>
             <ul class="dropdown-menu dropdown-menu--tag" aria-labelledby="viewTag">
-                <li class="dropdown-item cursor-pointer text--xs" @click=" selectDisplayType('A - Z')">A - Z</li>
-                <li class="dropdown-item cursor-pointer text--xs" @click=" selectDisplayType('Z - A')">Z - A</li>
+                <li v-for="(item, index) in displayTypeList" :key="index" class="dropdown-item cursor-pointer text--xs" @click="setDisplayType(item)">{{ item }}</li>
             </ul>
         </div>
     </div>
@@ -27,18 +26,16 @@ export default {
     components: {
         IconSvg
     },
-    props: {
-        user: Object
-    },
+    props: ['filter'],
     data () {
         return {
-           displayType: ''
-      }
+            displayTypeList: ['A - Z', 'Z - A'],
+        }
     },
     methods: {
-       selectDisplayType(val) {
-           this.displayType = val
-       }
+        setDisplayType(val) {
+           this.$emit('setType', val)
+        }
     }
 }
 </script>

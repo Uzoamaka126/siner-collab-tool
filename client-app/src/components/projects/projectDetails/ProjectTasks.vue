@@ -23,6 +23,7 @@
                         :key="item" 
                         type="button" 
                         class="btn btn--outline__sm normal" 
+                        :class="{'active' : tasksViewType.default === item }"
                         @click="setTasksView(item)"
                     >
                         {{ item }}
