@@ -82,7 +82,7 @@
                                             <path class="inner-path" d="M13.4,22.1c-0.3,0-0.5-0.1-0.7-0.3l-3.9-3.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3.1,3.1l8.1-8.1c0.4-0.4,1-0.4,1.4,0   s0.4,1,0,1.4l-8.9,8.9C13.9,22,13.7,22.1,13.4,22.1z"></path>
                                         </svg>
                                     </span>
-                                    <div class="flex align-items-center width--100">
+                                    <div class="flex align-items-center width--100 justify-content-between">
                                         <!-- name -->
                                         <input 
                                             class="form-control form-control-sm task__form--input" 
@@ -90,11 +90,37 @@
                                             v-model="element.name" 
                                             @keyup="removeTaskByDeletion(element.id, element.name)"
                                             :id="element.id"
-                                            style="min-width: 80%;"
+                                            style="width: 70%;"
                                         >
-                                        <button class="btn--ghost text--xs text--color-warning width--100">
-                                            Delete
-                                        </button>
+                                        <div class="flex align-items-center">
+                                            <icon-svg
+                                                v-for="item in taskActions"
+                                                :key="item.id" 
+                                                :name="item.name"
+                                                icon-position="left"
+                                                :width="'16px'"
+                                                :styles="'display: inline-block; margin-right: 5px;'"
+                                                :fill="item.fill"
+                                                type="button"
+                                                :title="item.toolTipTitle"
+                                                data-bs-toggle="tooltip" 
+                                                data-bs-placement="top" 
+                                            /> 
+                                            <!-- <icon-svg 
+                                                name="hour-glass"
+                                                icon-position="left"
+                                                :width="'16px'"
+                                                :styles="'display: inline-block; margin-right: 5px;'"
+                                                :fill="'rgba(128, 128, 128, 1)'"
+                                            /> 
+                                            <icon-svg 
+                                                name="delete"
+                                                icon-position="left"
+                                                :width="'16px'"
+                                                :styles="'display: inline-block;'"
+                                                :fill="'rgba(209, 69, 59, 1)'"
+                                            />  -->
+                                        </div>
                                     </div>
                                 </div>
                             </template>
@@ -121,6 +147,7 @@ import IconSvg from '../../icons/Icon-Svg.vue';
 import draggable from "vuedraggable";
 import EmptyPage from '../../shared/emptyPage/EmptyPage.vue'
 import CreateTask from '../../shared/modals/CreateTask.vue';
+import { taskActions } from '../../../utils/dataHelpers';
 
 export default {
     name: 'ProjectTasks',
@@ -151,7 +178,8 @@ export default {
             tasksViewType: {
                 default: 'Pending',
                 types: ['All', 'Pending', 'Completed']
-            }
+            },
+            taskActions: taskActions
         }
     },
     props: ['user'],
