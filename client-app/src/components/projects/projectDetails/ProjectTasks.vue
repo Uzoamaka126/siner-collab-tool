@@ -1,14 +1,19 @@
 <template>
     <div>
-        <!-- boards functionalities header -->
-        <div class="align-items-center justify-content-between" style="display: flex;">
+        <div>
+            <div class="align-items-center justify-content-between" style="display: flex;">
             <div class="list--count">
                 <p>{{ tasks.length }} {{ tasks.length > 1 ? 'tasks' : 'task' }}</p>
             </div>
             <!-- Add new task -->
             <div class="flex align-items-center justify-content-between" v-if="tasks.length > 0">
                 <!-- filter -->
-                <div class="btn--outline__sm align-items-center mr--10" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; padding: .375rem .75rem;">
+                <div 
+                    class="btn--outline__sm align-items-center mr--10" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#createTask" 
+                    style="display: flex; padding: .375rem .75rem;"
+                >
                     <span class="flex ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="fill: #5e6c84;transform: ;msFilter:;">
                             <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path>
@@ -57,55 +62,57 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <!-- content -->
-        <template v-if="computeTasksByView.length > 0">
-            <div>
-                <div class="col-12 mt--40">
-                    <draggable 
-                        v-model="computeTasksByView" 
-                        group="people" 
-                        @start="dragging=true" 
-                        @end="dragging=false" 
-                        item-key="id"
-                    >
-                        <template #item="{element}">
-                            <div class="task__completed--list">
-                                <span class="task__completed__wrap">
-                                    <svg class="task__completed--icon" focusable="false" viewBox="0 0 32 32">
-                                        <path class="outer-path" d="M31,16c0,8.3-6.7,15-15,15S1,24.3,1,16S7.7,1,16,1S31,7.7,31,16z"></path>
-                                        <path class="inner-path" d="M13.4,22.1c-0.3,0-0.5-0.1-0.7-0.3l-3.9-3.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3.1,3.1l8.1-8.1c0.4-0.4,1-0.4,1.4,0   s0.4,1,0,1.4l-8.9,8.9C13.9,22,13.7,22.1,13.4,22.1z"></path>
-                                    </svg>
-                                </span>
-                                <div class="flex align-items-center width--100">
-                                    <!-- name -->
-                                    <input 
-                                        class="form-control form-control-sm task__form--input" 
-                                        type="text" 
-                                        v-model="element.name" 
-                                        @keyup="removeTaskByDeletion(element.id, element.name)"
-                                        :id="element.id"
-                                        style="min-width: 80%;"
-                                    >
-                                    <button class="btn--ghost text--xs text--color-warning width--100">
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </template>
-                    </draggable>
-                </div>
             </div>
-        </template>
-        <template v-else>
-            <empty-page 
-                :title="'You have no tasks yet.'" 
-                :subtitle="'Your tasks will show up here once you add them.'" 
-                :iconName="'tasks'"
-                :width="'60px'"
-                :height="'60px'"
-            />
-        </template>
+            <!-- content -->
+            <template v-if="computeTasksByView.length > 0">
+                <div>
+                    <div class="col-12 mt--40">
+                        <draggable 
+                            v-model="computeTasksByView" 
+                            group="people" 
+                            @start="dragging=true" 
+                            @end="dragging=false" 
+                            item-key="id"
+                        >
+                            <template #item="{element}">
+                                <div class="task__completed--list">
+                                    <span class="task__completed__wrap">
+                                        <svg class="task__completed--icon" focusable="false" viewBox="0 0 32 32">
+                                            <path class="outer-path" d="M31,16c0,8.3-6.7,15-15,15S1,24.3,1,16S7.7,1,16,1S31,7.7,31,16z"></path>
+                                            <path class="inner-path" d="M13.4,22.1c-0.3,0-0.5-0.1-0.7-0.3l-3.9-3.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3.1,3.1l8.1-8.1c0.4-0.4,1-0.4,1.4,0   s0.4,1,0,1.4l-8.9,8.9C13.9,22,13.7,22.1,13.4,22.1z"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="flex align-items-center width--100">
+                                        <!-- name -->
+                                        <input 
+                                            class="form-control form-control-sm task__form--input" 
+                                            type="text" 
+                                            v-model="element.name" 
+                                            @keyup="removeTaskByDeletion(element.id, element.name)"
+                                            :id="element.id"
+                                            style="min-width: 80%;"
+                                        >
+                                        <button class="btn--ghost text--xs text--color-warning width--100">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </draggable>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <empty-page 
+                    :title="'You have no tasks yet.'" 
+                    :subtitle="'Your tasks will show up here once you add them.'" 
+                    :iconName="'tasks'"
+                    :width="'60px'"
+                    :height="'60px'"
+                />
+            </template>
+        </div>
+        <create-task />
     </div>
 </template>
 
@@ -113,13 +120,15 @@
 import IconSvg from '../../icons/Icon-Svg.vue';
 import draggable from "vuedraggable";
 import EmptyPage from '../../shared/emptyPage/EmptyPage.vue'
+import CreateTask from '../../shared/modals/CreateTask.vue';
 
 export default {
     name: 'ProjectTasks',
      components: {
         IconSvg,
         draggable,
-        EmptyPage
+        EmptyPage,
+        CreateTask
     },
     created() {
         // if(this.user && this.user.isRecentlyCreated === true) {

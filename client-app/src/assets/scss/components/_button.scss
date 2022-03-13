@@ -212,4 +212,12 @@
     &-close {
         font-size: 14px !important;
     }
+
+    &__select {
+        width: 100%;
+        display: flex !important;
+        justify-content: space-between;
+        text-align: left !important;
+        align-items: center;
+    }
 }
