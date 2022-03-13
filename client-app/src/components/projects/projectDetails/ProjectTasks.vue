@@ -73,6 +73,8 @@
                             @start="dragging=true" 
                             @end="dragging=false" 
                             item-key="id"
+                            @mouseleave="showBtns = false"
+                            @mouseover="showActionBtnsOnHover()"
                         >
                             <template #item="{element}">
                                 <div class="task__completed--list">
@@ -93,33 +95,24 @@
                                             style="width: 70%;"
                                         >
                                         <div class="flex align-items-center">
-                                            <icon-svg
+                                            <span
                                                 v-for="item in taskActions"
-                                                :key="item.id" 
-                                                :name="item.name"
-                                                icon-position="left"
-                                                :width="'16px'"
-                                                :styles="'display: inline-block; margin-right: 5px;'"
-                                                :fill="item.fill"
-                                                type="button"
-                                                :title="item.toolTipTitle"
-                                                data-bs-toggle="tooltip" 
-                                                data-bs-placement="top" 
-                                            /> 
-                                            <!-- <icon-svg 
-                                                name="hour-glass"
-                                                icon-position="left"
-                                                :width="'16px'"
-                                                :styles="'display: inline-block; margin-right: 5px;'"
-                                                :fill="'rgba(128, 128, 128, 1)'"
-                                            /> 
-                                            <icon-svg 
-                                                name="delete"
-                                                icon-position="left"
-                                                :width="'16px'"
-                                                :styles="'display: inline-block;'"
-                                                :fill="'rgba(209, 69, 59, 1)'"
-                                            />  -->
+                                                :key="item.id"
+                                                class="tasks__action--btns"
+                                                :class="{ 'active':showBtns }"
+                                            >
+                                                <icon-svg
+                                                    :name="item.name"
+                                                    icon-position="left"
+                                                    :width="'16px'"
+                                                    :styles="'display: inline-block; margin-right: 5px;'"
+                                                    :fill="item.fill"
+                                                    type="button"
+                                                    :title="item.toolTipTitle"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="top" 
+                                                /> 
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +172,8 @@ export default {
                 default: 'Pending',
                 types: ['All', 'Pending', 'Completed']
             },
-            taskActions: taskActions
+            taskActions: taskActions,
+            showBtns: false
         }
     },
     props: ['user'],
@@ -219,6 +213,10 @@ export default {
             console.log('val', val);
             this.tasksViewType.default = val
             console.log('this.tasksViewType.default', this.tasksViewType.default);
+        },
+        markTaskAsCompleted(val) {},
+        showActionBtnsOnHover(val) {
+            this.showBtns = true;
         }
     }
 }

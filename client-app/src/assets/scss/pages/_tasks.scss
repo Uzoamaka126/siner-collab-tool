@@ -1,4 +1,4 @@
-.tags {
+.tasks {
     &--project {
         position: relative;
         display: inline-flex;
@@ -14,5 +14,14 @@
         border: 1px solid rgb(206, 206, 206);
         border-radius: 5px;
         background-color: rgb(255, 255, 255);
+    }
+
+    &__action {
+        &--btns {
+            visibility: hidden;
+            &.active {
+                visibility: visible;
+            }
+        }
     }
 }

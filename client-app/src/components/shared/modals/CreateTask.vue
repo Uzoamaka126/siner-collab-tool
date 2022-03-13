@@ -13,7 +13,7 @@
                                 <label for="name" class="form-label">Task name</label>
                                 <input type="text" class="form-control form-control-sm" v-model="taskName" id="name" placeholder="Do xyz today">
                             </div>
-                            <p class="text-mute text--xxs text--info mt-1" v-if="taskName.length < 3">Task should be no less than three words</p>
+                            <p class="text-mute text--xxs text--info mt-1" v-if="checkNameLength">Task name should be not less than four words</p>
                         </div>
                         <div class="task__create--status form__item">
                              <div class="form__item">
@@ -84,6 +84,13 @@ export default {
     computed: {
         isBtnDisabled() {
             if(this.taskName.length < 3|| !this.priority || !this.deadlineDate) {
+                return true
+            } else {
+                return false
+            }
+        },
+        checkNameLength() {
+            if (this.taskName.length < 4) {
                 return true
             } else {
                 return false
