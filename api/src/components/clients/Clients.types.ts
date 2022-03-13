@@ -3,7 +3,9 @@ import { Document, Types } from "mongoose"
 // Define a document interface for its related moongoose schema, in this case, the Client schema
 export interface IBaseClient {
     name: string;
-    user_id: string
+    user_id: string;
+    email: string;
+    projects: [];
 }
 
 export interface IClientRequestPayload {

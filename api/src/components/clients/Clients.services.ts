@@ -3,9 +3,9 @@ import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
     IClientRequestPayload, 
-    IClientSingleRequestPayload, 
     IClientFetchAllResponse, 
-    IClientPayload
+    IClientPayload,
+    IBaseClient
 } from './Clients.types';
 
 // Find all users
@@ -73,7 +73,7 @@ export async function getUserClients(id: string) {
     }
 }
 
-export async function addNewClient(data: IClientRequestPayload) {
+export async function addNewClient(data: IBaseClient) {
     const creatorId = data.user_id;
     const getCreatorDetails = await getSingleUser(creatorId);
     
@@ -90,7 +90,8 @@ export async function addNewClient(data: IClientRequestPayload) {
             .create({
                 name: data.name,
                 user_id: data.user_id,
-                projects: []
+                email: data.email,
+                projects: data.projects
             })
         
         return {
