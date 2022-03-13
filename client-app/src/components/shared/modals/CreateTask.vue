@@ -93,7 +93,8 @@ export default {
     methods: {
         setPriority(val) {
             this.priority = val
-        }
+        },
+        handleCreateTask() {}
     }
 }
 </script>

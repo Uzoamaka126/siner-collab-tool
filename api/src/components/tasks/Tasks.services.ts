@@ -77,7 +77,9 @@ async function addNewTask (data: IBaseTask) {
             .create({
                 name: data.name,
                 project_id: data.project_id,
-                isCompleted: false
+                isCompleted: false,
+                priorityLabel: data.priorityLabel,
+                deadline: data.deadline
             })
         
         return {
@@ -99,7 +101,8 @@ async function addNewTask (data: IBaseTask) {
 async function editTask(id: string, data: any) {
     try {
         const filter = { _id: id, };
-        const update = { name: data.name, isCompleted: data.isCompleted };
+        const update = { ...data };
+        // const update = { name: data.name, isCompleted: data.isCompleted };
         // else continue
         const updatedClient = await Task.findOneAndUpdate(filter, update, { new: true } ).exec()
                     

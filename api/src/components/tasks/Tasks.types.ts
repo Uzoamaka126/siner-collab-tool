@@ -4,8 +4,9 @@ import { Document, Types } from "mongoose";
 export interface IBaseTask {
     name: string;
     project_id?: string
-    // project_id?: Types.ObjectId;
     isCompleted: boolean;
+    priorityLabel: string,
+    deadline: Date
 }
 /** 
  * The ITagDocument is for additional properties or methods you want to add to a schema
