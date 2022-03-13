@@ -55,7 +55,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn--secondary btn--sm" data-bs-dismiss="modal" >Cancel</button>
+                    <button type="button" class="btn btn--secondary btn--sm" data-bs-dismiss="modal" @click="resetValues()">Cancel</button>
                     <button type="button" class="btn btn--primary btn--sm" :disabled="isBtnDisabled">Create task</button>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export default {
        state: 'default',
        priorityLabels: priorityLabels,
        priority: '',
-       deadlineDate: new Date()
+       deadlineDate: null
     }),
     computed: {
         isBtnDisabled() {
@@ -94,7 +94,12 @@ export default {
         setPriority(val) {
             this.priority = val
         },
-        handleCreateTask() {}
+        handleCreateTask() {},
+        resetValues() {
+            this.priority = '',
+            this.deadlineDate = null,
+            this.taskName = ''
+        }
     }
 }
 </script>
