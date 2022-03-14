@@ -60,23 +60,25 @@
                 <table class="table root mt--40">
                     <thead>
                         <tr>
+                            <th class="header">Status</th>
                             <th class="first header">Client email</th>
                             <th class="header">Amount</th>
                             <th class="header">Invoice No.</th>
                             <th class="header">Date Created</th>
                             <th class="header">Due Date</th>
-                            <th class="header">Status</th>
                             <th class="header"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="invoice in invoices" :key="invoice.id">
+                            <td>
+                                <span :class="['table__data--main', 'tag', invoiceTagMap[invoice.status]]">{{ invoice.status }}</span>
+                            </td>
                             <td class="first">{{ invoice.client_email }}</td>
                             <td>{{ invoice.currency }} {{ formatMoney(invoice.amount) }}</td>
                             <td>{{ invoice.invoice_num }}</td>
                             <td>{{ formatDateTime(invoice.date_created) }}</td>
                             <td>{{ formatDateTime(invoice.due_date) }}</td>
-                            <td :class="['table__data--main', 'tag', invoiceTagMap['paid']]">{{ invoice.status }}</td>
                             <td class="dropdown">
                                 <div class=" cursor-pointer" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #95899b;transform: ;msFilter:;">
@@ -112,11 +114,6 @@
                     :height="'60px'"
                 />
             </template>
-
-            <!-- <div class="payment__empty" v-else-if="!totalInvoices && isFiltered">
-                <icon-svg name="empty" class="payment__empty__icon" />
-                <div class="payment__empty__text">There are no invoices to show based on this filter.</div>
-            </div> -->
         </div>
         
         <!-- <pagination data="invoices-list" :pageNumber="noOfPages" /> -->
@@ -157,10 +154,10 @@ export default {
          * Returns the appropriate CSS status tag for each invoice status
          */
         invoiceTagMap: {
-            draft: "tag--ash",
+            draft: "tag--cornsilk",
             due: "tag--red",
             paid: "tag--green",
-            issued: "tag--yellow",
+            issued: "tag--blue",
         },
         downloadButtonIsClicked: false,
         noOfPages: 1,

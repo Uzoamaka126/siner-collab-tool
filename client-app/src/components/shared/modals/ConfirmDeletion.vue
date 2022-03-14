@@ -40,6 +40,9 @@ export default {
             },
             'project': {
                 name: 'project',
+            },
+            'invoice': {
+                name: 'invoice',
             }
         }
     }),

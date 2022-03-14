@@ -57,3 +57,35 @@
         }
     }
 }
+
+.tag {
+    border-radius: 20px;
+    padding: 8px;
+    display: inline !important;
+    vertical-align: middle !important;
+    border-color: unset !important;
+    border-style: solid !important;
+    border-width: inherit !important;
+    font-size: 0.875rem !important;
+    border: transparent !important;
+
+    &--cornsilk {
+        background: cornsilk !important;
+        color: chocolate !important;
+    }
+
+    &--red {
+        background: #db5c5c !important;
+        color: #f2f2f2 !important;
+    }
+    
+    &--green {
+        background: #05c987 !important;
+        color: cornsilk !important;
+    }
+
+    &--blue {
+        background: aliceblue !important;
+        color: #8faafb !important;
+    }
+}

@@ -23,7 +23,7 @@
                                 <button class="btn btn--secondary btn--sm">Duplicate</button>
                             </div>
                             <div class="row__item positionRelative">
-                                <button class="btn btn--danger btn--sm">Delete</button>
+                                <button class="btn btn--danger btn--sm" @click="startDelete">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                            <div class="invoice__client">
                                 <div class="invoice__client--bio">
                                     <p class="title">Amount</p>
-                                    <p class="sub-title">Client X</p>
+                                    <p class="sub-title">NGN 200.000</p>
                                 </div>
                                 <div class="invoice__client--bio">
                                     <p class="title">Date Sent</p>
@@ -82,15 +82,15 @@
 
                     <!-- Add Item + computation -->
                     <div class="row invoice__row block">
-                        <div class="flex align-items-center form__row">
-                            <div class="form__row__right">
-                                <div class="invoice__details--item mt--10 mb--10">
-                                    <div class="invoice__compile--label">Subtotal</div>
-                                    <div class="invoice__compile--value">NGN 0.00</div>
+                        <div class="flex align-items-center form__row width--100">
+                            <div class="form__row__right width--100">
+                                <div class="invoice__details--item mt--10 mb--10 flex align-items-center">
+                                    <div class="invoice__compile--label">Subtotal:</div>
+                                    <div class="invoice__compile--value ml--20">NGN 0.00</div>
                                 </div>
                                 <div class="invoice__details--item">
-                                    <div class="invoice__compile--label">Tax</div>
-                                    <div class="invoice__compile--value">NGN 0.00</div>
+                                    <div class="invoice__compile--label">Tax:</div>
+                                    <div class="invoice__compile--value ml--20">NGN 0.00</div>
                                 </div>
                             </div>
                         </div>
@@ -109,96 +109,104 @@
                 </div>
             </div>
         </div>
+
+         <!-- modals -->
+        <confirm-deletion-modal :type="'invoice'" :action="deleteInvoice" :reset="resetCurrentInvoice" />
     </div>
 </template>
 
 <script>
 // import toast from "@/functions/toast";
+import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
+
 
 export default {
     name: 'InvoiceDetails',
-    components: {},
+    components: {
+        ConfirmDeletionModal,
+    },
 
     created() {},
     
     data() {
         return {
-        refNo: undefined,
-        config: {
-            dueDate: {
-            date: undefined,
-            isEmpty: false,
+            config: {
+                dueDate: {
+                    date: undefined,
+                    isEmpty: false,
+                },
+                number: {
+                    decimal: '.',
+                    thousands: ',',          // The currency name or symbol followed by a space.
+                    prefix: "",
+                    suffix: '',
+                    precision: 0,
+                    masked: false
+                },
+                percentage: {
+                    decimal: '.',
+                    thousands: ',',          // The currency name or symbol followed by a space.
+                    prefix: "%",
+                    suffix: '',
+                    precision: 2,
+                    masked: false
+                },
             },
-            number: {
-            decimal: '.',
-            thousands: ',',          // The currency name or symbol followed by a space.
-            prefix: "",
-            suffix: '',
-            precision: 0,
-            masked: false
-            },
-            percentage: {
-            decimal: '.',
-            thousands: ',',          // The currency name or symbol followed by a space.
-            prefix: "%",
-            suffix: '',
-            precision: 2,
-            masked: false
-            },
-        },  
+            invoice: {}  
         }
     },
 
     computed: {
         moneyConfig() {
-        return {
-            decimal: '.',
-            thousands: ',',
-            prefix: this.invoice.currency + " ",
-            suffix: '',
-            precision: 2,
-            masked: false,
-        }
+            return {
+                decimal: '.',
+                thousands: ',',
+                prefix: this.invoice.currency + " ",
+                suffix: '',
+                precision: 2,
+                masked: false,
+            }
         },
     },
 
     methods: {
         deleteInvoice() {
-        this.requestIsDisabled = true;
-        this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
-        .then(({ ok, data }) => {
-            if( ok === false || data.status !== "success" ) return console.error("Couldn't Delete Invoices for customer.");
-            this.requestIsDisabled = false;
-            toast.green( "Invoice has been removed successfully." );
-            this.$router.push({ name: "invoices-list" });
-        })
+            this.requestIsDisabled = true;
+            this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
+            .then(({ ok, data }) => {
+                if( ok === false || data.status !== "success" ) return console.error("Couldn't Delete Invoices for customer.");
+                this.requestIsDisabled = false;
+                toast.green( "Invoice has been removed successfully." );
+                this.$router.push({ name: "invoices-list" });
+            })
         
-        .catch( error => {
-            this.requestIsDisabled = false;
-            toast.red( error.data.message );
-            console.log( error.data.message );
-        });
+            .catch( error => {
+                this.requestIsDisabled = false;
+                toast.red( error.data.message );
+                console.log( error.data.message );
+            });
         },
 
         fetchInvoice() {
-        const queryString = `v2/invoices/${ this.refNo }/?include_customer=1`;
-        this.$http.get(queryString).then(({ ok, data }) => {
-            if (ok !== true) return;
-            this.invoice = data.data;
-            if( this.invoice.status === 'paid' ) return this.$router.push({ name: "not-found" });
-            this.loading = false;
-        })
-        .catch( error => {
-            console.log( error.data.message );
-            this.$router.push({ name: "not-found" })
-        })
+            const queryString = `v2/invoices/${ this.refNo }/?include_customer=1`;
+            this.$http.get(queryString).then(({ ok, data }) => {
+                if (ok !== true) return;
+                this.invoice = data.data;
+                if( this.invoice.status === 'paid' ) return this.$router.push({ name: "not-found" });
+                this.loading = false;
+            })
+            .catch( error => {
+                console.log( error.data.message );
+                this.$router.push({ name: "not-found" })
+            })
         },
 
-        preventKeys (event) {
-        if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 190 || event.keyCode == 37 || event.keyCode == 39) {
-            } else {
-                return event.preventDefault();
-            }
+        resetCurrentInvoice() {
+            this.invoice = {}
+        },
+        startDelete(data) {
+            this.invoice = data;
+            $("#deleteInvoice").modal("show");
         },
     },
 

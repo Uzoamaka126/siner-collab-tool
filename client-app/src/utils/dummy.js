@@ -237,7 +237,7 @@ export const dummyInvoicesData = [
             ]
         },
         invoice_num: "910207475280",
-        status: "draft",
+        status: "issued",
         title: "Invoice from SmartBands"
     }
 ]
