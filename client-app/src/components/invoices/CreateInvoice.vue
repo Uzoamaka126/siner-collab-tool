@@ -13,18 +13,18 @@
                       </div>
                   </div>
                   <!-- invoice button actions -->
-                  <div class="row__right">
-                      <div class="row__item positionRelative">
-                          <button @click="previewInvoice()" class="btn btn--secondary btn--sm">Preview Invoice</button>
+                  <div class="row__right" style="padding-left: 0px; padding-right: 0px;">
+                      <div class="row__item positionRelative" style="padding-left: 5px; padding-right: 5px;">
+                          <button class="btn btn--secondary btn--sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Preview Invoice</button>
+                      </div>
+                      <div class="row__item positionRelative" style="padding-left: 5px; padding-right: 5px;">
+                          <button :disabled="requestIsDisabled" style="padding-left: 5px; padding-right: 5px;" @click="saveInvoice()" class="btn btn--secondary btn--sm">Save Invoice</button>
                       </div>
                       <div class="row__item positionRelative">
-                          <button :disabled="requestIsDisabled" @click="saveInvoice()" class="btn btn--secondary btn--sm">Save Invoice</button>
-                      </div>
-                      <div class="row__item positionRelative">
-                          <button :disabled="requestIsDisabled" @click="sendInvoice()" class="btn btn--primary btn--sm">Send Invoice</button>
+                          <button :disabled="requestIsDisabled" style="padding-left: 5px; padding-right: 5px;" @click="sendInvoice()" class="btn btn--primary btn--sm">Send Invoice</button>
                       </div>
                       <div class="row__item positionRelative" v-show="refNo">
-                          <button :disabled="requestIsDisabled" @click="deleteInvoice()" class="btn btn--danger btn--sm">Delete Invoice</button>
+                          <button :disabled="requestIsDisabled" style="padding-left: 5px; padding-right: 5px;" @click="deleteInvoice()" class="btn btn--danger btn--sm">Delete Invoice</button>
                       </div>
                   </div>
                 </div>
@@ -259,6 +259,9 @@
         </div>
       </div>
     </div>
+
+    <!-- preview invoice off-canvas -->
+    <preview-invoice :items="invoice.meta.items" />
   </div>
 </template>
 
@@ -267,6 +270,7 @@
 // import toast from "@/functions/toast";
 // TO DO
 import SearchClientInput from "./helperComponents/SearchClientInput.vue";
+import PreviewInvoice from "./helperComponents/PreviewInvoice.vue";
 import InputMultipleEmails from '../shared/input/InputMultipleEmails'
 // import { createQueryString } from '../../../functions/request';
 // import { debounce, arrayToObject } from "../../../functions/utils";
@@ -277,6 +281,7 @@ export default {
   components: {
     SearchClientInput,
     InputMultipleEmails,
+    PreviewInvoice
   },
 
   created() {
@@ -308,7 +313,7 @@ export default {
           invoice_notes: [{ notes_description: null, notes_name: "invoice_notes", notes_type: "invoice_notes_1", notes_value: "" }],
           send_via_whatsapp: 0,
           reminders: [],
-          items: [{ item_name: "", item_price: 0, item_quantity: 1, item_unit: 0 }],
+          items: [{ item_name: "", item_price: 0.00, item_quantity: 0, item_unit: 0.00 }],
         },
         status: "draft",
         title: "INVOICE_FROM_DASHBOARD"

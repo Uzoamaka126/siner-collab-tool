@@ -1,6 +1,13 @@
 import { Schema, Model } from "mongoose";
 
 export const invoiceSchema: Schema = new Schema({
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: 2,
+      maxlength: 1000
+    },
     client_email: {
       type: String,
       required: true,
@@ -22,7 +29,7 @@ export const invoiceSchema: Schema = new Schema({
       trim: true,
       minLength: 2,
       maxlength: 100,
-      ref: 'projects'
+      ref: 'Project'
     },
     currency: {
       type: String,
@@ -79,6 +86,10 @@ export const invoiceSchema: Schema = new Schema({
       maxlength: 12
     },
     due_date: {
+      type: Date,
+      required: false,
+    },
+    date_paid: {
       type: Date,
       required: false,
     },
