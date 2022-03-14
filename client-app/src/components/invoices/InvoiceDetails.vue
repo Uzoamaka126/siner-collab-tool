@@ -17,13 +17,13 @@
                                 <button class="btn btn--secondary btn--sm">Edit</button>
                             </div>
                             <div class="row__item positionRelative">
-                                <button class="btn btn--primary btn--sm">Mark as paid</button>
+                                <button class="btn btn--primary btn--sm" data-bs-toggle="modal" data-bs-target="#markInvoiceAsPaid">Mark as paid</button>
                             </div>
                             <div class="row__item positionRelative">
                                 <button class="btn btn--secondary btn--sm">Duplicate</button>
                             </div>
                             <div class="row__item positionRelative">
-                                <button class="btn btn--danger btn--sm" @click="startDelete">Delete</button>
+                                <button class="btn btn--danger btn--sm" data-bs-toggle="modal" data-bs-target="#deleteInvoice">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -112,22 +112,23 @@
 
          <!-- modals -->
         <confirm-deletion-modal :type="'invoice'" :action="deleteInvoice" :reset="resetCurrentInvoice" />
+        <mark-invoice-as-paid />
     </div>
 </template>
 
 <script>
 // import toast from "@/functions/toast";
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
+import MarkInvoiceAsPaid from '../shared/modals/MarkInvoiceAsPaid.vue';
 
 
 export default {
     name: 'InvoiceDetails',
     components: {
         ConfirmDeletionModal,
+        MarkInvoiceAsPaid
     },
 
-    created() {},
-    
     data() {
         return {
             config: {
@@ -204,11 +205,15 @@ export default {
         resetCurrentInvoice() {
             this.invoice = {}
         },
-        startDelete(data) {
+
+        markInvoiceAsPaid() {
             this.invoice = data;
-            $("#deleteInvoice").modal("show");
         },
+
+        duplicateInvoice() {}
     },
+
+    created() {},
 
     watch: {}
 }

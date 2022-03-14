@@ -58,7 +58,7 @@ export default {
         }
     },
     mounted() {
-        console.log('this.action:', this.action, 'this.type:', this.type);
+        // console.log('this.action:', this.action, 'this.type:', this.type);
     }
 }
 </script>
