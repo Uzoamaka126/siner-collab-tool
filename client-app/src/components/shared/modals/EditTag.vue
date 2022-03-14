@@ -36,10 +36,7 @@ export default {
     model: {
         prop: "value",
         event: "change",
-    },  
-    created() {
     },
-
     data () {
        return {
            reactiveTagName: this.tagName
@@ -58,8 +55,6 @@ export default {
         reset() {
             this.$emit("resetCurrentTagDetails");
         },
-    },
-    created() {
     },
     watch: {
         tagName( newVal ) {

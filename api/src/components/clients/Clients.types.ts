@@ -5,7 +5,10 @@ export interface IBaseClient {
     name: string;
     user_id: string;
     email: string;
-    projects: [];
+    // projects: [];
+    phone_number: string;
+    country: string;
+    address: string;
 }
 
 export interface IClientRequestPayload {

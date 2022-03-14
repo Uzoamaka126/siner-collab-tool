@@ -91,7 +91,10 @@ export async function addNewClient(data: IBaseClient) {
                 name: data.name,
                 user_id: data.user_id,
                 email: data.email,
-                projects: data.projects
+                // projects: data.projects,
+                phone_number: data.phone_number,
+                country: data.country,
+                address: data.address
             })
         
         return {

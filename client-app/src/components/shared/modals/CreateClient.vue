@@ -35,7 +35,6 @@
 
 export default {
     name: 'CreateClient',
-    props: [],
     data: () => ({
         clientName: '',
         email: ''

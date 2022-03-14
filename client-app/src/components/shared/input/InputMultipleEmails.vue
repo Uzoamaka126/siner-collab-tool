@@ -34,24 +34,57 @@
 export default {
     name: 'InputMultipleEmails',
     components: {},
-    created() {},
+    props: {
+        selected: { default: () => [], },
+        placeholder: { type: String, default: " " },
+        dropdownFields: { default: undefined, type: [ Array, Object ] },
+        limit: { type: [ Number, String ], default: undefined },
+    },
+
+    model: {
+        prop: "selected",
+        event: "change",
+    },
     data() {
         return { 
-            enteredEmailList: [],
+            enteredEmailList: this.selected,
             existingEmailList: this.dropdownFields,
             singleEmailValue: "",
             emailListLimit: 3,
-            // formRowLeftClass: {
-            //     'full-width': this.enteredEmailList.length > 0,
-            //     'half-width': this.enteredEmailList.length === 0
-            // }
+            reactiveSelected: this.selected,
+            reactiveDropdownFields: this.dropdownFields,
+            typedInput: undefined,
         }
     },
 
     computed: {
        isEmailListLimitReached() {
             return this.enteredEmailList.length >= this.emailListLimit;
-        }
+        },
+        isArray() {
+            return this.dropdownFields instanceof Array;
+        },
+
+        dropdownFieldHasValues() {
+            /**
+             * We need to know if the dropdown field has values.
+             * These values can exist as an array or an object.
+             * 
+             * If the dropdown field is an array, We check if the length of the
+             * array is greater than zero.
+             * 
+             * If the dropdown field is an object, we check if the dropdown 
+             * field is not empty
+             */
+            if( this.reactiveDropdownFields === undefined || this.reactiveDropdownFields === null ) {
+                return false;
+            }
+            if( this.isArray ) return this.reactiveDropdownFields.length > 0;
+            
+            else {
+                return objectIsEmpty( this.reactiveDropdownFields ) === false;
+            }
+        },
     },
 
     methods: {
@@ -65,7 +98,6 @@ export default {
             this.singleEmailValue = '';
         },
         removeSingleEmail(idx) {
-            // this.enteredEmailList = this.enteredEmailList.filter(item => item !== val);
             // let's do this removal by index instead
             this.enteredEmailList = this.enteredEmailList.filter((item, index) => index !== idx);
         },
@@ -113,7 +145,6 @@ export default {
 
             if(filteredAllowedKeyCodes && getEmailTextTrimmed.length === 0) {
                 e.preventDefault();
-                // console.log("filteredAllowedKeyCodes && getEmailTextTrimmed.length === 0", true);
                 return;
             }
 
@@ -123,7 +154,6 @@ export default {
                 this.enteredEmailList.push(getEmailTextTrimmed);
                 this.$emit("select", getEmailTextTrimmed);
                 this.resetEmailInput();
-                // this.hideDropdownFields();
             }
         },
         handlePasteInput(e) {
@@ -135,41 +165,53 @@ export default {
         }
     },
     watch: {
+        selected( newVal ) {
+            this.reactiveSelected = newVal;
+        },
+
+        reactiveSelected( newVal ) {
+            this.$emit( "change", newVal );
+            this.$emit('input', newVal)
+        },
+
+        dropdownFields( newVal ) {
+            this.reactiveDropdownFields = newVal;
+        },
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.email {
-    &--item {
-        display: flex;
-        align-items: center;
-        flex-grow: 1;
-        background: #c7d2f5;
-        border-radius: 50px;
-        padding: 3px 5px;
-        justify-content: center;
-        font-size: 14px;
-        margin-right: 5px;
+    .email {
+        &--item {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            background: #c7d2f5;
+            border-radius: 50px;
+            padding: 3px 5px;
+            justify-content: center;
+            font-size: 14px;
+            margin-right: 5px;
 
-        span {
-            &:first-of-type {
-                margin-right: 5px;
+            span {
+                &:first-of-type {
+                    margin-right: 5px;
+                }
             }
         }
+        &--input {
+            flex-grow: 7;
+        }
+        &--wrap {
+            display: flex;
+            align-items: center;
+        }
     }
-    &--input {
-        flex-grow: 7;
+    .half-width {
+        max-width: 500px !important;
     }
-    &--wrap {
-        display: flex;
-        align-items: center;
+    .full-width {
+        max-width: 100% !important;
     }
-}
-.half-width {
-    max-width: 500px !important;
-}
-.full-width {
-    max-width: 100% !important;
-}
 </style>
