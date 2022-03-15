@@ -61,7 +61,7 @@
         </div>
 
         <!-- modal -->
-        <confirm-deletion-modal :type="'project'" :action="handleDeleteProject" />
+        <confirm-deletion-modal :type="'project'" :action="handleDeleteProject" :reset="resetSelectedProject" />
     </div>
 </template>
 
@@ -130,7 +130,8 @@ export default {
                 },
                 clientName: undefined,
                 projectTitle: undefined
-            }
+            },
+            project: {}
         }
     },
     computed: {
@@ -209,6 +210,9 @@ export default {
                     return 0;
                 }) 
             }
+        },
+        resetSelectedProject() {
+            this.project = {}
         }
     },
     watch: {

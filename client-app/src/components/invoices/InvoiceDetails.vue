@@ -20,7 +20,7 @@
                                 <button class="btn btn--primary btn--sm" data-bs-toggle="modal" data-bs-target="#markInvoiceAsPaid">Mark as paid</button>
                             </div>
                             <div class="row__item positionRelative">
-                                <button class="btn btn--secondary btn--sm">Duplicate</button>
+                                <button class="btn btn--secondary btn--sm" @click="duplicateInvoice()">Duplicate</button>
                             </div>
                             <div class="row__item positionRelative">
                                 <button class="btn btn--danger btn--sm" data-bs-toggle="modal" data-bs-target="#deleteInvoice">Delete</button>
@@ -112,21 +112,24 @@
 
          <!-- modals -->
         <confirm-deletion-modal :type="'invoice'" :action="deleteInvoice" :reset="resetCurrentInvoice" />
-        <mark-invoice-as-paid />
+        <mark-invoice-as-paid  @markInvoiceAsPaid="markInvoiceAsPaid" />
+        <toast-el />
+        <!-- <toast-el :message="'Unable to duplicate invoice'" :type="'error'" :headingTitle="'An error occurred'" /> -->
     </div>
 </template>
 
 <script>
-// import toast from "@/functions/toast";
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
 import MarkInvoiceAsPaid from '../shared/modals/MarkInvoiceAsPaid.vue';
-
+import ToastEl from '../shared/toast/index.vue';
+import { myToast } from '../../utils/toast'
 
 export default {
     name: 'InvoiceDetails',
     components: {
         ConfirmDeletionModal,
-        MarkInvoiceAsPaid
+        MarkInvoiceAsPaid,
+        ToastEl
     },
 
     data() {
@@ -206,11 +209,13 @@ export default {
             this.invoice = {}
         },
 
-        markInvoiceAsPaid() {
-            this.invoice = data;
+        markInvoiceAsPaid() {},
+
+        duplicateInvoice() {
+            myToast('An error occurred', 'Unable to duplicate invoice', 'red').show()
         },
 
-        duplicateInvoice() {}
+        editInvoice() {}
     },
 
     created() {},

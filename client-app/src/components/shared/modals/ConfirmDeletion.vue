@@ -57,8 +57,5 @@ export default {
             return 'delete' + this.type.charAt(0).toUpperCase() + this.type.slice(1) + 'Label'
         }
     },
-    mounted() {
-        // console.log('this.action:', this.action, 'this.type:', this.type);
-    }
 }
 </script>

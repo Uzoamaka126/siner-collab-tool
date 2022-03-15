@@ -72,7 +72,7 @@
                     <tbody>
                         <tr v-for="invoice in invoices" :key="invoice.id">
                             <td>
-                                <span :class="['table__data--main', 'tag', invoiceTagMap[invoice.status]]">{{ invoice.status }}</span>
+                                <span :class="['table__data--main badge', 'tag', invoiceTagMap[invoice.status]]">{{ invoice.status }}</span>
                             </td>
                             <td class="first">{{ invoice.client_email }}</td>
                             <td>{{ invoice.currency }} {{ formatMoney(invoice.amount) }}</td>
@@ -97,7 +97,7 @@
                                     </li>
                                     <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
                                     <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
-                                    <li><p class="dropdown-item cursor-pointer text--xs text--color-warning">Delete invoice</p></li>
+                                    <li><p class="dropdown-item cursor-pointer text--xs text--color-warning" data-bs-toggle="modal" data-bs-target="#deleteInvoice">Delete invoice</p></li>
                                 </ul>
                             </td>
                         </tr>
@@ -117,12 +117,17 @@
         </div>
         
         <!-- <pagination data="invoices-list" :pageNumber="noOfPages" /> -->
+
+        <!-- modals -->
+        <confirm-deletion-modal :type="'invoice'" :action="deleteInvoice" :reset="resetCurrentInvoice" />
     </div>
 </template>
 
 <script>
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue'
 import { dummyInvoicesData } from '../../utils/dummy';
+import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
+
 
 export default {
     name: 'InvoiceList',
@@ -133,39 +138,43 @@ export default {
 
     components: {
         EmptyPage,
+        ConfirmDeletionModal
     },
     data () {
         return {
-        loading: false,
-        filter: {
-            dueDate: {
-            //   to: last30Days.to,
-            //   from: last30Days.from,
-            //   rangeText: getDateRange( last30Days.from, last30Days.to ),
+            loading: false,
+            filter: {
+                dueDate: {
+                //   to: last30Days.to,
+                //   from: last30Days.from,
+                //   rangeText: getDateRange( last30Days.from, last30Days.to ),
+                },
+                status: {
+                values: [],
+                items: { due:"Due", paid:"Paid", issued:"Issued", draft:"Draft" },
+                },
             },
-            status: {
-            values: [],
-            items: { due:"Due", paid:"Paid", issued:"Issued", draft:"Draft" },
+            filterType: '',
+            invoices: dummyInvoicesData,
+            /**
+             * Returns the appropriate CSS status tag for each invoice status
+             */
+            invoiceTagMap: {
+                draft: "tag--cornsilk",
+                due: "tag--red",
+                paid: "tag--green",
+                issued: "tag--blue",
             },
-        },
-        filterType: '',
-        invoices: dummyInvoicesData,
-        /**
-         * Returns the appropriate CSS status tag for each invoice status
-         */
-        invoiceTagMap: {
-            draft: "tag--cornsilk",
-            due: "tag--red",
-            paid: "tag--green",
-            issued: "tag--blue",
-        },
-        downloadButtonIsClicked: false,
-        noOfPages: 1,
-        currentPage: 1,
-        totalInvoices: 3,
-        pageIsEmpty: false,
-        noData: false,
-        };
+            downloadButtonIsClicked: false,
+            page: {
+                noOfPages: 1,
+                currentPage: 1,
+                totalInvoices: 3,
+                pageIsEmpty: false,
+                noData: false,
+            },
+            invoice: {}
+        }
   },
 
   computed: {
@@ -261,7 +270,26 @@ export default {
 
     createNewInvoice() {
       this.$router.push({ name: 'create-invoice-view' });
-    }
+    },
+    deleteInvoice() {
+        this.requestIsDisabled = true;
+        this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
+        .then(({ ok, data }) => {
+            if( ok === false || data.status !== "success" ) return console.error("Couldn't Delete Invoices for customer.");
+            this.requestIsDisabled = false;
+            toast.green( "Invoice has been removed successfully." );
+            this.$router.push({ name: "invoices-list" });
+        })
+    
+        .catch( error => {
+            this.requestIsDisabled = false;
+            toast.red( error.data.message );
+            console.log( error.data.message );
+        });
+    },
+    resetCurrentInvoice() {
+        this.invoice = {}
+    },
   },
 };
 </script>

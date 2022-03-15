@@ -18,7 +18,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                    <button type="button" class="btn btn--primary btn--sm" @click="handleDeleteClient()">Mark as paid</button>
+                    <button type="button" class="btn btn--primary btn--sm" @click="handleMarkInvoiceAsPaid()">Mark as paid</button>
                 </div>
             </div>
         </div>
@@ -33,7 +33,12 @@ export default {
         return {
             loading: 'default',
         }
-
     },
+
+    methods: {
+        handleMarkInvoiceAsPaid () {
+            this.$emit( "markInvoiceAsPaid")
+        }
+    }
 }
 </script>
