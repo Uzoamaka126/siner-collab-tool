@@ -539,7 +539,7 @@ export default {
       const unit = item.item_price;
       const price = parseFloat(quantity) * parseFloat(unit);
       this.invoice.meta.items[i].item_unit = price;
-      return price;
+      return typeof price === 'number' ? price.toFixed(3) : 0;
     },
     addAnotherInvoiceItem() {
       const isEmptyCheck = this.checkIfInvoiceItemIsEmpty();

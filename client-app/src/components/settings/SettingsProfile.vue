@@ -5,38 +5,37 @@
                 <div class="">
                     <div class="form__item">
                     <label for="fullName" class="form__label">Full Name</label>
-                    <input type="email" id="fullName" class="form-control" disabled>
+                    <input type="email" id="fullName" class="form-control form-control-sm">
                 </div>
                 <div class="form__item">
                     <label for="username" class="form__label">Username</label>
-                    <input type="email" id="username" class="form-control" disabled>
+                    <input type="email" id="username" class="form-control form-control-sm">
                 </div>
                 <div class="form__item">
                     <label for="emailaddress" class="form__label">Email Address</label>
-                    <input type="email" id="emailaddress" class="form-control">
+                    <input type="email" id="emailaddress" class="form-control form-control-sm" disabled>
                 </div>
                 <div class="form__item">
-                    <label for="bio" class="form__label">Bio</label>
-                    <textarea type="email" id="bio" class="form-control"/>
+                    <label for="bio" class="form__label">Phone number</label>
+                    <input type="email" id="emailaddress" class="form-control form-control-sm">
                 </div>
                 <div>
                     <button 
-                        class="btn btn--ghost" 
-                        style="color: #42526e; font-weight: 400" 
-                        data-toggle="modal" 
-                        data-target="#changePassword" 
-                        @click="togglePasswordChange(true)"
+                        class="btn btn--ghost text--xs text--bold" 
+                        style="color: #42526e; padding-left: 0px; font-weight: 600 !important;" 
+                        data-bs-toggle="modal" data-bs-target="#changePassword"
+                        
                     >
                     Click here to change password
                 </button>
                 </div>
                 <div>
-                    <button class="btn btn--primary btn--md mt--40" type="submit">Update Profile</button>
+                    <button class="btn btn--primary btn--md mt--40 btn--sm" type="submit">Update Profile</button>
                 </div>
             </div>
         </form>
     </div>
-    <change-password-modal :showModal="isPasswordChangeModal" :togglePasswordChange="togglePasswordChange"></change-password-modal>
+    <change-password-modal />
  </div>
 </template>
 

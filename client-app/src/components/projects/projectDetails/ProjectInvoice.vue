@@ -77,16 +77,16 @@
                                 </div>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li>
-                                        <router-link 
+                                        <p
                                             class="dropdown-item cursor-pointer text--xs text--link" 
-                                            :to="{ name:'details-invoice-view', params:{ id: invoice.id }}"
                                             style="display: block;"
+                                            data-bs-toggle="modal" data-bs-target="#viewProjectInvoice"
                                         >
                                             View invoice
-                                        </router-link>
+                                        </p>
                                     </li>
                                     <li><p class="dropdown-item cursor-pointer text--xs">Download as PDF</p></li>
-                                    <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li>
+                                    <!-- <li v-if="invoice.status === 'draft'"><p class="dropdown-item cursor-pointer text--xs">Edit invoice</p></li> -->
                                     <li><p class="dropdown-item cursor-pointer text--xs text--color-warning" data-bs-toggle="modal" data-bs-target="#deleteInvoice">Delete invoice</p></li>
                                 </ul>
                             </td>
@@ -109,6 +109,7 @@
         <!-- <pagination data="invoices-list" :pageNumber="noOfPages" /> -->
 
         <!-- modals -->
+        <view-project-invoice-modal />
         <confirm-deletion-modal :type="'invoice'" :action="deleteInvoice" :reset="resetCurrentInvoice" />
     </div>
 </template>
@@ -117,170 +118,171 @@
 import EmptyPage from '../../shared/emptyPage/EmptyPage.vue'
 import { dummyInvoicesData } from '../../../utils/dummy';
 import ConfirmDeletionModal from '../../shared/modals/ConfirmDeletion.vue';
-
+import ViewProjectInvoiceModal from '../../shared/modals/ViewProjectInvoice.vue';
 
 export default {
     name: 'ProjectInvoice',
-      created() {
-    // const queryParams = this.$route.query;
-    // this.fetchInvoices( queryParams );
-    },
-
     components: {
         EmptyPage,
-        ConfirmDeletionModal
+        ConfirmDeletionModal,
+        ViewProjectInvoiceModal
     },
     data () {
-        return {
-            loading: false,
-            filter: {
-                dueDate: {
-                //   to: last30Days.to,
-                //   from: last30Days.from,
-                //   rangeText: getDateRange( last30Days.from, last30Days.to ),
+            return {
+                loading: false,
+                filter: {
+                    dueDate: {
+                    //   to: last30Days.to,
+                    //   from: last30Days.from,
+                    //   rangeText: getDateRange( last30Days.from, last30Days.to ),
+                    },
+                    status: {
+                    values: [],
+                    items: { due:"Due", paid:"Paid", issued:"Issued", draft:"Draft" },
+                    },
                 },
-                status: {
-                values: [],
-                items: { due:"Due", paid:"Paid", issued:"Issued", draft:"Draft" },
+                filterType: '',
+                invoices: dummyInvoicesData,
+                /**
+                 * Returns the appropriate CSS status tag for each invoice status
+                 */
+                invoiceTagMap: {
+                    draft: "tag--cornsilk",
+                    due: "tag--red",
+                    paid: "tag--green",
+                    issued: "tag--blue",
                 },
-            },
-            filterType: '',
-            invoices: dummyInvoicesData,
-            /**
-             * Returns the appropriate CSS status tag for each invoice status
-             */
-            invoiceTagMap: {
-                draft: "tag--cornsilk",
-                due: "tag--red",
-                paid: "tag--green",
-                issued: "tag--blue",
-            },
-            downloadButtonIsClicked: false,
-            page: {
-                noOfPages: 1,
-                currentPage: 1,
-                totalInvoices: 3,
-                pageIsEmpty: false,
-                noData: false,
-            },
-            invoice: {}
+                downloadButtonIsClicked: false,
+                page: {
+                    noOfPages: 1,
+                    currentPage: 1,
+                    totalInvoices: 3,
+                    pageIsEmpty: false,
+                    noData: false,
+                },
+                invoice: {}
+            }
+    },
+
+    computed: {
+        isFiltered() {
+        // Check if query object is not empty
+        const obj = this.$route.query;
+        return !(Object.keys(obj).length === 0 && obj.constructor === Object)
+        },
+
+        downloadButtonIsDisabled: {
+        get: function () {
+            return this.invoices.length === 0 || this.downloadButtonIsClicked
+        },
+
+        set: function( val ) {
+            if( val ) this.downloadButtonIsClicked = true;
+            else this.downloadButtonIsClicked = false;
         }
-  },
-
-  computed: {
-    isFiltered() {
-      // Check if query object is not empty
-      const obj = this.$route.query;
-      return !(Object.keys(obj).length === 0 && obj.constructor === Object)
+        },
     },
 
-    downloadButtonIsDisabled: {
-      get: function () {
-        return this.invoices.length === 0 || this.downloadButtonIsClicked
-      },
+    methods: {
+        downloadInvoices() {
+        //   const params = {
+        //     from: this.filter.dueDate.from,
+        //     to: this.filter.dueDate.to,
+        //     status: this.filter.status.values.length ? this.filter.status.values.join(",") : undefined,
+        //     download: 1,
+        //   }
 
-      set: function( val ) {
-        if( val ) this.downloadButtonIsClicked = true;
-        else this.downloadButtonIsClicked = false;
-      }
-    },
-  },
+        //   const url = createQueryString( `v2/invoices`, params )
+        //   this.$http.get( url ).then(({ ok, data }) => {
+        //     const filename = data.data.file;
+        //     if( filename === "N/A" ) return toast.red( "File Not Available: Cannot download invoices." );
+        //     toast.green( "Fetching Download..." );
+        //     return pollDownload( `v2/downloads/${filename}/status`, this.invoices.length );
+        //   })
+        //   .catch( e => {
+        //     console.log( e );
+        //   })
+        },
 
-  methods: {
-    downloadInvoices() {
-    //   const params = {
-    //     from: this.filter.dueDate.from,
-    //     to: this.filter.dueDate.to,
-    //     status: this.filter.status.values.length ? this.filter.status.values.join(",") : undefined,
-    //     download: 1,
-    //   }
-
-    //   const url = createQueryString( `v2/invoices`, params )
-    //   this.$http.get( url ).then(({ ok, data }) => {
-    //     const filename = data.data.file;
-    //     if( filename === "N/A" ) return toast.red( "File Not Available: Cannot download invoices." );
-    //     toast.green( "Fetching Download..." );
-    //     return pollDownload( `v2/downloads/${filename}/status`, this.invoices.length );
-    //   })
-    //   .catch( e => {
-    //     console.log( e );
-    //   })
-    },
-
-    fetchInvoices( queryParams ) {
-      // If there are query parameters on page reload, 
-      // update the filter dropdown.
-    //   if( queryParams ) {
-    //     if( queryParams.from ) this.filter.dueDate.from = queryParams.from;
-    //     if( queryParams.to ) this.filter.dueDate.to = queryParams.to;
-    //     if( queryParams.from && queryParams.to ) this.filter.dueDate.rangeText = getDateRange( queryParams.from, queryParams.to );
-    //     if( queryParams.status ) this.filter.status.values.push( ...queryParams.status.split(",") );
-    //   }
-      
-    //   const url = createQueryString( "v2/invoices", queryParams );
-    //   return this.$http.get( url ).then( resp  => {
+        fetchInvoices( queryParams ) {
+        // If there are query parameters on page reload, 
+        // update the filter dropdown.
+        //   if( queryParams ) {
+        //     if( queryParams.from ) this.filter.dueDate.from = queryParams.from;
+        //     if( queryParams.to ) this.filter.dueDate.to = queryParams.to;
+        //     if( queryParams.from && queryParams.to ) this.filter.dueDate.rangeText = getDateRange( queryParams.from, queryParams.to );
+        //     if( queryParams.status ) this.filter.status.values.push( ...queryParams.status.split(",") );
+        //   }
         
-    //     // if ( resp.ok !== true ) return;
-    //     this.pageNumber = resp.data.data.page_info.current_page;
-    //     this.noOfPages = resp.data.data.page_info.total_pages;
-    //     this.totalInvoices = resp.data.data.page_info.total;
+        //   const url = createQueryString( "v2/invoices", queryParams );
+        //   return this.$http.get( url ).then( resp  => {
+            
+        //     // if ( resp.ok !== true ) return;
+        //     this.pageNumber = resp.data.data.page_info.current_page;
+        //     this.noOfPages = resp.data.data.page_info.total_pages;
+        //     this.totalInvoices = resp.data.data.page_info.total;
+            
+        //     this.invoices = resp.data.data.invoices.map( invoice => {
+        //       invoice.invoice_type = invoice.meta.invoice_interval[ 0 ].interval_value;
+        //       return invoice
+        //     });
+        //     this.loading = false;
+        //     return resp;
+        //   });
+        },
+
+        formatDateTime: function (log) {
+        return moment(log, 'YYYY-MM-DD HH:mm:ss').format('Do MMMM YYYY');
+        },
+
+        formatMoney: function (x) {
+            return (x) ? x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : x;
+        },
+        filterInvoices() {
+        //   const params = {
+        //     from: moment( this.filter.dueDate.from ).format( "YYYY-MM-DD" ) + " 00:00:00",
+        //     to: moment( this.filter.dueDate.to ).format( "YYYY-MM-DD" ) + " 23:59:59",
+        //     status: this.filter.status.values.length ? this.filter.status.values.join(",") : undefined,
+        //   }
+        //   this.$router.replace({ name: "invoices-list", query: params });
+        },
+
+        clearInvoiceFilter() {
+        // this.filter.dueDate.to = last30Days.to;
+        // this.filter.dueDate.from = last30Days.from;
+        // this.filter.dueDate.rangeText = "By Last 30 days";
+        // this.filter.status.values = [];
+        this.$router.replace({ name: "invoices-list" });
+        },
+
+        createNewInvoice() {
+        this.$router.push({ name: 'create-invoice-view' });
+        },
+        deleteInvoice() {
+            this.requestIsDisabled = true;
+            this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
+            .then(({ ok, data }) => {
+                if( ok === false || data.status !== "success" ) return console.error("Couldn't Delete Invoices for customer.");
+                this.requestIsDisabled = false;
+                toast.green( "Invoice has been removed successfully." );
+                this.$router.push({ name: "invoices-list" });
+            })
         
-    //     this.invoices = resp.data.data.invoices.map( invoice => {
-    //       invoice.invoice_type = invoice.meta.invoice_interval[ 0 ].interval_value;
-    //       return invoice
-    //     });
-    //     this.loading = false;
-    //     return resp;
-    //   });
+            .catch( error => {
+                this.requestIsDisabled = false;
+                toast.red( error.data.message );
+                console.log( error.data.message );
+            });
+        },
+        resetCurrentInvoice() {
+            this.invoice = {}
+        },
     },
 
-    formatDateTime: function (log) {
-      return moment(log, 'YYYY-MM-DD HH:mm:ss').format('Do MMMM YYYY');
+    created() {
+        // const queryParams = this.$route.query;
+        // this.fetchInvoices( queryParams );
     },
-
-    formatMoney: function (x) {
-        return (x) ? x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : x;
-    },
-    filterInvoices() {
-    //   const params = {
-    //     from: moment( this.filter.dueDate.from ).format( "YYYY-MM-DD" ) + " 00:00:00",
-    //     to: moment( this.filter.dueDate.to ).format( "YYYY-MM-DD" ) + " 23:59:59",
-    //     status: this.filter.status.values.length ? this.filter.status.values.join(",") : undefined,
-    //   }
-    //   this.$router.replace({ name: "invoices-list", query: params });
-    },
-
-    clearInvoiceFilter() {
-      // this.filter.dueDate.to = last30Days.to;
-      // this.filter.dueDate.from = last30Days.from;
-      // this.filter.dueDate.rangeText = "By Last 30 days";
-      // this.filter.status.values = [];
-      this.$router.replace({ name: "invoices-list" });
-    },
-
-    createNewInvoice() {
-      this.$router.push({ name: 'create-invoice-view' });
-    },
-    deleteInvoice() {
-        this.requestIsDisabled = true;
-        this.$http.post( `v2/invoices/${ this.invoice.id }/delete` )
-        .then(({ ok, data }) => {
-            if( ok === false || data.status !== "success" ) return console.error("Couldn't Delete Invoices for customer.");
-            this.requestIsDisabled = false;
-            toast.green( "Invoice has been removed successfully." );
-            this.$router.push({ name: "invoices-list" });
-        })
-    
-        .catch( error => {
-            this.requestIsDisabled = false;
-            toast.red( error.data.message );
-            console.log( error.data.message );
-        });
-    },
-    resetCurrentInvoice() {
-        this.invoice = {}
-    },
-  },
 };
 </script>
 

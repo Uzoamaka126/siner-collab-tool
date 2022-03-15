@@ -3,8 +3,8 @@
     <div style="height: 100%; padding-right: 25px; padding-left: 25px; padding-top: 2rem">
         <div class="row__header--item align-items-center justify-content-between hidden-xs" style="display: flex;">
             <div class="row__left">
-                <div class="page__result" v-if="totalInvoices === 1">{{ totalInvoices }} Invoice</div>
-                <div class="page__result" v-if="totalInvoices > 1">{{ totalInvoices }} Invoices</div>
+                <div class="page__result" v-if="invoices.length === 1">{{ invoices.length }} Invoice</div>
+                <div class="page__result" v-if="invoices.length > 1">{{ invoices.length }} Invoices</div>
             </div>
 
             <!-- others -->
@@ -56,7 +56,7 @@
         </div>
 
         <div v-else>
-            <div v-show="totalInvoices">
+            <div v-show="invoices.length > 0">
                 <table class="table root mt--40">
                     <thead>
                         <tr>
@@ -105,7 +105,7 @@
                 </table>
             </div>
 
-             <template v-if="!totalInvoices">
+             <template v-if="!invoices.length">
                 <empty-page 
                     :title="'You have not created any invoices yet.'" 
                     :subtitle="'Your invoices will show up here  when you create them.'" 
