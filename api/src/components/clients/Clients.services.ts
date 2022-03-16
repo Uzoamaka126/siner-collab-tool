@@ -1,4 +1,5 @@
 const Client = require('./Clients.model');
+import { Query } from '../../utils/validators/queries';
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
@@ -9,17 +10,37 @@ import {
 } from './Clients.types';
 
 // Find all users
-export async function getAllClients(): Promise<IClientFetchAllResponse> {
+export async function getAllClients({ email, name, page, limit, offset }: Query): Promise<IClientFetchAllResponse> {
     try {
+        let query = {} as Query;
+        if(email) query.email = email
+        if(name) query.name = name
+        if(page) query.page = page
+        if(limit) query.limit = limit
+        if(offset) query.offset = offset
+
+        const filterObject = { ...query }
+
         const clients = await Client
-            .find({})
+            .find(filterObject)
+            .limit(20)
             .lean()
             .exec()
+
+        // const computedTotalPages
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: clients
+            data: {
+                info: clients,
+                pageDetails: {
+                    currentPage: 1,
+                    pageSize: 20,
+                    total: clients.length,
+                    totalPages: ,
+                }
+            }
         }
     } catch(err) {
         console.error(err)
@@ -61,7 +82,15 @@ export async function getUserClients(id: string) {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: clients
+            data: {
+                info: clients,
+                pageDetails: {
+                    total: clients.length,
+                    currentPage: 1,
+                    totalPages: ,
+                    pageSize: 20
+                }
+            }
         }
     } catch(err) {
         throw new Error(err);
@@ -91,7 +120,7 @@ export async function addNewClient(data: IBaseClient) {
                 name: data.name,
                 user_id: data.user_id,
                 email: data.email,
-                // projects: data.projects,
+                // projects: data.projects, // TO DO
                 phone_number: data.phone_number,
                 country: data.country,
                 address: data.address
@@ -150,20 +179,6 @@ export async function getSingleClientById(id: string) {
 }
 
 export async function editSingleClientById(data: IClientPayload) {
-    /* 
-     "status": 200,
-    "isSuccessful": true,
-    "message": "Successful update!",
-    "data": {
-        "_id": "61edbfc4124d41e1a4fc8a36",
-        "name": "Test update name 2",
-        "user_id": "61edbd9ca3d644df266ba764",
-        "createdAt": "2022-01-23T20:51:16.817Z",
-        "updatedAt": "2022-02-06T12:17:28.277Z",
-        "__v": 0
-    } 
-    */
-
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
@@ -232,4 +247,43 @@ export async function deleteSingleClientById(id:string) {
         data: err
     }
   }
+}
+
+export async function searchClient(query: Query) {
+    // check for allowed queries
+    try {
+        const { email, name, page, limit } = query 
+        const client = await Client.findOne({ _id: id }).lean().exec();
+
+        // if no client was found on the db, then return false
+        if(!client) {
+            return {
+                status: 404,
+                isSuccessful: false,
+                message: "Client not found!",
+            }
+        } else {
+            return {
+                status: 200,
+                isSuccessful: true,
+                message: "Operation successful!",
+                data: {
+                    info: client,
+                    pageDetails: {
+                        total: clients.length,
+                        currentPage: 1,
+                        totalPages: ,
+                        pageSize: 20
+                    }
+                }
+            }
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occurred",
+        }
+    }
 }

@@ -34,6 +34,12 @@ export interface IClientProjectsPayload {
     // user_id: string; 
 }
 
+export interface PageDetails {
+  total: number,
+  currentPage: number;
+  totalPages: number;
+  pageSize: number
+}
 /** 
  * The IWorkspaceBaseDocument is for additional properties or methods you want to add to a schema
  *  **/
@@ -52,5 +58,9 @@ export interface IClientFetchAllResponse {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IBaseClient[]
+  // data?: IBaseClient[],
+  data?: {
+    info: IBaseClient[],
+    pageDetails: PageDetails
+  }
 }

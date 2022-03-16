@@ -25,8 +25,8 @@ app.use(helmet());
 //     origin: CLIENT_URL,
 //   })
 // );
-app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(json());
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan('dev'));
