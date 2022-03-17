@@ -1,5 +1,5 @@
 const Client = require('./Clients.model');
-import { Query } from '../../utils/validators/queries';
+import { Query, QueryStrings } from '../../utils/validators/queries';
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
@@ -10,19 +10,11 @@ import {
 } from './Clients.types';
 
 // Find all users
-export async function getAllClients({ email, name, page, limit, offset }: Query): Promise<IClientFetchAllResponse> {
+export async function getAllClients(): Promise<IClientFetchAllResponse> {
     try {
-        let query = {} as Query;
-        if(email) query.email = email
-        if(name) query.name = name
-        if(page) query.page = page
-        if(limit) query.limit = limit
-        if(offset) query.offset = offset
-
-        const filterObject = { ...query }
 
         const clients = await Client
-            .find(filterObject)
+            .find({})
             .limit(20)
             .lean()
             .exec()
@@ -38,7 +30,7 @@ export async function getAllClients({ email, name, page, limit, offset }: Query)
                     currentPage: 1,
                     pageSize: 20,
                     total: clients.length,
-                    totalPages: ,
+                    totalPages: Math.ceil(total / limit),
                 }
             }
         }
@@ -53,8 +45,21 @@ export async function getAllClients({ email, name, page, limit, offset }: Query)
 }
 
 // Find a list of clients belonging to a specific user
-export async function getUserClients(id: string) {
+export async function getUserClients(queryStrings: QueryStrings) {
      try {
+        let buildQuery = {} as Query;
+        var page = Number(queryStrings.page) || 1;
+        var limit = parseInt(queryStrings.limit)
+        var offset = page ? (page - 1) * limit || 20;
+        
+        
+        if(queryStrings.email) buildQuery.email = queryStrings.email
+        if(queryStrings.name) buildQuery.name = queryStrings.name
+        if(page) buildQuery.page = page
+        if(limit) buildQuery.limit =limit 
+        if(offset) buildQuery.offset = offset 
+
+        const filterObject = { ...query }
          if(id.length < 24) {
             return {
                 status: 400,

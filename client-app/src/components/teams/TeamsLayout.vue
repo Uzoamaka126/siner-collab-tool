@@ -149,9 +149,6 @@ export default {
         border-radius: 30px;
         box-sizing: border-box;
         height: 226px;
-        // min-width: 152px;
-        // padding: 16px 0;
-        // width: 152px;
         align-items: center;
         display: flex;
         flex-flow: column;

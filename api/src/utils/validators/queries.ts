@@ -8,6 +8,14 @@ export type Query = {
     offset?: number
 }
 
+export type QueryStrings = {
+    page?: string;
+    limit?: string;
+    email?: string;
+    name?: string;
+    offset?: string
+}
+
 export function isQueryValid (query: any) {
     if (typeof query !== 'object') return false;
 

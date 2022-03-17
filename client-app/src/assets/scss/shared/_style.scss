@@ -257,7 +257,7 @@ p {
         }
 
         &--item {
-            margin-bottom: 0.75rem;
+            // margin-bottom: 0.75rem;
 
             .workspace--theme--img {
                 background-size: cover;
@@ -417,7 +417,7 @@ p {
 
         &:hover {
             .list__overlay {
-                width: 117px;    
+                width: 87px;    
             }
         }
     }
@@ -430,11 +430,10 @@ p {
         background-color: #008CBA;
         overflow: hidden;
         width: 0;
-        height: 120px;
+        height: 80px;
         transition: .5s ease;
         top: 0px;
-        height: 120px;
-        border-radius: 20px;  
+        border-radius: 10px;  
         background-color: #5f76d3;
         // width: 117px;    
 

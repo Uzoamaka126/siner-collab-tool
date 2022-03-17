@@ -70,7 +70,7 @@
                                             :width="'12px'"
                                             :height="'12px'"
                                         /> 
-                                        <p class="text">Edit</p>
+                                        <p class="text text--xs">Edit</p>
                                     </div>
                                     <div style="display: flex; align-items: center" @click="startDelete(item)">
                                         <icon-svg 
@@ -81,7 +81,7 @@
                                             :width="'12px'"
                                             :height="'12px'"
                                         /> 
-                                        <p class="text">Delete</p>
+                                        <p class="text text--xs">Delete</p>
                                     </div>
                                 </div>
                             </div>
@@ -165,14 +165,14 @@ export default {
         flex-wrap: wrap;
     }
     .workspace--theme--img {
-        height: 120px;
-        width: 120px;
-        border-radius: 20px;
+        height: 80px;
+        width: 80px;
+        border-radius: 10px;
     }
     .home--content--item {
         border-radius: 30px;
         box-sizing: border-box;
-        height: 226px;
+        height: auto;
         align-items: center;
         display: flex;
         flex-flow: column;
