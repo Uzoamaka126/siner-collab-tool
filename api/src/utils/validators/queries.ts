@@ -6,6 +6,10 @@ export type Query = {
     email?: string;
     name?: string;
     offset?: number
+    userId?: string;
+    raw: boolean;
+    order?: any
+    where?: any
 }
 
 export type QueryStrings = {
@@ -13,17 +17,6 @@ export type QueryStrings = {
     limit?: string;
     email?: string;
     name?: string;
-    offset?: string
-}
-
-export function isQueryValid (query: any) {
-    if (typeof query !== 'object') return false;
-
-    const getValidQuery = queryList.find(item => item === query[item]);
-
-    if(!getValidQuery || typeof getValidQuery === 'undefined') {
-        return false
-    } else {
-        return true
-    }
+    userId?: string;
+    download?: string;
 }

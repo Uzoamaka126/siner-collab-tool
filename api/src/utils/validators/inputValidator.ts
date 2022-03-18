@@ -1,4 +1,5 @@
 import { IBaseInvoice } from "../../components/invoices/Invoices.types";
+const Joi = require('joi');
 
 // Create a helper function to check the user input
 export const isEmpty = (string: string) => {
@@ -25,7 +26,7 @@ export const validateInvoiceData = (data: IBaseInvoice) => {
         return `${getObjKeys[i]} should be a string`
       case 'project_id':
         return `${getObjKeys[i]} should be a string`
-      case 'amou'
+      // case 'amou'
 
    }
   }

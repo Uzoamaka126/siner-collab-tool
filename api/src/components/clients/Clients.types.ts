@@ -14,7 +14,10 @@ export interface IBaseClient {
 export interface IClientRequestPayload {
     name: IBaseClient['name'];
     user_id: IBaseClient['user_id']; 
-    // user_id: string; 
+    email: IBaseClient['email']
+    phone_number: IBaseClient['phone_number']
+    country: IBaseClient['country']
+    address: IBaseClient['address']
 }
 
 export interface IClientSingleRequestPayload {

@@ -1,10 +1,10 @@
 const express = require('express');
 import { 
-  fetchAllWorkspace, 
+  // fetchAllWorkspace, 
   createANewWorkspace, 
-  fetchSingleWorkspace,
+  // fetchSingleWorkspace,
   updateASingleWorkspace,
-  deleteASingleWorkspace
+  // deleteASingleWorkspace
 } from './Invoices.controllers';
 
 const router = express.Router();
@@ -12,14 +12,14 @@ const router = express.Router();
 // /api/users
 router
   .route('/')
-  .get(fetchAllWorkspace)
+  // .get(fetchAllWorkspace)
   .post(createANewWorkspace)
 
 // /api/users/:id
 router
 .route('/:id')
-  .get(fetchSingleWorkspace)
+  // .get(fetchSingleWorkspace)
   .patch(updateASingleWorkspace)
-  .delete(deleteASingleWorkspace)
+  // .delete(deleteASingleWorkspace)
 
 export default router

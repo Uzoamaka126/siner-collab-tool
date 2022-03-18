@@ -1,4 +1,5 @@
 const Client = require('./Clients.model');
+import { querySchema } from './Clients.validation';
 import { Query, QueryStrings } from '../../utils/validators/queries';
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
@@ -30,7 +31,7 @@ export async function getAllClients(): Promise<IClientFetchAllResponse> {
                     currentPage: 1,
                     pageSize: 20,
                     total: clients.length,
-                    totalPages: Math.ceil(total / limit),
+                    totalPages: Math.ceil(clients.length / 20),
                 }
             }
         }
@@ -45,26 +46,13 @@ export async function getAllClients(): Promise<IClientFetchAllResponse> {
 }
 
 // Find a list of clients belonging to a specific user
-export async function getUserClients(queryStrings: QueryStrings) {
+export async function getUserClients(id: string) {
      try {
-        let buildQuery = {} as Query;
-        var page = Number(queryStrings.page) || 1;
-        var limit = parseInt(queryStrings.limit)
-        var offset = page ? (page - 1) * limit || 20;
-        
-        
-        if(queryStrings.email) buildQuery.email = queryStrings.email
-        if(queryStrings.name) buildQuery.name = queryStrings.name
-        if(page) buildQuery.page = page
-        if(limit) buildQuery.limit =limit 
-        if(offset) buildQuery.offset = offset 
-
-        const filterObject = { ...query }
-         if(id.length < 24) {
+        if(id.length < 24) {
             return {
                 status: 400,
                 isSuccessful: true,
-                message: "This id does not exist!",
+                message: "User id is incorrect!",
                 data: null
             }
          }
@@ -81,6 +69,7 @@ export async function getUserClients(queryStrings: QueryStrings) {
         //  select clients that match with the passed in user id
         const clients = await Client
             .find({ user_id:  id })
+            .limit(20)
             .lean() // to get plain javascript objects
             .exec()
         return {
@@ -92,7 +81,7 @@ export async function getUserClients(queryStrings: QueryStrings) {
                 pageDetails: {
                     total: clients.length,
                     currentPage: 1,
-                    totalPages: ,
+                    // totalPages: ,
                     pageSize: 20
                 }
             }
@@ -254,32 +243,59 @@ export async function deleteSingleClientById(id:string) {
   }
 }
 
-export async function searchClient(query: Query) {
-    // check for allowed queries
-    try {
-        const { email, name, page, limit } = query 
-        const client = await Client.findOne({ _id: id }).lean().exec();
+export async function search(queryStrings: QueryStrings) {
+    console.log('queryStrings:', queryStrings);
+    
+   const { error, value } = querySchema.validate(queryStrings);
 
-        // if no client was found on the db, then return false
-        if(!client) {
-            return {
-                status: 404,
-                isSuccessful: false,
-                message: "Client not found!",
-            }
+    if (error) {
+        console.log("error message:", error.details[0].message);
+        // throw new Error(error.details[0].message);
+    }
+    
+    try {
+        let buildQuery = {} as Query;
+        let page = Number(queryStrings.page) || 1;
+        let limit = parseInt(queryStrings.limit) || 20;
+        let offset = page ? (page - 1) * limit : 0; 
+        let userId = queryStrings.userId || '';
+        let download = queryStrings.download ? queryStrings.download : 0
+        // 
+        if(queryStrings.email) {
+            // buildQuery.email = queryStrings.email
+            buildQuery.where = { ...buildQuery.where, email: queryStrings.email }
+        }
+        if(queryStrings.name) {
+            // buildQuery.name = queryStrings.name;
+            buildQuery.where = { ...buildQuery.where, name: queryStrings.name }
+        }
+        if(userId) {
+            // buildQuery.userId = userId;
+            buildQuery.where = { ...buildQuery.where, user_id: userId }
+        }
+        // TO DO: add a download feature/option
+
+        if (download === 1) {
+            buildQuery.limit = 1000
+            // buildQuery.raw = true
         } else {
-            return {
-                status: 200,
-                isSuccessful: true,
-                message: "Operation successful!",
-                data: {
-                    info: client,
-                    pageDetails: {
-                        total: clients.length,
-                        currentPage: 1,
-                        totalPages: ,
-                        pageSize: 20
-                    }
+            buildQuery.limit = limit
+        }
+
+        const clients = await Client.find(buildQuery.where).limit(limit).skip(offset).sort({createdAt: -1}).lean();
+        const totalPages = Math.ceil(clients.length / limit);
+
+        return {
+            status: 200,
+            isSuccessful: true,
+            message: "Operation successful!",
+            data: {
+                info: clients,
+                pageDetails: {
+                    total: clients.length,
+                    currentPage: 1,
+                    totalPages: totalPages,
+                    pageSize: 20
                 }
             }
         }

@@ -5,7 +5,8 @@ import {
   getUserClients, 
   editSingleClientById,
   deleteSingleClientById,
-  getSingleClientById
+  getSingleClientById,
+  search
 } from './Clients.services';
 import { IClientRequestPayload } from './Clients.types';
 
@@ -41,9 +42,10 @@ export const fetchAllClients = async (req: Request, res: Response) => {
 
 // Find all clients belonging to a particular user
 export const fetchUserClients = async (req: Request, res: Response) => {
-  const id = req.body.user_id;
+  const query = req.query;  
+  
   try {
-    const response = await getUserClients(id);
+    const response = await search(query);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
