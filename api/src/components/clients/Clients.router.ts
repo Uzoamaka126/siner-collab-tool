@@ -8,6 +8,7 @@ import {
   removeSingleClient,
   fetchSingleClient
 } from './Clients.controllers';
+import { validateFetchClientsQuery } from './Clients.validation';
 
 const router: Router = express.Router();
 // @route   GET api/clients
@@ -22,7 +23,7 @@ router
 
 router
 .route('/users')
-  .get(fetchUserClients)
+  .get(validateFetchClientsQuery, fetchUserClients)
 // /api/clients/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
 // @desc    Login user and get token

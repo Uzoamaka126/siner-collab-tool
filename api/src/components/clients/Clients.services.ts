@@ -1,10 +1,8 @@
 const Client = require('./Clients.model');
-import { querySchema } from './Clients.validation';
 import { Query, QueryStrings } from '../../utils/validators/queries';
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
-    IClientRequestPayload, 
     IClientFetchAllResponse, 
     IClientPayload,
     IBaseClient
@@ -243,16 +241,7 @@ export async function deleteSingleClientById(id:string) {
   }
 }
 
-export async function search(queryStrings: QueryStrings) {
-    console.log('queryStrings:', queryStrings);
-    
-   const { error, value } = querySchema.validate(queryStrings);
-
-    if (error) {
-        console.log("error message:", error.details[0].message);
-        // throw new Error(error.details[0].message);
-    }
-    
+export async function search(queryStrings: QueryStrings) {    
     try {
         let buildQuery = {} as Query;
         let page = Number(queryStrings.page) || 1;
@@ -265,10 +254,11 @@ export async function search(queryStrings: QueryStrings) {
             // buildQuery.email = queryStrings.email
             buildQuery.where = { ...buildQuery.where, email: queryStrings.email }
         }
-        if(queryStrings.name) {
-            // buildQuery.name = queryStrings.name;
-            buildQuery.where = { ...buildQuery.where, name: queryStrings.name }
+        if(queryStrings.name) {      
+            const nameQuery = new RegExp(`^${queryStrings.name}$`, 'i');
+            buildQuery.where = { ...buildQuery.where, name: nameQuery } // make name a case insensitive match
         }
+
         if(userId) {
             // buildQuery.userId = userId;
             buildQuery.where = { ...buildQuery.where, user_id: userId }
@@ -276,14 +266,17 @@ export async function search(queryStrings: QueryStrings) {
         // TO DO: add a download feature/option
 
         if (download === 1) {
-            buildQuery.limit = 1000
+            limit = 1000
             // buildQuery.raw = true
         } else {
-            buildQuery.limit = limit
+            limit = limit
         }
+
+        // console.log('buildQuery.where:', buildQuery.where);
 
         const clients = await Client.find(buildQuery.where).limit(limit).skip(offset).sort({createdAt: -1}).lean();
         const totalPages = Math.ceil(clients.length / limit);
+        // const pageSize = Math.ceil(clients.length / limit);
 
         return {
             status: 200,
