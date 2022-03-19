@@ -1,20 +1,20 @@
 const Project = require('./Projects.model');
 const Tag = require('../tags/Tags.model');
 const User = require('../users/Users.model');
-import { Types } from "mongoose";
 
 import { getSingleUser } from '../users/Users.service';
 import { getSingleClientById } from '../clients/Clients.services';
-import { IBaseTag, ITagDocument } from '../tags/Tags.types';
 import { 
     IProjectCreatePayload, 
     IBaseProject, 
     IProjectFetchResponse, 
     IProjectCreateResponse,
+    QueryStringsProject,
+    ProjectQueryData,
 } from './Projects.types';
 
 // Find all projects
-export async function getAllProjects(): Promise<IProjectFetchResponse> {
+async function getAllProjects(): Promise<IProjectFetchResponse> {
     try {
         const projects = await Project.find({}).lean().exec();
         return {
@@ -34,7 +34,7 @@ export async function getAllProjects(): Promise<IProjectFetchResponse> {
 }
 
 // Find a list of projects belonging to a specific user
-export async function getUserProjects(id: string): Promise<IProjectFetchResponse> {
+async function getUserProjects(id: string): Promise<IProjectFetchResponse> {
      try {
          if(id.length < 24) {
             return {
@@ -75,7 +75,7 @@ export async function getUserProjects(id: string): Promise<IProjectFetchResponse
     }
 }
 
-export async function addNewProject(data: IProjectCreatePayload): Promise<IProjectCreateResponse> {
+async function addNewProject(data: IProjectCreatePayload): Promise<IProjectCreateResponse> {
     const userId = data.user_id;
     const verifyUserDetails = await getSingleUser(userId);
     
@@ -130,7 +130,7 @@ export async function addNewProject(data: IProjectCreatePayload): Promise<IProje
     }
 }
 
-export async function getProjectById(id: string): Promise<IProjectFetchResponse> {
+async function getProjectById(id: string) {
     try {
         if (!id || typeof id !== 'string') {
             return {
@@ -169,7 +169,7 @@ export async function getProjectById(id: string): Promise<IProjectFetchResponse>
     }
 }
 
-export async function editProjectById(id: string, data: IBaseProject) {
+async function editProjectById(id: string, data: IBaseProject) {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false
@@ -202,7 +202,7 @@ export async function editProjectById(id: string, data: IBaseProject) {
     }
 }
 
-export async function deleteProjectById(id: string) {
+async function deleteProjectById(id: string) {
     if(!id) {
         return {
             status: 401,
@@ -238,7 +238,7 @@ export async function deleteProjectById(id: string) {
   }
 }
 
-export async function addProjectTag(id: string, tags: any) {
+async function addProjectTag(id: string, tags: any) {
   try {
     //  find parent project first
     const getParentProject = await getProjectById(id);
@@ -286,7 +286,7 @@ export async function addProjectTag(id: string, tags: any) {
   }
 }
 
-export async function deleteProjectTag(data: any) {
+async function deleteProjectTag(data: any) {
     if(!data.tag_id || !data.id) {
         return {
             status: 401,
@@ -343,7 +343,7 @@ export async function deleteProjectTag(data: any) {
   }
 }
 
-export async function getProjectTag(data: any) {
+async function getProjectTag(data: any) {
     if(!data.tag_id || !data.id) {
         return {
             status: 401,
@@ -391,6 +391,74 @@ export async function getProjectTag(data: any) {
   }
 }
 
+// TO DO: Refactor into one separate reusable search function
+async function search (queryStrings: QueryStringsProject): Promise<IProjectFetchResponse>  {    
+    try {
+        let buildQuery = {} as ProjectQueryData;
+        let page = Number(queryStrings.page) || 1;
+        let limit = parseInt(queryStrings.limit) || 20;
+        let offset = page ? (page - 1) * limit : 0; 
+        let userId = queryStrings.userId || '';
+        let download = queryStrings.download ? queryStrings.download : 0
+        
+        // 
+        if (userId) {
+            buildQuery.where = { ...buildQuery.where, user_id: userId }
+        }
+
+        if (queryStrings.title) {
+            const regexTitle = new RegExp(`^${queryStrings.title}$`, 'i');
+
+            buildQuery.where = { ...buildQuery.where, title: regexTitle }  // make title a case insensitive match
+        }
+
+        if (queryStrings.clientName) {      
+            const regexClientName = new RegExp(`^${queryStrings.clientName}$`, 'i');
+
+            buildQuery.where = { ...buildQuery.where, client_name: regexClientName } // make client name a case insensitive match
+        }
+
+        if (queryStrings.status) {      
+            buildQuery.where = { ...buildQuery.where, status: queryStrings.status }
+        }
+        
+        // TO DO: add a download feature/option
+        if (download === 1) {
+            limit = 1000
+        } else {
+            limit = limit
+        }
+
+        console.log('buildQuery.where:', buildQuery.where);
+
+        const projects = await Project.find(buildQuery.where).limit(limit).skip(offset).sort({ createdAt: -1 }).lean();
+        const totalPages = Math.ceil(projects.length / limit);
+        // const pageSize = Math.ceil(projects.length / limit); // TO DO *
+
+        return {
+            status: 200,
+            isSuccessful: true,
+            message: "Operation successful!",
+            data: {
+                info: projects,
+                pageDetails: {
+                    total: projects.length,
+                    currentPage: 1,
+                    totalPages: totalPages,
+                    pageSize: 20
+                }
+            }
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occurred",
+        }
+    }
+}
+
 const ProjectControllers = {
     getAllProjects,
     getUserProjects,
@@ -399,7 +467,9 @@ const ProjectControllers = {
     editProjectById,
     deleteProjectById,
     deleteProjectTag,
-    addProjectTag
+    addProjectTag,
+    search,
+    getProjectTag
 }
 
 export default ProjectControllers;

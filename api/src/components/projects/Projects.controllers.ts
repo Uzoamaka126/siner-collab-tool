@@ -29,9 +29,9 @@ export const fetchAllProjects = async (req: Request, res: Response) => {
 
 // Find all projects belonging to a particular user
 export const fetchUserProjects = async (req: Request, res: Response) => {
-  const id = req.body.user_id;
+  const query = req.query
   try {
-    const response = await ProjectServices.getUserProjects(id);
+    const response = await ProjectServices.search(query);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

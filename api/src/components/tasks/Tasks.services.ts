@@ -1,5 +1,5 @@
 const Task = require('./Tasks.model');
-import { getProjectById } from '../projects/Projects.services';
+import Project from '../projects/Projects.services';
 import { 
     ITaskResponsePayload,
     IBaseTask,
@@ -29,7 +29,7 @@ async function getTasks(): Promise<ITaskResponsePayload> {
 async function getTaskByProjectId(id: string): Promise<ITaskResponsePayload> {
     try {
         //  get user
-        const getParentProject = await getProjectById(id);
+        const getParentProject = await Project.getProjectById(id);
     
         if(!getParentProject.isSuccessful) {
             return {
@@ -62,7 +62,7 @@ async function getTaskByProjectId(id: string): Promise<ITaskResponsePayload> {
 
 async function addNewTask (data: IBaseTask) {
     const projectId = data.project_id;
-    const validateProject = await getProjectById(projectId);
+    const validateProject = await Project.getProjectById(projectId);
     
     if(!validateProject.isSuccessful) {
         return {

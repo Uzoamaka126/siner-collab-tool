@@ -37,6 +37,12 @@ export const projectSchema = new Schema({
     maxlength: 1000,
     ref: "Client"
   },
+  client_name: {
+    type: String, 
+    required: true,
+    minLength: 2,
+    maxlength: 1000,
+  },
   tasks: {
     type: [Types.ObjectId], 
     required: false,

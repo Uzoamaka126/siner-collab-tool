@@ -11,6 +11,7 @@ export interface IBaseProject {
     status?: boolean;
     deadline?: Date | null
     tags?: ProjectTag[];
+    client_name?: string
 }
 
 export interface IProjectCreatePayload {
@@ -41,5 +42,31 @@ export interface IProjectFetchResponse {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IBaseProject | null
+  data?: {
+    info: IBaseProject[];
+    pageDetails: {
+      total: number;
+      currentPage: number;
+      totalPages: number;
+      pageSize: number;
+    };
+  }
+}
+
+export type ProjectQueryData = {
+    page?: number;
+    limit?: number;
+    offset?: number
+    where?: any
+}
+
+export type QueryStringsProject = {
+    page?: string;
+    limit?: string;
+    title?: string;
+    clientName?: string;
+    userId?: string;
+    download?: string;
+    date?: Date;
+    status?: string;
 }

@@ -11,6 +11,7 @@ import {
   removeProjectTag,
   addProjectTags
 } from './Projects.controllers';
+import { validateFetchProjectsQuery } from './Projects.validation';
 
 const router: Router = express.Router();
 // @route   GET api/clients
@@ -25,7 +26,7 @@ router
 
 router
 .route('/users')
-  .post(fetchUserProjects)
+  .get(validateFetchProjectsQuery, fetchUserProjects)
 
 // /api/projects/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
