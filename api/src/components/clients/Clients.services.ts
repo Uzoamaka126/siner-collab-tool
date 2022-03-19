@@ -241,29 +241,28 @@ export async function deleteSingleClientById(id:string) {
   }
 }
 
-export async function search (queryStrings: QueryStringsClient) {    
+export async function search (queryStrings: QueryStringsClient, id: QueryStringsClient['userId']) {    
     try {
         let buildQuery = {} as ClientQueryData;
         let page = Number(queryStrings.page) || 1;
         let limit = parseInt(queryStrings.limit) || 20;
         let offset = page ? (page - 1) * limit : 0; 
-        let userId = queryStrings.userId || '';
         let download = queryStrings.download ? queryStrings.download : 0
         
         // 
-        if (queryStrings.email) {
-            const email = new RegExp(`^${queryStrings.email}$`, 'i');
+        // if (queryStrings.email) {
+        //     const email = new RegExp(`^${queryStrings.email}$`, 'i');
 
-            buildQuery.where = { ...buildQuery.where, email: email }  // make email a case insensitive match
-        }
+        //     buildQuery.where = { ...buildQuery.where, email: email }  // make email a case insensitive match
+        // }
         if (queryStrings.name) {      
             const nameQuery = new RegExp(`^${queryStrings.name}$`, 'i');
 
             buildQuery.where = { ...buildQuery.where, name: nameQuery } // make name a case insensitive match
         }
 
-        if (userId) {
-            buildQuery.where = { ...buildQuery.where, user_id: userId }
+        if (id) {
+            buildQuery.where = { ...buildQuery.where, user_id: id }
         }
         // TO DO: add a download feature/option
 
@@ -274,7 +273,7 @@ export async function search (queryStrings: QueryStringsClient) {
             limit = limit
         }
 
-        console.log('buildQuery.where:', buildQuery.where);
+        // console.log('buildQuery.where:', buildQuery.where);
 
         const clients = await Client.find(buildQuery.where).limit(limit).skip(offset).sort({createdAt: -1}).lean();
         const totalPages = Math.ceil(clients.length / limit);

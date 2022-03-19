@@ -14,7 +14,7 @@ function generateVerificationToken(len: number, arr:string) {
 
 export function generateToken(user: IUserBaseDocument) {
   // Use jwt to create a new JWT Payload containing
-  console.log('user:', user);
+  // console.log('user:', user);
   
   const payload = {
     subject: user,

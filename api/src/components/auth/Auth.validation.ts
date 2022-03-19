@@ -6,7 +6,7 @@ export async function validateSignUpData(req: Request, res: Response, next: Next
 
     const signUpSchema = Joi.object().keys({
         username: Joi.string().required(),
-        email: Joi.string().email().allowFullyQualified(true).required(),
+        email: Joi.string().email({ allowFullyQualified: true }).required(),
         password: Joi.string().min(5).max(20).required(),
         fullName: Joi.string.min(2).max(200).required(),
         userId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required().required(),
@@ -29,7 +29,7 @@ export async function validateSignInData(req: Request, res: Response, next: Next
 
     const signUpSchema = Joi.object().keys({
         username: Joi.string(),
-        email: Joi.string().email().allowFullyQualified(true),
+        email: Joi.string().email({ allowFullyQualified: true }),
         password: Joi.string().min(5).max(20).required(),
     });
 

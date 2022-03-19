@@ -44,11 +44,11 @@ export const fetchAllClients = async (req: Request, res: Response) => {
 // Find all clients belonging to a particular user
 export const fetchUserClients = async (req: RequestCustom, res: Response) => {
   const query = req.query; 
-  console.log('req.user:', req.user);
+  const id = req.user._id
+  // console.log('req.user:', req.user);
    
-  
   try {
-    const response = await search(query);
+    const response = await search(query, id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
