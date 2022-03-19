@@ -14,8 +14,11 @@ function generateVerificationToken(len: number, arr:string) {
 
 export function generateToken(user: IUserBaseDocument) {
   // Use jwt to create a new JWT Payload containing
+  console.log('user:', user);
+  
   const payload = {
-    subject: user._id,
+    subject: user,
+    // subject: user._id,
     username: user.username,
     roles: ["email"]
   };
@@ -42,7 +45,6 @@ export const checkForDuplicateEmailsDB = async (email: string) => {
       }
     //  console.log(data); 
     });
-    console.log(response instanceof mongoose.Document);
     if (response instanceof mongoose.Document === true) {
       // doc may be null if no document is matched
       result = true;

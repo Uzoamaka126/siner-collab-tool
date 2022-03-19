@@ -13,7 +13,7 @@
     },
     "skipLibCheck": true,
     "types": [ "@types/jest", "node" ],
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./typings"],
     "composite": true,
     "rootDir": "src",
     "noImplicitReturns": false,
@@ -21,7 +21,7 @@
   },
   // "extends": "../tsconfig.settings.json",
   // "references": [{ "path": "../types" }],
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "typings", "*.d.ts"],
   // "include": ["src/**/*", "./src/index.ts", "src/__tests__/*.ts"],
   "exclude": ["node_modules"]
 }

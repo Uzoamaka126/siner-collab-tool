@@ -45,14 +45,18 @@ export const invoiceSchema: Schema = new Schema({
       maxlength: 300,
       required: false,
     },
-    other_emails: {
-      type: [{}],
-      required: true
+    meta: {
+      type: Object,
+      required: false,
     },
-    items: {
-      type: [{}],
-      required: true
-    },
+    // other_emails: {
+    //   type: [{}],
+    //   required: true
+    // },
+    // items: {
+    //   type: [{}],
+    //   required: true
+    // },
     status: {
       type: String,
       required: true,
@@ -67,24 +71,10 @@ export const invoiceSchema: Schema = new Schema({
       minLength: 2,
       maxlength: 12
     },
-    price: {
-      type: Number,
-      required: true,
-      trim: true,
-      minLength: 2,
-      maxlength: 20
-    },
-    tax: {
-      type: Object,
-      required: false,
-    },
-    total_amount: {
-      type: Number,
-      required: true,
-      trim: true,
-      minLength: 2,
-      maxlength: 12
-    },
+    // tax: {
+    //   type: Object,
+    //   required: false,
+    // },
     due_date: {
       type: Date,
       required: false,

@@ -67,3 +67,19 @@ export interface IClientFetchAllResponse {
     pageDetails: PageDetails
   }
 }
+
+export type ClientQueryData = {
+    page?: number;
+    limit?: number;
+    offset?: number
+    where?: any
+}
+
+export type QueryStringsClient = {
+    page?: string;
+    limit?: string;
+    email?: string;
+    name?: string;
+    userId?: string;
+    download?: string;
+}

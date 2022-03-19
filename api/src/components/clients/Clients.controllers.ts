@@ -9,6 +9,7 @@ import {
   search
 } from './Clients.services';
 import { IClientRequestPayload } from './Clients.types';
+import { RequestCustom } from '../../utils/middleware/express';
 
 // Controller to create a new workspace
 export const createANewClient = async (req: Request, res: Response) => {
@@ -41,8 +42,10 @@ export const fetchAllClients = async (req: Request, res: Response) => {
 }
 
 // Find all clients belonging to a particular user
-export const fetchUserClients = async (req: Request, res: Response) => {
-  const query = req.query;  
+export const fetchUserClients = async (req: RequestCustom, res: Response) => {
+  const query = req.query; 
+  console.log('req.user:', req.user);
+   
   
   try {
     const response = await search(query);

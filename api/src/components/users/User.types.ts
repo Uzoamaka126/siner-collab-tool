@@ -6,10 +6,7 @@ export interface IBaseUser {
     password: string;
     username: string;
     jwt?: string;
-    // projects?: {}[];
-    // clients?: {}[];
-    // invoices?: {}[];
-    // tags?: {}[];
+    phoneNumber?: string;
     createdAt?: Date;
 }
 
@@ -24,6 +21,7 @@ export interface IUserInput {
     email: IBaseUser['email'];
     password: IBaseUser['password'];
     username: IBaseUser['username'];
+    phoneNumber: IBaseUser['phoneNumber'];
     jwt: IBaseUser['jwt'];
 }
 

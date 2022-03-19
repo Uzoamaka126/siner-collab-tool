@@ -16,7 +16,8 @@ export const userSchema = new Schema({
       trim: true,
       minLength: 2,
       maxlength: 1000,
-      unique: true
+      unique: true,
+      // match: /.+\@.+\..+/,
     },
     password: {
       type: String,

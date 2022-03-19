@@ -311,7 +311,6 @@ export default {
           tax: [{ tax_description: null, tax_name: "vat", tax_type: "flat", tax_value: 0 }],
           invoice_interval: [{ interval_description: null, interval_name: "invoice_interval", interval_type: "One Time", interval_value: "One Time" }],
           invoice_notes: [{ notes_description: null, notes_name: "invoice_notes", notes_type: "invoice_notes_1", notes_value: "" }],
-          send_via_whatsapp: 0,
           reminders: [],
           items: [{ item_name: "", item_price: 0.00, item_quantity: 0, item_unit: 0.00 }],
         },

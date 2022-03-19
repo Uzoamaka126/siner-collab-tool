@@ -1,6 +1,4 @@
-import { Schema, ObjectId, Types } from "mongoose";
-import { tagSchema } from '../tags/Tags.schema'
-import { invoiceSchema } from '../invoices/Invoices.schema'
+import { Schema, Types } from "mongoose";
 
 // This is how you tell mongoose what your documents look like
 // Create a client schema

@@ -1,5 +1,5 @@
 const Client = require('./Clients.model');
-import { Query, QueryStrings } from '../../utils/validators/queries';
+import { ClientQueryData, QueryStringsClient } from './Clients.types';
 import { getSingleUser } from '../users/Users.service';
 const User = require('../users/Users.model');
 import { 
@@ -241,9 +241,9 @@ export async function deleteSingleClientById(id:string) {
   }
 }
 
-export async function search (queryStrings: QueryStrings) {    
+export async function search (queryStrings: QueryStringsClient) {    
     try {
-        let buildQuery = {} as Query;
+        let buildQuery = {} as ClientQueryData;
         let page = Number(queryStrings.page) || 1;
         let limit = parseInt(queryStrings.limit) || 20;
         let offset = page ? (page - 1) * limit : 0; 

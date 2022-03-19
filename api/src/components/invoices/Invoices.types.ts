@@ -1,38 +1,53 @@
 import { Document, Types } from "mongoose"
 
 export interface IBaseInvoice {
+    amount?: number;
     client_email: string;
     currency: string;
-    amount?: number;
     due_date?: Date;
-    status: string;
+    date_paid?: Date;
     invoice_no: string;
-    other_emails: string[];
-    items: {}[];
-    price: number;
-    tax: {};
-    total_amount: number;
     memo: string;
+    meta: {};
     user_id: string;
     project_id: string;
+    status: string;
+    title: string;
 }
-// export interface IWorkspaceInput {
-//     title: IBaseWorkspace['title'];
-//     type: IBaseWorkspace['type'];
-//     description?: IBaseWorkspace['description'];
-//     boards?: IBaseWorkspace['boards'];
-//     members?: IBaseWorkspace['members'];
-//     activities?: IBaseWorkspace['activities'];
-//     cards?: IBaseWorkspace['cards'];
-//     createdBy: IBaseWorkspace['createdBy'];
-// }
 
-export interface IInvoiceBaseDocument extends IBaseInvoice, Document<Types.ObjectId> {
+export interface IInvoiceDocument extends IBaseInvoice, Document<Types.ObjectId> {
   _id: Types.ObjectId;
 }
-export interface IUserCreateDataResponse {
+export interface IInvoiceResponsePayload {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IBaseInvoice
+  data?: {
+    invoices: IBaseInvoice[],
+    pageDetails: {
+      total: number;
+      currentPage: number;
+      totalPages: number;
+      pageSize: number;
+    };
+  }
+}
+
+export type InvoiceQueryData = {
+    page?: number;
+    limit?: number;
+    offset?: number
+    where?: any
+}
+
+export type QueryStringsInvoice = {
+    page?: string;
+    limit?: string;
+    userId?: string;
+    download?: string;
+    clientEmail?: string;
+    dateCreated?: Date;
+    status?: string;
+    dueDate?: Date;
+    invoiceNo?: string;
 }

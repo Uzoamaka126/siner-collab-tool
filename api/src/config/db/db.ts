@@ -1,8 +1,6 @@
 require("dotenv").config();
 
 import { DB_CONNECTION_STRING } from "../index";
-import config from "config";
-// import { connect } from "mongoose";
 const mongoose = require('mongoose');
 
 export const dbConnect = async () => {
@@ -15,7 +13,7 @@ export const dbConnect = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-      connectTimeoutMS: 1000
+      connectTimeoutMS: 2000
     };
     await mongoose.connect(mongoURI, options);
     console.log("MongoDB Connected...");

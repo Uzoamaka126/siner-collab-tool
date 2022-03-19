@@ -8,13 +8,12 @@ import express, { Application, RouterOptions } from "express"
 // import necessary packages
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const sessions = require('express-session');
 const helmet = require("helmet");
 const morgan = require("morgan");
 const app: Application = express();
 const routes = require('./router/index');
-
-// dbConnect();
-// import error handler file
+const oneDay = 1000 * 60 * 60 * 24;
 
 app.set("port", port);
 app.use(helmet());
@@ -28,6 +27,13 @@ app.use(helmet());
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
+//session middleware
+// app.use(sessions({
+//     secret: process.env.JWT_SECRET || "nebula",
+//     saveUninitialized:false,
+//     cookie: { maxAge: oneDay },
+//     resave: false
+// }));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -46,12 +52,8 @@ routes(app);
 export const start = () => {   
     dbConnect();
     app.listen(port, () => {
-      // console.log('__dirname', __dirname)
       console.log("Router is running here -->", port);
     })
 }
 
 start();
-
-// export default start;
-// export default app;

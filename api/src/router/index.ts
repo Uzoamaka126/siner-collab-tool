@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import usersRouter from "../components/users/User.router";
 import clientsRouter from '../components/clients/Clients.router';
 import authRouter from '../components/auth/Auth.router';
@@ -31,6 +31,13 @@ function routes(router: any) {
     router.use("/api/tags", validateUserToken, tagsRouter);
     router.use("/api/projects", validateUserToken, projectsRouter);
     router.use("/api/tasks", validateUserToken, tasksRouter);
+    // router.use(function (err: Error & { status: number, message: string }, req: Request, res: Response, next: NextFunction) {
+    //     console.error(err.status);
+    //     console.error(err.message);
+    //     console.error(err.stack);
+    //     res.status(500).json({ Error: "Internal error" });
+    //     res.end();
+    // }); // TO DO: error handler function
 }
 
 module.exports = routes;

@@ -1,7 +1,7 @@
-import { IInvoiceBaseDocument } from './Invoices.types';
+import { IInvoiceDocument } from './Invoices.types';
 import { invoiceSchema } from './Invoices.schema'
 import { model } from 'mongoose'
 
-const Invoice = model <IInvoiceBaseDocument >("Invoice", invoiceSchema)
+const Invoice = model <IInvoiceDocument >("Invoice", invoiceSchema)
 
 module.exports = Invoice;
