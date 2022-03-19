@@ -238,7 +238,7 @@
             <!-- phone number -->
             <div class="form__item">
               <label for="name" class="form-label">Phone number</label>
-              <input type="text" class="form-control form-control-sm" v-model="newClient.phone_number" id="phone_number">
+              <input type="text" class="form-control form-control-sm" v-model="newClient.phoneNumber" id="phoneNumber">
             </div>
             <!-- address -->
             <div class="form__item">
@@ -324,7 +324,7 @@ export default {
       newClient: {
         name: "",
         email: "",
-        phone_number: "",
+        phoneNumber: "",
         country: "",
         address: "",
         clickedCreateBtn: false,
@@ -514,7 +514,7 @@ export default {
         return true
       } else if(this.newClient.email.length < 5) {
         return true
-      } else if (this.newClient.phone_number.length < 10) {
+      } else if (this.newClient.phoneNumber.length < 10) {
         return true
       } else if (this.newClient.address.length < 5) {
         return true
@@ -604,7 +604,7 @@ export default {
       const clientPayload = {
         client_name: this.newClient.name,
         email: this.newClient.email,
-        phone_number: this.newClient.phone,
+        phoneNumber: this.newClient.phone,
         country: this.newClient.country,
         address: this.newClient.address,
         // user_id: user.id
@@ -875,7 +875,7 @@ export default {
     resetCreateClientData() {
       this.newClient.name = "";
       this.newClient.email = "";
-      this.newClient.phone_number = "";
+      this.newClient.phoneNumber = "";
       this.newClient.country = "";
       this.newClient.address = '';
       this.newClient.clickedCreateBtn = false;

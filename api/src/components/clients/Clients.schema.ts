@@ -19,7 +19,7 @@ export const clientSchema = new Schema({
     maxlength: 1000,
     ref: "User"
   },
-   phone_number: {
+   phoneNumber: {
     type: String,
     required: true,
     trim: true,

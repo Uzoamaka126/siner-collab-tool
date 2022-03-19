@@ -6,7 +6,7 @@ export interface IBaseClient {
     user_id: string;
     email: string;
     // projects: [];
-    phone_number: string;
+    phoneNumber: string;
     country: string;
     address: string;
 }
@@ -15,7 +15,7 @@ export interface IClientRequestPayload {
     name: IBaseClient['name'];
     user_id: IBaseClient['user_id']; 
     email: IBaseClient['email']
-    phone_number: IBaseClient['phone_number']
+    phoneNumber: IBaseClient['phoneNumber']
     country: IBaseClient['country']
     address: IBaseClient['address']
 }
