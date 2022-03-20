@@ -287,7 +287,7 @@ export async function search (queryStrings: QueryStringsClient, id: QueryStrings
                 info: clients,
                 pageDetails: {
                     total: clients.length,
-                    currentPage: 1,
+                    currentPage: page,
                     totalPages: totalPages,
                     pageSize: 20
                 }

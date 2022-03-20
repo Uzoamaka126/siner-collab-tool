@@ -26,24 +26,6 @@ export async function validateFetchProjectsQuery(req: Request, res: Response, ne
     }
 }
 
-export async function validateUserId(req: Request, res: Response, next: NextFunction) {
-    const user_id = req.body.user_id;
-
-    const querySchema = Joi.object().keys({
-        user_id: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
-    });
-
-    const { error, value } = querySchema.validate(user_id);
-
-    if (error) {
-        return res.status(400).json({
-          message: error.details[0].message
-        })
-    } else {
-        next();
-    }
-}
-
 export async function validateProjectId(req: Request, res: Response, next: NextFunction) {
     const project_id = req.body.project_id;
 

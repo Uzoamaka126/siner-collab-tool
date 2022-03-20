@@ -46,8 +46,10 @@ export type QueryStringsInvoice = {
     userId?: string;
     download?: string;
     clientEmail?: string;
+    clientName?: string;
     dateCreated?: Date;
     status?: string;
     dueDate?: Date;
     invoiceNo?: string;
+    projectId?: string;
 }

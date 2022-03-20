@@ -14,8 +14,10 @@ export function validateUserToken (req: RequestCustom, res: Response, next: Next
         })
       }
 
-      req.body.user = decoded.subject._id;
-      req.user = decoded
+      req.body.user = decoded
+      req.user = decoded.subject;
+
+      // console.log('req.user:', req.user);    
       next();
     })
   } else {

@@ -24,14 +24,14 @@ export async function getAllInvoices() {
     }
 }
 
-// Find a list of invoices belonging to a specific user
-async function getUserInvoices (query: QueryStringsInvoice): Promise<IInvoiceResponsePayload>  {    
+// Find a list of invoices belonging to a specific user or project 
+export async function getInvoices (query: QueryStringsInvoice, id: QueryStringsInvoice['userId']): Promise<IInvoiceResponsePayload>  {  
+    // TODOs: strip and search by client email, date created and due date      
     try {
         let buildQuery = {} as InvoiceQueryData;
         let page = Number(query.page) || 1;
         let limit = parseInt(query.limit) || 20;
         let offset = page ? (page - 1) * limit : 0; 
-        let userId = query.userId || '';
         let download = query.download ? query.download : 0
 
         if (offset) {
@@ -39,12 +39,17 @@ async function getUserInvoices (query: QueryStringsInvoice): Promise<IInvoiceRes
         }
         
         // 
-        if (userId) {
-            buildQuery.where = { ...buildQuery.where, user_id: userId }
+        if (id) {
+            buildQuery.where = { ...buildQuery.where, user_id: id }
         }
 
-        if (query.title) {
-            const regexTitle = new RegExp(`^${query.title}$`, 'i');
+        if (query.projectId) {
+            buildQuery.where = { ...buildQuery.where, project_id: query.projectId }
+        }
+
+
+        if (query.status) {
+            const regexTitle = new RegExp(`^${query.status}$`, 'i');
 
             buildQuery.where = { ...buildQuery.where, title: regexTitle }  // make title a case insensitive match
         }
@@ -53,10 +58,6 @@ async function getUserInvoices (query: QueryStringsInvoice): Promise<IInvoiceRes
             const regexClientName = new RegExp(`^${query.clientName}$`, 'i');
 
             buildQuery.where = { ...buildQuery.where, client_name: regexClientName } // make client name a case insensitive match
-        }
-
-        if (query.status) {      
-            buildQuery.where = { ...buildQuery.where, status: query.status }
         }
         
         // TO DO: add a download feature/option
@@ -68,19 +69,28 @@ async function getUserInvoices (query: QueryStringsInvoice): Promise<IInvoiceRes
 
         console.log('buildQuery.where:', buildQuery.where);
 
-        const projects = await Invoices.find(buildQuery.where).limit(limit).skip(buildQuery.offset).sort({ createdAt: -1 }).lean();
-        const totalPages = Math.ceil(projects.length / limit);
+        const invoices = await Invoices.find(buildQuery.where).limit(limit).skip(buildQuery.offset).sort({ createdAt: -1 }).lean();
+        const totalPages = Math.ceil(invoices.length / limit);
         // const pageSize = Math.ceil(projects.length / limit); // TO DO *
+
+        if (typeof invoices === 'undefined') {
+            return {
+                status: 400,
+                isSuccessful: false,
+                message: "An error occurred",
+                data: null
+            }
+        }
 
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
             data: {
-                info: projects,
+                invoices: invoices,
                 pageDetails: {
-                    total: projects.length,
-                    currentPage: 1,
+                    total: invoices.length,
+                    currentPage: page,
                     totalPages: totalPages,
                     pageSize: 20
                 }
@@ -93,47 +103,6 @@ async function getUserInvoices (query: QueryStringsInvoice): Promise<IInvoiceRes
             isSuccessful: false,
             message: "An error occurred",
         }
-    }
-}
-// Find a list of projects belonging to a specific user
-async function getProjectInvoices(id: string): Promise<IProjectFetchResponse> {
-     try {
-         if(id.length < 24) {
-            return {
-                status: 400,
-                isSuccessful: true,
-                message: "This id does not exist!",
-                data: null
-            }
-         }
-        //  get user
-        const user = await User.findOne({ _id: id }).lean().exec()
-
-        if (!user) {
-            return {
-                status: 404,
-                isSuccessful: false,
-                message: "This user does not exist!",
-            }
-        }
-        //  select projects that match with the passed in user id
-        const clients = await Project
-            .find({ user_id:  id })
-            .lean() // to get plain javascript objects
-            .exec()
-        return {
-            status: 200,
-            isSuccessful: true,
-            message: "Operation successful!",
-            data: clients
-        }
-    } catch(err) {
-        throw new Error(err);
-        // return {
-        //     status: err.status,
-        //     isSuccessful: false,
-        //     message: "An error occured",
-        // }
     }
 }
 

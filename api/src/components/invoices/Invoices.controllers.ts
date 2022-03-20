@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
+import { RequestCustom } from '../../utils/middleware/express';
 import { 
   getAllInvoices,
   getInvoice,
   removeInvoice,
   addNewInvoice,
-  editInvoice
+  editInvoice,
+  getInvoices
 } from './Invoices.services';
 import { IBaseInvoice } from './Invoices.types';
 
 // Controller to create a new workspace
-export const createANewWorkspace = async (req: Request, res: Response) => {
+export const createNewInvoice = async (req: Request, res: Response) => {
   const newInvoice:IBaseInvoice = req.body;
 
   try {
@@ -22,9 +24,27 @@ export const createANewWorkspace = async (req: Request, res: Response) => {
 }
 
 // Controller to fetch all workspaces
-export const fetchAllInvoices= async (req: Request, res: Response) => {
+export const fetchAllInvoices = async (req: Request, res: Response) => {
   try {
     const invoices = await getAllInvoices()
+
+    if(!invoices.isSuccessful === false) {
+        return res.status(404).json(invoices)
+    } else {
+        return res.status(200).json(invoices)
+    }
+  } catch (err) {
+    console.error(err)
+    return res.status(400).send({ error: "An error occurred!" }).end()
+  }
+}
+
+export const fetchInvoices = async (req: RequestCustom, res: Response) => {
+  try {
+    const query = req.query;
+    const userId = req.user._id;
+
+    const invoices = await getInvoices(query, userId)
 
     if(!invoices.isSuccessful === false) {
         return res.status(404).json(invoices)

@@ -5,8 +5,10 @@ import authRouter from '../components/auth/Auth.router';
 import tagsRouter from '../components/tags/Tags.router';
 import projectsRouter from '../components/projects/Projects.router';
 import tasksRouter from '../components/tasks/Tasks.router';
+import invoicesRouter from '../components/invoices/Invoices.router';
 import { authMiddleware } from '../utils/middleware/auth';
 import { validateUserToken } from '../utils/middleware/validateToken';
+import { validateUserId } from '../utils/middleware/validateUserId';
 
 function routes(router: any) {  
     router.get("/api/", (req: Request, res: Response) => {
@@ -31,6 +33,7 @@ function routes(router: any) {
     router.use("/api/tags", validateUserToken, tagsRouter);
     router.use("/api/projects", validateUserToken, projectsRouter);
     router.use("/api/tasks", validateUserToken, tasksRouter);
+    router.use("/api/invoices", [validateUserToken, validateUserId], invoicesRouter);
     // router.use(function (err: Error & { status: number, message: string }, req: Request, res: Response, next: NextFunction) {
     //     console.error(err.status);
     //     console.error(err.message);
