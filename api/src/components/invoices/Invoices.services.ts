@@ -51,9 +51,9 @@ export async function getInvoices (query: QueryStringsInvoice, id: QueryStringsI
 
 
         if (query.status) {
-            const regexTitle = new RegExp(`^${query.status}$`, 'i');
+            const regexedStatus = new RegExp(`^${query.status}$`, 'i');
 
-            buildQuery.where = { ...buildQuery.where, title: regexTitle }  // make title a case insensitive match
+            buildQuery.where = { ...buildQuery.where, status: regexedStatus }  // make title a case insensitive match
         }
 
         if (query.clientName) {      
