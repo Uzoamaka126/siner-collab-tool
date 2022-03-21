@@ -3,7 +3,9 @@ import {
   fetchInvoices,
   createNewInvoice,
   fetchInvoice,
-  updateInvoice
+  updateInvoice,
+  deleteInvoice,
+  createInvoiceAsDraft
 } from './Invoices.controllers';
 import { validateCreateInvoiceData, validateId } from './Invoices.validation';
 
@@ -15,6 +17,10 @@ router
   .get(fetchInvoices)
   .post(validateCreateInvoiceData, createNewInvoice)
 
+router
+  .route('/draft')
+  .post(validateCreateInvoiceData, createInvoiceAsDraft)
+
 // all invoices irrespective of user
   // .route('/invoices')
   // .get(fetchInvoice)
@@ -25,6 +31,6 @@ router
   .route('/:id')
   .get(validateId, fetchInvoice)
   .patch(validateId, updateInvoice)
-  // .delete(deleteASingleWorkspace)
+  .delete(validateId, deleteInvoice)
 
 export default router

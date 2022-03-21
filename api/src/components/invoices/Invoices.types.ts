@@ -7,8 +7,8 @@ export interface IBaseInvoice {
     due_date?: Date;
     date_paid?: Date;
     invoice_no: string;
-    memo: string;
-    meta: {};
+    memo?: string;
+    meta?: {};
     user_id: string;
     project_id: string;
     status: string;

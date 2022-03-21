@@ -4,6 +4,7 @@ const Invoices = require('./Invoices.model');
 const User = require('../users/Users.model');
 import { getSingleUser } from '../users/Users.service';
 import { IBaseInvoice, IInvoiceResponsePayload, QueryStringsInvoice, InvoiceQueryData } from './Invoices.types';
+import { isSameDay } from '../../utils/dateUtilities';
 
 // Find all users
 export async function getAllInvoices() {
@@ -120,9 +121,15 @@ export async function addNewInvoice(data: IBaseInvoice, id: QueryStringsInvoice[
         }
     }
     try {
+        const currentDate = new Date();
+        const dueDate = data.due_date
+
+        const isDueDate = isSameDay(currentDate, dueDate)
+
         const invoice = await Invoices.create({
             ...data,
             user_id: userId,
+            status: !!isDueDate ? "due" : "pending",
             invoice_no: generateInvoiceRefNumber(), // generate uuid
         })
         return {
@@ -208,13 +215,6 @@ export async function editInvoice(id: string, data: any) {
 }
 
 export async function removeInvoice(id:string) {
-    if(!id) {
-        return {
-            status: 401,
-            isSuccessful: false,
-            message: "string invoice id is required!",
-        }
-    }
   try {
     const removedInvoice = await Invoices.findOneAndRemove({ _id: id })
 
@@ -240,4 +240,39 @@ export async function removeInvoice(id:string) {
         message: err
     }
   }
+}
+
+export async function saveInvoiceAsDraft(data: IBaseInvoice, id: QueryStringsInvoice['userId']) {
+    const userId = id;
+    const validateUser = await getSingleUser(userId);
+    
+    if(validateUser.isSuccessful === false) {
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "This user does not exist!",
+            data: null
+        }
+    }
+    try {
+        const invoice = await Invoices.create({
+            ...data,
+            user_id: userId,
+            status: 'draft',
+            invoice_no: generateInvoiceRefNumber(), // generate ref number for invoice
+        })
+        return {
+            status: 201,
+            isSuccessful: true,
+            message: "Invoice saved as draft",
+            data: invoice
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: err
+        }
+    }
 }

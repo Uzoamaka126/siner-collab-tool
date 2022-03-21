@@ -6,7 +6,8 @@ import {
   removeInvoice,
   addNewInvoice,
   editInvoice,
-  getInvoices
+  getInvoices,
+  saveInvoiceAsDraft
 } from './Invoices.services';
 import { IBaseInvoice } from './Invoices.types';
 
@@ -17,6 +18,20 @@ export const createNewInvoice = async (req: RequestCustom, res: Response) => {
 
   try {
     const response = await addNewInvoice(newInvoice, userId);
+    return res.status(response.status).json(response)
+  } catch (e) {
+    console.error("error for controllers:", e)
+    return res.status(400).json(e).end()
+  }
+}
+
+// Controller to create a new workspace
+export const createInvoiceAsDraft = async (req: RequestCustom, res: Response) => {
+  const newInvoice:IBaseInvoice = req.body;
+  const userId = req.user._id
+
+  try {
+    const response = await saveInvoiceAsDraft(newInvoice, userId);
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)
@@ -82,7 +97,7 @@ export const updateInvoice = async (req: Request, res: Response) => {
   }
 }
 
-export const deleteInvoice= async (req: Request, res: Response) => {
+export const deleteInvoice = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const response = await removeInvoice(id);
