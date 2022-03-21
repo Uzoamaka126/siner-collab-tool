@@ -1,6 +1,5 @@
 const express = require('express');
 import { Router } from 'express';
-import { validateParamsIdAsString, validateProjectIdAsString } from '../../utils/validators/validateItem';
 import { 
   createNewTask,
   fetchTasks,
@@ -23,12 +22,12 @@ router
 // /api/tasks/projects
 router
 .route('/projects')
-  .post(validateProjectIdAsString, fetchTaskByProjectId)
+  .post(fetchTaskByProjectId)
 
 // /api/tasks/:id
 router
 .route('/:id')
-  .put(validateParamsIdAsString, updateTask)
-  .delete(validateParamsIdAsString, removeTask)
+  .put(updateTask)
+  .delete(removeTask)
 
 export default router;

@@ -9,7 +9,6 @@ export async function validateFetchProjectsQuery(req: Request, res: Response, ne
         download: Joi.boolean().default(false),
         title: Joi.string(),
         clientName: Joi.string(),
-        userId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
         page: Joi.string().default("1"),
         date: Joi.date(),
         status: Joi.string()

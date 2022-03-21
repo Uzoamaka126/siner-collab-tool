@@ -24,12 +24,35 @@ export interface ITagsResponsePayload {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: ITagDocument[]
+  data?: {
+    info: ITagDocument[],
+    pageDetails: {
+      total?: number,
+      currentPage?: number,
+      totalPages?: number,
+      pageSize?: number
+    }
+  }
 }
 
 export interface ITagResponsePayload {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: ITagDocument
+  data?: ITagDocument[];
+}
+
+export type TagQueryData = {
+  page?: number;
+  limit?: number;
+  offset?: number
+  where?: any
+}
+
+export type QueryStringsTag = {
+  page?: string;
+  limit?: string;
+  download?: string;
+  name?: string;
+  projectId?: string;
 }

@@ -65,7 +65,6 @@ export type QueryStringsProject = {
     limit?: string;
     title?: string;
     clientName?: string;
-    userId?: string;
     download?: string;
     date?: Date;
     status?: string;

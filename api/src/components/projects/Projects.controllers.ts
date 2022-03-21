@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import ProjectServices from './Projects.services';
 
 import { IProjectCreatePayload } from './Projects.types';
+import { RequestCustom } from '../../utils/middleware/express';
 
 // Controller to create a new workspace
 export const createNewProject = async (req: Request, res: Response) => {
@@ -28,10 +29,11 @@ export const fetchAllProjects = async (req: Request, res: Response) => {
 }
 
 // Find all projects belonging to a particular user
-export const fetchUserProjects = async (req: Request, res: Response) => {
-  const query = req.query
+export const fetchProjects = async (req: RequestCustom, res: Response) => {
+  const query = req.query;
+  const id = req.user._id
   try {
-    const response = await ProjectServices.search(query);
+    const response = await ProjectServices.getProjects(query, id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -51,7 +53,6 @@ export const fetchProject= async (req: Request, res: Response) => {
       return res.status(400).send(err).end()
   }
 }
-
 
 // Update a single workspace
 export const updateProject= async (req: Request, res: Response) => {

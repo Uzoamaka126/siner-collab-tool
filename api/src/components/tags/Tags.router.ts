@@ -1,10 +1,11 @@
 const express = require('express');
 import { Router } from 'express';
-import { validateBodyIdAsString, validateParamsIdAsString } from '../../utils/validators/validateItem';
+import { validateUserId } from '../../utils/middleware/validateUserId';
+import { validateParamsId } from '../../utils/validators/validateParamsId';
 import { 
   createNewTag,
   fetchAllTags,
-  fetchUserTags,
+  fetchTags,
   updateTag,
   removeTag
 } from './Tags.controllers';
@@ -17,13 +18,13 @@ const router: Router = express.Router();
 // /api/tags
 router
   .route('/')
-  .get(fetchAllTags)
+  .get(validateUserId, fetchTags)
   .post(createNewTag)
 
 // /api/tags/users
 router
-.route('/users')
-  .post(validateBodyIdAsString, fetchUserTags)
+.route('/all')
+  .get(fetchAllTags)
 
 // /api/tags/:id
 // @route   PATCH, DELETE api/auth
@@ -31,7 +32,7 @@ router
 // @access  Public
 router
 .route('/:id')
-  .put(validateParamsIdAsString, updateTag)
-  .delete(validateParamsIdAsString, removeTag)
+  .put(validateParamsId, updateTag)
+  .delete(validateParamsId, removeTag)
 
 export default router;

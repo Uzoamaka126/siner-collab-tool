@@ -1,10 +1,10 @@
 const express = require('express');
 import { Router } from 'express';
-import { validateRequestArray, validateBodyIdAsString } from '../../utils/validators/validateItem';
+import { validateParamsId } from '../../utils/validators/validateParamsId';
 import { 
   fetchAllProjects,
   fetchProject,
-  fetchUserProjects,
+  fetchProjects,
   removeProject,
   updateProject,
   createNewProject,
@@ -26,7 +26,7 @@ router
 
 router
 .route('/users')
-  .get(validateFetchProjectsQuery, fetchUserProjects)
+  .get(validateFetchProjectsQuery, fetchProjects)
 
 // /api/projects/:id
 // @route   POST, GET, FETCH, PATCH, DELETE api/auth
@@ -34,12 +34,12 @@ router
 // @access  Public
 router
 .route('/:id')
-  .get(fetchProject)
-  .put(updateProject)
-  .delete(removeProject)
+  .get(validateParamsId, fetchProject)
+  .put(validateParamsId, updateProject)
+  .delete(validateParamsId, removeProject)
 
 router
 .route('/tags')
-  .post(validateBodyIdAsString, validateRequestArray, addProjectTags)
+  // .post(validateBodyIdAsString, validateRequestArray, addProjectTags)
 
 export default router;

@@ -101,10 +101,15 @@ async function addNewTask (data: IBaseTask) {
 async function editTask(id: string, data: any) {
     try {
         const filter = { _id: id, };
-        const update = { ...data };
-        // const update = { name: data.name, isCompleted: data.isCompleted };
-        // else continue
-        const updatedClient = await Task.findOneAndUpdate(filter, update, { new: true } ).exec()
+        const updatedClient = await Task.findOneAndUpdate(filter, { ...data }, { new: true } ).exec()
+
+        if(!updatedClient) {
+             return {
+                status: 400,
+                isSuccessful: false,
+                message: "Invoice not found",
+            }
+        }
                     
         return {
             status: 200,

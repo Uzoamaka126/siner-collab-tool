@@ -1,47 +1,6 @@
 const Joi = require('joi');
 import { Request, Response, NextFunction } from 'express';
 
-export async function validateFetchProjectsQuery(req: Request, res: Response, next: NextFunction) {
-    const query = req.query;
-
-    const querySchema = Joi.object().keys({
-        limit: Joi.string().default("10"),
-        download: Joi.boolean().default(false),
-        title: Joi.string(),
-        clientName: Joi.string(),
-        userId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
-        page: Joi.string().default("1"),
-        date: Joi.date(),
-        status: Joi.string()
-    });
-
-    const { error, value } = querySchema.validate(query);
-
-    if (error) {
-        return res.status(400).json({
-          message: error.details[0].message
-        })
-    } else {
-        next();
-    }
-}
-
-export async function validateProjectId(req: Request, res: Response, next: NextFunction) {
-    const project_id = req.body.project_id;
-
-    const querySchema = Joi.string().regex(/^[a-fA-F0-9]{24}$/).required();
-
-    const { error, value } = querySchema.validate(project_id);
-
-    if (error) {
-        return res.status(400).json({
-          message: error.details[0].message
-        })
-    } else {
-        next();
-    }
-}
-
 export async function validateCreateInvoiceData(req: Request, res: Response, next: NextFunction) {
     const data = req.body;    
 

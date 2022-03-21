@@ -28,10 +28,12 @@ export const fetchAllTags = async (req: Request, res: Response) => {
 }
 
 // Find all tags belonging to a particular user
-export const fetchUserTags = async (req: RequestCustom, res: Response) => {
+export const fetchTags = async (req: RequestCustom, res: Response) => {
   const id = req.user._id;
+  const query = req.query
+
   try {
-    const response = await TagControllers.getUserTags(id)
+    const response = await TagControllers.getTags(query, id)
     return res.status(response.status).json(response)
   } catch(err) {
     console.error(err)
@@ -49,7 +51,7 @@ export const updateTag = async (req: Request, res: Response) => {
     _id
   }
   try {
-    const response = await TagControllers.editTagById(data);
+    const response = await TagControllers.editTag(data);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)
@@ -60,7 +62,7 @@ export const updateTag = async (req: Request, res: Response) => {
 export const removeTag = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await TagControllers.deleteTagById(id);
+    const response = await TagControllers.deleteTag(id);
     return res.status(response.status).json(response)
   } catch(err) {
       console.error(err)

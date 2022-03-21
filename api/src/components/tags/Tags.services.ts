@@ -1,16 +1,17 @@
 const Tag = require('./Tags.model');
-import { validateItem } from '../../utils/validators/validateItem';
 import { getSingleUser } from '../users/Users.service';
 import { 
     ITagsResponsePayload,
     IBaseTag,
-    ITagResponsePayload
+    ITagResponsePayload,
+    TagQueryData,
+    QueryStringsTag
 } from './Tags.types';
 
 // Find all users
 async function getAllTags(): Promise<ITagsResponsePayload> {
     try {
-        const tags = await Tag.find({}).lean().exec()
+        const tags = await Tag.find({}).lean()
         return {
             status: 200,
             isSuccessful: true,
@@ -28,10 +29,36 @@ async function getAllTags(): Promise<ITagsResponsePayload> {
 }
 
 // Find a list of tags belonging to a specific user
-async function getUserTags(id: string): Promise<ITagsResponsePayload> {
-    try {
-        //  get user
-        const getUserDetails = await getSingleUser(id);
+async function getTags(query: QueryStringsTag, id:string): Promise<ITagsResponsePayload> {
+     try {
+        let buildQuery = {} as TagQueryData;
+        let page = Number(query.page) || 1;
+        let limit = parseInt(query.limit) || 20;
+        let offset = page ? (page - 1) * limit : 0; 
+        let userId = id;
+        let download = query.download ? query.download : 0
+        
+        // 
+        if (userId) {
+            buildQuery.where = { ...buildQuery.where, user_id: userId }
+        }
+
+        if (query.name) {
+            const regexedName = new RegExp(`^${query.name}$`, 'i');
+
+            buildQuery.where = { ...buildQuery.where, title: regexedName }  // make title a case insensitive match
+        }
+        
+        // TO DO: add a download feature/option
+        if (download === 1) {
+            limit = 1000
+        } else {
+            limit = limit
+        }
+
+        console.log('buildQuery.where:', buildQuery.where);
+
+         const getUserDetails = await getSingleUser(id);
     
         if (!getUserDetails.isSuccessful) {
             return {
@@ -41,24 +68,31 @@ async function getUserTags(id: string): Promise<ITagsResponsePayload> {
                 data: null
             }
         }
-        //  select tags that match with the passed in user id
-        const tags = await Tag
-            .find({ user_id:  id })
-            .lean() // to get plain javascript objects
-            .exec()
+        const tags = await Tag.find(buildQuery.where).limit(limit).skip(offset).sort({ createdAt: -1 }).lean();
+        const totalPages = Math.ceil(tags.length / limit);
+        // const pageSize = Math.ceil(projects.length / limit); // TO DO *
+
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: tags
+            data: {
+                info: tags,
+                pageDetails: {
+                    total: tags.length,
+                    currentPage: page,
+                    totalPages: totalPages,
+                    pageSize: 20
+                }
+            }
         }
     } catch(err) {
-        throw new Error(err);
-        // return {
-        //     status: err.status,
-        //     isSuccessful: false,
-        //     message: "An error occured",
-        // }
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occurred",
+        }
     }
 }
 
@@ -97,10 +131,7 @@ async function addNewTag(data: IBaseTag): Promise<ITagResponsePayload> {
     }
 }
 
-async function editTagById(data: any) {
-    // validate tag id
-    validateItem(data._id, 'tag');
-    
+async function editTag(data: any) {
     try {
         const filter = { _id: data._id, };
         const update = { name: data.name };
@@ -123,10 +154,7 @@ async function editTagById(data: any) {
     }
 }
 
-async function deleteTagById(id: string) {
-    // validate tag id
-    validateItem(id, 'tag');
-
+async function deleteTag(id: string) {
   try {
     const deletedTagItem = await Tag.findOneAndRemove({ _id: id })
     
@@ -158,10 +186,10 @@ async function deleteTagById(id: string) {
 
 const TagControllers = {
     getAllTags,
-    getUserTags,
+    getTags,
     addNewTag,
-    editTagById,
-    deleteTagById
+    editTag,
+    deleteTag
 }
 
 export default TagControllers;

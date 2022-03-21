@@ -1,6 +1,5 @@
 const Project = require('./Projects.model');
 const Tag = require('../tags/Tags.model');
-const User = require('../users/Users.model');
 
 import { getSingleUser } from '../users/Users.service';
 import { getSingleClientById } from '../clients/Clients.services';
@@ -30,48 +29,6 @@ async function getAllProjects(): Promise<IProjectFetchResponse> {
             isSuccessful: false,
             message: "An error occured",
         }
-    }
-}
-
-// Find a list of projects belonging to a specific user
-async function getUserProjects(id: string): Promise<IProjectFetchResponse> {
-     try {
-         if(id.length < 24) {
-            return {
-                status: 400,
-                isSuccessful: true,
-                message: "This id does not exist!",
-                data: null
-            }
-         }
-        //  get user
-        const user = await User.findOne({ _id: id }).lean().exec()
-
-        if (!user) {
-            return {
-                status: 404,
-                isSuccessful: false,
-                message: "This user does not exist!",
-            }
-        }
-        //  select projects that match with the passed in user id
-        const clients = await Project
-            .find({ user_id:  id })
-            .lean() // to get plain javascript objects
-            .exec()
-        return {
-            status: 200,
-            isSuccessful: true,
-            message: "Operation successful!",
-            data: clients
-        }
-    } catch(err) {
-        throw new Error(err);
-        // return {
-        //     status: err.status,
-        //     isSuccessful: false,
-        //     message: "An error occured",
-        // }
     }
 }
 
@@ -392,13 +349,13 @@ async function getProjectTag(data: any) {
 }
 
 // TO DO: Refactor into one separate reusable search function
-async function search (queryStrings: QueryStringsProject): Promise<IProjectFetchResponse>  {    
+async function getProjects(queryStrings: QueryStringsProject, id: string): Promise<IProjectFetchResponse>  {    
     try {
         let buildQuery = {} as ProjectQueryData;
         let page = Number(queryStrings.page) || 1;
         let limit = parseInt(queryStrings.limit) || 20;
         let offset = page ? (page - 1) * limit : 0; 
-        let userId = queryStrings.userId || '';
+        let userId = id;
         let download = queryStrings.download ? queryStrings.download : 0
         
         // 
@@ -443,7 +400,7 @@ async function search (queryStrings: QueryStringsProject): Promise<IProjectFetch
                 info: projects,
                 pageDetails: {
                     total: projects.length,
-                    currentPage: 1,
+                    currentPage: page,
                     totalPages: totalPages,
                     pageSize: 20
                 }
@@ -461,14 +418,13 @@ async function search (queryStrings: QueryStringsProject): Promise<IProjectFetch
 
 const ProjectControllers = {
     getAllProjects,
-    getUserProjects,
+    getProjects,
     addNewProject,
     getProjectById,
     editProjectById,
     deleteProjectById,
     deleteProjectTag,
     addProjectTag,
-    search,
     getProjectTag
 }
 
