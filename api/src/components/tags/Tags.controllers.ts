@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import TagControllers from './Tags.services';
 import { IBaseTag } from './Tags.types';
+import { RequestCustom } from '../../utils/middleware/express';
 
 // Controller to create a new workspace
 export const createNewTag = async (req: Request, res: Response) => {
@@ -27,8 +28,8 @@ export const fetchAllTags = async (req: Request, res: Response) => {
 }
 
 // Find all tags belonging to a particular user
-export const fetchUserTags = async (req: Request, res: Response) => {
-  const id = req.body.user_id;
+export const fetchUserTags = async (req: RequestCustom, res: Response) => {
+  const id = req.user._id;
   try {
     const response = await TagControllers.getUserTags(id)
     return res.status(response.status).json(response)

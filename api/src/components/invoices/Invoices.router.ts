@@ -19,8 +19,7 @@ router
   // .get(fetchUserInvoices)
   // .post(createANewWorkspace)
 
-// /api/users/:id
-// router
+// router: get, edit or delete a single invoice
 // .route('/:id')
   // .get(fetchSingleWorkspace)
   // .patch(updateASingleWorkspace)

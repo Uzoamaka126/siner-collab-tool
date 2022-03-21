@@ -1,3 +1,4 @@
+import { generateInvoiceRefNumber } from '../../utils/validators/invoice';
 import { v4 as uuidv4 } from 'uuid';
 const Invoices = require('./Invoices.model');
 const User = require('../users/Users.model');
@@ -106,8 +107,8 @@ export async function getInvoices (query: QueryStringsInvoice, id: QueryStringsI
     }
 }
 
-export async function addNewInvoice(data: IBaseInvoice) {
-    const userId = data.user_id;
+export async function addNewInvoice(data: IBaseInvoice, id: QueryStringsInvoice['userId']) {
+    const userId = id;
     const validateUser = await getSingleUser(userId);
     
     if(validateUser.isSuccessful === false) {
@@ -121,7 +122,8 @@ export async function addNewInvoice(data: IBaseInvoice) {
     try {
         const invoice = await Invoices.create({
             ...data,
-            invoice_no: uuidv4(), // generate uuid
+            user_id: userId,
+            invoice_no: generateInvoiceRefNumber(), // generate uuid
         })
         return {
             status: 201,

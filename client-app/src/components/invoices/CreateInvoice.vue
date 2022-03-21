@@ -72,6 +72,18 @@
                   </div>
                 </div>
 
+                <!-- Project -->
+                <div class="row invoice__row" style="margin-top: 1rem;">
+                  <div class="form__row__left" style="width: 100%;">
+                    <label for class="mb-2 invoice__compile--memo--label">Project</label>
+                    <div class="select visible--xs">
+                      <select class="form-select" v-model="invoice.currency">
+                          <option :key="currency" v-for="currency in currencies" :value="currency">{{ currency }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="row invoice__row block">
                     <div class="invoice__calculate--wrap">
                       <div class="form__row__left" style="max-width: unset">

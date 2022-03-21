@@ -49,14 +49,6 @@ export const invoiceSchema: Schema = new Schema({
       type: Object,
       required: false,
     },
-    // other_emails: {
-    //   type: [{}],
-    //   required: true
-    // },
-    // items: {
-    //   type: [{}],
-    //   required: true
-    // },
     status: {
       type: String,
       required: true,
@@ -71,10 +63,6 @@ export const invoiceSchema: Schema = new Schema({
       minLength: 2,
       maxlength: 12
     },
-    // tax: {
-    //   type: Object,
-    //   required: false,
-    // },
     due_date: {
       type: Date,
       required: false,
@@ -90,6 +78,10 @@ export const invoiceSchema: Schema = new Schema({
       minLength: 2,
       maxlength: 12
     },
+    client: {
+      type: Object,
+      required: true
+    }
     
 },
 { timestamps: true },

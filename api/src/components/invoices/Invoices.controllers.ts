@@ -11,11 +11,12 @@ import {
 import { IBaseInvoice } from './Invoices.types';
 
 // Controller to create a new workspace
-export const createNewInvoice = async (req: Request, res: Response) => {
+export const createNewInvoice = async (req: RequestCustom, res: Response) => {
   const newInvoice:IBaseInvoice = req.body;
+  const userId = req.user._id
 
   try {
-    const response = await addNewInvoice(newInvoice);
+    const response = await addNewInvoice(newInvoice, userId);
     return res.status(response.status).json(response)
   } catch (e) {
     console.error("error for controllers:", e)

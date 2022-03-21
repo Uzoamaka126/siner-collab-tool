@@ -14,7 +14,7 @@ export function validateUserToken (req: RequestCustom, res: Response, next: Next
         })
       }
 
-      req.body.user = decoded
+      // req.body.user = decoded
       req.user = decoded.subject;
 
       // console.log('req.user:', req.user);    

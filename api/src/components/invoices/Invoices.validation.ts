@@ -29,9 +29,7 @@ export async function validateFetchProjectsQuery(req: Request, res: Response, ne
 export async function validateProjectId(req: Request, res: Response, next: NextFunction) {
     const project_id = req.body.project_id;
 
-    const querySchema = Joi.object().keys({
-        project_id:  Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
-    });
+    const querySchema = Joi.string().regex(/^[a-fA-F0-9]{24}$/).required();
 
     const { error, value } = querySchema.validate(project_id);
 
@@ -45,36 +43,40 @@ export async function validateProjectId(req: Request, res: Response, next: NextF
 }
 
 export async function validateCreateInvoiceData(req: Request, res: Response, next: NextFunction) {
-    const data = req.body;
+    const data = req.body;    
 
     const requestBodySchema = Joi.object().keys({
+        client: Joi.object({
+            id: Joi.string(),
+            email: Joi.string().email(),
+            fullName: Joi.string()
+        }),
         client_email: Joi.string(),
         currency: Joi.string(),
         status: Joi.string(),
         title: Joi.string(),
         memo: Joi.string(),
-        meta: Joi.object({
+        meta: {
             cc_emails: Joi.array().items(Joi.string()),
             tax: Joi.array().items(
                 Joi.object({
                     tax_name: Joi.string(),
                     tax_type: Joi.string(),
                     tax_value: Joi.number(),
-                    tax_description: Joi.string(),
                 })
             ),
-            reminders: Joi.array().items(),
+            reminders: Joi.array().items(Joi.string()),
             items: Joi.array().items(
                 Joi.object({
                     item_name: Joi.string(),
                     item_price: Joi.number(),
                     item_quantity: Joi.number(),
-                    item_unit: Joi.number(),
+                    item_unit: Joi.number()
                 })
             )
-        }),
+        },
         download: Joi.boolean().default(false),
-        user_id: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
+        // user_id: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
         project_id: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
         date_paid: Joi.date(),
         due_date: Joi.date(),
@@ -82,6 +84,9 @@ export async function validateCreateInvoiceData(req: Request, res: Response, nex
     });
 
     const { error, value } = requestBodySchema.validate(data);
+    
+    console.log("error:", error);
+    
 
     if (error) {
         return res.status(400).json({
