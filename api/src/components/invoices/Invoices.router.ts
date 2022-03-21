@@ -1,7 +1,8 @@
 const express = require('express');
 import { 
   fetchInvoices,
-  createNewInvoice
+  createNewInvoice,
+  fetchInvoice
 } from './Invoices.controllers';
 import { validateCreateInvoiceData } from './Invoices.validation';
 
@@ -14,14 +15,14 @@ router
   .post(validateCreateInvoiceData, createNewInvoice)
 
 // all invoices irrespective of user
-// router
-//   .route('/invoices')
-  // .get(fetchUserInvoices)
+  // .route('/invoices')
+  // .get(fetchInvoice)
   // .post(createANewWorkspace)
 
 // router: get, edit or delete a single invoice
-// .route('/:id')
-  // .get(fetchSingleWorkspace)
+router
+  .route('/:id')
+  .get(fetchInvoice)
   // .patch(updateASingleWorkspace)
   // .delete(deleteASingleWorkspace)
 

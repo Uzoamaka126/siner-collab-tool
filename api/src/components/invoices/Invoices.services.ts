@@ -143,7 +143,7 @@ export async function addNewInvoice(data: IBaseInvoice, id: QueryStringsInvoice[
 
 export async function getInvoice(id: string) {
     try {
-        const invoice = await Invoices.findOne({ _id: id }).lean().exec()
+        const invoice = await Invoices.findOne({ _id: id }).lean()
 
         // if no invoice was found on the db, then return false
         if(!invoice) {
