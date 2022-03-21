@@ -71,10 +71,10 @@ export const fetchInvoice = async (req: Request, res: Response) => {
 }
 
 // Update a single workspace
-export const updateASingleWorkspace = async (req: Request, res: Response) => {
+export const updateInvoice = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const response = await editInvoice(req.body, id);
+    const response = await editInvoice(id, req.body);
     return res.status(response.status).json(response)
   } catch(err) {
     console.error(err)

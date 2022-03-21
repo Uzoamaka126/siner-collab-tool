@@ -170,32 +170,24 @@ export async function getInvoice(id: string) {
     }
 }
 
-export async function editInvoice(data: any, id: string) {
+export async function editInvoice(id: string, data: any) {
     try {
-        // do a check to see if an id is passed as an argument.
-        // If no id, then return false
-        if(!id) {
-            return {
-                status: 401,
-                isSuccessful: false,
-                message: "string id is required!",
-            }
-        }
         // else continue
         const updatedInvoice = await Invoices
             .findOneAndUpdate(
                 { _id: id },
-                data,
+                {...data},
                 { new: true }
             )
             .exec()
             
-        // if no user was found on the db, then return false
+        // if no invoice was found on the db, then return false
         if(!updatedInvoice) {
             return {
                 status: 404,
                 isSuccessful: false,
                 message: "Invoice not found!",
+                data: null
             }
         } else {
             return {

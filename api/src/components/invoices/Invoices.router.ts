@@ -2,9 +2,10 @@ const express = require('express');
 import { 
   fetchInvoices,
   createNewInvoice,
-  fetchInvoice
+  fetchInvoice,
+  updateInvoice
 } from './Invoices.controllers';
-import { validateCreateInvoiceData } from './Invoices.validation';
+import { validateCreateInvoiceData, validateId } from './Invoices.validation';
 
 const router = express.Router();
 
@@ -22,8 +23,8 @@ router
 // router: get, edit or delete a single invoice
 router
   .route('/:id')
-  .get(fetchInvoice)
-  // .patch(updateASingleWorkspace)
+  .get(validateId, fetchInvoice)
+  .patch(validateId, updateInvoice)
   // .delete(deleteASingleWorkspace)
 
 export default router

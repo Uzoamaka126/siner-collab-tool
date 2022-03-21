@@ -42,6 +42,23 @@ export async function validateProjectId(req: Request, res: Response, next: NextF
     }
 }
 
+export async function validateId(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id;
+
+    const querySchema = Joi.string().regex(/^[a-fA-F0-9]{24}$/).required();
+
+    const { error, value } = querySchema.validate(id);
+
+    if (error) {
+        return res.status(400).json({
+          message: error.details[0].message
+        })
+    } else {
+        next();
+    }
+}
+
+
 export async function validateCreateInvoiceData(req: Request, res: Response, next: NextFunction) {
     const data = req.body;    
 
