@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { RequestCustom } from '../../utils/middleware/express';
 import TagControllers from './Tasks.services';
 import { IBaseTask } from './Tasks.types';
 
@@ -16,9 +17,9 @@ export const createNewTask = async (req: Request, res: Response) => {
 }
 
 // Controller to fetch all tasks
-export const fetchTasks = async (req: Request, res: Response) => {
+export const fetchAllTasks = async (req: Request, res: Response) => {
   try {
-    const response = await TagControllers.getTasks()
+    const response = await TagControllers.getAllTasks()
     return res.status(404).json(response);
   } catch (err) {
     console.error(err)
@@ -27,10 +28,12 @@ export const fetchTasks = async (req: Request, res: Response) => {
 }
 
 // Find all tasks belonging to a particular project
-export const fetchTaskByProjectId = async (req: Request, res: Response) => {
-  const id = req.body.project_id;
+export const fetchTasks = async (req: RequestCustom, res: Response) => {
+  const query = req.query;
+  const userId = req.user._id;
+
   try {
-    const response = await TagControllers.getTaskByProjectId(id)
+    const response = await TagControllers.getTasks(query, userId)
     return res.status(response.status).json(response)
   } catch(err) {
     console.error(err)

@@ -1,11 +1,13 @@
 const express = require('express');
 import { Router } from 'express';
+import { validateParamsId } from '../../utils/validators/validateParamsId';
+import { validateUserId } from '../../utils/middleware/validateUserId';
 import { 
   createNewTask,
   fetchTasks,
-  fetchTaskByProjectId,
   updateTask,
   removeTask,
+  fetchAllTasks
 } from './Tasks.controllers';
 
 const router: Router = express.Router();
@@ -16,18 +18,18 @@ const router: Router = express.Router();
 // /api/tasks
 router
   .route('/')
-  .get(fetchTasks)
+  .get(validateUserId, fetchTasks)
   .post(createNewTask)
 
 // /api/tasks/projects
 router
-.route('/projects')
-  .post(fetchTaskByProjectId)
+.route('/all')
+  .post(fetchAllTasks)
 
 // /api/tasks/:id
 router
 .route('/:id')
-  .put(updateTask)
-  .delete(removeTask)
+  .put(validateParamsId, updateTask)
+  .delete(validateParamsId, removeTask)
 
 export default router;

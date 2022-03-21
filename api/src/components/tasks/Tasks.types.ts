@@ -27,5 +27,29 @@ export interface ITaskResponsePayload {
   status: number;
   isSuccessful: boolean;
   message: string;
-  data?: IBaseTask
+  data?: {
+    info: IBaseTask[];
+    pageDetails: {
+      total: number;
+      currentPage: number;
+      totalPages: number;
+      pageSize: number;
+    };
+  }
+}
+
+export type TaskQueryData = {
+  page?: number;
+  limit?: number;
+  offset?: number
+  where?: any
+}
+
+export type QueryStringsTask = {
+  page?: string;
+  limit?: string;
+  name?: string;
+  download?: string;
+  isCompleted?: boolean;
+  projectId?: string;
 }

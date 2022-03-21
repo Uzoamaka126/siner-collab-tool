@@ -3,10 +3,12 @@ import Project from '../projects/Projects.services';
 import { 
     ITaskResponsePayload,
     IBaseTask,
+    QueryStringsTask,
+    TaskQueryData
 } from './Tasks.types';
 
 // Find all users
-async function getTasks(): Promise<ITaskResponsePayload> {
+async function getAllTasks(): Promise<ITaskResponsePayload> {
     try {
         const tasks = await Task.find({}).lean().exec()
         return {
@@ -26,37 +28,67 @@ async function getTasks(): Promise<ITaskResponsePayload> {
 }
 
 // Find a list of tasks belonging to a specific project
-async function getTaskByProjectId(id: string): Promise<ITaskResponsePayload> {
+async function getTasks(query: QueryStringsTask, userId: string): Promise<ITaskResponsePayload> {
     try {
-        //  get user
-        const getParentProject = await Project.getProjectById(id);
-    
-        if(!getParentProject.isSuccessful) {
-            return {
-                status: 401,
-                isSuccessful: false,
-                message: "An error occured while adding fetching the project for this task. Please, try again!",
-                data: null
-            }
+        let buildQuery = {} as TaskQueryData;
+        let page = Number(query.page) || 1;
+        let limit = parseInt(query.limit) || 20;
+        let offset = page ? (page - 1) * limit : 0; 
+        let download = query.download ? query.download : 0
+        
+        // 
+        if (userId) {
+            buildQuery.where = { ...buildQuery.where, user_id: userId }
         }
-        //  select clients that match with the passed in user id
-        const tasks = await Task
-            .find({ project_id:  id })
-            .lean() // to get plain javascript objects
-            .exec()
+
+        if (query.projectId) {
+            buildQuery.where = { ...buildQuery.where, project_id: query.projectId }
+        }
+
+        if (query.name) {
+            const regexName = new RegExp(`^${query.name}$`, 'i');
+
+            buildQuery.where = { ...buildQuery.where, name: regexName }  // make title a case insensitive match
+        }
+
+        if (query.isCompleted) {      
+            buildQuery.where = { ...buildQuery.where, isCompleted: query.isCompleted }
+        }
+        
+        // TO DO: add a download feature/option
+        if (download === 1) {
+            limit = 1000
+        } else {
+            limit = limit
+        }
+
+        console.log('buildQuery.where:', buildQuery.where);
+
+        const tasks = await Task.find(buildQuery.where).limit(limit).skip(offset).sort({ createdAt: -1 }).lean();
+        const totalPages = Math.ceil(tasks.length / limit);
+        // const pageSize = Math.ceil(projects.length / limit); // TO DO *
+
         return {
             status: 200,
             isSuccessful: true,
             message: "Operation successful!",
-            data: tasks
+            data: {
+                info: tasks,
+                pageDetails: {
+                    total: tasks.length,
+                    currentPage: page,
+                    totalPages: totalPages,
+                    pageSize: 20
+                }
+            }
         }
     } catch(err) {
-        throw new Error(err);
-        // return {
-        //     status: err.status,
-        //     isSuccessful: false,
-        //     message: "An error occured",
-        // }
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occurred",
+        }
     }
 }
 
@@ -159,7 +191,7 @@ async function deleteTask(id: string) {
 
 const TaskControllers = {
     getTasks,
-    getTaskByProjectId,
+    getAllTasks,
     addNewTask,
     editTask,
     deleteTask
