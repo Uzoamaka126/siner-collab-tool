@@ -1,77 +1,82 @@
 <template>
-    <div class="nav__section__content__group ">
-        <div class="nav__section--item nav__section--item--sub">
-            <div class="workspace-link" :to="{name:'workspaces'}" style="min-width: 60%;">  
-                <span class="nav__section__content__group__title ml--0">Operations</span>
+   <div>
+        <div class="nav__section__content__group ">
+            <div class="nav__section--item nav__section--item--sub">
+                <div class="workspace-link" :to="{name:'workspaces'}" style="min-width: 60%;">  
+                    <span class="nav__section__content__group__title ml--0">Operations</span>
+                </div>
+            </div>
+            <div class="home--content__wrap">
+                <!-- Clients -->
+                <router-link :to="{ name:'clients-view' }" class="nav__section--item">
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        icon-position="left"
+                        name="layer" 
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />   
+                    <span class="nav__section__content__group__title">Clients</span>
+                </router-link>
+                <!-- Projects -->
+                <router-link class="nav__section--item" :to="{ name:'projects-view' }">
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        name="folder" 
+                        icon-position="left"
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />   
+                    <span class="nav__section__content__group__title">Projects</span>
+                </router-link>
+                <!-- Teams -->
+                <div 
+                        class="nav__section--item" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="right" 
+                        title="Coming soon!"
+                        data-bs-custom-class="'beautifier'"
+                        data-bs-html="true"
+                        data-bs-trigger="click hover"
+                    >
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        name="multiple-users" 
+                        icon-position="left"
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />   
+                    <span class="nav__section__content__group__title">Teams</span>
+                </div>
+                <!-- Invite -->
+                <router-link :to="{ name:'tags-view' }" class="nav__section--item">  
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        name="tag" 
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />
+                    <span class="nav__section__content__group__title">Tags</span>
+                </router-link>
+                <!-- Invoice -->
+                <router-link :to="{ name:'invoices-view' }" class="nav__section--item">  
+                    <icon-svg 
+                        fill="rgba(66, 82, 110)" 
+                        class="nav__icon" 
+                        name="receipt" 
+                        :style="{ fill: 'rgba(66, 82, 110)' }"
+                        :width="'24px'"
+                    />
+                    <span class="nav__section__content__group__title">Invoices</span>
+                </router-link>
             </div>
         </div>
-        <div class="home--content__wrap">
-            <router-link :to="{ name:'clients-view' }" class="nav__section--item">
-                    <!-- name="layer"  -->
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    icon-position="left"
-                    name="layer" 
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />   
-                <span class="nav__section__content__group__title">Clients</span>
-            </router-link>
-            <router-link class="nav__section--item" :to="{ name:'projects-view' }">
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    name="folder" 
-                    icon-position="left"
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />   
-                <span class="nav__section__content__group__title">Projects</span>
-            </router-link>
-             <div 
-                    class="nav__section--item" 
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="right" 
-                    title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
-                    data-bs-custom-class="'beautifier'"
-                    data-bs-html="true"
-                    data-bs-trigger="click hover"
-                >
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    name="multiple-users" 
-                    icon-position="left"
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />   
-                <span class="nav__section__content__group__title">Teams</span>
-            </div>
-            <!-- Invite -->
-             <router-link :to="{ name:'tags-view' }" class="nav__section--item">  
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    name="tag" 
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />
-                <span class="nav__section__content__group__title">Tags</span>
-            </router-link>
-            <!-- Invoice -->
-            <router-link :to="{ name:'invoices-view' }" class="nav__section--item">  
-                <icon-svg 
-                    fill="rgba(66, 82, 110)" 
-                    class="nav__icon" 
-                    name="receipt" 
-                    :style="{ fill: 'rgba(66, 82, 110)' }"
-                    :width="'24px'"
-                />
-                <span class="nav__section__content__group__title">Invoices</span>
-            </router-link>
-        </div>
-    </div>
+        <v-tour name="myTour" :steps="steps"></v-tour>
+   </div>
 </template>
 
 <script>
@@ -89,16 +94,53 @@ export default {
     created() {
         console.log(this.$route.path);
     },
-    data: () => ({
-        createdWorkspaces: createdWorkspaces,
-        activeWorkspace: ''
-    }),
+    data() {
+        return {
+            createdWorkspaces: createdWorkspaces,
+            activeWorkspace: '',
+            steps: [
+                {
+                    target: '#v-step-0',  // We're using document.querySelector() under the hood
+                    header: {
+                    title: 'Let us get started with a few tips',
+                    },
+                    content: `Understand <strong>Siner</strong> tool better!`
+                },
+                {
+                    target: '.v-step-1',
+                    content: 'Manage all your clients here'
+                },
+                {
+                    target: '.v-step-1',
+                    content: 'Manage your freelance projects here'
+                },
+                {
+                    target: '.v-step-1',
+                    content: 'Want to invite third parties to view projects with you? Coming soon!'
+                },
+                {
+                    target: '.v-step-1',
+                    content: 'Label each freelance project with one or more tags'
+                },
+                {
+                    target: '[data-v-step="2"]',
+                    content: 'Create an invoice for a specific project',
+                    params: {
+                    placement: 'top' // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+                    }
+                }
+            ]
+        }
+    },
     computed: {
         computeCreatedWorkspaces () {
             return this.createdWorkspaces.slice(0, 2)
         },
     },
     methods: {
+        startOnboardingTour() {
+            this.$tours['myTour'].start()
+        }
     },
 }
 </script>

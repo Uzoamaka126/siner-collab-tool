@@ -9,7 +9,7 @@
                     <form class="form form__md form auth--form">
                         <div class="auth--form__wrap">
                             <div class="auth__title-wrap">
-                                <h2 class="auth__title" style="text-align: center; #2a2e32">Login into your account</h2>
+                                <h2 class="auth__title">Login into your account</h2>
                             </div>
                             
                             <a class="login-option login-option-google">
@@ -31,29 +31,28 @@
                             <template v-if="loginOption === 'email'">
                                 <div class="form__item">
                                     <label for="emailaddress" class="form__label">Email Address</label>
-                                    <input type="email" id="emailaddress" class="form__input form__input--lg" required="required" v-model="email">
+                                    <input type="email" id="emailaddress" class="form__input form-control" required="required" v-model="email">
                                 </div>
-                                <div class="form__item mb--10">
+                                <div class="form__item" style="margin-bottom: 1px">
                                     <label for="password" class="form__label">Password</label>
-                                    <input type="email" id="password" class="form__input form__input--lg" required="required" v-model="password">
+                                    <input type="email" id="password" class="form__input form-control" required="required" v-model="password">
+                                </div>
+                                 <div class="mt--5">
+                                    <router-link class="auth--link text--xs" :to="{ name: 'reset' }">Forgot password?</router-link>
                                 </div>
                                 <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
                                     <span class="textRed">{{ error.value  }}</span>
-                                </div>
-                                <div class="checkbox__item">
-                                    <input class="checkbox__input" id="termsAndService" type="checkbox" v-model="termsAndService" />
-                                    <label class="checkbox--label no--padding__all" for="termsAndService">Remember me</label>
                                 </div>
                                 <div class="form--btn__wrap auth--btn__submit">
                                     <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
                                 </div>
                             </template>
-                            <template v-if="loginOption === ''">
-                                    <div class="login-option login-option-email" @click="setLoginOption('email')">
-                                        <span>Sign up with email</span>
-                                    </div>
+                            <template v-else>
+                                <div class="login-option login-option-email" @click="setLoginOption('email')">
+                                    <span>Sign up with email</span>
+                                </div>
                             </template>
-                        <!-- no account -->
+                            <!-- no account -->
                             <div class="signup--notify__wrap">
                                 <div class="text--xs">Don't have an account? <router-link class="auth--link" :to="{ name: 'signup' }">Sign up</router-link></div>
                             </div>
@@ -73,17 +72,19 @@ export default {
   components: {
     'siner-logo': Logo
   },
-  data: () => ({
-    email: '',
-    password: '',
-    error: {
-        show: false,
-        value: ''
-    },
-    termsAndService: '',
-    btnDisabled: false,
-    loginOption: ''
-  }),
+  data() {
+    return {
+        email: '',
+        password: '',
+        error: {
+            show: false,
+            value: ''
+        },
+        termsAndService: '',
+        btnDisabled: false,
+        loginOption: ''
+    }
+  },
   computed: {
       isBtnDisabled() {
         if(!this.email || !this.password) {

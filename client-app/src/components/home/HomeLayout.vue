@@ -69,6 +69,7 @@
             :showOnboardingModal="showOnboardingModal"
         >
         </onboarding-modal>
+        
     </div>
 </template>
 
@@ -93,7 +94,8 @@ export default {
             showOnboardingModal: false,
             createdWorkspaces: createdWorkspaces,
             isHideProjectsReport: false,
-            isHideInvoiceReport: false
+            isHideInvoiceReport: false,
+            
         }
     },
     computed: {
@@ -103,22 +105,13 @@ export default {
         'icon-svg': IconSvg,
     },
     methods: {
-        setShowOnboardingModal(value) {
-            if(value === 'show') {
-                this.showOnboardingModal = true 
-            } else if(value === 'hide') {
-                this.showOnboardingModal = false 
-            } else {
-                this.showOnboardingModal = false 
-            }
-        },
         hideContent(val) {
             if(val === "projects") {
                 this.isHideProjectsReport = !this.isHideProjectsReport;
             } else {
                 this.isHideInvoiceReport = !this.isHideInvoiceReport;
             }
-        }
+        },
     }
 }
 </script>

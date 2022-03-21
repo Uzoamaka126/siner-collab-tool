@@ -10,6 +10,9 @@ import { PopoverRow, Calendar, DatePicker } from 'v-calendar';
 import { Money3Component } from 'v-money3';
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
+import Vue3Tour from 'vue3-tour'
+import 'vue3-tour/dist/vue3-tour.css'
+
 import { isUserLoggedIn } from './utils/auth';
 
 window.moment = require('moment');
@@ -47,6 +50,8 @@ createApp(App)
   .use(router)
   .use(store)
   .use(VueChartkick)
+  .use(Vue3Tour)
+  // .use('v-tour', Vue3Tour)
   .component('multi-select', Multiselect)
   .component('money', Money3Component)
   .component('draggable', Draggable)

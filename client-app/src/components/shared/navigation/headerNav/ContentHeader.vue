@@ -81,7 +81,7 @@
                         </span>
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="profile__item__link dropdown-item dropdown-custom-item">
                         <a class="profile__bio--title">Personal Settings</a>
                     </div>
@@ -90,7 +90,7 @@
                     <div class="profile__item__link dropdown-item dropdown-custom-item">
                         <a class="profile__bio--title">Explore the dashboard</a>
                     </div>
-                </li>
+                </li> -->
                 <li>
                     <div class="profile__item__link dropdown-item dropdown-custom-item">
                         <p class="profile__bio--title">Sign out</p>

@@ -107,7 +107,9 @@ export default {
                 country: this.country,
                 address: this.address,
             }
-        }
+
+            // close modal if successful
+        },
     }
 }
 </script>
