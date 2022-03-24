@@ -54,7 +54,7 @@
                                 <span class="textRed">{{ error.value  }}</span>
                             </div>
                             <div class="form--btn__wrap auth--btn__submit">
-                                 <primary-button 
+                                <primary-button 
                                     :loadingState="loading" 
                                     :type="'submit'" 
                                     :isBtnDisabled="isBtnDisabled" 
@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-      isBtnDisabled() {
+    isBtnDisabled() {
         if(!this.email || !this.password) {
             return true
         } else if (this.loading === 'loading') {
@@ -111,14 +111,14 @@ export default {
         } else {
             return false
         }
-      },
-      passwordType() {
-          if(this.showPassword) {
-              return 'text'
-          } else {
-              return 'password'
-          }
-      }
+    },
+    passwordType() {
+        if(this.showPassword) {
+            return 'text'
+        } else {
+            return 'password'
+        }
+    }
   },
   methods: {
     toggleViewPasswordIcon() {
