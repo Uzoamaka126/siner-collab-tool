@@ -100,7 +100,7 @@
 
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
-import IconSvg from '../icons/Icon-Svg.vue';
+import IconSvg from '../shared/icons/Icon-Svg.vue';
 import CreateOrEditClientModal from '../shared/modals/CreateClient.vue';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
 import ClientDetailsModal from '../shared/modals/ViewClient.vue';

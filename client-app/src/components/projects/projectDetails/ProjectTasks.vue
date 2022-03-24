@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import IconSvg from '../../icons/Icon-Svg.vue';
+import IconSvg from '../../shared/icons/Icon-Svg.vue';
 import draggable from "vuedraggable";
 import EmptyPage from '../../shared/emptyPage/EmptyPage.vue'
 import CreateTask from '../../shared/modals/CreateTask.vue';

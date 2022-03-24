@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import IconSvg from '../icons/Icon-Svg.vue';
+import IconSvg from '../shared/icons/Icon-Svg.vue';
 import CreateTagModal from '../shared/modals/CreateTag.vue';
 import EditTagModal from '../shared/modals/EditTag.vue';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import IconSvg from '../../icons/Icon-Svg.vue';
+import IconSvg from '../../shared/icons/Icon-Svg.vue';
 import CreateCalendarTask from '../../shared/modals/CreateCalendarTask.vue'
 // import { mapState } from 'vuex';
 

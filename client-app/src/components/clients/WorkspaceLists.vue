@@ -240,7 +240,7 @@
 
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
-import IconSvg from '../icons/Icon-Svg.vue';
+import IconSvg from '../shared/icons/Icon-Svg.vue';
 import { columns } from './columns';
 
 export default {

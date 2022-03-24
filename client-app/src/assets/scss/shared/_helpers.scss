@@ -448,6 +448,9 @@
 }
 
 .top {
+    &--5{
+        top: 10px;
+    }
     &--10{
         top: 10px;
     }
@@ -464,6 +467,22 @@
         top: 50px;
     }
 }
+
+.right {
+    &--5{
+        right: 10px;
+    }
+    &--10{
+        right: 10px;
+    }
+    &--20{
+        right: 20px;
+    }
+    &--30{
+        right: 30px;
+    }
+}
+
 
 .pre{
     &--nowhitespace{

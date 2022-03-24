@@ -22,7 +22,7 @@
 
 <script>
 // @ is an alias to /src
-import IconSvg from "../../../icons/Icon-Svg.vue";
+import IconSvg from "../../../shared/icons/Icon-Svg.vue";
 
 export default {
   name: 'WorkspaceHeader',

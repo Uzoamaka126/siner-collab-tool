@@ -108,7 +108,7 @@
 
 <script>
 // @ is an alias to /src
-import IconSvg from "../../../icons/Icon-Svg.vue";
+import IconSvg from "../../../shared/icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../../utils/dummy';
 import CreateBoardModal from '../../modals/CreateBoard.vue';
 import CreateProjectModal from '../../modals/CreateProjectTwo.vue';

@@ -28,33 +28,37 @@
                                 <span>OR</span>
                                 <div class="or-1y5oso0"></div>
                             </div>                            
-                            <template v-if="loginOption === 'email'">
-                                <div class="form__item">
-                                    <label for="emailaddress" class="form__label">Email Address</label>
-                                    <input type="email" id="emailaddress" class="form__input form-control" required="required" v-model="email">
-                                </div>
-                                <div class="form__item" style="margin-bottom: 1px">
-                                    <label for="password" class="form__label">Password</label>
+                            <div class="form__item">
+                                <label for="emailaddress" class="form__label">Email Address</label>
+                                <input type="email" id="emailaddress" class="form__input form-control" required="required" v-model="email">
+                            </div>
+                            <div class="form__item" style="margin-bottom: 1px">
+                                <label for="password" class="form__label">Password</label>
+                                <div class="flex align-items-center positionRelative">
                                     <input type="email" id="password" class="form__input form-control" required="required" v-model="password">
+                                    <span class="positionAbsolute me-1 right--5 cursor-pointer" @click="toggleViewPasswordIcon" style="max-width: 24px; max-height: 24px">
+                                        <icon-svg 
+                                            fill="rgba(194, 200, 212, 1)" 
+                                            :name="showPassword ? 'show' : 'eye-hide'" 
+                                            icon-position="left"
+                                            :width="'100%'"
+                                            :height="'100%'"
+                                        /> 
+                                    </span>
                                 </div>
-                                 <div class="mt--5">
-                                    <router-link class="auth--link text--xs" :to="{ name: 'reset' }">Forgot password?</router-link>
-                                </div>
-                                <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
-                                    <span class="textRed">{{ error.value  }}</span>
-                                </div>
-                                <div class="form--btn__wrap auth--btn__submit">
-                                    <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="login-option login-option-email" @click="setLoginOption('email')">
-                                    <span>Sign up with email</span>
-                                </div>
-                            </template>
+                            </div>
+                                <div class="mt--5">
+                                <router-link class="text--color-normal text--xs" :to="{ name: 'reset' }">Forgot password?</router-link>
+                            </div>
+                            <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
+                                <span class="textRed">{{ error.value  }}</span>
+                            </div>
+                            <div class="form--btn__wrap auth--btn__submit">
+                                <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
+                            </div>
                             <!-- no account -->
                             <div class="signup--notify__wrap">
-                                <div class="text--xs">Don't have an account? <router-link class="auth--link" :to="{ name: 'signup' }">Sign up</router-link></div>
+                                <div class="text--xs">Don't have an account? <router-link class="auth--link text--xs" :to="{ name: 'signup' }">Sign up</router-link></div>
                             </div>
                         </div>
                     </form>
@@ -65,12 +69,15 @@
 </template>
 
 <script>
-import Logo from '../../shared/Logo.vue';
+import SinerLogo from '../../shared/Logo.vue';
+import IconSvg from '../../shared/icons/Icon-Svg.vue';
+
 
 export default {
   name: 'LoginLayout',
   components: {
-    'siner-logo': Logo
+    SinerLogo,
+    IconSvg
   },
   data() {
     return {
@@ -82,7 +89,8 @@ export default {
         },
         termsAndService: '',
         btnDisabled: false,
-        loginOption: ''
+        loginOption: '',
+        showPassword: false
     }
   },
   computed: {
@@ -95,14 +103,17 @@ export default {
       }
   },
   methods: {
-    setLoginOption(value) {
-        if(value === 'email') {
-            this.loginOption = 'email'
-        } else if (value === 'google') {
-            this.loginOption = 'google'
-        } else {
-            this.loginOption = ''
-        }
+    showPasswordIcon() {
+        this.showPassword = true
+        console.log('show:', this.showPassword);
+    },
+    hidePasswordIcon() {
+        this.showPassword = false;
+        console.log('hide:', this.showPassword);
+
+    },
+    toggleViewPasswordIcon() {
+       this.showPassword = !this.showPassword
     }
   }
 }

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import IconSvg from "../../icons/Icon-Svg.vue";
+import IconSvg from "../../shared/icons/Icon-Svg.vue";
 import { createdWorkspaces } from '../../../utils/dummy'
 
 export default {

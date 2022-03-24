@@ -60,7 +60,7 @@
 
 <script>
 import Logo from '../Logo.vue';
-import IconSvg from "../../icons/Icon-Svg.vue";
+import IconSvg from "../../shared/icons/Icon-Svg.vue";
 import OperationsNavigation from './OperationsNavigation.vue';
 import SettingsNavigation from './SettingsNavigation.vue';
 import HomeNavigation from './HomeNavigation.vue';

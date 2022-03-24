@@ -46,7 +46,7 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
         color: $text-color-warning !important;
     }
     &--color-normal {
-        color: #5E6C84;
+        color: #5E6C84 !important;
     }
     &-faded {
         color: $text-color-light-dark;

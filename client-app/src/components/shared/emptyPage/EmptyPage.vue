@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import SvgAsset from '../../icons/SvgAssets.vue';
+import SvgAsset from '../../shared/icons/SvgAssets.vue';
 
 export default {
     name: 'EmptyPage',

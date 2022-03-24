@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import IconSvg from "../../icons/Icon-Svg.vue";
+import IconSvg from "../../shared/icons/Icon-Svg.vue";
 
 export default {
     name: 'TrackNavigation',
