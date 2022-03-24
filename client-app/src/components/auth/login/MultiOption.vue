@@ -30,12 +30,12 @@
                             </div>                            
                             <div class="form__item">
                                 <label for="emailaddress" class="form__label">Email Address</label>
-                                <input type="email" id="emailaddress" class="form__input form-control" required="required" v-model="email">
+                                <input type="email" id="emailaddress" class="form-control" required="required" v-model="email">
                             </div>
                             <div class="form__item" style="margin-bottom: 1px">
                                 <label for="password" class="form__label">Password</label>
                                 <div class="flex align-items-center positionRelative">
-                                    <input id="password" class="form__input form-control" required="required" v-model="password" :type="passwordType" />
+                                    <input id="password" class="form-control" required="required" v-model="password" :type="passwordType" />
                                     <span class="positionAbsolute me-1 right--5 cursor-pointer" @click="toggleViewPasswordIcon" style="max-width: 24px; max-height: 24px">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
@@ -54,7 +54,16 @@
                                 <span class="textRed">{{ error.value  }}</span>
                             </div>
                             <div class="form--btn__wrap auth--btn__submit">
-                                <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="isBtnDisabled || btnDisabled">Login</button>
+                                 <primary-button 
+                                    :loadingState="loading" 
+                                    :type="'submit'" 
+                                    :isBtnDisabled="isBtnDisabled" 
+                                    :btnSize="'100%'" 
+                                    :classValues="'btn btn--primary btn--md bold btn--block'"
+                                    @submitFunc="handleLogin"
+                                >
+                               {{ loading === 'loading' ? '' : ' Login'}}
+                                </primary-button>
                             </div>
                             <!-- no account -->
                             <div class="signup--notify__wrap">
@@ -63,7 +72,7 @@
                         </div>
                     </form>
                 </div>
-        </div>
+            </div>
         </div>
     </div>
 </template>
@@ -71,13 +80,15 @@
 <script>
 import SinerLogo from '../../shared/Logo.vue';
 import IconSvg from '../../shared/icons/Icon-Svg.vue';
+import PrimaryButtton from '../../shared/buttons/PrimaryButton.vue';
 
 
 export default {
-  name: 'LoginLayout',
+  name: 'MultipleLogin',
   components: {
     SinerLogo,
-    IconSvg
+    IconSvg,
+    'primary-button': PrimaryButtton
   },
   data() {
     return {
@@ -87,16 +98,15 @@ export default {
             show: false,
             value: ''
         },
-        termsAndService: '',
-        btnDisabled: false,
-        loginOption: '',
         showPassword: false,
-        passwordType: 'password'
+        loading: 'default'
     }
   },
   computed: {
       isBtnDisabled() {
         if(!this.email || !this.password) {
+            return true
+        } else if (this.loading === 'loading') {
             return true
         } else {
             return false
@@ -114,6 +124,9 @@ export default {
     toggleViewPasswordIcon() {
        this.showPassword = !this.showPassword
     },
+    handleLogin() {
+        const payload = { email, password }
+    }
   }
 }
 </script>
