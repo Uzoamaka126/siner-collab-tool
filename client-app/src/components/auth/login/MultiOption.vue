@@ -35,7 +35,7 @@
                             <div class="form__item" style="margin-bottom: 1px">
                                 <label for="password" class="form__label">Password</label>
                                 <div class="flex align-items-center positionRelative">
-                                    <input type="email" id="password" class="form__input form-control" required="required" v-model="password">
+                                    <input id="password" class="form__input form-control" required="required" v-model="password" :type="passwordType" />
                                     <span class="positionAbsolute me-1 right--5 cursor-pointer" @click="toggleViewPasswordIcon" style="max-width: 24px; max-height: 24px">
                                         <icon-svg 
                                             fill="rgba(194, 200, 212, 1)" 
@@ -90,7 +90,8 @@ export default {
         termsAndService: '',
         btnDisabled: false,
         loginOption: '',
-        showPassword: false
+        showPassword: false,
+        passwordType: 'password'
     }
   },
   computed: {
@@ -100,21 +101,19 @@ export default {
         } else {
             return false
         }
+      },
+      passwordType() {
+          if(this.showPassword) {
+              return 'text'
+          } else {
+              return 'password'
+          }
       }
   },
   methods: {
-    showPasswordIcon() {
-        this.showPassword = true
-        console.log('show:', this.showPassword);
-    },
-    hidePasswordIcon() {
-        this.showPassword = false;
-        console.log('hide:', this.showPassword);
-
-    },
     toggleViewPasswordIcon() {
        this.showPassword = !this.showPassword
-    }
+    },
   }
 }
 </script>
