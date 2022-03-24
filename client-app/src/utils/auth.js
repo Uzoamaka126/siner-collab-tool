@@ -5,24 +5,23 @@ import Router from 'vue-router';
 const API_BASE_URL = process.env.BASE_URL_ || 'http://localhost:3000';
 const TOKEN = 'token';
 
+// clear token from LS
 export function clearToken() {
     return localStorage.removeItem(TOKEN);
 }
 
+// set token on LS
 export function setToken(token) {
     var jwt_token = token;
     return localStorage.setItem(TOKEN, jwt_token);
 }
 
+// fetch token from LS
 function getToken() {
     return localStorage.getItem(TOKEN);
 }
 
-function isTokenExpired(token) {
-    const expirationDate = getTokenExpirationDate(token);
-    return expirationDate < new Date();
-}
-
+// Takes in a token, decodes it and returns its expiry date
 function getTokenExpirationDate(encodedToken) {
     const token = decode(encodedToken);
     if (!token.exp) { return null; }
@@ -33,13 +32,20 @@ function getTokenExpirationDate(encodedToken) {
     return date;
 }
 
+// Check if token in LS is expired
+function isTokenExpired(token) {
+    const expirationDate = getTokenExpirationDate(token);
+    return expirationDate < new Date();
+}
+
 export const isUserLoggedIn = () => {
     const token = getToken();
     return !!token
 }
 
-export function authenticate(to, from, next) {
+export function isRouteAuthRequired(to, from, next) {
     if (!isUserLoggedIn()) {
+        console.log('!isUserLoggedIn:', !isUserLoggedIn);
         next({
             path: '/',
             query: { redirect: to.fullPath }

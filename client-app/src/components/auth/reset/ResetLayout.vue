@@ -30,7 +30,7 @@
                             </div>
                         <!-- no account -->
                             <div class="signup--notify__wrap">
-                                <div class="text--xs">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
+                                <div class="text--sm">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
                             </div>
                         </div>
                     </form>
