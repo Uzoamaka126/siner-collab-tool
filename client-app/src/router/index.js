@@ -10,8 +10,6 @@ import InvoicesView from '../views/Invoices.vue'
 import CreateInvoiceView from '../components/invoices/CreateInvoice.vue';
 import InvoiceDetailsView from '../components/invoices/InvoiceDetails.vue';
 import { isRouteAuthRequired } from '../utils/auth'
-// const Register = () => import(/* webpackChunkname: "register" */'@/components/account/register.new')
-// const Invite = () => import(/* webpackChunkname: "invite" */'@/components/account/invited')
 
 const routes = [
   // {
@@ -25,7 +23,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: { name: 'login' }
+    // redirect: { name: 'login' }
   },
   {
     path: '/login',
@@ -51,9 +49,7 @@ const routes = [
     path: '/dashboard/',
     name: 'siner-dashboard',
     component: DashboardView,
-    // component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
-    beforeEnter: isRouteAuthRequired,
-    // meta: { requiresAuth: true },
+    // beforeEnter: isRouteAuthRequired,
     children:[
       { path:'home', name:'home-view', component: HomeView },
       

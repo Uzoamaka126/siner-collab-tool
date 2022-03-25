@@ -38,18 +38,16 @@ function isTokenExpired(token) {
     return expirationDate < new Date();
 }
 
-export const isUserLoggedIn = () => {
+export const isUserAuthenticated = () => {
     const token = getToken();
     return !!token
 }
 
 export function isRouteAuthRequired(to, from, next) {
-    if (!isUserLoggedIn()) {
-        console.log('!isUserLoggedIn:', !isUserLoggedIn);
-        next({
-            path: '/',
-            query: { redirect: to.fullPath }
-        });
+    if (!isUserAuthenticated()) {
+        console.log('!isUserAuthenticated:', !isUserAuthenticated);
+        console.log('fullPath:', to);
+        next({ name : 'login'});
     } else {
         next();
     }
