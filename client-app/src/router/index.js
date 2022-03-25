@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/login'
+    redirect: { name: 'login' }
   },
   {
     path: '/login',
@@ -53,56 +53,27 @@ const routes = [
     component: DashboardView,
     // component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
     beforeEnter: isRouteAuthRequired,
+    // meta: { requiresAuth: true },
     children:[
-      {
-        path:'home', 
-        name:'home-view', 
-        component: HomeView
-      },
-      {
-        path:'workspaces', 
-        name:'workspaces', 
-        component: ClientsView
-      },
-      {
-        path:'projects', 
-        name:'projects-view', 
-        component: ProjectsView,
-      },
-      {path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
-      {
-        path:'tags', 
-        name:'tags-view', 
-        component: TagsView
-      },
-      {
-        path: 'invoices', 
-        name: 'invoices-view', 
-        component: InvoicesView
-      },
-      {
-        path: 'invoices/create', 
-        name: 'create-invoice-view', 
-        component: CreateInvoiceView
-      },
-      {
-        path: 'invoices/view/:id', 
-        name: 'details-invoice-view', 
-        component: InvoiceDetailsView
-      },
-      {
-        path:'clients', 
-        name:'clients-view', 
-        component: ClientsView,
-        component: () => import(/* webpackChunkName: "clients" */ '../views/Clients'),
-        // beforeEnter: requireAuth,
-        
-      },
-      {
-        path:'settings', 
-        name:'settings-view', 
-        component: SettingsView
-      },
+      { path:'home', name:'home-view', component: HomeView },
+      
+      { path:'workspaces', name:'workspaces', component: ClientsView },
+      
+      { path:'projects', name:'projects-view',  component: ProjectsView },
+      
+      { path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
+      
+      { path:'tags',  name:'tags-view', component: TagsView },
+      
+      { path: 'invoices', name: 'invoices-view', component: InvoicesView },
+      
+      { path: 'invoices/create', name: 'create-invoice-view', component: CreateInvoiceView },
+      
+      { path: 'invoices/view/:id', name: 'details-invoice-view', component: InvoiceDetailsView },
+      
+      { path:'clients', name:'clients-view', component: ClientsView },
+      
+      { path:'settings', name:'settings-view', component: SettingsView },
     ],
   },
   {
@@ -112,7 +83,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  // history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
   linkActiveClass: 'active'
 })

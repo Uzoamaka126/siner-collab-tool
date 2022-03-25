@@ -118,6 +118,9 @@ export default {
         } else {
             return 'password'
         }
+    },
+    storedEmail() {
+        return window.localStorage.getItem('userEmail');
     }
   },
   methods: {
@@ -125,7 +128,20 @@ export default {
        this.showPassword = !this.showPassword
     },
     handleLogin() {
-        const payload = { email, password }
+        this.loading = 'loading'
+        const payload = { email: this.email, password: this.password };
+
+        if (this.storedEmail !== this.email) {
+            window.localStorage.clear()
+        }
+
+        window.localStorage.setItem('token', 'eeeeeeeee')
+        window.localStorage.setItem('userEmail', payload.email)
+
+        setTimeout(() => {
+            this.loading = 'success';
+            this.$router.push({ name: "home-view" })
+        }, 3000)
     }
   }
 }
