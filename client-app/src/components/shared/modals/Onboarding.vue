@@ -4,19 +4,19 @@
             <div class="modal__wrapper--onboarding">
                 <div class="modal--section__left">
                     <div class="left--wrapper">
-                        <template v-if="count === 2">
+                        <!-- <template v-if="count === 2">
                             <create-workspace 
                                 :count="count" 
                                 :increaseStep="increaseStep"
                             ></create-workspace>
-                        </template>
-                        <template v-if="count === 3">
+                        </template> -->
+                        <!-- <template v-if="count === 3">
                             <invite-team-members 
                                 :count="count"
                                 :decreaseStep="decreaseStep"
                             >
                             </invite-team-members>
-                        </template>
+                        </template> -->
                     </div>
                 </div>
             <div class="modal--section__right">
@@ -29,15 +29,13 @@
 
 <script>
 import MainModal from './MainModal.vue';
-import CreateWorkspace from '../../clients/CreateWorkspace.vue';
-import InviteTeamMembers from '../../clients/InviteTeamMembers.vue';
+// import CreateWorkspace from '../../clients/CreateWorkspace.vue';
 
 export default {
     name: 'OnboardingModal',
     components: {
         'main-modal': MainModal,
-        'create-workspace': CreateWorkspace,
-        'invite-team-members': InviteTeamMembers
+        // 'create-workspace': CreateWorkspace,
     },
     props: ["showOnboardingModal"],
     data: () => ({

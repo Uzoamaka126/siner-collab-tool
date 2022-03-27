@@ -92,7 +92,7 @@
         </div>
 
         <!-- modal -->
-        <create-or-edit-client-modal />
+        <create-client-modal />
         <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" :reset="resetCurrentClient" />
         <client-details-modal :currentClientDetails="currentClient" :clientName="currentClient.name"  @resetCurrentClient="resetCurrentClient" />
     </div>
@@ -101,7 +101,7 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy'
 import IconSvg from '../shared/icons/Icon-Svg.vue';
-import CreateOrEditClientModal from '../shared/modals/CreateClient.vue';
+import CreateClientModal from '../shared/modals/CreateClient.vue';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
 import ClientDetailsModal from '../shared/modals/ViewClient.vue';
 
@@ -120,7 +120,7 @@ export default {
     }),
     components: {
         IconSvg,
-        CreateOrEditClientModal,
+        CreateClientModal,
         ConfirmDeletionModal,
         ClientDetailsModal
     },
@@ -153,7 +153,9 @@ export default {
             this.currentClient.id = ''
              $("#deleteClient").modal("hide");
         },
-        handleAddClient() {},
+        handleAddClient(data) {
+            // make API call here
+        },
         handleEditClient() {},
     }
 }
