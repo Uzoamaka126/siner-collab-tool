@@ -23,8 +23,6 @@ export function serilaizeQuery(queryObj) {
         if (queryObj.hasOwnProperty(x)) {
             str.push(encodeURIComponent(x) + "=" + encodeURIComponent(queryObj[x]));
         }
-
-    console.log('x:', x);
     return str.join("&")
 }
 
@@ -78,7 +76,7 @@ export function assembleQueryList(routeData, pageData) {
     }
 
     // build download into query list if download is set to true
-    if ((typeof routeData.query.download !== 'undefined' &&  routeData.query.download) || pageData.download) {
+    if ((typeof routeData.query.download !== 'undefined' && routeData.query.download) || pageData.download) {
         queryObj.download = true
     }
 

@@ -146,17 +146,17 @@ import { assembleQueryList, serilaizeQuery } from '../../utils/others';
 export default {
     name: 'ClientLayout',
     created() {
-        // this.handleFetchClients();
+        this.handleFetchClients(this.$route);
          // watch the params of the route to fetch the data again
-        this.$watch(
-            () => this.$route,
-            () => {
-                this.handleFetchClients()
-            },
-        // fetch the data when the view is created and the data is
-        // already being observed
-        { immediate: true }
-        )
+        // this.$watch(
+        //     () => this.$route,
+        //     () => {
+        //         this.handleFetchClients(this.$route)
+        //     },
+        // // fetch the data when the view is created and the data is
+        // // already being observed
+        // { immediate: true }
+        // )
     },
     // watch: {
     //     '$route': 'handleFetchClients',
@@ -167,7 +167,6 @@ export default {
             clients: [],
             isMenuItemHover: '',
             currentClient: {},
-            filterQuery: {},
             loadingState: 'default',
             pageData: {
                 currentPageNum: 0,
@@ -187,7 +186,8 @@ export default {
             },
             isSearched: false,
             filter: {
-                nameQuery: this.$route.query.name || ''
+                nameQuery: this.$route.query.name || '',
+                download: false
             }
         }
     },
@@ -237,24 +237,26 @@ export default {
             // make API call here
         },
 
-        handleFetchClients(query) {
+        handleFetchClients(routeData) {
             this.loadingState = 'loading';
             let pageQueryObj = {
+                // paginationNum: this.$route.query.page || 1,
+                // download: this.$route.query.download,
                 paginationNum: this.$route.query.page || 1,
                 download: this.$route.query.download,
                 limit: this.$route.query.limit
             }
 
-            if (this.$route.query.name) {
+            if (routeData.query.name) {
                 this.isSearched = true
             }
 
             // download
-            if (assembleQueryList(this.$route, pageQueryObj).download === true) {
-                this.download = true;
+            if (assembleQueryList(routeData, pageQueryObj).download === true) {
+                this.filter.download = true;
             }
 
-            fetchClients(assembleQueryList(this.$route, pageQueryObj))
+            fetchClients(assembleQueryList(routeData, pageQueryObj))
                 .then(response => {
                     this.loadingState = 'success';
                     if (this.download) {
