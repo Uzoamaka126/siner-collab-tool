@@ -3,7 +3,7 @@
         <div style="height: 100%; padding-right: 50px; padding-left: 50px; padding-top: 2rem">
             <template v-if="loadingState === 'loading'">
                <div class="flex justify-content-center align-items-center  mt--40 mb--45">
-                    <div class="spinner-border text-primary" role="status">
+                    <div class="spinner-border text-primary" role="status" style="color: #5750ec !important">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                </div>
@@ -61,7 +61,7 @@
                     <template v-if="clients.length > 0">
                         <div class="home--content__wrap" >
                             <div class="home--content--item positionRelative" v-for="(item, index) in clients" :key="index">
-                                <div class="list-options">
+                                <div class="list-options mb--20">
                                     <div 
                                         class="workspace--theme--img" 
                                         @mouseenter="showMenuIconOnHover(item.name)"
@@ -70,7 +70,7 @@
                                     >
                                     </div>
                                     <span class="flex flex-column">
-                                        <span class="text--color-dark text--sm text--bold mt--5 text-center">{{ item.name }}</span>
+                                        <span class="text--color-dark text--sm text--bold mt--5 text-center client--name">{{ item.name }}</span>
                                     </span>
                                     <!-- overlay contents -->
                                     <div class="list__overlay">
@@ -134,7 +134,8 @@
 </template>
 
 <script>
-import { createdWorkspaces } from '../../utils/dummy'
+import { createdWorkspaces } from '../../utils/dummy';
+import clientsList from '../../assets/js/clients.json'
 import { fetchClients } from '../../utils/clients'
 import IconSvg from '../shared/icons/Icon-Svg.vue';
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue';
@@ -164,7 +165,7 @@ export default {
     data() {
         return {
             createdWorkspaces: createdWorkspaces,
-            clients: [],
+            clients: clientsList || [],
             isMenuItemHover: '',
             currentClient: {},
             loadingState: 'default',
@@ -205,9 +206,9 @@ export default {
             if(name === null) {
                 return
             } else {
-                const getWorkspaceItem = this.createdWorkspaces.find(item => item.name === name)
-                if (getWorkspaceItem.name) {
-                this.isMenuItemHover = getWorkspaceItem.name;
+                const client = this.clients.find(item => item.name === name)
+                if (client.name) {
+                this.isMenuItemHover = client.name;
                 }
             }
         },
@@ -238,7 +239,7 @@ export default {
         },
 
         handleFetchClients(routeData) {
-            this.loadingState = 'loading';
+            // this.loadingState = 'loading';
             let pageQueryObj = {
                 // paginationNum: this.$route.query.page || 1,
                 // download: this.$route.query.download,
@@ -256,27 +257,27 @@ export default {
                 this.filter.download = true;
             }
 
-            fetchClients(assembleQueryList(routeData, pageQueryObj))
-                .then(response => {
-                    this.loadingState = 'success';
-                    if (this.download) {
+            // fetchClients(assembleQueryList(routeData, pageQueryObj))
+            //     .then(response => {
+            //         this.loadingState = 'success';
+            //         if (this.download) {
 
-                    } else {
-                        this.clients = response.data.info;
-                        this.page.currentPageNum = response.data.pageDetails.currentPage
-                        this.totalClients = response.data.pageDetails.totalPages
-                        this.paginationProp.currentPage = response.data.pageDetails.currentPage
-                        this.paginationProp.totalPages = response.data.pageDetails.totalPages
-                        this.paginationProp.pageSize = response.data.pageDetails.pageSize
+            //         } else {
+            //             this.clients = response.data.info;
+            //             this.page.currentPageNum = response.data.pageDetails.currentPage
+            //             this.totalClients = response.data.pageDetails.totalPages
+            //             this.paginationProp.currentPage = response.data.pageDetails.currentPage
+            //             this.paginationProp.totalPages = response.data.pageDetails.totalPages
+            //             this.paginationProp.pageSize = response.data.pageDetails.pageSize
 
-                        window.localStorage('clients-list', JSON.stringify(response.data.info))
-                        window.localStorage('noOfClients', JSON.stringify(response.data.pageDetails.totalPages))
-                    }
-                })
-                .catch(error => {
-                    this.loadingState = 'failed';
-                    throw new Error(error.message)
-                })
+            //             window.localStorage('clients-list', JSON.stringify(response.data.info))
+            //             window.localStorage('noOfClients', JSON.stringify(response.data.pageDetails.totalPages))
+            //         }
+            //     })
+            //     .catch(error => {
+            //         this.loadingState = 'failed';
+            //         throw new Error(error.message)
+            //     })
         }, 
         
         handleFilter() {
@@ -323,7 +324,7 @@ export default {
     }
     .workspace--theme--img {
         height: 80px;
-        width: 80px;
+        width: 120px;
         border-radius: 10px;
     }
     .home--content--item {
@@ -347,5 +348,13 @@ export default {
         z-index: 100; 
         right: 5px;
         cursor: pointer;
+    }
+    .client--name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .list-options {
+        max-width: 120px;
     }
 </style>

@@ -7,8 +7,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="flex align-items-center">
-                        <div class="form__item">
+                    <div class="flex align-items-center width--100">
+                        <div class="form__item width--100">
                             <label for="workspaceTitle" class="form__label title">Client name</label>
                             <input name="title" id="workspaceTitle" class="form__input" v-model="reactiveClientName" :readonly="!isEdit"/>
                         </div>

@@ -4,15 +4,11 @@ import { serilaizeQuery } from './others';
 const BASE_URL = ''
 
 export function fetchClients(query = {}) {
-    console.log('query:', query);
+    // console.log('query:', query);
     if (query || query !== {}) query = '?'+ serilaizeQuery(query)
 
-    console.log('query after serializing:', query);
-
+    // console.log('query after serializing:', query);
     const url = `${BASE_URL}/clients` + query;
-
-    console.log('url:', url);
-
     return axios({
         method: 'GET',
         url: url,
