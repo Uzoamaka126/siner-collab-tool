@@ -1,94 +1,28 @@
-// hide and show based on checkbox select
-<div data-v-1dad9cea="" class="checkbox">
-    <input data-v-1dad9cea="" type="checkbox" id="label0" class="checkbox__input" v-model="isPasswordChange" @change="!isPasswordChange"> 
-    <label data-v-1dad9cea="" for="label0" class="checkbox__label">Change Password</label>
-</div>
-<----- hide or show contents ----->
-<template v-if="isPasswordChange">
-    <div class="password__change">
-        <div class="form__item">
-            <label for="password" class="form__label">Old Password</label>
-            <input type="email" id="password" class="form__input form__input--lg" required="required">
-        </div>
-            <div class="form__item">
-            <label for="password" class="form__label">New Password</label>
-            <input type="email" id="password" class="form__input form__input--lg" required="required">
-        </div>
-            <div class="form__item">
-            <label for="password" class="form__label">Confirm New Password</label>
-            <input type="email" id="password" class="form__input form__input--lg" required="required">
-        </div>
-    </div>
-</template>
+ <form class="bd-search positionRelative" style="margin-right: 0.825rem;">
+                        <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
+                            <input 
+                                type="search" 
+                                class="form-control" 
+                                id="search-input" 
+                                placeholder="Search clients..." 
+                                aria-label="Search docs for..." 
+                                autocomplete="off" 
+                                data-bd-docs-version="5.1" 
+                                spellcheck="false" 
+                                role="combobox" 
+                                aria-autocomplete="list" 
+                                aria-expanded="false" 
+                                aria-owns="algolia-autocomplete-listbox-0" dir="auto" 
+                                style="position: relative; vertical-align: top; font-size: 14px; padding-left: 2rem;">
+                                <span role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 5px; z-index: 100; left: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #dee2e6;transform: ;msFilter:;">
+                                    <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                    </form>
+                    <button cl
 
 function test(str) {
     return str.slice(1).split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 }
-
- <ul class="dropdown-menu filter__dropdown-menu">
-            <li>
-                <div class="flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Title
-                        </label>
-                    </div>
-                </div>
-               <div class="reveal">
-                   
-               </div>
-            </li>
-            <li>
-                <div class="flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Client name
-                        </label>
-                    </div>
-                </div>
-               <div class="reveal">
-                   <InputSearch />
-               </div>
-            </li>
-            <li>
-                <div class="flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Search
-                        </label>
-                    </div>
-                </div>
-               <div class="reveal">
-                   <InputSearch />
-               </div>
-            </li>
-            <li>
-                <div class="flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Deadline
-                        </label>
-                    </div>
-                </div>
-               <div class="reveal">
-                   <InputSearch />
-               </div>
-            </li>
-            <li>
-                <div class="flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Date created
-                        </label>
-                    </div>
-                </div>
-               <div class="reveal">
-                   <InputSearch />
-               </div>
-            </li>
-        </ul>

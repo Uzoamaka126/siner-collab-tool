@@ -1,13 +1,22 @@
 import axios from 'axios'
+import { serilaizeQuery } from './others';
 
-export function fetchClients(query) {
-    const url = '/clients';
+const BASE_URL = ''
+
+export function fetchClients(query = {}) {
+    console.log('query:', query);
+    if (query || query !== {}) query = '?'+ serilaizeQuery(query)
+
+    console.log('query after serializing:', query);
+
+    const url = `${BASE_URL}/clients` + query;
+
+    console.log('url:', url);
 
     return axios({
-        method: 'post',
+        method: 'GET',
         url: url,
     })
-
 }
 
 export function createNewClient(payload) {

@@ -9,7 +9,7 @@
             </div>
             <div class="page__empty--text">                        
                 <h2 class="page__empty--title">{{ title }}</h2>
-                <p class="page__empty--subtitle">{{ subtitle }}</p>
+                <p class="page__empty--subtitle" :class="{'fst-italic': isItalics }">{{ subtitle }}</p>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@ import SvgAsset from '../../shared/icons/SvgAssets.vue';
 
 export default {
     name: 'EmptyPage',
-    props: ['title', 'subtitle', 'iconName', 'alt', 'width', 'height'],
+    props: ['title', 'subtitle', 'iconName', 'alt', 'width', 'height', 'isItalics'],
     components: {
         SvgAsset
     }
