@@ -10,10 +10,10 @@
             </template>
             <template v-else>
                 <!-- top header -->
-                <div class="flex align-items-center justify-content-end width-100">
+                <div class="flex align-items-center justify-content-between width-100">
                     <!-- Client count -->
-                    <div class="list--count" v-if="clients.length > 0">
-                        <p>{{ clients.length }} {{ clients.length > 1  ? 'clients' : 'client'}}</p>
+                    <div class="list--count">
+                        <p v-if="clients.length > 0">{{ clients.length }} {{ clients.length > 1  ? 'clients' : 'client'}}</p>
                     </div>
                     <div class="filter__actions--list">
                         <form class="bd-search positionRelative" style="margin-right: 0.825rem;" @submit.prevent>
@@ -59,48 +59,52 @@
                 <!-- Content -->
                 <div style="display: flex; margin-top: 2.5rem;" class="width--100 justify-content-center">
                     <template v-if="clients.length > 0">
-                        <div class="home--content__wrap" >
-                            <div class="home--content--item positionRelative" v-for="(item, index) in clients" :key="index">
-                                <div class="list-options mb--20">
-                                    <div 
-                                        class="workspace--theme--img" 
-                                        @mouseenter="showMenuIconOnHover(item.name)"
-                                        @mouseleave="showMenuIconOnHover(null)"
-                                        :id="item.name"
-                                    >
-                                    </div>
-                                    <span class="flex flex-column">
-                                        <span class="text--color-dark text--sm text--bold mt--5 text-center client--name">{{ item.name }}</span>
-                                    </span>
-                                    <!-- overlay contents -->
-                                    <div class="list__overlay">
-                                        <div class="list__overlay-text-wrap">
-                                            <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="setClientDetails(item)">
-                                                <icon-svg 
-                                                    fill="rgba(194, 200, 212, 1)" 
-                                                    class="nav__icon mr--0" 
-                                                    name="edit" 
-                                                    icon-position="left"
-                                                    :width="'12px'"
-                                                    :height="'12px'"
-                                                /> 
-                                                <p class="text text--xs">Edit</p>
-                                            </div>
-                                            <div style="display: flex; align-items: center" @click="startDelete(item)">
-                                                <icon-svg 
-                                                    fill="rgba(194, 200, 212, 1)" 
-                                                    class="nav__icon mr--0" 
-                                                    name="delete" 
-                                                    icon-position="left"
-                                                    :width="'12px'"
-                                                    :height="'12px'"
-                                                /> 
-                                                <p class="text text--xs">Delete</p>
+                        <div>
+                            <div class="home--content__wrap" >
+                                <div class="home--content--item positionRelative" v-for="(item, index) in clients" :key="index">
+                                    <div class="list-options mb--20">
+                                        <div 
+                                            class="workspace--theme--img" 
+                                            @mouseenter="showMenuIconOnHover(item.name)"
+                                            @mouseleave="showMenuIconOnHover(null)"
+                                            :id="item.name"
+                                        >
+                                        </div>
+                                        <span class="flex flex-column">
+                                            <span class="text--color-dark text--sm text--bold mt--5 text-center client--name">{{ item.name }}</span>
+                                        </span>
+                                        <!-- overlay contents -->
+                                        <div class="list__overlay">
+                                            <div class="list__overlay-text-wrap">
+                                                <div style="display: flex; align-items: center; width: 100%; justify-content: center;" @click="setClientDetails(item)">
+                                                    <icon-svg 
+                                                        fill="rgba(194, 200, 212, 1)" 
+                                                        class="nav__icon mr--0" 
+                                                        name="edit" 
+                                                        icon-position="left"
+                                                        :width="'12px'"
+                                                        :height="'12px'"
+                                                    /> 
+                                                    <p class="text text--xs">Edit</p>
+                                                </div>
+                                                <div style="display: flex; align-items: center" @click="startDelete(item)">
+                                                    <icon-svg 
+                                                        fill="rgba(194, 200, 212, 1)" 
+                                                        class="nav__icon mr--0" 
+                                                        name="delete" 
+                                                        icon-position="left"
+                                                        :width="'12px'"
+                                                        :height="'12px'"
+                                                    /> 
+                                                    <p class="text text--xs">Delete</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <pagination></pagination>
                         </div>
                     </template>
                     <template v-else-if="isSearched && !clients.length">
@@ -138,6 +142,7 @@ import { createdWorkspaces } from '../../utils/dummy';
 import clientsList from '../../assets/js/clients.json'
 import { fetchClients } from '../../utils/clients'
 import IconSvg from '../shared/icons/Icon-Svg.vue';
+import Pagination from '../shared/pagination/Index.vue';
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue';
 import CreateClientModal from '../shared/modals/CreateClient.vue';
 import ConfirmDeletionModal from '../shared/modals/ConfirmDeletion.vue';
@@ -165,7 +170,7 @@ export default {
     data() {
         return {
             createdWorkspaces: createdWorkspaces,
-            clients: clientsList || [],
+            // clients: clientsList || [],
             isMenuItemHover: '',
             currentClient: {},
             loadingState: 'default',
@@ -197,9 +202,13 @@ export default {
         CreateClientModal,
         ConfirmDeletionModal,
         ClientDetailsModal,
-        EmptyPage
+        EmptyPage,
+        Pagination
     },
     computed: {
+        clients() {
+            return clientsList.slice(0, 10) || []
+        }
     },
     methods: {
         showMenuIconOnHover(name) {
