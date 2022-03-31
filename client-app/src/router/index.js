@@ -2,14 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
 import ClientsView from '../views/Clients.vue'
 import ProjectsView from '../views/Projects.vue'
+import DashboardView from '../views/Dashboard.vue'
 import ProjectsDetailsView from '../views/ProjectDetails.vue'
 import SettingsView from '../views/Settings.vue'
 import TagsView from '../views/Tags.vue'
 import InvoicesView from '../views/Invoices.vue'
 import CreateInvoiceView from '../components/invoices/CreateInvoice.vue';
 import InvoiceDetailsView from '../components/invoices/InvoiceDetails.vue';
-// const Register = () => import(/* webpackChunkname: "register" */'@/components/account/register.new')
-// const Invite = () => import(/* webpackChunkname: "invite" */'@/components/account/invited')
+import { isRouteAuthRequired } from '../utils/auth'
 
 const routes = [
   // {
@@ -23,7 +23,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/login'
+    // redirect: { name: 'login' }
   },
   {
     path: '/login',
@@ -48,60 +48,28 @@ const routes = [
   {
     path: '/dashboard/',
     name: 'siner-dashboard',
-    // component: DashboardView,
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
-
-    // beforeEnter: requireAuth,
+    component: DashboardView,
+    // beforeEnter: isRouteAuthRequired,
     children:[
-      {
-        path:'home', 
-        name:'home-view', 
-        component: HomeView
-      },
-      {
-        path:'workspaces', 
-        name:'workspaces', 
-        component: ClientsView
-      },
-      {
-        path:'projects', 
-        name:'projects-view', 
-        component: ProjectsView,
-      },
-      {path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
-      {
-        path:'tags', 
-        name:'tags-view', 
-        component: TagsView
-      },
-      {
-        path: 'invoices', 
-        name: 'invoices-view', 
-        component: InvoicesView
-      },
-      {
-        path: 'invoices/create', 
-        name: 'create-invoice-view', 
-        component: CreateInvoiceView
-      },
-      {
-        path: 'invoices/view/:id', 
-        name: 'details-invoice-view', 
-        component: InvoiceDetailsView
-      },
-      {
-        path:'clients', 
-        name:'clients-view', 
-        component: ClientsView,
-        component: () => import(/* webpackChunkName: "clients" */ '../views/Clients'),
-        // beforeEnter: requireAuth,
-        
-      },
-      {
-        path:'settings', 
-        name:'settings-view', 
-        component: SettingsView
-      },
+      { path:'home', name:'home-view', component: HomeView },
+      
+      { path:'workspaces', name:'workspaces', component: ClientsView },
+      
+      { path:'projects', name:'projects-view',  component: ProjectsView },
+      
+      { path:'projects/:id', name:'project-details', component: ProjectsDetailsView },
+      
+      { path:'tags',  name:'tags-view', component: TagsView },
+      
+      { path: 'invoices', name: 'invoices-view', component: InvoicesView },
+      
+      { path: 'invoices/create', name: 'create-invoice-view', component: CreateInvoiceView },
+      
+      { path: 'invoices/view/:id', name: 'details-invoice-view', component: InvoiceDetailsView },
+      
+      { path:'clients', name:'clients-view', component: ClientsView },
+      
+      { path:'settings', name:'settings-view', component: SettingsView },
     ],
   },
   {
@@ -111,7 +79,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  // history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
   linkActiveClass: 'active'
 })

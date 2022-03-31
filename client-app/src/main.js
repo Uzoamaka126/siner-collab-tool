@@ -13,7 +13,7 @@ import 'chartkick/chart.js'
 import Vue3Tour from 'vue3-tour'
 import 'vue3-tour/dist/vue3-tour.css'
 
-import { isUserLoggedIn } from './utils/auth';
+import { isUserAuthenticated } from './utils/auth';
 
 window.moment = require('moment');
 const BASE_URL = process.env.BASE_URL;
@@ -37,12 +37,10 @@ axios.interceptors.request.use(function (config) {
 });
 
 // set a navigation guard for protected routes
-router.beforeEach((to, from, next) =>{
-  if (isUserLoggedIn()){
-    next('/dashboard/home')
-  } else{
-    next()
-  }
+router.beforeEach((to, from, next) => {
+  const isAuthOrHomePage = to.name !== 'login' && to.name !== 'signup' && to.name !== 'reset';
+  if (!isUserAuthenticated() && isAuthOrHomePage) next({ name: 'login' })
+  else next()
 });
 
 

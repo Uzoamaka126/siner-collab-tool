@@ -248,12 +248,6 @@ export async function search (queryStrings: QueryStringsClient, id: QueryStrings
         let offset = page ? (page - 1) * limit : 0; 
         let download = queryStrings.download ? queryStrings.download : 0
         
-        // 
-        // if (queryStrings.email) {
-        //     const email = new RegExp(`^${queryStrings.email}$`, 'i');
-
-        //     buildQuery.where = { ...buildQuery.where, email: email }  // make email a case insensitive match
-        // }
         if (queryStrings.name) {      
             const nameQuery = new RegExp(`^${queryStrings.name}$`, 'i');
 

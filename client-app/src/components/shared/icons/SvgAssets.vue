@@ -1,7 +1,7 @@
 <template>
   <span class="svg-icon" @click="$emit('click')" :style="styles">
     <keep-alive>
-        <component :is="{ template: iconName }" :width="width" :height="height" />
+        <component :is="{ template: iconName }" :width="width" :height="height" :fill="fill" />
     </keep-alive>
   </span>
 </template>
@@ -64,20 +64,11 @@ export default {
                             </svg>
                         `,
             // low signal
-            'lowSignal': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(32, 32, 32, 1);transform: ;msFilter:;"><path d="M3 16h2v5H3z"></path></svg>',
-
-            // medium signal
-            'mediumSignal': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(36, 111, 224, 1);transform: ;msFilter:;"><path d="M3 16h2v5H3zm4-3h2v8H7z"></path></svg>',
-            'tasks': '<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" style="fill: #42526e;transform: ;msFilter:;"><path d="M19 15v-3h-2v3h-3v2h3v3h2v-3h3v-2h-.937zM4 7h11v2H4zm0 4h11v2H4zm0 4h8v2H4z"></path></svg>',
-
-            // high signal icon
-            'highSignal': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(235, 137, 9, 1);transform: ;msFilter:;"><path d="M3 16h2v5H3zm4-3h2v8H7zm4-3h2v11h-2z"></path></svg>',
-
-            // very high signal icon
-            'veryHighSignal': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(209, 69, 59, 1);transform: ;msFilter:;"><path d="M3 16h2v5H3zm4-3h2v8H7zm4-3h2v11h-2zm4-3h2v14h-2z"></path></svg>',
+            'search': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #eee;transform: ;msFilter:;"><path d="M3 16h2v5H3z"></path></svg>',
 
             // invoice icon
-            'invoice': '<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" style="fill: #42526e;transform: ;msFilter:;"><path d="M21 11h-3V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v14c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3v-6a1 1 0 0 0-1-1zM5 19a1 1 0 0 1-1-1V5h12v13c0 .351.061.688.171 1H5zm15-1a1 1 0 0 1-2 0v-5h2v5z"></path><path d="M6 7h8v2H6zm0 4h8v2H6zm5 4h3v2h-3z"></path></svg>'
+            'invoice': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>',
+            'client': '<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 64 64" style="&#10;    /* fill: #6610f2; */&#10;"><circle cx="19.5" cy="36.5" r="9.5" fill="none" stroke="#6610f2" stroke-miterlimit="10" stroke-width="4" style="&#10;    /* stroke: #6610f2; */&#10;"/><path fill="none" stroke="#6610f2" stroke-miterlimit="10" stroke-width="4" d="M6 61A15 15 0 0 1 21 46M35 61A15 15 0 0 0 20 46" style="&#10;    /* stroke: #6610f2; */&#10;"/><circle cx="42.5" cy="12.5" r="9.5" fill="none" stroke="#6610f2" stroke-miterlimit="10" stroke-width="4"/><path fill="none" stroke="#6610f2" stroke-miterlimit="10" stroke-width="4" d="M29 36c0-7.74 6.71-14 15-14M58 36c0-7.74-6.71-14-15-14"/></svg>'
         }
     }),
 

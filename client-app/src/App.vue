@@ -10,17 +10,17 @@ import 'bootstrap/dist/css/bootstrap.css'
 export default {
   name: 'app',
    watch: {
-      $route(to, from) {
-          let path = to.path;
-          path = path.split('/')[1];
+      // $route(to, from) {
+      //     let path = to.path;
+      //     path = path.split('/')[1];
 
-          // Prevent external pages(non dashboard pages) from getting logged
-          // if(path == 'dashboard') this.logLastViewed(to.name);
-          if(path == 'dashboard') {
-              if(to.params.id) this.logLastViewed(`${to.name}/${to.params.id}`);
-              else this.logLastViewed(to.name);
-          }
-      },
+      //     // Prevent external pages(non dashboard pages) from getting logged
+      //     // if(path == 'dashboard') this.logLastViewed(to.name);
+      //     if(path == 'dashboard') {
+      //         if(to.params.id) this.logLastViewed(`${to.name}/${to.params.id}`);
+      //         else this.logLastViewed(to.name);
+      //     }
+      // },
     },
     methods: {
       logLastViewed(lastPage) {

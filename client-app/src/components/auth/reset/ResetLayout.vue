@@ -14,14 +14,23 @@
                              <!-- content  -->
                             <div class="form__item">
                                 <label for="emailaddress" class="form__label">Email Address</label>
-                                <input type="email" id="emailaddress" class="form__input form__input--lg" required="required" v-model="email">
+                                <input type="email" id="emailaddress" class="form-control" required="required" v-model="email">
                             </div>
                             <div class="form--btn__wrap auth--btn__submit">
-                                <button class="btn btn--primary btn--md bold btn--block" type="submit" :disabled="!email">Reset password</button>
+                               <primary-button 
+                                    :loadingState="loading" 
+                                    :type="'submit'" 
+                                    :isBtnDisabled="isBtnDisabled" 
+                                    :btnSize="'100%'" 
+                                    :classValues="'btn btn--primary btn--md bold btn--block'"
+                                    @submitFunc="handleSignUp"
+                                >
+                               {{ loading === 'loading' ? '' : 'Reset password'}}
+                                </primary-button>
                             </div>
                         <!-- no account -->
                             <div class="signup--notify__wrap">
-                                <div class="text--xs">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
+                                <div class="text--sm">Have an account? <router-link class="auth--link" :to="{ name: 'login' }">Login</router-link></div>
                             </div>
                         </div>
                     </form>
@@ -33,18 +42,39 @@
 
 <script>
 import Logo from '../../shared/Logo.vue';
+import IconSvg from '../../shared/icons/Icon-Svg.vue';
+import PrimaryButtton from '../../shared/buttons/PrimaryButton.vue';
 
 export default {
   name: 'SingleOptionLayout',
   components: {
-    'siner-logo': Logo
+    'siner-logo': Logo,
+    IconSvg,
+    'primary-button': PrimaryButtton
   },
   data: () => ({
     email: '',
+    error: {
+        show: false,
+        value: ''
+    },
+    loading: 'default'
   }),
   computed: {
+    isBtnDisabled() {
+        if(!this.email) {
+            return true
+        } else if (this.loading === 'loading') {
+            return true
+        } else {
+            return false
+        }
+    },
   },
   methods: {
+      handleReset() {
+        const payload = { email }
+    }
   }
 }
 </script>

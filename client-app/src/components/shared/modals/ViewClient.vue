@@ -7,8 +7,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="flex align-items-center">
-                        <div class="form__item">
+                    <div class="flex align-items-center width--100">
+                        <div class="form__item width--100">
                             <label for="workspaceTitle" class="form__label title">Client name</label>
                             <input name="title" id="workspaceTitle" class="form__input" v-model="reactiveClientName" :readonly="!isEdit"/>
                         </div>
@@ -23,12 +23,24 @@
                         </div>
                     </div>
                     <div class="mt--20">
+                        <p class="title">Email:</p>
+                        <p class="sub-title">{{ currentClientDetails.email ? currentClientDetails.email : 'N/A' }}</p>
+                    </div>
+                    <div class="mt--20">
+                        <p class="title">Country:</p>
+                        <p class="sub-title">{{ currentClientDetails.country ? currentClientDetails.country : 'N/A' }}</p>
+                    </div>
+                    <div class="mt--20">
+                        <p class="title">Address:</p>
+                        <p class="sub-title">{{ currentClientDetails.address ? currentClientDetails.address : 'N/A' }}</p>
+                    </div>
+                    <div class="mt--20">
                         <p class="title">No of associated projects:</p>
                         <p class="sub-title">3 projects</p>
                     </div>
                     <div class="mt--20">
                         <p class="title">Date created</p>
-                        <p class="sub-title">May 15th 2022</p>
+                        <p class="sub-title">{{ currentClientDetails.createdAt ? computedDateCreated : 'N/A' }}</p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -40,6 +52,8 @@
 </template>
 
 <script>
+import { formatDateTime } from '../../../utils/others'
+
 export default {
     name: 'ViewClient',
     props: {
@@ -57,6 +71,13 @@ export default {
         event: "change",
     },
     computed: {
+        computedDateCreated() {
+            if(this.currentClientDetails.createdAt) {
+                return formatDateTime(this.currentClientDetails.createdAt)
+            } else {
+                return 'N/A'
+            }
+        }
     },
     methods: {
         reset() {
