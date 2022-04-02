@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <!-- Content -->
-                <div style="display: flex; margin-top: 2.5rem;" class="width--100 justify-content-center">
+                <div style="margin-top: 2.5rem;" class="width--100 justify-content-center">
                     <template v-if="clients.length > 0">
                         <div>
                             <div class="home--content__wrap" >
@@ -68,8 +68,7 @@
                                             @mouseenter="showMenuIconOnHover(item.name)"
                                             @mouseleave="showMenuIconOnHover(null)"
                                             :id="item.name"
-                                        >
-                                        </div>
+                                        ></div>
                                         <span class="flex flex-column">
                                             <span class="text--color-dark text--sm text--bold mt--5 text-center client--name">{{ item.name }}</span>
                                         </span>
@@ -104,6 +103,7 @@
                                 </div>
                             </div>
 
+                           <!-- pagination -->
                             <pagination></pagination>
                         </div>
                     </template>
@@ -245,7 +245,6 @@ export default {
         },
 
         handleAddClient(data) {
-            debugger;
             // make API call here
             this.loadingState = 'addClientLoading';
 
@@ -253,7 +252,7 @@ export default {
                 this.loadingState = 'addClientSuccess';
                 this.clientsList.push(data);
                 $("#createClient").modal("hide");
-            }, 2000)
+            }, 10000)
             // createNewClient(data).then(res => {
             //     this.loadingState = 'success';
             //     $("#createClient").modal("hide");
