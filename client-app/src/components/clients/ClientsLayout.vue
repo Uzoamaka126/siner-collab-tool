@@ -131,7 +131,7 @@
         </div>
 
         <!-- modal -->
-        <create-client-modal />
+        <create-client-modal @handleAddClient="handleAddClient" :loading="loadingState" />
         <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" :reset="resetCurrentClient" />
         <client-details-modal :currentClientDetails="currentClient" :clientName="currentClient.name"  @resetCurrentClient="resetCurrentClient" />
     </div>
@@ -140,7 +140,7 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy';
 import clientsList from '../../assets/js/clients.json'
-import { fetchClients } from '../../utils/clients'
+import { createNewClient, fetchClients } from '../../utils/clients'
 import IconSvg from '../shared/icons/Icon-Svg.vue';
 import Pagination from '../shared/pagination/Index.vue';
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue';
@@ -194,7 +194,8 @@ export default {
             filter: {
                 nameQuery: this.$route.query.name || '',
                 download: false
-            }
+            },
+            clientsList: clientsList
         }
     },
     components: {
@@ -207,7 +208,7 @@ export default {
     },
     computed: {
         clients() {
-            return clientsList.slice(0, 10) || []
+            return this.clientsList.slice(0, 10) || []
         }
     },
     methods: {
@@ -244,7 +245,23 @@ export default {
         },
 
         handleAddClient(data) {
+            debugger;
             // make API call here
+            this.loadingState = 'addClientLoading';
+
+            setTimeout(() => {
+                this.loadingState = 'addClientSuccess';
+                this.clientsList.push(data);
+                $("#createClient").modal("hide");
+            }, 2000)
+            // createNewClient(data).then(res => {
+            //     this.loadingState = 'success';
+            //     $("#createClient").modal("hide");
+
+            //     this.handleFetchClients()
+            // }).catch(err => {
+            //     console.log(err)
+            // })
         },
 
         handleFetchClients(routeData) {
