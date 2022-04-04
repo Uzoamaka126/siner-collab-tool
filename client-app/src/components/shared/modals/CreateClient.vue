@@ -44,8 +44,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn--secondary mr--10 btn--sm" data-bs-dismiss="modal" aria-label="Close" @click="resetValues()">Cancel</button>
-                    <button type="button" class="btn btn--primary btn--sm" :disabled="isBtnDisabled" :style="{ width: btnSize }">
-                        <template v-if="loadingState === 'loading'">
+                    <button type="button" class="btn btn--primary btn--sm" :disabled="isBtnDisabled" :style="{ width: btnSize }" @click="createNewClient">
+                        <template v-if="loading === 'addClientLoading'">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             <span class="visually-hidden">Loading...</span>
                         </template>
@@ -64,21 +64,20 @@ import countryList from '../../../assets/js/countrycodes.json'
 
 export default {
     name: 'CreateClient',
+    props: ['loading'],
     data: () => ({
         clientName: '',
         email: '',
         phoneNumber: '',
         country: '',
         address: '',
-        countryList: countryList,
-        loadingState: 'default',
-        
+        countryList: countryList,        
     }),
     computed: {
         isBtnDisabled() {
             if(!this.clientName || !this.email || !this.address || !this.country || !this.phoneNumber) {
                 return true
-            } else if (this.loadingState === 'loading') {
+            } else if (this.loading === 'addClientLoading') {
                 return true
             }
             else {
@@ -86,7 +85,7 @@ export default {
             }
         },
         btnSize() {
-            return this.loadingState === 'loading' ? '64.6094px' : 'auto'
+            return this.loading === 'addClientLoading' ? '64.6094px' : 'auto'
         }
     },
     methods: {
@@ -97,8 +96,7 @@ export default {
             this.country = ''
             this.address = ''
         },
-        createClient() {
-            this.loadingState = 'loading'
+        createNewClient() {
             const payload = {
                 name: this.clientName,
                 user_id: this.user_id,
@@ -107,8 +105,7 @@ export default {
                 country: this.country,
                 address: this.address,
             }
-            
-            // close modal if successful
+            this.$emit("handleAddClient", payload)
         },
     }
 }

@@ -7,7 +7,6 @@ export function fetchClients(query = {}) {
     // console.log('query:', query);
     if (query || query !== {}) query = '?'+ serilaizeQuery(query)
 
-    // console.log('query after serializing:', query);
     const url = `${BASE_URL}/clients` + query;
     return axios({
         method: 'GET',

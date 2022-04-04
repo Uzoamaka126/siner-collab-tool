@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <!-- Content -->
-                <div style="display: flex; margin-top: 2.5rem;" class="width--100 justify-content-center">
+                <div style="margin-top: 2.5rem;" class="width--100 justify-content-center">
                     <template v-if="clients.length > 0">
                         <div>
                             <div class="home--content__wrap" >
@@ -68,8 +68,7 @@
                                             @mouseenter="showMenuIconOnHover(item.name)"
                                             @mouseleave="showMenuIconOnHover(null)"
                                             :id="item.name"
-                                        >
-                                        </div>
+                                        ></div>
                                         <span class="flex flex-column">
                                             <span class="text--color-dark text--sm text--bold mt--5 text-center client--name">{{ item.name }}</span>
                                         </span>
@@ -104,7 +103,8 @@
                                 </div>
                             </div>
 
-                            <pagination></pagination>
+                           <!-- pagination -->
+                            <pagination :type="'clients'" :paginationData="paginationProp" />
                         </div>
                     </template>
                     <template v-else-if="isSearched && !clients.length">
@@ -131,7 +131,7 @@
         </div>
 
         <!-- modal -->
-        <create-client-modal />
+        <create-client-modal @handleAddClient="handleAddClient" :loading="loadingState" />
         <confirm-deletion-modal :type="'client'" :action="handleDeleteClient" :reset="resetCurrentClient" />
         <client-details-modal :currentClientDetails="currentClient" :clientName="currentClient.name"  @resetCurrentClient="resetCurrentClient" />
     </div>
@@ -140,7 +140,7 @@
 <script>
 import { createdWorkspaces } from '../../utils/dummy';
 import clientsList from '../../assets/js/clients.json'
-import { fetchClients } from '../../utils/clients'
+import { createNewClient, fetchClients } from '../../utils/clients'
 import IconSvg from '../shared/icons/Icon-Svg.vue';
 import Pagination from '../shared/pagination/Index.vue';
 import EmptyPage from '../shared/emptyPage/EmptyPage.vue';
@@ -188,13 +188,15 @@ export default {
                 pageNumber: 0,
                 url: '',
                 isPaginationExist: false,
-                paginationNum: 0
+                paginationNum: 0,
+                total: 0
             },
             isSearched: false,
             filter: {
                 nameQuery: this.$route.query.name || '',
                 download: false
-            }
+            },
+            clientsList: clientsList
         }
     },
     components: {
@@ -207,7 +209,7 @@ export default {
     },
     computed: {
         clients() {
-            return clientsList.slice(0, 10) || []
+            return this.clientsList.slice(0, 10) || []
         }
     },
     methods: {
@@ -245,6 +247,21 @@ export default {
 
         handleAddClient(data) {
             // make API call here
+            this.loadingState = 'addClientLoading';
+
+            setTimeout(() => {
+                this.loadingState = 'addClientSuccess';
+                this.clientsList.push(data);
+                $("#createClient").modal("hide");
+            }, 10000)
+            // createNewClient(data).then(res => {
+            //     this.loadingState = 'success';
+            //     $("#createClient").modal("hide");
+
+            //     this.handleFetchClients()
+            // }).catch(err => {
+            //     console.log(err)
+            // })
         },
 
         handleFetchClients(routeData) {
@@ -278,6 +295,7 @@ export default {
             //             this.paginationProp.currentPage = response.data.pageDetails.currentPage
             //             this.paginationProp.totalPages = response.data.pageDetails.totalPages
             //             this.paginationProp.pageSize = response.data.pageDetails.pageSize
+            //             this.paginationProp.total = response.data.pageDetails.total
 
             //             window.localStorage('clients-list', JSON.stringify(response.data.info))
             //             window.localStorage('noOfClients', JSON.stringify(response.data.pageDetails.totalPages))
