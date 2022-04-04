@@ -3,7 +3,7 @@
         <span class="mr--35">Total number of {{ type }}: {{ paginationData.total }}</span>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item" :class="{ 'disabled': isFirstPage() }" @click="setUrlParams(paginationData.currentPage - 1, null)">
+                <li class="page-item" :class="{ 'disabled': isFirstPage() }" @click="changePaginationNum(1)">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -19,7 +19,7 @@
                         {{ page }}
                     </a>
                 </li>
-                <li class="page-item" :class="{ 'disabled': isLastPage() }">
+                <li class="page-item" :class="{ 'disabled': isLastPage() }" @click="changePaginationNum(paginationData.totalPages)">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

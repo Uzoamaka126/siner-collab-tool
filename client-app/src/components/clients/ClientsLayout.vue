@@ -172,7 +172,6 @@ export default {
     data() {
         return {
             createdWorkspaces: createdWorkspaces,
-            // clients: clientsList || [],
             isMenuItemHover: '',
             currentClient: {},
             loadingState: 'default',
