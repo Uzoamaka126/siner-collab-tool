@@ -104,7 +104,7 @@
                             </div>
 
                            <!-- pagination -->
-                            <pagination></pagination>
+                            <pagination :type="'clients'" :paginationData="paginationProp" />
                         </div>
                     </template>
                     <template v-else-if="isSearched && !clients.length">
@@ -188,7 +188,8 @@ export default {
                 pageNumber: 0,
                 url: '',
                 isPaginationExist: false,
-                paginationNum: 0
+                paginationNum: 0,
+                total: 0
             },
             isSearched: false,
             filter: {
@@ -294,6 +295,7 @@ export default {
             //             this.paginationProp.currentPage = response.data.pageDetails.currentPage
             //             this.paginationProp.totalPages = response.data.pageDetails.totalPages
             //             this.paginationProp.pageSize = response.data.pageDetails.pageSize
+            //             this.paginationProp.total = response.data.pageDetails.total
 
             //             window.localStorage('clients-list', JSON.stringify(response.data.info))
             //             window.localStorage('noOfClients', JSON.stringify(response.data.pageDetails.totalPages))
