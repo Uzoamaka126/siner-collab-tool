@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 import { checkPassword, generateToken, hashPassword } from '../../utils/validators/authDb';
 import { IUserInput, IBaseUserLogin, IUserBaseDocument } from '../users/User.types';
 const User = require('../users/Users.model');
