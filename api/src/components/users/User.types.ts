@@ -7,6 +7,7 @@ export interface IBaseUser {
     username: string;
     jwt?: string;
     phoneNumber?: string;
+    token?: string;
     createdAt?: Date;
 }
 
@@ -23,7 +24,7 @@ export interface IUserInput {
     username: IBaseUser['username'];
     phoneNumber: IBaseUser['phoneNumber'];
     jwt: IBaseUser['jwt'];
-}
+  }
 
 export interface IUserBaseDocument extends IBaseUser, Document<Types.ObjectId> {
   _id: Types.ObjectId;

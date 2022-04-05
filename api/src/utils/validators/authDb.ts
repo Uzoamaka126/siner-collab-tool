@@ -71,12 +71,12 @@ export const checkForDuplicateUsernameDB = async (username: string) => {
     return result;
 }
 
-export function hashPassword (data: IUserInput): IUserInput {
+export function hashPassword (password: IUserInput['password']) {
     // hash password before storing in the DB
-    const hashedPassword = bcrypt.hashSync(data.password, 10);
-    const hashedJwt = generateVerificationToken(15, "12345abcde");
+    const hashedPassword: string = bcrypt.hashSync(password, 10);
+    const hashedJwt: string = generateVerificationToken(15, "12345abcde");
 
-    return {...data, password: hashedPassword, jwt: hashedJwt}
+    return { password: hashedPassword, jwt: hashedJwt }
 }
 
 export function checkPassword (currentPassword: string, argPassword: string) {
