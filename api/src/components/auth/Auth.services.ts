@@ -145,8 +145,7 @@ export async function requestPasswordReset(email: string) {
                 message: "Password reset request initiated!",
                 link: link
             };
-        }
-        
+        }   
     } catch (error) {
         console.error(error)
         return {
