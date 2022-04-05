@@ -1,20 +1,28 @@
 <template>
-    <div class="flex align-items-center">
-        <span>Total number of {{ type }}: {{ paginationData.total }}</span>
-        <nav aria-label="Page navigation example" class="mt--30">
+    <div class="flex align-items-center mt--30">
+        <span class="mr--35">Total number of {{ type }}: {{ paginationData.total }}</span>
+        <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item" :class="{ 'disabled':isFirstPage() }" @click="setUrlParams(paginationData.currentPage - 1, null)">
+                <li class="page-item" :class="{ 'disabled': isFirstPage() }" @click="changePaginationNum(1)">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+                <li class="page-item" v-for="page in paginationData.totalPages" :key="page">
+                    <a 
+                        class="page-link" 
+                        href="#"
+                        :class="{ 'active': paginationData.currentPage === page}"
+                        @click="changePaginationNum(page)"
+                    >
+                        <!-- @click="setPageOnUrlParams(page)" -->
+                        {{ page }}
+                    </a>
+                </li>
+                <li class="page-item" :class="{ 'disabled': isLastPage() }" @click="changePaginationNum(paginationData.totalPages)">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -30,13 +38,16 @@ export default {
 
         }
     },
+    created() {
+        console.log("this.paginationData:", this.paginationData);
+    },
     props: ['paginationData', 'type'],
     computed: {
         paginationDataComputed() {
             return {
                 currentPage: typeof this.paginationData
             }
-        }
+        },
     },
     methods: {
         isFirstPage(){
@@ -46,8 +57,14 @@ export default {
             return this.paginationData.currentPage === this.paginationData.totalPages
         },
         getPaginationCount(number){
-            let pageNumbers = this.paginationStart + number;
-            if(pageNumbers > this.paginationData.totalPages){
+            let pageNumbers = this.paginationTop + number;
+
+            console.log({
+                'pageNumbers': pageNumbers, 
+                'this.paginationTop:': this.paginationTop, 
+                'number:': number
+            });
+            if (pageNumbers > this.paginationData.totalPages){
                 return false;
             }
             return pageNumbers;
@@ -63,12 +80,10 @@ export default {
                 }
             return str.join("&");
         },
-        setPageOnUrlParams(page, per_page){
+        setPageOnUrlParams(page){
             let pageObject = {
-                paginationNumber: page == null ? this.paginationData.currentPage : page,
-                pageLimit: per_page == null ? this.paginationData.perPage : per_page,
-                view: typeof this.paginationProp.view !== 'undefined' ? this.paginationProp.view : null,
-                partial: typeof this.paginationProp.partial !== 'undefined' ? this.paginationProp.partial : null
+                paginationNum: page == null ? this.paginationData.currentPage : page,
+                limit: 10,
             };
 
             let currentRoute = this.$route.path;
@@ -76,6 +91,21 @@ export default {
             let queryParam = this.serialize(assembleQueryList(this.$route, pageObject));
             this.$router.replace(`${currentRoute}?${queryParam}`)
         },
+       changePaginationNum(page) {
+           this.$emit("handlePaginationNumChange", page)
+       }
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .page-link {
+        &.active {
+            z-index: 3;
+            color: #0a58ca;
+            background-color: #e9ecef;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+        }
+    }
+</style>

@@ -28,7 +28,8 @@ function routes(router: any) {
     */
 
     router.use("/api/users", validateUserToken, usersRouter);
-    router.use("/api/auth", authMiddleware, authRouter);
+    router.use("/api/auth", authRouter);
+    // router.use("/api/auth", authMiddleware, authRouter);
     router.use("/api/clients", validateUserToken, clientsRouter);
     router.use("/api/tags", validateUserToken, tagsRouter);
     router.use("/api/projects", validateUserToken, projectsRouter);

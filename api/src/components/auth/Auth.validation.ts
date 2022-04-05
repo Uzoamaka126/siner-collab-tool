@@ -8,7 +8,7 @@ export async function validateSignUpData(req: Request, res: Response, next: Next
         username: Joi.string().required(),
         email: Joi.string().email({ allowFullyQualified: true }).required(),
         password: Joi.string().min(5).max(20).required(),
-        fullName: Joi.string.min(2).max(200).required(),
+        fullName: Joi.string().min(2).max(200).required(),
         userId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required().required(),
         phoneNumber: Joi.string().required(),
     });
@@ -34,6 +34,24 @@ export async function validateSignInData(req: Request, res: Response, next: Next
     });
 
     const { error, value } = signUpSchema.validate(data);
+
+    if (error) {
+        return res.status(400).json({
+          message: error.details[0].message
+        })
+    } else {
+        next();
+    }
+}
+
+export async function validateInitiateRequestData(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+
+    const resetEmailSchema = Joi.object().keys({
+        email: Joi.string().email({ allowFullyQualified: true }),
+    });
+
+    const { error, value } = resetEmailSchema.validate(data);
 
     if (error) {
         return res.status(400).json({
