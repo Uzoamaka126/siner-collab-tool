@@ -183,7 +183,6 @@ export default {
                 pageNumber: 0,
                 url: '',
                 isPaginationExist: false,
-                paginationNum: 0,
                 total: 0
             },
             isSearched: false,
@@ -241,9 +240,9 @@ export default {
         },
 
         handleDeleteClient() {
-            this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.client.id);
-            this.currentClient.id = ''
-             $("#deleteClient").modal("hide");
+            this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.currentClient.id);
+            this.currentClient = {}
+            $("#deleteClient").modal("hide");
         },
 
         handleAddClient(data) {

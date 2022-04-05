@@ -9,13 +9,14 @@
                     id="search-input" 
                     placeholder="Search..." 
                     aria-label="Search for..." 
-                    autocomplete="off" 
+                    v-model="reactiveValue"
                     data-bd-docs-version="5.1" 
                     spellcheck="false" 
                     role="combobox" 
                     aria-autocomplete="list" 
                     aria-expanded="false" 
-                    aria-owns="algolia-autocomplete-listbox-0" dir="auto" 
+                    aria-owns="algolia-autocomplete-listbox-0" 
+                    dir="auto" 
                     style="position: relative; vertical-align: top;"
                     @keyup.enter="runSearchFilter"
                     :class="{ 'leftPadding': showIcon, 'noIconShow': !showIcon }"
@@ -51,17 +52,12 @@ export default {
     },
     methods: {
         clearSearch() {
-            // clear all custom filter data and close it
             this.reactiveValue = ''
         },
 
     },
     watch: {
-        tagName( newVal ) {
-            this.reactiveTagName = newVal;
-         },
-
-        reactiveTagName( newVal ) {
+        reactiveValue( newVal ) {
             this.$emit( "change", newVal )
         }
     }

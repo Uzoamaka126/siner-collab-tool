@@ -3,8 +3,9 @@ const express = require('express');
 import { 
   addNewUser, 
   signInUserController,
+  intiatePasswordReset
 } from './Auth.controllers';
-import { validateSignUpData, validateSignInData } from './Auth.validation';
+import { validateSignUpData, validateSignInData, validateInitiateRequestData } from './Auth.validation';
 
 const router = express.Router();
 
@@ -17,5 +18,10 @@ router
 router
   .route('/login')
   .post(validateSignInData, signInUserController)
+
+// /api/users/login
+router
+  .route('/initiate-reset')
+  .post(validateInitiateRequestData, intiatePasswordReset)
 
 export default router

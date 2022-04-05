@@ -43,3 +43,21 @@ export async function validateSignInData(req: Request, res: Response, next: Next
         next();
     }
 }
+
+export async function validateInitiateRequestData(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+
+    const resetEmailSchema = Joi.object().keys({
+        email: Joi.string().email({ allowFullyQualified: true }),
+    });
+
+    const { error, value } = resetEmailSchema.validate(data);
+
+    if (error) {
+        return res.status(400).json({
+          message: error.details[0].message
+        })
+    } else {
+        next();
+    }
+}

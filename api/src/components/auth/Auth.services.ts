@@ -1,11 +1,12 @@
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 import { checkPassword, generateToken, hashPassword } from '../../utils/validators/authDb';
 import { IUserInput, IBaseUserLogin, IUserBaseDocument } from '../users/User.types';
 const User = require('../users/Users.model');
 const Config = require('../../config/dev')
 const Token = require('./Token.model');
-const sendEmail = require('../../utils/email')
+const sendEmail = require('../../utils/email');
+const clientURL = Config.client_url;
 
 // Create a new user
 export async function createNewUser (data: IUserInput) {
@@ -110,41 +111,42 @@ export async function requestPasswordReset(email: string) {
         // If no user is found, send an error message
         if (!user) {
             return {
-                status: 401,
+                status: 404,
                 isSuccessful: false,
                 message: "Email does not exist!",
                 data: {}
             }
         } else {
-            // we check if the user exists. 
-            // If the user exists, then we check if there is an existing token that has been created for this user. 
+            // we check if the user exists. If the user exists, then we check if there is an existing token that has been created for this user. 
             // If one exists, we delete the token.
-            let token = await Token.findOne({ userId: user._id });
-            const clientURL = Config.client_url;
-            
-            if (token) { 
-                await token.deleteOne()
+            let token = await Token.findOne({ userId: user._id });            
+            if (token) await token.deleteOne();
 
-                let resetToken = crypto.randomBytes(32).toString("hex");
-                const hash = await bcrypt.hash(resetToken, Number(Config.bcrypt_salt));
+            let resetToken = crypto.randomBytes(32).toString("hex");
+            const hash = await bcrypt.hash(resetToken, Number(Config.bcrypt_salt));
 
-                await new Token({
-                    user_id: user._id,
-                    token: hash,
-                    createdAt: Date.now(),
-                }).save();
+            await new Token({
+                user_id: user._id,
+                token: hash,
+                createdAt: Date.now(),
+            }).save();
 
-                const link = `${clientURL}/passwordReset?token=${resetToken}&email=${user.email}&id=${user._id}`;
-                const data = {
-                    email: user.email,
-                    subject:  "Password Reset Request",
-                    payload: { name: user.username, link: link },
-                    template: "./template/requestResetPassword.handlebars"
-                }
-                sendEmail(data);
-                return link;
+            const link = `${clientURL}/passwordReset?token=${resetToken}&email=${user.email}&id=${user._id}`;
+            const data = {
+                email: user.email,
+                subject:  "Password Reset Request",
+                payload: { name: user.username, link: link },
+                template: "./template/requestResetPassword.handlebars"
+            }
+            sendEmail(data);
+            return  {
+                status: 201,
+                isSuccessful: true,
+                message: "Password reset request initiated!",
+                link: link
             };
         }
+        
     } catch (error) {
         console.error(error)
         return {
