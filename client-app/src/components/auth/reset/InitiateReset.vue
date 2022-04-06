@@ -9,7 +9,7 @@
                     <form class="form form__md form auth--form">
                         <div class="auth--form__wrap">
                             <div class="auth__title-wrap">
-                                <h2 class="auth__title text--bold">Initiate Password Reset</h2>
+                                <h2 class="auth__title">Initiate Passowrd Reset</h2>
                             </div>
                              <!-- content  -->
                             <div class="form__item">

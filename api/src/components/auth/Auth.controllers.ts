@@ -42,3 +42,14 @@ export const intiatePasswordReset = async (req: Request, res: Response) => {
     return res.status(400).json(e).end()
   }
 }
+
+//Complete initiated password reset request
+export const completePasswordReset = async (req: Request, res: Response) => {
+  try {
+    const response = await requestPasswordReset(req.body)
+    return res.status(response.status).json(response)
+  } catch (e) {
+    console.error("error for controllers:", e)
+    return res.status(400).json(e).end()
+  }
+}

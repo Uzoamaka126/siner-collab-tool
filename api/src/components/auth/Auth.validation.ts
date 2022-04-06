@@ -42,14 +42,34 @@ export async function validateSignInData(req: Request, res: Response, next: Next
     }
 }
 
-export async function validateInitiateRequestData(req: Request, res: Response, next: NextFunction) {
+export async function initiatePasswordResetSchema(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+
+    const resetEmailSchema = Joi.object().keys({
+        email: Joi.string().email({ allowFullyQualified: true }).required(),
+    });
+
+    const { error } = resetEmailSchema.validate(data);
+
+    if (error) {
+        return res.status(400).json({
+          message: error.details[0].message
+        })
+    } else {
+        next();
+    }
+}
+
+export async function completePasswordRequestSchema(req: Request, res: Response, next: NextFunction) {
     const data = req.body;
 
     const resetEmailSchema = Joi.object().keys({
         email: Joi.string().email({ allowFullyQualified: true }),
+        token: Joi.string().min(5).required(),
+        password: Joi.string().min(5).max(20).required(),
     });
 
-    const { error, value } = resetEmailSchema.validate(data);
+    const { error } = resetEmailSchema.validate(data);
 
     if (error) {
         return res.status(400).json({

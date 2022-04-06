@@ -131,7 +131,7 @@ export async function requestPasswordReset(email: string) {
                 createdAt: Date.now(),
             }).save();
 
-            const link = `${clientURL}/passwordReset?token=${resetToken}&email=${user.email}&id=${user._id}`;
+            const link = `${clientURL}/passwordReset?token=${resetToken}&email=${user.email}`;
             const data = {
                 email: user.email,
                 subject:  "Password Reset Request",
@@ -157,8 +157,19 @@ export async function requestPasswordReset(email: string) {
     }  
 }
 
-export const resetPassword = async ({ _id, token, password } :IUserBaseDocument) => {
-  const existingToken = await Token.findOne({ user_id: _id });
+export const resetPassword = async ({ email, token, password } :IUserBaseDocument) => {
+
+    const user: IUserBaseDocument = await User.findOne({ email: email }).exec();
+        // If no user is found, send an error message
+    if (!user) {
+        return {
+            status: 404,
+            isSuccessful: false,
+            message: "Error occurred during operation!",
+            data: {}
+        }
+    }
+  const existingToken = await Token.findOne({ user_id: user._id });
 
   if (!existingToken) {
     throw new Error("Invalid or expired password reset token");
@@ -171,8 +182,8 @@ export const resetPassword = async ({ _id, token, password } :IUserBaseDocument)
 
   const hash = await bcrypt.hash(password, Number(Config.bcrypt_salt));
 
-  const user = await User.findOneAndUpdate(
-    { _id },
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: user._id },
     { $set: { password: hash } },
     { new: true }
   );
