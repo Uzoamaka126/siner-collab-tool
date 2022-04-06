@@ -1,5 +1,3 @@
-
-   
 const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require("fs");
@@ -7,10 +5,10 @@ const path = require("path");
 const Config = require('../config/dev')
 
 type EmailType = {
-    email: string;
-    subject: string;
-    payload: any;
-    template: any
+  email: string;
+  subject: string;
+  payload: any;
+  template: any
 }
 
 const sendEmail = async ({ email, subject, payload, template }: EmailType) => {

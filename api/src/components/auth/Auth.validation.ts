@@ -67,6 +67,7 @@ export async function completePasswordRequestSchema(req: Request, res: Response,
         email: Joi.string().email({ allowFullyQualified: true }),
         token: Joi.string().min(5).required(),
         password: Joi.string().min(5).max(20).required(),
+        confirm_password: Joi.string().min(5).max(20).required(),
     });
 
     const { error } = resetEmailSchema.validate(data);

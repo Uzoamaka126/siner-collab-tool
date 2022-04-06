@@ -136,7 +136,7 @@ export async function requestPasswordReset(email: string) {
                 email: user.email,
                 subject:  "Password Reset Request",
                 payload: { name: user.username, link: link },
-                template: "./template/requestResetPassword.handlebars"
+                template: "../../utils/emailTemplates/RequestResetPassword.handlebars"
             }
             sendEmail(data);
             return  {
@@ -158,7 +158,6 @@ export async function requestPasswordReset(email: string) {
 }
 
 export const resetPassword = async ({ email, token, password } :IUserBaseDocument) => {
-
     const user: IUserBaseDocument = await User.findOne({ email: email }).exec();
         // If no user is found, send an error message
     if (!user) {
@@ -194,7 +193,7 @@ export const resetPassword = async ({ email, token, password } :IUserBaseDocumen
     {
       name: user.username,
     },
-    "./template/resetPassword.handlebars"
+    "../../utils/emailTemplates/CompleteResetPassword.handlebars"
   );
   await existingToken.deleteOne();
   return true;
