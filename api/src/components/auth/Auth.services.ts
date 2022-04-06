@@ -157,8 +157,10 @@ export async function requestPasswordReset(email: string) {
     }  
 }
 
-export const resetPassword = async ({ email, token, password } :IUserBaseDocument) => {
-    const user: IUserBaseDocument = await User.findOne({ email: email }).exec();
+export const resetPassword = async (data :IUserBaseDocument) => {
+    const { password, email, token } = data;
+
+    const user: IUserBaseDocument = await User.findOne({ email }).lean();
         // If no user is found, send an error message
     if (!user) {
         return {
@@ -168,33 +170,39 @@ export const resetPassword = async ({ email, token, password } :IUserBaseDocumen
             data: {}
         }
     }
-  const existingToken = await Token.findOne({ user_id: user._id });
 
-  if (!existingToken) {
-    throw new Error("Invalid or expired password reset token");
-  }
-  const isTokenValid = await bcrypt.compare(token, existingToken.token);
+    console.log('user:', user);
+    
+    const existingToken = await Token.findOne({ user_id: user._id });
 
-  if (!isTokenValid) {
-    throw new Error("Invalid or expired password reset token");
-  }
+    if (!existingToken) {
+        throw new Error("Invalid or expired reset token");
+    }
+    const isTokenValid = await bcrypt.compare(token, existingToken.token);
 
-  const hash = await bcrypt.hash(password, Number(Config.bcrypt_salt));
+    if (!isTokenValid) {
+        throw new Error("Invalid or expired reset token");
+    }
 
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: user._id },
-    { $set: { password: hash } },
-    { new: true }
-  );
-  
-  sendEmail(
-    user.email,
-    "Password Reset Successful!",
-    {
-      name: user.username,
-    },
-    "../../utils/emailTemplates/CompleteResetPassword.handlebars"
-  );
-  await existingToken.deleteOne();
-  return true;
+    const hash = await bcrypt.hash(password, Number(Config.bcrypt_salt));
+
+    await User.findOneAndUpdate(
+        { _id: user._id },
+        { $set: { password: hash } },
+        { new: true }
+    );
+    const responsePayload = {
+        email: user.email,
+        subject: "Password Reset Successful!",
+        payload: { name: user.username },
+        template: "../../utils/emailTemplates/CompleteResetPassword.handlebars"
+    }
+    sendEmail(responsePayload);
+    await existingToken.deleteOne();
+    return {
+        status: 200,
+        isSuccessful: true,
+        message: "Password reset successful!",
+        data: {}
+    }
 };
