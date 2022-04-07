@@ -1,5 +1,3 @@
-
-   
 const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require("fs");
@@ -7,22 +5,35 @@ const path = require("path");
 const Config = require('../config/dev')
 
 type EmailType = {
-    email: string;
-    subject: string;
-    payload: any;
-    template: any
+  email: string;
+  subject: string;
+  payload: any;
+  template: string;
 }
 
 const sendEmail = async ({ email, subject, payload, template }: EmailType) => {
   try {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
+      host: process.env.EMAIL_HOST || "smtp.gmail.com",
+      secure: true,
       port: 465,
+      pool: true,
       auth: {
-        user: Config.email_username,
-        pass: Config.email_password,
+        user: Config.email_username || 'username',
+        pass: Config.email_password || 'pass',
       },
+    });
+
+    console.log('auth:', transporter.auth);
+    
+
+    transporter.verify(function (error:any, success:any) {
+      if (error) {
+        console.log('error:', error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
     });
 
     const source = fs.readFileSync(path.join(__dirname, template), "utf8");
@@ -41,6 +52,7 @@ const sendEmail = async ({ email, subject, payload, template }: EmailType) => {
       if (error) {
         return error;
       } else {
+        transporter.close();
         return {
             status: 200,
             isSuccessful: true,
@@ -52,15 +64,5 @@ const sendEmail = async ({ email, subject, payload, template }: EmailType) => {
     return error;
   }
 };
-
-/*
-Example:
-sendEmail(
-  "youremail@gmail.com,
-  "Email subject",
-  { name: "Eze" },
-  "./templates/layouts/main.handlebars"
-);
-*/
 
 module.exports = sendEmail;
