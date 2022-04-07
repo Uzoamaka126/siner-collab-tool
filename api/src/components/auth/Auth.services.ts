@@ -138,7 +138,7 @@ export async function requestPasswordReset(email: string) {
                 payload: { name: user.username, link: link },
                 template: "../../utils/emailTemplates/RequestResetPassword.handlebars"
             }
-            sendEmail(data);
+            await sendEmail(data);
             return  {
                 status: 201,
                 isSuccessful: true,
