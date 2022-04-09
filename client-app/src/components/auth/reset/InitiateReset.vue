@@ -9,7 +9,7 @@
                     <form class="form form__md form auth--form">
                         <div class="auth--form__wrap">
                             <div class="auth__title-wrap">
-                                <h2 class="auth__title">Reset your account</h2>
+                                <h2 class="auth__title">Initiate Passowrd Reset</h2>
                             </div>
                              <!-- content  -->
                             <div class="form__item">
@@ -25,7 +25,7 @@
                                     :classValues="'btn btn--primary btn--md bold btn--block'"
                                     @submitFunc="handleSignUp"
                                 >
-                               {{ loading === 'loading' ? '' : 'Reset password'}}
+                               {{ loading === 'loading' ? '' : 'Initiate Reset'}}
                                 </primary-button>
                             </div>
                         <!-- no account -->
@@ -46,14 +46,14 @@ import IconSvg from '../../shared/icons/Icon-Svg.vue';
 import PrimaryButtton from '../../shared/buttons/PrimaryButton.vue';
 
 export default {
-  name: 'SingleOptionLayout',
+  name: 'InitiateResetLayout',
   components: {
     'siner-logo': Logo,
     IconSvg,
     'primary-button': PrimaryButtton
   },
   data: () => ({
-    email: '',
+    email:  '',
     error: {
         show: false,
         value: ''
@@ -75,7 +75,9 @@ export default {
       handleReset() {
         const payload = { email }
     }
-  }
+  },
+  mounted() {
+  },
 }
 </script>
 

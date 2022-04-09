@@ -26,7 +26,6 @@ const sendEmail = async ({ email, subject, payload, template }: EmailType) => {
     });
 
     console.log('auth:', transporter.auth);
-    
 
     transporter.verify(function (error:any, success:any) {
       if (error) {

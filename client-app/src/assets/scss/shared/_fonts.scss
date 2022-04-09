@@ -22,10 +22,10 @@ $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
 
 .text {
     &--medium {
-        font-weight: $font-medium;
+        font-weight: $font-medium !important;
     }
     &--bold {
-        font-weight: $font-bold;
+        font-weight: $font-bold !important;
     }
     // &--700 {
     //     font-weight: 700

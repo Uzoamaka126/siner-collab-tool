@@ -1,13 +1,13 @@
 <template>
-    <reset-layout></reset-layout>
+    <reset></reset>
 </template>
 
 <script>
-import ResetLayout from '../components/auth/reset/ResetLayout.vue'
+import Reset from '../components/auth/reset/Reset.vue'
 export default {
     name: 'ResetView',
     components: {
-      ResetLayout
+      Reset
   }
 }
 </script>

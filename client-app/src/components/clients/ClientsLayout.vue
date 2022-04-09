@@ -13,7 +13,7 @@
                 <div class="flex align-items-center justify-content-between width-100">
                     <!-- Client count -->
                     <div class="list--count">
-                        <p v-if="clients.length > 0">{{ clients.length }} {{ clients.length > 1  ? 'clients' : 'client'}}</p>
+                        <p v-if="this.clientsList.length > 0">{{ this.clientsList.length }} {{ this.clientsList.length > 1  ? 'clients' : 'client'}}</p>
                     </div>
                     <div class="filter__actions--list">
                         <form class="bd-search positionRelative" style="margin-right: 0.825rem;" @submit.prevent>
@@ -104,7 +104,9 @@
                             </div>
 
                            <!-- pagination -->
-                            <pagination :type="'clients'" :paginationData="paginationProp" />
+                           <template v-if="pageData.totalPages > 1">
+                                <pagination :type="'clients'" :paginationData="pageData" @handlePaginationNumChange="handlePaginationNumChange" />
+                           </template>
                         </div>
                     </template>
                     <template v-else-if="isSearched && !clients.length">
@@ -170,17 +172,10 @@ export default {
     data() {
         return {
             createdWorkspaces: createdWorkspaces,
-            // clients: clientsList || [],
             isMenuItemHover: '',
             currentClient: {},
             loadingState: 'default',
             pageData: {
-                currentPageNum: 0,
-                currentPage: 0,
-                totalPages: 0,
-                pageSize: 0,
-            },
-            paginationProp: {
                 currentPage: 0,
                 totalPages: 0,
                 pageSize: 0,
@@ -188,7 +183,6 @@ export default {
                 pageNumber: 0,
                 url: '',
                 isPaginationExist: false,
-                paginationNum: 0,
                 total: 0
             },
             isSearched: false,
@@ -209,7 +203,13 @@ export default {
     },
     computed: {
         clients() {
-            return this.clientsList.slice(0, 10) || []
+            if (this.pageData.currentPage === 1) {
+                 return this.clientsList.slice(0, 10) || []
+            } else {
+                let numToStartSlice = 10 * this.pageData.currentPage - 10
+                let numToEndSlice = 10 * this.pageData.currentPage
+                return this.clientsList.slice(numToStartSlice, numToEndSlice) || []
+            }
         }
     },
     methods: {
@@ -240,9 +240,9 @@ export default {
         },
 
         handleDeleteClient() {
-            this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.client.id);
-            this.currentClient.id = ''
-             $("#deleteClient").modal("hide");
+            this.createdWorkspaces = this.createdWorkspaces.filter(item => item.id !== this.currentClient.id);
+            this.currentClient = {}
+            $("#deleteClient").modal("hide");
         },
 
         handleAddClient(data) {
@@ -267,8 +267,6 @@ export default {
         handleFetchClients(routeData) {
             // this.loadingState = 'loading';
             let pageQueryObj = {
-                // paginationNum: this.$route.query.page || 1,
-                // download: this.$route.query.download,
                 paginationNum: this.$route.query.page || 1,
                 download: this.$route.query.download,
                 limit: this.$route.query.limit
@@ -283,6 +281,12 @@ export default {
                 this.filter.download = true;
             }
 
+            // dummy data
+            this.pageData.currentPage = 1
+            this.pageData.total = 24
+            this.pageData.totalPages = Math.ceil(this.pageData.total / 10)
+            this.pageData.pageSize = 10;
+
             // fetchClients(assembleQueryList(routeData, pageQueryObj))
             //     .then(response => {
             //         this.loadingState = 'success';
@@ -292,10 +296,10 @@ export default {
             //             this.clients = response.data.info;
             //             this.page.currentPageNum = response.data.pageDetails.currentPage
             //             this.totalClients = response.data.pageDetails.totalPages
-            //             this.paginationProp.currentPage = response.data.pageDetails.currentPage
-            //             this.paginationProp.totalPages = response.data.pageDetails.totalPages
-            //             this.paginationProp.pageSize = response.data.pageDetails.pageSize
-            //             this.paginationProp.total = response.data.pageDetails.total
+            //             this.pageData.currentPage = response.data.pageDetails.currentPage
+            //             this.pageData.totalPages = response.data.pageDetails.totalPages
+            //             this.pageData.pageSize = response.data.pageDetails.pageSize
+            //             this.pageData.total = response.data.pageDetails.total
 
             //             window.localStorage('clients-list', JSON.stringify(response.data.info))
             //             window.localStorage('noOfClients', JSON.stringify(response.data.pageDetails.totalPages))
@@ -339,6 +343,14 @@ export default {
                 nameQuery: ''
             }
             this.$router.replace({ path: `${currentRoutePath}` })
+        },
+        handlePaginationNumChange(num) {
+            if (num) {
+                console.log('num:', num);
+                this.pageData.currentPage = num
+            } else {
+                this.pageData.currentPage = 1
+            }
         }
     },
 }
