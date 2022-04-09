@@ -37,15 +37,15 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// if (!(NODE_ENV === "development" || NODE_ENV === "test")) {
-//   app.use(morgan("tiny"));
-// }
+if (!(NODE_ENV === "development")) {
+  app.use(morgan("tiny"));
+}
 
 // use express on the router
 routes(app);
 
 // setup the error handler here
-// if (NODE_ENV === "dev" || NODE_ENV === "test") {
+// if (NODE_ENV === "dev") {
 //   app.use(errorHandler());
 // }
 
