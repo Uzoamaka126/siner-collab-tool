@@ -15,7 +15,7 @@ const app: Application = express();
 const routes = require('./router/index');
 const oneDay = 1000 * 60 * 60 * 24;
 
-let whitelist = ['http://example1.com', 'http://example2.com']
+let whitelist = ['http://localhost:8080', 'https://wondrous-pastelito-a210e3.netlify.app']
 let corsOptions = {
   origin: function (origin: string, callback: any) {
     if (whitelist.indexOf(origin) !== -1) {
