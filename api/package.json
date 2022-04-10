@@ -7,8 +7,8 @@
     "clean": "rimraf dist",
     "tsc": "tsc",
     "watch-tsc": "tsc -w",
-    "deploy": "node dist/src/index.js",
-    "watch-deploy": "nodemon dist/src/index.js",
+    "deploy": "node dist/index.js",
+    "watch-deploy": "nodemon dist/index.js",
     "server": "concurrently  \"npm run watch-tsc\" \"npm run watch-deploy\"",
     "start": "npm run deploy",
     "heroku-postbuild": "npm run tsc"
