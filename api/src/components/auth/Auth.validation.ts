@@ -9,11 +9,6 @@ export async function validateSignUpData(req: Request, res: Response, next: Next
         email: Joi.string().email({ allowFullyQualified: true }).required(),
         password: Joi.string().min(5).max(20).required(),
         fullName: Joi.string().min(2).max(200).required(),
-<<<<<<< HEAD
-        userId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required().required(),
-        phoneNumber: Joi.string().required(),
-=======
->>>>>>> f4f7d1ff2f7a6d55d9da8a6ab468efc368716071
     });
 
     const { error, value } = signUpSchema.validate(data);
