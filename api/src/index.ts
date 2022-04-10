@@ -17,16 +17,11 @@ const oneDay = 1000 * 60 * 60 * 24;
 
 app.set("port", port);
 app.use(helmet());
-// app.use(
-//   cors({
-//     credentials: true,
-//     exposedHeaders: ["set-cookie"],
-//     origin: CLIENT_URL,
-//   })
-// );
+app.use(cors());
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
+
 //session middleware
 // app.use(sessions({
 //     secret: process.env.JWT_SECRET || "nebula",
