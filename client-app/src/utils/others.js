@@ -91,32 +91,10 @@ export function assembleQueryList(routeData, pageData) {
     return queryObj
 }
 
-// function parseQuery(search) {
-//     const query = {};
-//     // avoid creating an object with an empty key and empty value
-//     // because of split('&')
-//     if (search === '' || search === '?')
-//         return query;
-//     const hasLeadingIM = search[0] === '?';
-//     const searchParams = (hasLeadingIM ? search.slice(1) : search).split('&');
-//     for (let i = 0; i < searchParams.length; ++i) {
-//         // pre decode the + into space
-//         const searchParam = searchParams[i].replace(PLUS_RE, ' ');
-//         // allow the = character
-//         const eqPos = searchParam.indexOf('=');
-//         const key = decode(eqPos < 0 ? searchParam : searchParam.slice(0, eqPos));
-//         const value = eqPos < 0 ? null : decode(searchParam.slice(eqPos + 1));
-//         if (key in query) {
-//             // an extra variable for ts types
-//             let currentValue = query[key];
-//             if (!Array.isArray(currentValue)) {
-//                 currentValue = query[key] = [currentValue];
-//             }
-//             currentValue.push(value);
-//         }
-//         else {
-//             query[key] = value;
-//         }
-//     }
-//     return query;
-// }
+export function setDataOnLs(key, data) {
+    window.localStorage.setItem(key, data)
+}
+
+export function clearDataOnLs (key) {
+    window.localStorage.removeItem(key)
+}

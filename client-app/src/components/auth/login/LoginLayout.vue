@@ -31,7 +31,7 @@
                 </div>                            
                 <div class="form__item">
                   <label for="emailaddress" class="form__label">Email Address</label>
-                  <input type="email" id="emailaddress" class="form-control" required="required" v-model="email">
+                  <input type="email" id="emailaddress" class="form-control" required="required" v-model="email" autocomplete="">
                 </div>
                 <div class="form__item" style="margin-bottom: 1px">
                   <label for="password" class="form__label">Password</label>
@@ -51,8 +51,8 @@
                 <div class="mt--5">
                   <router-link class="text--color-normal text--xs" :to="{ name: 'intiate-reset' }">Forgot password?</router-link>
                 </div>
-                <div v-if="error && error.value" class="login-section__form__row" style="margin-top: -15px;margin-bottom: 15px;">
-                    <span class="textRed">{{ error.value  }}</span>
+                <div v-if="error && error.value" class="login-section__form__row mt--15 mb--15">
+                    <span class="text--color-warning text--xs">{{ error.value  }}</span>
                 </div>
                 <div class="form--btn__wrap auth--btn__submit">
                   <primary-button 
@@ -83,6 +83,8 @@
 import SinerLogo from '../../shared/Logo.vue';
 import IconSvg from '../../shared/icons/Icon-Svg.vue';
 import PrimaryButtton from '../../shared/buttons/PrimaryButton.vue';
+import { login } from '../../../utils/auth'
+import { setDataOnLs, clearDataOnLs } from '../../../utils/others'
 
 export default {
   name: 'LoginLayout',
@@ -99,29 +101,33 @@ export default {
             show: false,
             value: ''
         },
+        emailError: {
+          show: false,
+          value: ''
+        },
         showPassword: false,
         loading: 'default'
     }
   },
   computed: {
     isBtnDisabled() {
-        if(!this.email || !this.password) {
-            return true
-        } else if (this.loading === 'loading') {
-            return true
-        } else {
-            return false
-        }
+      if(!this.email || !this.password) {
+          return true
+      } else if (this.loading === 'loading') {
+          return true
+      } else {
+          return false
+      }
     },
     passwordType() {
-        if(this.showPassword) {
-            return 'text'
-        } else {
-            return 'password'
-        }
+      if(this.showPassword) {
+          return 'text'
+      } else {
+          return 'password'
+      }
     },
     storedEmail() {
-        return window.localStorage.getItem('userEmail');
+      return window.localStorage.getItem('userEmail');
     }
   },
   methods: {
@@ -129,20 +135,36 @@ export default {
        this.showPassword = !this.showPassword
     },
     handleLogin() {
-        this.loading = 'loading'
-        const payload = { email: this.email, password: this.password };
+      if (!this.email || !this.password) return;
+      this.error.show = false
+      this.error.value = ''
+      this.loading = 'loading';
 
-        if (this.storedEmail !== this.email) {
-            window.localStorage.clear()
-        }
+      const payload = { email: this.email, password: this.password };
 
-        window.localStorage.setItem('token', 'eeeeeeeee')
-        window.localStorage.setItem('userEmail', payload.email)
+      if (this.storedEmail !== this.email) {
+        clearDataOnLs('userEmail')
+      }
 
-        setTimeout(() => {
-            this.loading = 'success';
-            this.$router.push({ name: "home-view" })
-        }, 3000)
+      console.log('typeof login.post:', typeof login); 
+
+      login(payload)
+        .then(resp => {
+          this.loading = 'success';
+          this.error.show = false
+          this.error.value = ''
+          setDataOnLs('userEmail', resp.fullName);
+          setDataOnLs('userUsername', resp.username);
+          setDataOnLs('userFullName', resp.email);
+          setDataOnLs('token', resp.token);
+          setDataOnLs('userId', resp.id);
+          this.$router.push({ name: "home-view" })
+        }).catch(error => {
+          this.loading = 'failed';
+          this.error.show = true
+          this.error.value = error.message
+          console.log(error);
+        })
     }
   }
 }

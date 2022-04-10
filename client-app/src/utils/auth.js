@@ -1,8 +1,6 @@
 import decode from 'jwt-decode';
-import axios from 'axios';
-import Router from 'vue-router';
+import api from '../plugins/api';
 
-const API_BASE_URL = process.env.BASE_URL_ || 'http://localhost:3000';
 const TOKEN = 'token';
 
 // clear token from LS
@@ -54,18 +52,19 @@ export function isRouteAuthRequired(to, from, next) {
 }
 
 export function login(data) {
-    let d = q.defer();
-    let app = this;
-    loginRequest(data).then(async function(resp){
-        await setToken(resp);
-        await setUserRoles(resp.data.user.roles);
-        await setUserFullname(resp.data.user);
-        d.resolve(resp);
-    }).catch(function(err){
-        console.log(err);
-        d.reject(err.toString());
-    });
-    return d.promise;
+    // let d = q.defer();
+    return api.auth.login.post(data)
+    
+    // .then(async function(resp){
+    //     await setToken(resp);
+    //     await setUserRoles(resp.data.user.roles);
+    //     await setUserFullname(resp.data.user);
+    //     d.resolve(resp);
+    // }).catch(function(err){
+    //     console.log(err);
+    //     d.reject(err.toString());
+    // });
+    // return d.promise;
 }
 
 export function logout() {

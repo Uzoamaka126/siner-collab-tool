@@ -1,5 +1,4 @@
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
-import axios from 'axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -11,31 +10,13 @@ import { Money3Component } from 'v-money3';
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
 import Vue3Tour from 'vue3-tour'
-import 'vue3-tour/dist/vue3-tour.css'
+import 'vue3-tour/dist/vue3-tour.css';
+import axiosPlugin from './plugins/axios';
+import api from './plugins/api';
 
 import { isUserAuthenticated } from './utils/auth';
 
 window.moment = require('moment');
-const BASE_URL = process.env.BASE_URL;
-const TOKEN = 'token';
-
-let token = localStorage.getItem(TOKEN);
-axios.defaults.baseURL = BASE_URL;
-axios.defaults.headers.common['Authorization'] = token;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.put['Content-Type'] = 'application/json';
-
-// Interceptor for Axios Requests
-axios.interceptors.request.use(function (config) {
-    let token = localStorage.getItem(TOKEN);
-    config.headers.common['Authorization'] = token;
-    return config;
-
-}, function (error) {
-    console.log(error);
-    return Promise.reject(error);
-});
-
 // set a navigation guard for protected routes
 router.beforeEach((to, from, next) => {
   const isAuthOrHomePage = to.name !== 'login' && to.name !== 'signup' && to.name !== 'reset';
@@ -43,10 +24,11 @@ router.beforeEach((to, from, next) => {
   else next()
 });
 
-
 createApp(App)
   .use(router)
   .use(store)
+  .use(axiosPlugin)
+  .use(api)
   .use(VueChartkick)
   .use(Vue3Tour)
   // .use('v-tour', Vue3Tour)
