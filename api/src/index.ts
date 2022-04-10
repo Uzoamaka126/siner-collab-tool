@@ -15,9 +15,21 @@ const app: Application = express();
 const routes = require('./router/index');
 const oneDay = 1000 * 60 * 60 * 24;
 
+let whitelist = ['http://example1.com', 'http://example2.com']
+let corsOptions = {
+  origin: function (origin: string, callback: any) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
 app.set("port", port);
+app.options('*', cors(corsOptions))
 app.use(helmet());
-app.use(cors());
+// app.use(cors(corsOptions));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
