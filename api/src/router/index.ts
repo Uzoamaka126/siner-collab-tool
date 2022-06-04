@@ -11,10 +11,22 @@ import { validateUserToken } from '../utils/middleware/validateToken';
 import { validateUserId } from '../utils/middleware/validateUserId';
 
 function routes(router: any) {  
-    router.get("/api/", (req: Request, res: Response) => {
-        res.status(200).json({
-            message: "API is uppp 🚀"
-        });
+    router.get("/api", (req: Request, res: Response, next: NextFunction) => {
+        res.header("Access-Control-Allow-Origin", '*')
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested, Content-Type, Accept Authorization"
+        )
+        if (req.method === "OPTIONS") {
+            res.header(
+                "Access-Control-Allow-Methods",
+                "POST, PUT, PATCH, GET, DELETE"
+            )
+            res.status(200).json({
+                message: "API is uppp 🚀"
+            });
+        }
+        next()
     });
 
     // handle error url
