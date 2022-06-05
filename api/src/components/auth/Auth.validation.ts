@@ -8,7 +8,8 @@ export async function validateSignUpData(req: Request, res: Response, next: Next
         username: Joi.string().required(),
         email: Joi.string().email({ allowFullyQualified: true }).required(),
         password: Joi.string().min(5).max(20).required(),
-        fullName: Joi.string().min(2).max(200).required(),
+        firstName: Joi.string().min(2).max(200).required(),
+        lastName: Joi.string().min(2).max(200).required(),
     });
 
     const { error, value } = signUpSchema.validate(data);

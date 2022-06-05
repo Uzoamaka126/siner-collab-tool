@@ -8,7 +8,8 @@ export async function validateCreateInvoiceData(req: Request, res: Response, nex
         client: Joi.object({
             id: Joi.string(),
             email: Joi.string().email(),
-            fullName: Joi.string()
+            firstName: Joi.string()
+            lastName: Joi.string()
         }),
         client_email: Joi.string(),
         currency: Joi.string(),

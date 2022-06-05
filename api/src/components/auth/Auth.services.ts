@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 import { checkPassword, generateToken, hashPassword } from '../../utils/validators/authDb';
 import { IUserInput, IBaseUserLogin, IUserBaseDocument } from '../users/User.types';
 const User = require('../users/Users.model');
+const UserServices = require('../users/Users.service');
 const Config = require('../../config/dev')
 const Token = require('./Token.model');
 const sendEmail = require('../../utils/email');
@@ -11,20 +12,30 @@ const clientURL = Config.client_url;
 // Create a new user
 export async function createNewUser (data: IUserInput) {
     try {
+        const { email, username } = data;
         // check if user already exists
-        const existingUser = await User.findOne({ email: data.email });
-        if (existingUser) {
-            // throw new Error("Email already exist");
+        const existingUserByEmail = await UserServices.findDuplicateUser({ 'email': email });        
+        if (existingUserByEmail) {
             return {
                 status: 400,
                 isSuccessful: false,
                 message: "This email already exists!",
+            }
+        }
+
+        const existingUserByUsername = await UserServices.findDuplicateUser({ 'username': username });
+        if (existingUserByUsername) {
+            return {
+                status: 400,
+                isSuccessful: false,
+                message: "This username has been taken",
             };
         }
 
         const updatedhashedPasswordAndJwt = hashPassword(data.password)
         const newUser = await User.create({
-            fullName: data.fullName,
+            firstName: data.firstName,
+            lastName: data.lastName,
             email: data.email,
             password: updatedhashedPasswordAndJwt.password,
             jwt: updatedhashedPasswordAndJwt.jwt,
@@ -35,17 +46,16 @@ export async function createNewUser (data: IUserInput) {
         const token = generateToken(newUser);
         if (!token) {
             return {
-                status: 200,
+                status: 400,
                 isSuccessful: false,
-                message: "Operation failed. Please, try again!",
+                message: "Failed to generate token. Please, try again!",
             };
         } else {
             const result = {
                 status: 200,
                 isSuccessful: true,
                 message: "Operation successful!",
-                data: newUser,
-                token: token
+                data: { id: newUser._id, token },
             }
             return result;
         }

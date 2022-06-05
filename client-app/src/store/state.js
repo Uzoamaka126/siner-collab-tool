@@ -1,7 +1,5 @@
-import { createdWorkspaces } from '../utils/dummy';
+import authState from './auth'
 
 export default {
-    showCreateWorkspaceModal: false,
-    workspaces: createdWorkspaces,
-    workspace: {}
+    ...authState.state()
 }

@@ -2,13 +2,13 @@
     <button 
         class="btn btn--primary" 
         type="button" 
-        :class="classValues" 
+        :class="classNames" 
         :disabled="isBtnDisabled" 
         :style="{ width: btnSize }" 
-        @click="handleSubmit"
+        @click="$emit('submit')"
     >
-            <span class="spinner-border spinner-border-sm" role="status" style="vertical-align: middle;" aria-hidden="true" v-if="loadingState === 'loading'"></span>
-            <slot></slot>
+        <span class="spinner-border spinner-border-sm" role="status" style="vertical-align: middle;" aria-hidden="true" v-if="loadingState === 'loading'"></span>
+        <slot v-else></slot>
     </button>
 </template>
 
@@ -24,12 +24,12 @@ export default {
         loadingState: { type: String, default: 'default' },
         isBtnDisabled: { type: Boolean, default: false },
         btnSize: { type: String, default: '100%' },
-        classValues: { type: String, default: '' },
+        classNames: { type: String, default: '' },
     },
     methods: {
-      handleSubmit() {
-        this.$emit("submitFunc");
-      }
+    //   handleSubmit() {
+    //     this.$emit("submitFunc");
+    //   }
     }
 }
 </script>

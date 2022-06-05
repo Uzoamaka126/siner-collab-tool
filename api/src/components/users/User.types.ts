@@ -1,7 +1,8 @@
 import { Document, Types } from "mongoose"
 
 export interface IBaseUser {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     username: string;
@@ -18,7 +19,8 @@ export interface IBaseUserLogin {
 
 // export type UsersType = IBaseUser[]
 export interface IUserInput {
-    fullName: IBaseUser['fullName'];
+    firstName: IBaseUser['firstName'];
+    lastName: IBaseUser['lastName'];
     email: IBaseUser['email'];
     password: IBaseUser['password'];
     username: IBaseUser['username'];

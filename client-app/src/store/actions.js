@@ -1,3 +1,8 @@
+import authState from './auth'
+
+export default {
+    ...authState.actions()
+}
 
 export default {
     addNewWorkspace({ commit }, data) {

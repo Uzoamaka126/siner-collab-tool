@@ -3,7 +3,14 @@ import { Schema, Model } from "mongoose";
 const mongoose = require("mongoose");
 
 export const userSchema = new Schema({
-    fullName: {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: 2,
+      maxlength: 100
+    },
+    lastName: {
       type: String,
       required: true,
       trim: true,

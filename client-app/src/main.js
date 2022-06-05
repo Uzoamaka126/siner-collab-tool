@@ -11,8 +11,8 @@ import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
 import Vue3Tour from 'vue3-tour'
 import 'vue3-tour/dist/vue3-tour.css';
-import axiosPlugin from './plugins/axios';
-import api from './plugins/api';
+// import axiosPlugin from './plugins/axios';
+// import apiPlugin from './plugins/api';
 
 import { isUserAuthenticated } from './utils/auth';
 
@@ -27,8 +27,8 @@ router.beforeEach((to, from, next) => {
 createApp(App)
   .use(router)
   .use(store)
-  .use(axiosPlugin)
-  .use(api)
+  // .use(axiosPlugin)
+  // .use(apiPlugin)
   .use(VueChartkick)
   .use(Vue3Tour)
   // .use('v-tour', Vue3Tour)

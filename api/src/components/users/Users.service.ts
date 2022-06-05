@@ -1,8 +1,30 @@
 const User = require('./Users.model');
-// import {User} from './Users.model'
+
+// Find duplicate users by looking for an already existing user
+export const findDuplicateUser = async (data: { [key: string]: string}) =>  {    
+    try {
+        const user = await User
+            .findOne(data)
+            .lean()
+            .exec()
+            
+        if(!user) {
+            return false
+        } else {
+            return true
+        }
+    } catch(err) {
+        console.error(err)
+        return {
+            status: 400,
+            isSuccessful: false,
+            message: "An error occurred",
+        }
+    }
+}
 
 // Find a single user
-export const getSingleUser = async (id: string) => {
+export const getSingleUser = async (id: string) =>  {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false

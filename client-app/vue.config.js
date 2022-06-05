@@ -13,10 +13,10 @@ module.exports = {
     //     port: 3454,
     // },
     runtimeCompiler: true,
-    plugins: [
-      '~/plugins/axios.js',
-      '~/plugins/api.js'
-    ],
+    // plugins: [
+    //   '~/plugins/axios.js',
+    //   '~/plugins/api.js'
+    // ],
     configureWebpack: {
     resolve: {
       alias: {

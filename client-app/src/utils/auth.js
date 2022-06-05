@@ -51,22 +51,6 @@ export function isRouteAuthRequired(to, from, next) {
     }
 }
 
-export function login(data) {
-    // let d = q.defer();
-    return api.auth.login.post(data)
-    
-    // .then(async function(resp){
-    //     await setToken(resp);
-    //     await setUserRoles(resp.data.user.roles);
-    //     await setUserFullname(resp.data.user);
-    //     d.resolve(resp);
-    // }).catch(function(err){
-    //     console.log(err);
-    //     d.reject(err.toString());
-    // });
-    // return d.promise;
-}
-
 export function logout() {
     clearToken();
 }
