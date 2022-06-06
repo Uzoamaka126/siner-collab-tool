@@ -55,16 +55,6 @@ export function logout() {
     clearToken();
 }
 
-export function setUserDetails(data){
-    if(!data.firstname && !data.lastname){
-        return localStorage.setItem('userDetails', data)
-    }
-    else{
-        return localStorage.setItem('userDetails', null)
-
-    }
-}
-
 export function getUserDetails (){
     return localStorage.getItem('userDetails')
 }

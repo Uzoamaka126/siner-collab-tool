@@ -7,7 +7,7 @@
         :style="{ width: btnSize }" 
         @click="$emit('submit')"
     >
-        <span class="spinner-border spinner-border-sm" role="status" style="vertical-align: middle;" aria-hidden="true" v-if="loadingState === 'loading'"></span>
+        <span class="spinner-border spinner-border-sm" role="status" style="vertical-align: middle;" aria-hidden="true" v-if="loadingState"></span>
         <slot v-else></slot>
     </button>
 </template>
@@ -21,7 +21,7 @@ export default {
         IconSvg
     },
     props: {
-        loadingState: { type: String, default: 'default' },
+        loadingState: { type: Boolean, default: false },
         isBtnDisabled: { type: Boolean, default: false },
         btnSize: { type: String, default: '100%' },
         classNames: { type: String, default: '' },

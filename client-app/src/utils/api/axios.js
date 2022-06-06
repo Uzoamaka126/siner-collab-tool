@@ -4,7 +4,7 @@ const axiosPlugin = () => {
 
   let token = localStorage.getItem('token') || undefined;
 
-  axios.defaults.baseURL =  process.env.BASE_URL || 'https://siner-server-app.herokuapp.com/api'
+  axios.defaults.baseURL = process.env.VUE_BASE_API_URL || 'https://siner-server-app.herokuapp.com/api'
   axios.defaults.headers['Content-Type'] = 'application/json'
   axios.defaults.headers.post['Content-Type'] = 'application/json'
   axios.defaults.headers.put['Content-Type'] = 'application/json'

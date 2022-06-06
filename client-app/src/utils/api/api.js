@@ -1,5 +1,7 @@
 import axiosPlugin from './axios'
 
+// console.log('axiosPlugin---->', axiosPlugin().defaults);
+
 const api = () => {
     return {
         auth: {
@@ -23,7 +25,7 @@ const api = () => {
             },
             signup: {
                 /**
-                    * User signup
+                    * Register a new user
                     * @param {*} $body 
                     * @param {*} $config 
                     * @returns { Promise <{ 
@@ -37,25 +39,56 @@ const api = () => {
                     * }
                     }
                 */
-                post: ($body, $config) => axiosPlugin().$post('/auth/register', $body, $config)
+                post: ($body, $config) => axiosPlugin().post('/auth/register', $body, $config)
             },
             getUserProfile: {
                 /**
                     * User signup
-                    * @param {*} $body 
-                    * @param {*} $config 
+                    * @param {string} id 
+                    * @param {any} $config
                     * @returns { Promise <{ 
                     * status: boolean,
                         isSuccessful: boolean,
                         message: string,
                         data: {
-                            token: string,
-                            id: string,
+                            "_id": string,
+                            "is_verified": boolean,
+                            "firstName": string,
+                            "lastName": string,
+                            "email": string,
+                            "password": string,
+                            "username": string,
+                            "createdAt": string,
                         }> 
                     * }
                     }
                 */
-                post: ($body, $config) => axiosPlugin().$post('/auth/register', $body, $config)
+                get: (id, $config) => axiosPlugin().get(`/users/${id}`, $config)
+            },
+             updateUserProfile: {
+                /**
+                    * User signup
+                    * @param {string} id 
+                    * @param {any} $body 
+                    * @param {any} $config
+                    * @returns { Promise <{ 
+                    * status: boolean,
+                        isSuccessful: boolean,
+                        message: string,
+                        data: {
+                            "_id": string,
+                            "is_verified": boolean,
+                            "firstName": string,
+                            "lastName": string,
+                            "email": string,
+                            "password": string,
+                            "username": string,
+                            "createdAt": string,
+                        }> 
+                    * }
+                    }
+                */
+                put: (id, $body, $config) => axiosPlugin().put(`/users/${id}`,$body, $config)
             }
         }
     }

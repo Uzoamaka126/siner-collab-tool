@@ -90,7 +90,7 @@ export async function getAllUsers() {
 }
 
 // Update a single user
-export const updateASingleUser = async (data: any, id: string) => {
+export const updateASingleUser = async (id: string, data: any) => {
     try {
         // do a check to see if an id is passed as an argument.
         // If no id, then return false

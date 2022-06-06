@@ -4,90 +4,79 @@ export default {
     state: () => {
         return {
             loadingState: false,
-            accessTokenExpireAt: 0,
+            // accessTokenExpireAt: 0,
             isAuthenticated: false,
             authLoginMsg: '',
-            // resetPassword,
+            authLoginErrMsg: '',
+            authSignUpMsg: '',
+            authSignUpMsg: '',
             email: '',
-            tokenDuration: 60000 * 30,
-            user: null
+            // tokenDuration: 60000 * 30,
         }
     },
-    getters: {
-        getUserInitials (state) {
-            if (!state.user) {
-                return ''
-            }
-
-            const { email, firstName, lastName } = state.user
-
-            if (firstName && lastName) {
-                return firstName.substring(0, 1) + lastName.substring(0, 1)
-            }
-
-            return email.substring(0, 2)
-        },
-    },
+    getters: {},
     mutations: {
         setUserAuthState(state, { email, isAuthenticated }) {
             state.isAuthenticated = isAuthenticated;
             state.email = email
         },
-        setUserDataState(state, data) {
-            state.user = data
-        },
-        addSingleWorkspaceDetails(state, data) {
-            state.workspace = data
-        },
     },
     actions: {
         async initLogin(context, { email, password }) {
+            console.log('context--->', context);
             context.state.loadingState = true
 
             try {
                 context.state.loadingState = false
 
-                const { message, data: { token, id } } = await api().auth.login({ email, password })
+                const { message, data: { token } } = await api().auth.login.post({ email, password })
 
                 context.state.authLoginMsg = message
                 context.state.email = email
                 if (!token) {
+                    context.state.authLoginMsg = 'Invalid or no token!'
                     throw new Error('Invalid or no token!')
                 } else {
-                    this.setUserDataOnLocalStorage(token, { id, email })
-                    this.getCustomerProfile(context)
+                    this.setTokenOnLocalStorage(token)
+                    return true
                 }
             } catch (error) {
                 context.state.loadingState = false
 
+                console.log('error--->', error);
+
+                throw new Error(error)
             }
-                
         },
-        setUserDataOnLocalStorage(token, userData) {
+
+        setTokenOnLocalStorage(token) {
             localStorage.setItem('siner:access_token', token)
-            localStorage.setItem('siner:user', userData)
         },
-        async getCustomerProfile({ commit }, id) {
-             context.state.loadingState = true
 
-             try {
+        async initSignup(context, data) {
+            context.state.loadingState = true
+
+            try {
                 context.state.loadingState = false
+                const { email } = data
 
-                const { message, data: { token, id } } = await api().auth.login({ email, password })
+                const { message, data: { token } } = await api().auth.signup.post(data)
 
-                context.state.authLoginMsg = message
+                context.state.authSignUpMsg = message
                 context.state.email = email
                 if (!token) {
-                    throw new Error('Invalid or no token!')
+                   throw new Error('Unable to set invalid token!')
                 } else {
-                    this.setUserDataOnLocalStorage(token, { id, email })
-                    this.getCustomerProfile(context)
+                    this.setTokenOnLocalStorage(token)
+                    return true
                 }
             } catch (error) {
                 context.state.loadingState = false
 
-            }
+                console.log('error--->', error);
 
-        }
+                throw new Error(error)
+            }
+        },
     }
 }

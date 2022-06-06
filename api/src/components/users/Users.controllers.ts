@@ -37,7 +37,7 @@ export const fetchAllUsers = async (req: Request, res: Response) => {
 export const updateAUserController = async (req: Request, res: Response) => {
   const { body, params: { id } } = req;
   try {
-    const response = await updateASingleUser(body, id);
+    const response = await updateASingleUser(id, body);
     return res.status(response.status).json(response)
   } catch (e) {
     console.error(e)

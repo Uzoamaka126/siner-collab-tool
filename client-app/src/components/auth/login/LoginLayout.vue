@@ -7,7 +7,7 @@
         </div>
         <div class="auth__wrap--center">
           <div>
-            <form class="form form__md form auth--form">
+            <form class="form form__md form auth--form" @submit.prevent="">
               <div class="auth--form__wrap">
                 <div class="auth__title-wrap">
                   <h2 class="auth__title">Login into your account</h2>
@@ -83,7 +83,8 @@
 import SinerLogo from '../../shared/Logo.vue';
 import IconSvg from '../../shared/icons/Icon-Svg.vue';
 import PrimaryButtton from '../../shared/buttons/PrimaryButton.vue';
-import { setDataOnLs, clearDataOnLs } from '../../../utils/others'
+import { clearDataOnLs } from '../../../utils/others'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'LoginLayout',
@@ -105,18 +106,17 @@ export default {
           value: ''
         },
         showPassword: false,
-        loading: 'default'
     }
   },
   computed: {
-    isBtnDisabled() {
+    isBtnDisabled () {
       if(!this.email || !this.password) {
-          return true
+        return true
       } else if (this.loading === 'loading') {
-          return true
+        return true
       } else {
-          return false
-      }
+        return false
+     }
     },
     passwordType() {
       if(this.showPassword) {
@@ -127,43 +127,42 @@ export default {
     },
     storedEmail() {
       return window.localStorage.getItem('userEmail');
-    }
+    },
+    ...mapState({
+      loading: state => state.loadingState,
+      loginMsg: state => state.authLoginMsg,
+    }),
   },
   methods: {
+    ...mapActions([
+      'initLogin'
+    ]),
+
     toggleViewPasswordIcon() {
        this.showPassword = !this.showPassword
     },
-    handleLogin() {
-      if (!this.email || !this.password) return;
-      this.error.show = false
-      this.error.value = ''
-      this.loading = 'loading';
 
-      const payload = { email: this.email, password: this.password };
+    async handleLogin() {
+      try {
+        if (!this.email || !this.password) return;
+        this.error.show = false
+        this.error.value = ''
+        const payload = { 
+          email: this.email, 
+          password: this.password 
+        };
+  
+        if (this.storedEmail !== this.email) {
+          clearDataOnLs('userEmail')
+        }
+        const response = await this.initLogin(payload)
 
-      if (this.storedEmail !== this.email) {
-        clearDataOnLs('userEmail')
-      }
-
-      console.log('typeof login.post:', typeof login); 
-
-      login(payload)
-        .then(resp => {
-          this.loading = 'success';
-          this.error.show = false
-          this.error.value = ''
-          setDataOnLs('userEmail', resp.fullName);
-          setDataOnLs('userUsername', resp.username);
-          setDataOnLs('userFullName', resp.email);
-          setDataOnLs('token', resp.token);
-          setDataOnLs('userId', resp.id);
-          this.$router.push({ name: "home-view" })
-        }).catch(error => {
-          this.loading = 'failed';
-          this.error.show = true
-          this.error.value = error.message
-          console.log(error);
-        })
+        if (response) {
+          this.$router.push('/dashboard/home');
+        }
+     } catch (error) {
+       console.log(error);
+     }
     }
   },
   mounted() {
